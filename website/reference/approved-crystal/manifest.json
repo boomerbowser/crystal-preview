@@ -1,0 +1,30 @@
+{
+  "approved": "2026-09-17",
+  "authority": "User-approved Crystal visual acceptance baseline",
+  "images": [
+    {
+      "file": "material-hierarchy.png",
+      "subject": "Plastic, Frost and Resin side by side",
+      "sourceFilename": "Screenshot_20260917_125508.png",
+      "sha256": "45ffe42becee9461bebecb7b36ae6af26eb413fecdea7e2368bca553ad10489a"
+    },
+    {
+      "file": "plastic-foundation.png",
+      "subject": "Opaque contextual Plastic with protected content",
+      "sourceFilename": "Screenshot_20260917_125424.png",
+      "sha256": "8d439c3eed20747bc236deceae50b84ff94832cafc82eed57012a66ff1f8af99"
+    },
+    {
+      "file": "haze-over-resin.png",
+      "subject": "Feathered Haze reading fill within an elevated Resin shell",
+      "sourceFilename": "Screenshot_20260917_125251.png",
+      "sha256": "3b1967426d8c49acbc2a8edb86d00d23d291d254ad3c4b9f5786463a245d47f8"
+    },
+    {
+      "file": "layered-materials.png",
+      "subject": "Plastic foundation, visibly diffused Frost and floating Resin control",
+      "sourceFilename": "Screenshot_20260917_125233.png",
+      "sha256": "104281ce29e192f9de06dd82019fe6b2cde7358155e2eb7a274e6d02497a26dd"
+    }
+  ]
+}

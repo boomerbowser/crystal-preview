@@ -1,0 +1,284 @@
+/* Crystal's control primitives, for this preview site and nothing else.
+ *
+ * **This file is not exported.** `package.json` publishes `./css`, `./theme` and
+ * the rest; it does not publish this, and the preview reaches it by relative
+ * path. That is deliberate: the rules here style bare elements — `:is(button,
+ * a.cr-button)` gives every button in the document a Resin background, a
+ * feathered ::before and a 48px minimum height, and bare `input[type=checkbox]`,
+ * `[type=radio]`, `[type=range]` and `[type=file]` are styled the same way. That
+ * is right for a page that writes `<button class="cr-control">` and wrong
+ * underneath anything that ships its own controls, where it becomes a second
+ * implementation of every one of them.
+ *
+ * It was exported once. Crystal React loaded it in its Storybook for a release,
+ * a 32px chip rendered 50px tall, and every story was validated against styles a
+ * consumer would never have had — the components were fine and the evidence was
+ * not. CONTRACT.md §1 called that prohibited; it is now unreachable instead,
+ * because a rule nothing enforces is a rule somebody will break.
+ *
+ * Everything below sits in `@layer crystal.component`, so a consumer's own
+ * unlayered CSS outranks it for any property they declare. That is the
+ * mitigation for what a consumer *can* override, and it is not the same as
+ * safety: nobody writes a `::before` to cancel a `::before` they did not expect.
+ */
+/* Resin is the interaction plane. Haze is a separate, inset reading fill.
+   Context light stays beneath Haze: nested white wells must not erase Resin. */
+@layer crystal.component {
+:root{--cr-control-light:color-mix(in srgb,var(--cr-glow) 12.6%,transparent);--cr-control-color:color-mix(in srgb,var(--cr-decorative) 8.4%,transparent);}
+:root[data-crystal-mode=dark]{--cr-control-light:color-mix(in srgb,var(--cr-glow) 9.8%,transparent);--cr-control-color:color-mix(in srgb,var(--cr-decorative) 7%,transparent);}
+:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status){position:relative;isolation:isolate;background:var(--cr-resin-fill);color:var(--cr-text);border:1px solid var(--cr-rim);box-shadow:var(--cr-shadow-float);backdrop-filter:blur(var(--cr-resin-blur)) saturate(var(--cr-resin-saturation));-webkit-backdrop-filter:blur(var(--cr-resin-blur)) saturate(var(--cr-resin-saturation));filter:none;}
+:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::before{content:'';position:absolute;inset:var(--cr-haze-inset);z-index:-1;pointer-events:none;border-radius:inherit;background:var(--cr-haze-fill);filter:blur(var(--cr-haze-feather));box-shadow:none;}
+:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::after{content:'';position:absolute;inset:0;z-index:-2;pointer-events:none;border-radius:inherit;background:linear-gradient(115deg,transparent 20%,#ffffff30 43%,#ffffff0a 55%,transparent 72%),radial-gradient(ellipse at 12% 0%,var(--cr-control-light),transparent 75%),linear-gradient(135deg,var(--cr-control-color),transparent 60%,var(--cr-control-light));background-size:220% 100%,100% 100%,100% 100%;background-position:100% 0;box-shadow:inset 0 2px 1px var(--cr-rim),inset 0 -1px 1px var(--cr-rim);}
+/* Feather only the chromatic paint, beneath Haze. The parent retains the crisp optical rim. */
+:is(button:not(.swatch),a.cr-button,.cr-control)::after{inset:2px;filter:blur(2px);box-shadow:none;}
+:is(button,a.cr-button){min-height:48px;}
+:is(button,a.cr-button):hover{background:var(--cr-resin-fill);filter:none;}
+:is(button[aria-pressed=true],button[aria-selected=true],button[aria-checked=true]){color:var(--cr-on-primary);}
+:is(button[aria-pressed=true],button[aria-selected=true],button[aria-checked=true])::before{background:var(--cr-primary);filter:none;}
+:is(button[aria-pressed=true],button[aria-selected=true],button[aria-checked=true]){text-decoration:none;}
+.cr-button.danger{color:var(--cr-text);border-color:var(--cr-rim);}
+.cr-button.danger::before{background:var(--cr-haze-fill);}
+/* Circular badges carry state; native semantics remain authoritative. */
+.cr-field-shell{display:inline-flex;align-items:center;min-width:0;border-radius:20px;padding:8px;vertical-align:middle;}
+.cr-field-shell:has(.cr-input){width:100%;}
+.cr-field-shell :is(input,select,textarea){position:relative;background:transparent;border:0;box-shadow:none;border-radius:12px;min-width:0;color:var(--cr-text);min-height:44px;max-width:100%;}
+select option{background:var(--cr-surface);color:var(--cr-text);}
+.cr-field-shell:focus-within{outline:2px solid var(--cr-focus-core);outline-offset:3px;}
+.cr-field-shell :focus-visible{outline:0;}
+/* Compact controls have a luminous shell and a contained contrast-bearing mark.
+   The mark identifies the control without a dark wire around the outer material. */
+input:is([type=checkbox],[type=radio]){appearance:none;width:26px;height:26px;flex:none;vertical-align:middle;border:1px solid var(--cr-rim);border-radius:9px;background:linear-gradient(135deg,var(--cr-control-light),var(--cr-control-color)),var(--cr-resin-fill);backdrop-filter:blur(20px);box-shadow:inset 0 2px 2px var(--cr-rim),0 2px 3px var(--cr-control-edge),0 5px 10px var(--cr-shadow-contact);display:inline-grid;place-items:center;}
+input[type=radio]{border-radius:50%;}
+input:is([type=checkbox],[type=radio])::after{content:'';box-sizing:border-box;width:14px;height:14px;border:2px solid var(--cr-primary);border-radius:4px;background:var(--cr-surface);}
+input[type=radio]::after{border-radius:50%;}
+input[type=checkbox]:checked::after{content:'✓';font-size:14px;font-weight:800;background:var(--cr-primary);color:var(--cr-on-primary);border:0;line-height:18px;width:18px;height:18px;text-align:center;}
+input[type=radio]:checked::after{background:var(--cr-primary);box-shadow:inset 0 0 0 3px var(--cr-surface);}
+.suite-switch input{position:absolute;opacity:0;width:44px;height:28px;}
+.switch-track{border:1px solid var(--cr-rim);background:linear-gradient(135deg,var(--cr-control-light),var(--cr-control-color)),var(--cr-resin-fill);box-shadow:inset 0 2px 1px var(--cr-rim),0 4px 10px var(--cr-shadow-contact);backdrop-filter:blur(20px);}
+.switch-thumb{background:var(--cr-surface);border:0;box-shadow:inset 0 0 0 2px var(--cr-primary),inset 0 2px 1px var(--cr-rim),0 3px 5px var(--cr-shadow-cast);}
+.suite-switch input:checked+.switch-track{background:linear-gradient(90deg,var(--cr-primary-soft),var(--cr-control-light)),var(--cr-resin-fill);}
+input[type=range]{appearance:none;background:transparent;min-height:32px;--cr-range-progress:50%;}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border:0;border-radius:99px;background:linear-gradient(to right,var(--cr-primary) 0 var(--cr-range-progress),var(--cr-primary-soft) var(--cr-range-progress) 100%);box-shadow:0 -1px 0 var(--cr-rim),0 2px 4px var(--cr-control-edge);}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:26px;height:26px;margin-top:-9px;border-radius:50%;border:2px solid var(--cr-rim);background:radial-gradient(circle,var(--cr-primary) 0 3px,var(--cr-surface) 3.5px 7px,transparent 8px),linear-gradient(135deg,var(--cr-control-light),var(--cr-control-color)),var(--cr-resin-fill);box-shadow:inset 0 2px 1px var(--cr-rim),0 2px 4px var(--cr-control-edge),0 5px 10px var(--cr-shadow-cast);}
+input[type=range]::-moz-range-track{height:8px;border:0;border-radius:99px;background:var(--cr-primary-soft);box-shadow:0 -1px 0 var(--cr-rim),0 2px 4px var(--cr-control-edge);}
+input[type=range]::-moz-range-progress{height:8px;border-radius:99px;background:var(--cr-primary);}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;border:2px solid var(--cr-rim);background:radial-gradient(circle,var(--cr-primary) 0 3px,var(--cr-surface) 3.5px 7px,transparent 8px),linear-gradient(135deg,var(--cr-control-light),var(--cr-control-color)),var(--cr-resin-fill);box-shadow:inset 0 2px 1px var(--cr-rim),0 2px 4px var(--cr-control-edge),0 5px 10px var(--cr-shadow-cast);}
+:root[dir=rtl] body input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(to left,var(--cr-primary) 0 var(--cr-range-progress),var(--cr-primary-soft) var(--cr-range-progress) 100%);}
+.swatch::before{inset:8px;background:transparent;filter:none;}
+.palette-card::before{display:none;}
+.swatch{color:var(--cr-text);text-shadow:0 0 2px var(--cr-surface);}
+[data-effects=opaque] :is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status){background:var(--cr-surface);backdrop-filter:none;-webkit-backdrop-filter:none;}
+[data-effects=opaque] :is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::after{display:none;}
+@media(prefers-reduced-transparency:reduce){:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status){background:var(--cr-surface);backdrop-filter:none;-webkit-backdrop-filter:none}:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::after{display:none}}
+@media(forced-colors:active){:is(button,a.cr-button,.cr-control,.cr-field-shell,input){background:Canvas!important;color:CanvasText!important;border:1px solid ButtonText;box-shadow:none;backdrop-filter:none}:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::before,:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::after{display:none}input:is([type=checkbox],[type=radio]){appearance:auto}input:is([type=checkbox],[type=radio])::after{display:none}}
+
+.cr-resin-haze{border-radius:18px;padding:16px;line-height:1.5;}
+.cr-status{--cr-outline:var(--status-ink);padding:10px 14px;min-height:36px;}
+.cr-tag{display:inline-flex;align-items:center;gap:6px;padding:10px 14px;border-radius:99px;font-size:13px;font-weight:700;}
+
+nav a.cr-control{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:99px;min-height:44px;text-decoration:none;}
+nav a.cr-control[aria-current]{text-decoration:none;}
+input[type=file]::file-selector-button{min-height:44px;padding:10px 16px;border:1px solid var(--cr-rim);border-radius:99px;color:var(--cr-text);background:linear-gradient(var(--cr-haze-fill),var(--cr-haze-fill)) padding-box,var(--cr-resin-fill);box-shadow:inset 1px 1px 2px var(--cr-rim),0 4px 8px var(--cr-shadow-contact);margin-inline-end:8px;cursor:pointer;}
+/* Palette colors are specimen content inside the Resin control, not its shell. */
+.swatch::before{inset:5px;background:var(--swatch);border-radius:inherit;filter:none;}
+
+.palette-card::before{display:block;}
+
+/* Broad Resin frame, soft inset fill, and one shared plane for grouped actions. */
+.cr-button{padding:15px 24px;}
+.export-controls .cr-button{padding-inline:14px;}
+.cr-field-shell{box-shadow:inset 0 2px 1px var(--cr-rim),0 3px 5px var(--cr-control-edge),0 12px 24px var(--cr-shadow-contact);}
+:is(.cr-tag,.cr-resin-haze){padding:17px 24px;}
+.cr-tag{min-height:48px;}
+:is(.cr-dock,.segmented,.suite-tabs){position:relative;isolation:isolate;background:var(--cr-resin-fill);border:1px solid var(--cr-rim);border-radius:999px;padding:9px;gap:4px;box-shadow:var(--cr-shadow-float);backdrop-filter:blur(var(--cr-resin-blur)) saturate(var(--cr-resin-saturation));}
+:is(.cr-dock,.segmented,.suite-tabs)::before{content:'';position:absolute;inset:var(--cr-haze-inset);border-radius:inherit;z-index:-1;background:var(--cr-haze-fill);filter:blur(var(--cr-haze-feather));pointer-events:none;}
+.cr-dock-inner{background:transparent;padding:0;isolation:auto;}
+.cr-dock-inner::before{display:none;}
+:is(.cr-dock,.segmented,.suite-tabs) button{border:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:999px;color:var(--cr-text);}
+:is(.cr-dock,.segmented,.suite-tabs) button::before,:is(.cr-dock,.segmented,.suite-tabs) button::after{display:none;}
+:is(.cr-dock,.segmented,.suite-tabs) button:is([aria-pressed=true],[aria-selected=true]){background:var(--cr-primary);color:var(--cr-on-primary);box-shadow:0 3px 7px var(--cr-shadow-contact);}
+.cr-dock button{min-height:52px;padding:13px 18px;}
+.segmented button{min-height:44px;padding-inline:16px;}
+.suite-tabs{gap:2px;}
+.suite-tabs button{min-height:44px;padding:8px 16px;}
+
+.suite-menu button{border:0;box-shadow:none;}
+.suite-menu button::before,.suite-menu button::after{display:none;}
+.suite-menu button[aria-checked=true]{background:var(--cr-primary);color:var(--cr-on-primary);}
+/* Menu rows are left-aligned, so the label starts at the same place on
+   every row — selected or not — rather than shifting the label when chosen. */
+:is(.suite-menu,[role=menu]) button{padding-inline-start:24px;}
+.swatch{min-height:28px;}
+.swatch[aria-pressed=true],.palette-card[aria-pressed=true]{color:var(--cr-text);}
+.palette-card[aria-pressed=true]::before{background:var(--cr-haze-fill);}
+@media(max-width:600px){.cr-dock{padding:7px}.cr-dock button{padding:10px 9px;font-size:11px;min-height:44px}.suite-tabs{padding:7px}.suite-tabs button{padding:8px 5px}}
+[data-effects=opaque] :is(.cr-dock,.segmented,.suite-tabs){background:var(--cr-surface);backdrop-filter:none;}
+@media(prefers-reduced-transparency:reduce){:is(.cr-dock,.segmented,.suite-tabs){background:var(--cr-surface);backdrop-filter:none}}
+/* Selection is a ring, not a fill. Chromium paints an opaque Canvas-coloured
+   backplate behind text in forced colours; a Highlight fill puts HighlightText
+   on that backplate, and where the palette makes those two the same colour the
+   label disappears. CanvasText on Canvas is legible against the backplate by
+   construction, so the Highlight ring carries the state instead. This matches
+   what .cr-dock already does in crystal.css. */
+@media(forced-colors:active){:is(.cr-dock,.segmented,.suite-tabs){background:Canvas;border:1px solid ButtonText;box-shadow:none;backdrop-filter:none}:is(.cr-dock,.segmented,.suite-tabs)::before{display:none}:is(.cr-dock,.segmented,.suite-tabs) button:is([aria-pressed=true],[aria-selected=true]){background:Canvas!important;color:CanvasText!important;outline:2px solid Highlight;outline-offset:-3px}}
+/* Specimen swatches retain their actual colors; they are not reading wells. */
+button.swatch{min-height:32px;height:32px;}
+button.swatch::before{background:var(--swatch);filter:none;inset:5px;}
+button.palette-card[aria-pressed=true]{color:var(--cr-text);}
+button.palette-card[aria-pressed=true]::before{background:var(--cr-haze-fill);}
+/* Native fields retain their material paint; badges identify entry and requirements. */
+span.cr-field-shell{border-color:var(--cr-rim);}
+span.cr-field-shell::after{background-image:radial-gradient(ellipse at 12% 0%,var(--cr-control-light),transparent 75%),linear-gradient(135deg,var(--cr-control-color),transparent 60%,var(--cr-control-light));background-size:100% 100%,100% 100%;background-position:0 0,0 0;background-repeat:no-repeat;}
+span.cr-field-shell:has([aria-invalid=true])::after{background-image:radial-gradient(ellipse at 12% 0%,var(--cr-control-light),transparent 75%),linear-gradient(135deg,var(--cr-control-color),transparent 60%,var(--cr-control-light));}
+span.cr-status{border-color:var(--cr-rim);border-radius:18px;padding:12px 18px;}
+span.cr-status>span{display:inline-grid;place-items:center;min-width:24px;height:24px;border-radius:50%;background:var(--status-surface);color:var(--status-ink);font-weight:800;}
+/* Content boundaries are gentle; functional contrast belongs to the controls. */
+:is(.suite-list li,.cr-dialog,.recipe-specimen.cr-resin,.recipe-specimen.cr-frost){border-color:var(--cr-rim);}
+.suite-list li{background:var(--cr-haze-fill);box-shadow:0 3px 8px var(--cr-control-edge);}
+[data-effects=opaque] span.cr-field-shell::after{display:none;}
+@media(prefers-reduced-transparency:reduce){span.cr-field-shell::after{display:none;}}
+@media(forced-colors:active){span.cr-field-shell{border:1px solid ButtonText}span.cr-field-shell::after{display:none}.switch-track{border:1px solid ButtonText;background:Canvas}.switch-thumb{background:ButtonText}input[type=range]{appearance:auto}input[type=range]::-webkit-slider-runnable-track{background:CanvasText}input[type=range]::-webkit-slider-thumb{background:ButtonText;border-color:Canvas}span.cr-status>span{background:Canvas;color:CanvasText}}
+
+
+/* An immediate, contrast-bearing core sits inside a lightly feathered halo.
+   Focus changes the elevation shadow's hue without blurring any foreground. */
+:root{--cr-focus-core:var(--cr-primary);--cr-focus-feather-1:color-mix(in srgb,var(--cr-primary) 46%,transparent);--cr-focus-feather-2:color-mix(in srgb,var(--cr-primary) 30%,transparent);--cr-focus-feather-3:color-mix(in srgb,var(--cr-primary) 17%,transparent);--cr-focus-feather-4:color-mix(in srgb,var(--cr-primary) 8%,transparent);--cr-focus-shadow:color-mix(in srgb,var(--cr-decorative) 27%,transparent);/* Halo spread halved (2/6/12/22 -> 1/3/6/11) at Meridian's request. The blur radii
+   are unchanged, so the ring gets thinner without the falloff flattening — halving
+   both would have produced a tighter but harder edge. The 2px core at 3px offset is
+   untouched: it is what proves focus at a glance and what survives forced colours. */
+--cr-focus-ring:0 0 6px 1px var(--cr-focus-feather-1),0 0 16px 3px var(--cr-focus-feather-2),0 0 30px 6px var(--cr-focus-feather-3),0 0 54px 11px var(--cr-focus-feather-4),0 8px 18px var(--cr-focus-feather-2),0 22px 40px var(--cr-focus-shadow);}
+/* Dark mode needs more light in the feather to read against a deep canvas. */
+:root[data-crystal-mode=dark]{--cr-focus-feather-1:color-mix(in srgb,var(--cr-primary) 56%,transparent);--cr-focus-feather-2:color-mix(in srgb,var(--cr-primary) 38%,transparent);--cr-focus-feather-3:color-mix(in srgb,var(--cr-primary) 22%,transparent);--cr-focus-feather-4:color-mix(in srgb,var(--cr-primary) 11%,transparent);}
+:is(button,a,input,select,textarea,summary,[tabindex]):focus-visible,
+span.cr-field-shell:focus-within,
+.suite-switch input:focus-visible+.switch-track,
+:is(.cr-dock,.segmented,.suite-tabs) button:focus-visible{outline:2px solid var(--cr-focus-core);outline-offset:3px;box-shadow:inset 0 2px 1px var(--cr-rim),var(--cr-focus-ring);}
+span.cr-field-shell :is(input,select,textarea):focus-visible{outline:0;box-shadow:none;}
+/* Each indicator is a small Resin shell with its own Haze reading fill. */
+/* Haze filling a Resin frame is recessed, not floating.
+   A Haze fill inside a Resin frame is a content well: it sits *in* the frame,
+   and an outward drop shadow says the opposite. Soft-UI practice expresses
+   recession by inverting the light pair rather than by adding contrast — with
+   the source directly overhead, as Crystal's is throughout, an inset shadow
+   falls along the top edge where the frame occludes the light and a highlight
+   returns along the bottom where it bounces back off the far wall.
+
+   Crystal takes the light discipline from that tradition and explicitly not its
+   palette: neumorphism fills an element with its own background colour, so all
+   definition comes from shadow, which is exactly why it fails contrast checks
+   and why almost nobody ships it. Haze keeps its 80% fill and its verified text
+   contrast; only the shadow pair changes, and only inside a Resin frame.
+
+   Scoped rather than applied to every Haze surface, because a standalone Haze
+   card genuinely is raised and its existing recipe is correct. */
+:is(.cr-resin,.cr-glass,.cr-resin-haze) :is(.cr-haze,.cr-surface,.cr-well,.cr-content-fill){
+  box-shadow:inset 0 1px 2px var(--cr-shadow-contact),inset 0 -1px 0 var(--cr-rim);
+}
+
+/* Resin never contains Resin.
+   A control dropped into a Resin surface — a button in a menu, a popover or a
+   toast — would otherwise bring its own 20px backdrop blur and read through the
+   surface's blur, which is the stacking that makes translucent interfaces
+   illegible. Any such control becomes a Haze content fill instead: an 80% fill
+   with a 1.95px feather, crisp text. This is a structural rule rather than four
+   patched instances, so the law holds for markup nobody has written yet.
+   Deliberately not solved by softening Resin, which would disturb a material
+   specification. Verified by tools/audit-materials.mjs. */
+:is(.cr-resin,.cr-glass,.cr-resin-haze) :is(button,a.cr-button,.cr-button,.cr-control){
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  /* backdrop-filter silently creates a stacking context, and these controls
+     paint their fill on a ::before at z-index -1 which was relying on it. Drop
+     the filter alone and that pseudo-element escapes to the nearest ancestor
+     context and paints behind the button's own background instead of above it —
+     which erased the selected dock label completely. Isolation restores the
+     containment without restoring the second blur. */
+  isolation:isolate;
+}
+/* Only the backdrop filter is removed, and deliberately no background is
+   imposed. These controls already carry their fill on a ::before that paints
+   beneath the element's own background box, so assigning a Haze fill here
+   covered it: the selected dock item went to white-on-white and its label
+   disappeared entirely. Removing the second blur is the whole of the fix; the
+   Haze fill these controls need is already theirs. */
+
+/* An indicator is a Haze content fill, never Resin.
+   Indicators sit on controls, and controls are frequently Resin, so giving the
+   indicator its own Resin recipe stacked translucency on translucency: a 20px
+   backdrop blur reading through another 20px backdrop blur. That is the exact
+   failure translucent interfaces are criticised for, and the fix is always to
+   change the upper layer rather than to weaken Resin, which would disturb a
+   material specification. Haze exists for precisely this job — a readable 80%
+   fill with a 1.95px feather on the background layer only, leaving the glyph
+   crisp. Enforced by tools/audit-materials.cjs. */
+.cr-indicator{position:absolute;isolation:isolate;display:grid;place-items:center;inset-block-start:-4px;inset-inline-end:-3px;width:20px;height:20px;min-width:20px;border-radius:50%;border:1px solid var(--cr-rim);background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 2px 4px var(--cr-control-edge),0 4px 8px var(--cr-shadow-contact);color:var(--cr-text);font:800 12px/1 var(--cr-font);z-index:2;pointer-events:none;text-decoration:none;text-shadow:none;}
+/* The feathered background layer of the Haze fill. The glyph above it stays crisp. */
+.cr-indicator::before{content:'';position:absolute;inset:1px;z-index:-1;border-radius:50%;background:var(--cr-haze-fill);filter:blur(var(--cr-haze-feather));}
+/* A check mark means validated or informational, never "this one is selected".
+   Selection is carried by label weight; location is a dot; activity an ellipsis. */
+.cr-indicator:is([data-kind=selection],[data-kind=current],[data-kind=busy]){display:none;}
+[aria-current]:not([aria-current=false])>.cr-indicator[data-kind=current]{display:grid;}
+[aria-busy=true]>.cr-indicator[data-kind=busy]{display:grid;}
+.cr-indicator[data-kind=current]::after{content:'●';font-size:9px;}
+.cr-indicator[data-kind=busy]::after{content:'…';font-size:14px;}
+/* Nothing is drawn for the selection kind. A mark set beside a label offsets the very
+   label it points at, so selection is carried by label weight instead — typographic
+   rather than chromatic, which still satisfies the requirement that selection never
+   rests on colour alone. The rules below suppress the badge the base indicator would
+   otherwise paint. */
+:is([aria-pressed=true],[aria-selected=true],[aria-checked=true])>.cr-indicator[data-kind=selection]{display:none}
+.cr-indicator[data-kind=selection]::before,.cr-indicator[data-kind=selection]::after{content:none;display:none;}
+:is(button[aria-pressed=true],button[aria-selected=true],button[aria-checked=true],[role=tab][aria-selected=true]){font-weight:800;}
+/* Round specimen swatches cannot carry a weight change; they take a ring gap instead. */
+button.swatch>.cr-indicator[data-kind=selection]{display:none;}
+button.swatch[aria-pressed=true]{box-shadow:inset 0 0 0 3px var(--cr-surface),0 0 0 2px var(--cr-primary);}
+
+
+span.cr-field-shell{padding-inline-end:40px;}
+span.cr-field-shell>.cr-indicator{inset-block-start:50%;inset-inline-end:10px;transform:translateY(-50%);width:24px;height:24px;}
+span.cr-field-shell>.cr-indicator::after{content:'○';font-size:15px;}
+span.cr-field-shell:focus-within>.cr-indicator::after{content:'●';font-size:9px;}
+span.cr-field-shell:has(:is([required],[aria-required=true]))>.cr-indicator::after{content:'*';font-size:19px;}
+span.cr-field-shell:has([aria-invalid=true])>.cr-indicator::after{content:'!';font-size:15px;}
+:is(button[aria-pressed],button[aria-selected],button[aria-checked],a.cr-control[aria-current]){text-decoration:none;}
+
+.palette-card[aria-pressed=true] strong::after{content:none;}
+#suite-chip[aria-pressed=true]::after{content:'';}
+.suite-menu button[aria-checked=true]::after{content:none;}
+[data-effects=opaque] .cr-indicator{background:var(--cr-surface);backdrop-filter:none;}
+[data-effects=opaque] .cr-indicator::before{filter:none;}
+@media(prefers-reduced-transparency:reduce){.cr-indicator{background:var(--cr-surface);backdrop-filter:none}.cr-indicator::before{filter:none}}
+@media(forced-colors:active){.cr-indicator{background:Canvas;color:CanvasText;border:1px solid ButtonText;box-shadow:none;backdrop-filter:none}.cr-indicator::before{display:none}:is(button,a,input,select,textarea,summary,[tabindex]):focus-visible,span.cr-field-shell:focus-within,.suite-switch input:focus-visible+.switch-track,:is(.cr-dock,.segmented,.suite-tabs) button:focus-visible{outline:2px solid Highlight;box-shadow:none}}
+
+/* Pill padding is generous by default; narrow viewports keep the shape but stop
+   short labels from wrapping inside the capsule. */
+@media(max-width:600px){.tiny-button{padding:8px 14px;white-space:nowrap}.cr-tag{padding:10px 15px;min-height:40px;white-space:nowrap}}
+
+/* Tables are reading content, so they sit on Haze inside a Resin-rimmed shell
+   rather than a grid of hard rules. Cells carry a single hairline separator and
+   the header keeps the tested primary-soft ink pair. Text stays crisp: only the
+   shell's fill layer is feathered. */
+.cr-table-scroll{position:relative;isolation:isolate;overflow:auto;max-width:100%;border:1px solid var(--cr-rim);border-radius:var(--cr-radius);background:var(--cr-resin-fill);box-shadow:var(--cr-shadow-content);backdrop-filter:blur(var(--cr-resin-blur)) saturate(var(--cr-resin-saturation));-webkit-backdrop-filter:blur(var(--cr-resin-blur)) saturate(var(--cr-resin-saturation));}
+.cr-table-scroll::before{content:'';position:absolute;inset:6px;z-index:-1;pointer-events:none;border-radius:inherit;background:var(--cr-haze-fill);filter:blur(var(--cr-haze-feather));}
+/* The scroll container owns the shell; the table stays a table so the header
+   band spans the full width and column widths still resolve. */
+.cr-table{width:100%;border-collapse:separate;border-spacing:0;background:transparent;box-shadow:none;border:0;}
+.cr-table :is(th,td){border:0;border-bottom:1px solid var(--cr-edge);padding:14px 18px;text-align:start;vertical-align:top;background:transparent;}
+.cr-table thead th{position:sticky;top:0;z-index:1;background:var(--cr-primary-soft);color:var(--cr-on-primary-soft);font-weight:800;border-bottom:0;}
+.cr-table thead th:first-child{border-start-start-radius:calc(var(--cr-radius) - 8px);}
+.cr-table thead th:last-child{border-start-end-radius:calc(var(--cr-radius) - 8px);}
+.cr-table tbody tr:last-child :is(th,td){border-bottom:0;}
+/* Headerless property tables: the first row takes the rounded top edge the
+   header band would otherwise provide, and the label column reads as a label. */
+.cr-table-properties tbody tr:first-child :is(th,td){padding-top:18px;}
+.cr-table-properties th[scope=row]{width:11.5rem;font-weight:800;color:var(--cr-text);}
+.cr-table-properties td{color:var(--cr-muted);}
+@media(max-width:600px){.cr-table-properties th[scope=row]{width:auto}.cr-table-properties tr{display:grid}.cr-table-properties :is(th,td){border-bottom:0}.cr-table-properties td{padding-top:0;padding-bottom:14px;border-bottom:1px solid var(--cr-edge)}}
+.cr-table tbody tr:hover :is(th,td){background:var(--cr-label-fill);}
+.cr-table caption{caption-side:top;text-align:start;padding:14px 18px 6px;font-size:13px;color:var(--cr-muted);}
+[data-effects=opaque] .cr-table-scroll{background:var(--cr-surface);backdrop-filter:none;-webkit-backdrop-filter:none;}
+[data-effects=opaque] .cr-table-scroll::before{display:none;}
+@media(prefers-reduced-transparency:reduce){.cr-table-scroll{background:var(--cr-surface);backdrop-filter:none;-webkit-backdrop-filter:none}.cr-table-scroll::before{display:none}}
+@media(forced-colors:active){.cr-table-scroll{background:Canvas;border:1px solid CanvasText;box-shadow:none;backdrop-filter:none}.cr-table-scroll::before{display:none}.cr-table :is(th,td){border-bottom:1px solid CanvasText}.cr-table thead th{background:Canvas;color:CanvasText;border-bottom:1px solid CanvasText}}
+@media(max-width:600px){.cr-table :is(th,td){padding:11px 13px}}
+
+}

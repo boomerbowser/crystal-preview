@@ -1,0 +1,33 @@
+{
+  "copiedOn": "2026-09-17",
+  "sourceProduct": "Gather",
+  "sourceRevision": "crystal-03-balanced",
+  "files": [
+    {
+      "source": "design/crystal/crystal-recipes.json",
+      "copy": "reference/gather-crystal-recipes.json",
+      "sha256": "21cec9907b69d8a26e3b0bd01d8ae00de4cbf63dc62f6f09f2e2dc35d62ef20d"
+    },
+    {
+      "source": "design/crystal/feedback-colors.json",
+      "copy": "reference/gather-feedback-colors.json",
+      "sha256": "b6157129529606a0340084f0e7233510bf63e31b040f4906ff8f7f657d7d8535"
+    },
+    {
+      "source": "design/crystal/approved-baseline.md",
+      "copy": "reference/gather-approved-baseline.md",
+      "sha256": "87cda0c7e86c3c04ca43be79282d4aead0dc854574b39030bbe9ad6406effb9e"
+    },
+    {
+      "source": "design/crystal/materials.md",
+      "copy": "reference/gather-materials.md",
+      "sha256": "a9cdaf1ce6d65e4e30dfe2c0571220148b3d91f388a3b21568b1373bfc73ccd5"
+    },
+    {
+      "source": "design/tokens.json",
+      "copy": "reference/gather-tokens.json",
+      "sha256": "5d58e98f4f6fd0adf510ef43a6d9423b64aed102640e1fdeb1e79a99d105481b"
+    }
+  ],
+  "note": "Immutable copies for provenance. Relative links in original Markdown describe the source proposal; use the standalone docs for navigation."
+}

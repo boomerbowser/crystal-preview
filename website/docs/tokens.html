@@ -1,0 +1,2672 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Tokens · Crystal</title><link rel="icon" href="../vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="../assets/controls.css?v=pill-focus-2"><script src="../vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="../vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="../assets/motion-shaders.js" defer></script><script src="../assets/menu.js" defer></script><script src="../assets/docs.js" defer></script><script src="../assets/controls.js?v=pill-focus-2" defer></script></head><body><a class="skip" href="#main">Skip to specification</a><div class="shell"><header class="site-header"><a class="wordmark" href="../index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="../vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="../index.html">Overview</a><a class="cr-control menu-item" href="../playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="../docs/principles.html">Foundations</a><a class="cr-control menu-item" href="../docs/colors.html">Color</a><a class="cr-control menu-item" href="../docs/materials.html">Materials</a><a class="cr-control menu-item" href="../docs/components.html">Components</a><a class="cr-control menu-item" href="../docs/catalogue.html">Catalogue</a><a class="cr-control menu-item" href="../docs/icons.html">Icons</a><a class="cr-control menu-item" href="../docs/tokens.html" aria-current="page">Tokens</a><a class="cr-control menu-item" href="../docs/motion.html">Motion</a><a class="cr-control menu-item" href="../docs/motion-components.html">Component motion</a><a class="cr-control menu-item" href="../docs/accessibility.html">Accessibility</a><a class="cr-control menu-item" href="../docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="../motion.html">Motion studies</a><a class="cr-control menu-item" href="../verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="tokens">Tokens</h1>
+<p>Every value Crystal ships, generated from <code>core/tokens/crystal.tokens.json</code> — the W3C
+Design Tokens (DTCG) source of truth. This page is written by
+<code>tools/build-reference.cjs</code>; editing it by hand is pointless, because the next build
+overwrites it. Edit the token file and run <code>python3 tools/build.py</code>.</p>
+<h2 id="how-the-three-tiers-work">How the three tiers work</h2>
+<p>Crystal resolves a value through three tiers, and the direction is strictly one way:
+a component reads a semantic token, a semantic token reads a primitive, and nothing
+reads upward. That is what makes a palette swap a change to one tier rather than a
+search across the codebase.</p>
+<pre><code>component.action.radius  →  semantic.shape.pill  →  primitive.distance.full
+</code></pre>
+<p><strong>A component that reads a primitive directly is a bug.</strong> It works, and it silently
+opts that component out of every theme, mode and palette change made at the semantic
+tier. <code>tools/validate-tokens.cjs</code> checks the direction of every reference.</p>
+<h2 id="primitive-tokens">Primitive tokens</h2>
+<p>Raw values. Never referenced by a component directly — a primitive is the thing a semantic token points at, so that the meaning can be re-pointed without editing every use site.</p>
+<p>213 tokens.</p>
+<h3 id="primitive-palette">Primitive · palette</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primitive.palette.prism.seed</code></td>
+<td>color</td>
+<td><code>#7338EF</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.companion</code></td>
+<td>color</td>
+<td><code>#EF48C6</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.glow</code></td>
+<td>color</td>
+<td><code>#52BDF3</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.canvas</code></td>
+<td>color</td>
+<td><code>#f9f6fe</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.surface</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#f2edfe</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.text</code></td>
+<td>color</td>
+<td><code>#171130</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.muted</code></td>
+<td>color</td>
+<td><code>#402e76</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.primary</code></td>
+<td>color</td>
+<td><code>#7338EF</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.onPrimary</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.primarySoft</code></td>
+<td>color</td>
+<td><code>#e6dbfc</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#2b195a</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.outline</code></td>
+<td>color</td>
+<td><code>#624a9f</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.decorative</code></td>
+<td>color</td>
+<td><code>#7338EF</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.companion</code></td>
+<td>color</td>
+<td><code>#EF48C6</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.light.glow</code></td>
+<td>color</td>
+<td><code>#52BDF3</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.canvas</code></td>
+<td>color</td>
+<td><code>#120d26</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.surface</code></td>
+<td>color</td>
+<td><code>#1d1730</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#332756</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.text</code></td>
+<td>color</td>
+<td><code>#f7f3fe</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.muted</code></td>
+<td>color</td>
+<td><code>#dbcbfb</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.primary</code></td>
+<td>color</td>
+<td><code>#c8b1f9</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.onPrimary</code></td>
+<td>color</td>
+<td><code>#16102e</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.primarySoft</code></td>
+<td>color</td>
+<td><code>#331e65</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#ebe3fd</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.outline</code></td>
+<td>color</td>
+<td><code>#bfa3f8</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.decorative</code></td>
+<td>color</td>
+<td><code>#7e48f0</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.companion</code></td>
+<td>color</td>
+<td><code>#EF48C6</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.prism.dark.glow</code></td>
+<td>color</td>
+<td><code>#52BDF3</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.seed</code></td>
+<td>color</td>
+<td><code>#C01993</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.companion</code></td>
+<td>color</td>
+<td><code>#7C4DFF</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.glow</code></td>
+<td>color</td>
+<td><code>#FF96DA</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.canvas</code></td>
+<td>color</td>
+<td><code>#fcf5fa</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.surface</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#f9eaf5</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.text</code></td>
+<td>color</td>
+<td><code>#210d25</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.muted</code></td>
+<td>color</td>
+<td><code>#5b2356</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.primary</code></td>
+<td>color</td>
+<td><code>#C01993</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.onPrimary</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.primarySoft</code></td>
+<td>color</td>
+<td><code>#f4d6ec</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#440f3d</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.outline</code></td>
+<td>color</td>
+<td><code>#813e7a</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.decorative</code></td>
+<td>color</td>
+<td><code>#C01993</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.companion</code></td>
+<td>color</td>
+<td><code>#7C4DFF</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.light.glow</code></td>
+<td>color</td>
+<td><code>#FF96DA</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.canvas</code></td>
+<td>color</td>
+<td><code>#190a1e</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.surface</code></td>
+<td>color</td>
+<td><code>#241427</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#422144</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.text</code></td>
+<td>color</td>
+<td><code>#fbf1f9</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.muted</code></td>
+<td>color</td>
+<td><code>#efc3e3</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.primary</code></td>
+<td>color</td>
+<td><code>#e6a5d5</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.onPrimary</code></td>
+<td>color</td>
+<td><code>#1f0d23</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.primarySoft</code></td>
+<td>color</td>
+<td><code>#4e1344</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#f6dff0</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.outline</code></td>
+<td>color</td>
+<td><code>#e295cd</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.decorative</code></td>
+<td>color</td>
+<td><code>#c52b9c</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.companion</code></td>
+<td>color</td>
+<td><code>#7C4DFF</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.fuchsia.dark.glow</code></td>
+<td>color</td>
+<td><code>#FF96DA</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.seed</code></td>
+<td>color</td>
+<td><code>#2758E8</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.companion</code></td>
+<td>color</td>
+<td><code>#6D47F2</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.glow</code></td>
+<td>color</td>
+<td><code>#48C6F0</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.canvas</code></td>
+<td>color</td>
+<td><code>#f5f7fe</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.surface</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#ecf0fd</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.text</code></td>
+<td>color</td>
+<td><code>#0d1530</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.muted</code></td>
+<td>color</td>
+<td><code>#263974</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.primary</code></td>
+<td>color</td>
+<td><code>#2758E8</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.onPrimary</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.primarySoft</code></td>
+<td>color</td>
+<td><code>#d8e1fb</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#132458</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.outline</code></td>
+<td>color</td>
+<td><code>#44579c</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.decorative</code></td>
+<td>color</td>
+<td><code>#2758E8</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.companion</code></td>
+<td>color</td>
+<td><code>#6D47F2</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.light.glow</code></td>
+<td>color</td>
+<td><code>#48C6F0</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.canvas</code></td>
+<td>color</td>
+<td><code>#0b1025</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.surface</code></td>
+<td>color</td>
+<td><code>#151a30</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#252d55</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.text</code></td>
+<td>color</td>
+<td><code>#f2f5fe</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.muted</code></td>
+<td>color</td>
+<td><code>#c7d4f9</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.primary</code></td>
+<td>color</td>
+<td><code>#abbef6</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.onPrimary</code></td>
+<td>color</td>
+<td><code>#0d142d</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.primarySoft</code></td>
+<td>color</td>
+<td><code>#182962</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#e1e8fc</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.outline</code></td>
+<td>color</td>
+<td><code>#9cb2f4</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.decorative</code></td>
+<td>color</td>
+<td><code>#3865ea</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.companion</code></td>
+<td>color</td>
+<td><code>#6D47F2</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.cobalt.dark.glow</code></td>
+<td>color</td>
+<td><code>#48C6F0</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.seed</code></td>
+<td>color</td>
+<td><code>#007E97</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.companion</code></td>
+<td>color</td>
+<td><code>#3D45E5</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.glow</code></td>
+<td>color</td>
+<td><code>#36DCD1</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.canvas</code></td>
+<td>color</td>
+<td><code>#f4f9fa</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.surface</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#e8f3f6</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.text</code></td>
+<td>color</td>
+<td><code>#081a25</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.muted</code></td>
+<td>color</td>
+<td><code>#184757</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.primary</code></td>
+<td>color</td>
+<td><code>#007E97</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.onPrimary</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.primarySoft</code></td>
+<td>color</td>
+<td><code>#d1e8ec</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#06303e</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.outline</code></td>
+<td>color</td>
+<td><code>#34667c</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.decorative</code></td>
+<td>color</td>
+<td><code>#007E97</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.companion</code></td>
+<td>color</td>
+<td><code>#3D45E5</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.light.glow</code></td>
+<td>color</td>
+<td><code>#36DCD1</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.canvas</code></td>
+<td>color</td>
+<td><code>#07141e</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.surface</code></td>
+<td>color</td>
+<td><code>#111e27</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#1d3445</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.text</code></td>
+<td>color</td>
+<td><code>#f0f7f9</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.muted</code></td>
+<td>color</td>
+<td><code>#bddde4</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.primary</code></td>
+<td>color</td>
+<td><code>#9ccdd6</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.onPrimary</code></td>
+<td>color</td>
+<td><code>#081924</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.primarySoft</code></td>
+<td>color</td>
+<td><code>#0a3646</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#dbedf0</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.outline</code></td>
+<td>color</td>
+<td><code>#8ac4cf</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.decorative</code></td>
+<td>color</td>
+<td><code>#14889f</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.companion</code></td>
+<td>color</td>
+<td><code>#3D45E5</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.ion.dark.glow</code></td>
+<td>color</td>
+<td><code>#36DCD1</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.seed</code></td>
+<td>color</td>
+<td><code>#8430C6</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.companion</code></td>
+<td>color</td>
+<td><code>#CE49B2</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.glow</code></td>
+<td>color</td>
+<td><code>#9198FF</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.canvas</code></td>
+<td>color</td>
+<td><code>#f9f6fc</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.surface</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#f4ecfa</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.text</code></td>
+<td>color</td>
+<td><code>#19102b</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.muted</code></td>
+<td>color</td>
+<td><code>#462b68</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.primary</code></td>
+<td>color</td>
+<td><code>#8430C6</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.onPrimary</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.primarySoft</code></td>
+<td>color</td>
+<td><code>#e9daf5</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#30174d</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.outline</code></td>
+<td>color</td>
+<td><code>#69478f</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.decorative</code></td>
+<td>color</td>
+<td><code>#8430C6</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.companion</code></td>
+<td>color</td>
+<td><code>#CE49B2</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.light.glow</code></td>
+<td>color</td>
+<td><code>#9198FF</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.canvas</code></td>
+<td>color</td>
+<td><code>#130d22</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.surface</code></td>
+<td>color</td>
+<td><code>#1e162c</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#36254e</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.text</code></td>
+<td>color</td>
+<td><code>#f8f3fc</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.muted</code></td>
+<td>color</td>
+<td><code>#dfc9f0</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.primary</code></td>
+<td>color</td>
+<td><code>#cfaee9</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.onPrimary</code></td>
+<td>color</td>
+<td><code>#180f29</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.primarySoft</code></td>
+<td>color</td>
+<td><code>#391b56</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#eee2f7</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.outline</code></td>
+<td>color</td>
+<td><code>#c6a0e5</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.decorative</code></td>
+<td>color</td>
+<td><code>#8e41cb</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.companion</code></td>
+<td>color</td>
+<td><code>#CE49B2</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.amethyst.dark.glow</code></td>
+<td>color</td>
+<td><code>#9198FF</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.seed</code></td>
+<td>color</td>
+<td><code>#4669B2</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.companion</code></td>
+<td>color</td>
+<td><code>#8970B5</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.glow</code></td>
+<td>color</td>
+<td><code>#72C4DF</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.canvas</code></td>
+<td>color</td>
+<td><code>#faf8fe</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.surface</code></td>
+<td>color</td>
+<td><code>#ffffff</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#e7e7f1</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.text</code></td>
+<td>color</td>
+<td><code>#30323a</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.muted</code></td>
+<td>color</td>
+<td><code>#5c5f68</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.primary</code></td>
+<td>color</td>
+<td><code>#4b5e8b</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.onPrimary</code></td>
+<td>color</td>
+<td><code>#f9f8ff</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.primarySoft</code></td>
+<td>color</td>
+<td><code>#b8cbff</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#2f436e</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.outline</code></td>
+<td>color</td>
+<td><code>#787a84</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.decorative</code></td>
+<td>color</td>
+<td><code>#4669B2</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.companion</code></td>
+<td>color</td>
+<td><code>#8970B5</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.light.glow</code></td>
+<td>color</td>
+<td><code>#72C4DF</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.canvas</code></td>
+<td>color</td>
+<td><code>#0d0e12</code></td>
+<td>Foundation behind every surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.surface</code></td>
+<td>color</td>
+<td><code>#111318</code></td>
+<td>Opaque reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.surfaceAlt</code></td>
+<td>color</td>
+<td><code>#1d1f26</code></td>
+<td>Secondary reading surface</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.text</code></td>
+<td>color</td>
+<td><code>#e4e5f0</code></td>
+<td>Body ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.muted</code></td>
+<td>color</td>
+<td><code>#a9aab5</code></td>
+<td>Supporting ink</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.primary</code></td>
+<td>color</td>
+<td><code>#b8c6ee</code></td>
+<td>Action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.onPrimary</code></td>
+<td>color</td>
+<td><code>#314060</code></td>
+<td>Ink on the action colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.primarySoft</code></td>
+<td>color</td>
+<td><code>#445274</code></td>
+<td>Selected or authored container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.onPrimarySoft</code></td>
+<td>color</td>
+<td><code>#dae3ff</code></td>
+<td>Ink on the soft container</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.outline</code></td>
+<td>color</td>
+<td><code>#73757f</code></td>
+<td>Functional boundary</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.decorative</code></td>
+<td>color</td>
+<td><code>#4669B2</code></td>
+<td>Atmosphere and decorative light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.companion</code></td>
+<td>color</td>
+<td><code>#8970B5</code></td>
+<td>Paired atmosphere colour</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.glow</code></td>
+<td>color</td>
+<td><code>#72C4DF</code></td>
+<td>Highlight light</td>
+</tr>
+<tr>
+<td><code>primitive.palette.harbor.dark.contentOwnSurface</code></td>
+<td>color</td>
+<td><code>#283c60</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="primitive-material">Primitive · material</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primitive.material.acrylicBlur</code></td>
+<td>dimension</td>
+<td><code>40px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.acrylicSaturation</code></td>
+<td>number</td>
+<td><code>125</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.glassBlur</code></td>
+<td>dimension</td>
+<td><code>20px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.glassSaturation</code></td>
+<td>number</td>
+<td><code>165</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.glassOpacity</code></td>
+<td>number</td>
+<td><code>0.2</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.grainOpacity</code></td>
+<td>number</td>
+<td><code>0.045</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.labelVeil</code></td>
+<td>number</td>
+<td><code>0.55</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.labelVeilDark</code></td>
+<td>number</td>
+<td><code>0.6</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.contentOpacity</code></td>
+<td>number</td>
+<td><code>0.8</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.contentFeather</code></td>
+<td>dimension</td>
+<td><code>1.95px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.stoneFeather</code></td>
+<td>dimension</td>
+<td><code>1.95px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.mirageColor</code></td>
+<td>color</td>
+<td><code>#111525</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.mirageOpacity</code></td>
+<td>number</td>
+<td><code>0.38</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.mirageBlur</code></td>
+<td>dimension</td>
+<td><code>28px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.mirageSaturation</code></td>
+<td>number</td>
+<td><code>165</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.mirageBrightness</code></td>
+<td>number</td>
+<td><code>88</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.mirageFallbackOpacity</code></td>
+<td>number</td>
+<td><code>0.64</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.plasticInactive.light</code></td>
+<td>color</td>
+<td><code>#f1f1f3</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.material.plasticInactive.dark</code></td>
+<td>color</td>
+<td><code>#202126</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="primitive-duration">Primitive · duration</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primitive.duration.press</code></td>
+<td>duration</td>
+<td><code>120ms</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.duration.state</code></td>
+<td>duration</td>
+<td><code>213.33ms</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.duration.spatial</code></td>
+<td>duration</td>
+<td><code>293.33ms</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.duration.exit</code></td>
+<td>duration</td>
+<td><code>160ms</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.duration.material</code></td>
+<td>duration</td>
+<td><code>1000ms</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.duration.liquid</code></td>
+<td>duration</td>
+<td><code>1400ms</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.duration.flow</code></td>
+<td>duration</td>
+<td><code>1200ms</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.duration.departure</code></td>
+<td>duration</td>
+<td><code>650ms</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.duration.maxDuration</code></td>
+<td>duration</td>
+<td><code>5000ms</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="primitive-distance">Primitive · distance</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primitive.distance.panel</code></td>
+<td>dimension</td>
+<td><code>24px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.distance.floating</code></td>
+<td>dimension</td>
+<td><code>30px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.distance.content</code></td>
+<td>dimension</td>
+<td><code>0px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.distance.exit</code></td>
+<td>dimension</td>
+<td><code>20px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.distance.depth</code></td>
+<td>dimension</td>
+<td><code>50px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.distance.feather</code></td>
+<td>dimension</td>
+<td><code>6px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.distance.maxTravel</code></td>
+<td>dimension</td>
+<td><code>50px</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="primitive-easing">Primitive · easing</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primitive.easing.enter</code></td>
+<td>cubicBezier</td>
+<td><code>cubic-bezier(0.22, 0.65, 0.22, 1)</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.easing.settle</code></td>
+<td>cubicBezier</td>
+<td><code>cubic-bezier(0.2, 0, 0.2, 1)</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>primitive.easing.exit</code></td>
+<td>cubicBezier</td>
+<td><code>cubic-bezier(0.4, 0, 0.6, 1)</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="semantic-tokens">Semantic tokens</h2>
+<p>What a value <em>means</em>: the surface a card sits on, the duration a control settles over. Components consume this tier and nothing below it.</p>
+<p>114 tokens.</p>
+<h3 id="semantic-material">Semantic · material</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>semantic.material.frost.diffusion</code></td>
+<td>dimension</td>
+<td><code>{primitive.material.acrylicBlur}</code></td>
+<td>Frost backdrop diffusion</td>
+</tr>
+<tr>
+<td><code>semantic.material.frost.saturation</code></td>
+<td>number</td>
+<td><code>{primitive.material.acrylicSaturation}</code></td>
+<td>Frost backdrop saturation, percent</td>
+</tr>
+<tr>
+<td><code>semantic.material.frost.grain</code></td>
+<td>number</td>
+<td><code>{primitive.material.grainOpacity}</code></td>
+<td>Frost grain opacity</td>
+</tr>
+<tr>
+<td><code>semantic.material.resin.diffusion</code></td>
+<td>dimension</td>
+<td><code>{primitive.material.glassBlur}</code></td>
+<td>Resin backdrop diffusion</td>
+</tr>
+<tr>
+<td><code>semantic.material.resin.saturation</code></td>
+<td>number</td>
+<td><code>{primitive.material.glassSaturation}</code></td>
+<td>Resin backdrop saturation, percent</td>
+</tr>
+<tr>
+<td><code>semantic.material.resin.fill</code></td>
+<td>number</td>
+<td><code>{primitive.material.glassOpacity}</code></td>
+<td>Resin fill opacity, fixed by the material contract</td>
+</tr>
+<tr>
+<td><code>semantic.material.stone.fill.light</code></td>
+<td>number</td>
+<td><code>{primitive.material.labelVeil}</code></td>
+<td>Stone label backing, light mode</td>
+</tr>
+<tr>
+<td><code>semantic.material.stone.fill.dark</code></td>
+<td>number</td>
+<td><code>{primitive.material.labelVeilDark}</code></td>
+<td>Stone label backing, dark mode</td>
+</tr>
+<tr>
+<td><code>semantic.material.stone.feather</code></td>
+<td>dimension</td>
+<td><code>{primitive.material.stoneFeather}</code></td>
+<td>Stone feathered perimeter</td>
+</tr>
+<tr>
+<td><code>semantic.material.haze.fill</code></td>
+<td>number</td>
+<td><code>{primitive.material.contentOpacity}</code></td>
+<td>Haze content fill opacity</td>
+</tr>
+<tr>
+<td><code>semantic.material.haze.feather</code></td>
+<td>dimension</td>
+<td><code>{primitive.material.contentFeather}</code></td>
+<td>Haze feathered perimeter</td>
+</tr>
+<tr>
+<td><code>semantic.material.mirage.colour</code></td>
+<td>color</td>
+<td><code>{primitive.material.mirageColor}</code></td>
+<td>Mirage scrim colour</td>
+</tr>
+<tr>
+<td><code>semantic.material.mirage.opacity</code></td>
+<td>number</td>
+<td><code>{primitive.material.mirageOpacity}</code></td>
+<td>Mirage scrim opacity</td>
+</tr>
+<tr>
+<td><code>semantic.material.mirage.diffusion</code></td>
+<td>dimension</td>
+<td><code>{primitive.material.mirageBlur}</code></td>
+<td>Mirage chromatic diffusion</td>
+</tr>
+<tr>
+<td><code>semantic.material.mirage.saturation</code></td>
+<td>number</td>
+<td><code>{primitive.material.mirageSaturation}</code></td>
+<td>Mirage saturation, percent</td>
+</tr>
+<tr>
+<td><code>semantic.material.mirage.brightness</code></td>
+<td>number</td>
+<td><code>{primitive.material.mirageBrightness}</code></td>
+<td>Mirage brightness, percent</td>
+</tr>
+<tr>
+<td><code>semantic.material.mirage.fallback</code></td>
+<td>number</td>
+<td><code>{primitive.material.mirageFallbackOpacity}</code></td>
+<td>Mirage opacity without backdrop filtering</td>
+</tr>
+<tr>
+<td><code>semantic.material.plastic.inactive.light</code></td>
+<td>color</td>
+<td><code>{primitive.material.plasticInactive.light}</code></td>
+<td>Plastic neutral fallback, inactive window</td>
+</tr>
+<tr>
+<td><code>semantic.material.plastic.inactive.dark</code></td>
+<td>color</td>
+<td><code>{primitive.material.plasticInactive.dark}</code></td>
+<td>Plastic neutral fallback, inactive window</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="semantic-feedback">Semantic · feedback</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>semantic.feedback.light.success.ink</code></td>
+<td>color</td>
+<td><code>#175D38</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.success.surface</code></td>
+<td>color</td>
+<td><code>#E5F4EA</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.success.symbol</code></td>
+<td>string</td>
+<td><code>✓</code></td>
+<td>Carries meaning without colour. A check mark means validated or informational, never selected.</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.success.label</code></td>
+<td>string</td>
+<td><code>Ready</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.attention.ink</code></td>
+<td>color</td>
+<td><code>#714B00</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.attention.surface</code></td>
+<td>color</td>
+<td><code>#FFF0CD</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.attention.symbol</code></td>
+<td>string</td>
+<td><code>△</code></td>
+<td>Carries meaning without colour. A check mark means validated or informational, never selected.</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.attention.label</code></td>
+<td>string</td>
+<td><code>Review needed</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.danger.ink</code></td>
+<td>color</td>
+<td><code>#941D36</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.danger.surface</code></td>
+<td>color</td>
+<td><code>#FFE8EC</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.danger.symbol</code></td>
+<td>string</td>
+<td><code>!</code></td>
+<td>Carries meaning without colour. A check mark means validated or informational, never selected.</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.danger.label</code></td>
+<td>string</td>
+<td><code>Action blocked</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.info.ink</code></td>
+<td>color</td>
+<td><code>#334155</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.info.surface</code></td>
+<td>color</td>
+<td><code>#E8EDF4</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.info.symbol</code></td>
+<td>string</td>
+<td><code>i</code></td>
+<td>Carries meaning without colour. A check mark means validated or informational, never selected.</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.light.info.label</code></td>
+<td>string</td>
+<td><code>Information</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.success.ink</code></td>
+<td>color</td>
+<td><code>#9BE2B3</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.success.surface</code></td>
+<td>color</td>
+<td><code>#173525</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.success.symbol</code></td>
+<td>string</td>
+<td><code>✓</code></td>
+<td>Carries meaning without colour. A check mark means validated or informational, never selected.</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.success.label</code></td>
+<td>string</td>
+<td><code>Ready</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.attention.ink</code></td>
+<td>color</td>
+<td><code>#FFDA8A</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.attention.surface</code></td>
+<td>color</td>
+<td><code>#3D2D0E</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.attention.symbol</code></td>
+<td>string</td>
+<td><code>△</code></td>
+<td>Carries meaning without colour. A check mark means validated or informational, never selected.</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.attention.label</code></td>
+<td>string</td>
+<td><code>Review needed</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.danger.ink</code></td>
+<td>color</td>
+<td><code>#FFB2C0</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.danger.surface</code></td>
+<td>color</td>
+<td><code>#481C29</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.danger.symbol</code></td>
+<td>string</td>
+<td><code>!</code></td>
+<td>Carries meaning without colour. A check mark means validated or informational, never selected.</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.danger.label</code></td>
+<td>string</td>
+<td><code>Action blocked</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.info.ink</code></td>
+<td>color</td>
+<td><code>#D2DCEC</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.info.surface</code></td>
+<td>color</td>
+<td><code>#263244</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.info.symbol</code></td>
+<td>string</td>
+<td><code>i</code></td>
+<td>Carries meaning without colour. A check mark means validated or informational, never selected.</td>
+</tr>
+<tr>
+<td><code>semantic.feedback.dark.info.label</code></td>
+<td>string</td>
+<td><code>Information</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="semantic-motion">Semantic · motion</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>semantic.motion.duration.press</code></td>
+<td>duration</td>
+<td><code>{primitive.duration.press}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.duration.state</code></td>
+<td>duration</td>
+<td><code>{primitive.duration.state}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.duration.spatial</code></td>
+<td>duration</td>
+<td><code>{primitive.duration.spatial}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.duration.exit</code></td>
+<td>duration</td>
+<td><code>{primitive.duration.exit}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.duration.material</code></td>
+<td>duration</td>
+<td><code>{primitive.duration.material}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.duration.liquid</code></td>
+<td>duration</td>
+<td><code>{primitive.duration.liquid}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.duration.flow</code></td>
+<td>duration</td>
+<td><code>{primitive.duration.flow}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.duration.departure</code></td>
+<td>duration</td>
+<td><code>{primitive.duration.departure}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.duration.ceiling</code></td>
+<td>duration</td>
+<td><code>{primitive.duration.maxDuration}</code></td>
+<td>Hard ceiling for any single animation, including replay-rate adjustment</td>
+</tr>
+<tr>
+<td><code>semantic.motion.easing.enter</code></td>
+<td>cubicBezier</td>
+<td><code>{primitive.easing.enter}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.easing.settle</code></td>
+<td>cubicBezier</td>
+<td><code>{primitive.easing.settle}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.easing.exit</code></td>
+<td>cubicBezier</td>
+<td><code>{primitive.easing.exit}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.travel.panel</code></td>
+<td>dimension</td>
+<td><code>{primitive.distance.panel}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.travel.floating</code></td>
+<td>dimension</td>
+<td><code>{primitive.distance.floating}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.travel.content</code></td>
+<td>dimension</td>
+<td><code>{primitive.distance.content}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.travel.exit</code></td>
+<td>dimension</td>
+<td><code>{primitive.distance.exit}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.travel.depth</code></td>
+<td>dimension</td>
+<td><code>{primitive.distance.depth}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.travel.feather</code></td>
+<td>dimension</td>
+<td><code>{primitive.distance.feather}</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.motion.travel.max</code></td>
+<td>dimension</td>
+<td><code>{primitive.distance.maxTravel}</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="semantic-typography">Semantic · typography</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>semantic.typography.family</code></td>
+<td>fontFamily</td>
+<td><code>Manrope</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.typography.readingSize</code></td>
+<td>dimension</td>
+<td><code>16px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.typography.readingLeading</code></td>
+<td>dimension</td>
+<td><code>24px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.display.ratio</code></td>
+<td>number</td>
+<td><code>2</code></td>
+<td>display: multiple of the reading size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.display.leading</code></td>
+<td>number</td>
+<td><code>1.1</code></td>
+<td>display: line height as a multiple of its own size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.display.tracking</code></td>
+<td>dimension</td>
+<td><code>-0.055em</code></td>
+<td>display: letter spacing</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.title.ratio</code></td>
+<td>number</td>
+<td><code>1.5</code></td>
+<td>title: multiple of the reading size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.title.leading</code></td>
+<td>number</td>
+<td><code>1.2</code></td>
+<td>title: line height as a multiple of its own size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.title.tracking</code></td>
+<td>dimension</td>
+<td><code>-0.04em</code></td>
+<td>title: letter spacing</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.heading.ratio</code></td>
+<td>number</td>
+<td><code>1.25</code></td>
+<td>heading: multiple of the reading size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.heading.leading</code></td>
+<td>number</td>
+<td><code>1.3</code></td>
+<td>heading: line height as a multiple of its own size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.heading.tracking</code></td>
+<td>dimension</td>
+<td><code>-0.03em</code></td>
+<td>heading: letter spacing</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.subheading.ratio</code></td>
+<td>number</td>
+<td><code>1.0625</code></td>
+<td>subheading: multiple of the reading size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.subheading.leading</code></td>
+<td>number</td>
+<td><code>1.45</code></td>
+<td>subheading: line height as a multiple of its own size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.subheading.tracking</code></td>
+<td>dimension</td>
+<td><code>-0.01em</code></td>
+<td>subheading: letter spacing</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.body.ratio</code></td>
+<td>number</td>
+<td><code>1</code></td>
+<td>body: multiple of the reading size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.body.leading</code></td>
+<td>number</td>
+<td><code>1.5</code></td>
+<td>body: line height as a multiple of its own size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.body.tracking</code></td>
+<td>dimension</td>
+<td><code>0</code></td>
+<td>body: letter spacing</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.caption.ratio</code></td>
+<td>number</td>
+<td><code>0.8125</code></td>
+<td>caption: multiple of the reading size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.caption.leading</code></td>
+<td>number</td>
+<td><code>1.45</code></td>
+<td>caption: line height as a multiple of its own size</td>
+</tr>
+<tr>
+<td><code>semantic.typography.scale.caption.tracking</code></td>
+<td>dimension</td>
+<td><code>0</code></td>
+<td>caption: letter spacing</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="semantic-spacing">Semantic · spacing</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>semantic.spacing.2xs</code></td>
+<td>dimension</td>
+<td><code>4px</code></td>
+<td>Spacing step 2xs</td>
+</tr>
+<tr>
+<td><code>semantic.spacing.xs</code></td>
+<td>dimension</td>
+<td><code>8px</code></td>
+<td>Spacing step xs</td>
+</tr>
+<tr>
+<td><code>semantic.spacing.sm</code></td>
+<td>dimension</td>
+<td><code>12px</code></td>
+<td>Spacing step sm</td>
+</tr>
+<tr>
+<td><code>semantic.spacing.md</code></td>
+<td>dimension</td>
+<td><code>16px</code></td>
+<td>Spacing step md</td>
+</tr>
+<tr>
+<td><code>semantic.spacing.lg</code></td>
+<td>dimension</td>
+<td><code>24px</code></td>
+<td>Spacing step lg</td>
+</tr>
+<tr>
+<td><code>semantic.spacing.xl</code></td>
+<td>dimension</td>
+<td><code>32px</code></td>
+<td>Spacing step xl</td>
+</tr>
+<tr>
+<td><code>semantic.spacing.2xl</code></td>
+<td>dimension</td>
+<td><code>48px</code></td>
+<td>Spacing step 2xl</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="semantic-breakpoint">Semantic · breakpoint</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>semantic.breakpoint.sm</code></td>
+<td>dimension</td>
+<td><code>600px</code></td>
+<td>Viewport width at which the sm layout begins</td>
+</tr>
+<tr>
+<td><code>semantic.breakpoint.md</code></td>
+<td>dimension</td>
+<td><code>850px</code></td>
+<td>Viewport width at which the md layout begins</td>
+</tr>
+<tr>
+<td><code>semantic.breakpoint.lg</code></td>
+<td>dimension</td>
+<td><code>1150px</code></td>
+<td>Viewport width at which the lg layout begins</td>
+</tr>
+<tr>
+<td><code>semantic.breakpoint.xl</code></td>
+<td>dimension</td>
+<td><code>1500px</code></td>
+<td>Viewport width at which the xl layout begins</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="semantic-shape">Semantic · shape</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>semantic.shape.contentRadius</code></td>
+<td>dimension</td>
+<td><code>28px</code></td>
+<td>Default content radius; adjustable 14-28px</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="semantic-range">Semantic · range</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>semantic.range.atmosphere</code></td>
+<td>number</td>
+<td><code>90</code></td>
+<td>Default 90; valid range 15-90</td>
+</tr>
+<tr>
+<td><code>semantic.range.translucency</code></td>
+<td>number</td>
+<td><code>35</code></td>
+<td>Default 35; valid range 35-85</td>
+</tr>
+<tr>
+<td><code>semantic.range.elevation</code></td>
+<td>number</td>
+<td><code>125</code></td>
+<td>Default 125; valid range 60-150</td>
+</tr>
+<tr>
+<td><code>semantic.range.radius</code></td>
+<td>number</td>
+<td><code>28</code></td>
+<td>Default 28; valid range 14-28</td>
+</tr>
+<tr>
+<td><code>semantic.range.motionSpeed</code></td>
+<td>number</td>
+<td><code>1</code></td>
+<td>Default 1; valid range 0.25-2</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="semantic-default">Semantic · default</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>semantic.default.palette</code></td>
+<td>string</td>
+<td><code>prism</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.default.mode</code></td>
+<td>string</td>
+<td><code>light</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.default.density</code></td>
+<td>string</td>
+<td><code>comfortable</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.default.font</code></td>
+<td>string</td>
+<td><code>manrope</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.default.reduced</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>semantic.default.reduceMotion</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="component-tokens">Component tokens</h2>
+<p>Values that belong to one component family and would be wrong to reuse elsewhere. This tier exists so a component can be specific without inventing a private constant.</p>
+<p>40 tokens.</p>
+<h3 id="component-action">Component · action</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.action.radius</code></td>
+<td>dimension</td>
+<td><code>999px</code></td>
+<td>Action controls are pill-shaped, independent of the content radius</td>
+</tr>
+<tr>
+<td><code>component.action.minTarget</code></td>
+<td>dimension</td>
+<td><code>44px</code></td>
+<td>Minimum interactive target</td>
+</tr>
+<tr>
+<td><code>component.action.paddingBlock</code></td>
+<td>dimension</td>
+<td><code>15px</code></td>
+<td>Action control block padding</td>
+</tr>
+<tr>
+<td><code>component.action.paddingInline</code></td>
+<td>dimension</td>
+<td><code>24px</code></td>
+<td>Action control inline padding</td>
+</tr>
+<tr>
+<td><code>component.action.gap</code></td>
+<td>dimension</td>
+<td><code>9px</code></td>
+<td>Gap between an action's icon and its label</td>
+</tr>
+<tr>
+<td><code>component.action.disabledOpacity</code></td>
+<td>number</td>
+<td><code>0.55</code></td>
+<td>Opacity of a disabled control</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-scrollbar">Component · scrollbar</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.scrollbar.width</code></td>
+<td>dimension</td>
+<td><code>10px</code></td>
+<td>Scrollbar track width</td>
+</tr>
+<tr>
+<td><code>component.scrollbar.thumbMinLength</code></td>
+<td>dimension</td>
+<td><code>32px</code></td>
+<td>Shortest a thumb may become, so a very long surface stays draggable</td>
+</tr>
+<tr>
+<td><code>component.scrollbar.inset</code></td>
+<td>dimension</td>
+<td><code>2px</code></td>
+<td>Gap between the thumb and the track edge</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-scrollarea">Component · scrollArea</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.scrollArea.fadeDepth</code></td>
+<td>dimension</td>
+<td><code>24px</code></td>
+<td>Depth of the scroll area edge fade, and the scroll padding that keeps focus clear of it</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-layout">Component · layout</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.layout.containerMax</code></td>
+<td>dimension</td>
+<td><code>1536px</code></td>
+<td>Widest the page shell becomes</td>
+</tr>
+<tr>
+<td><code>component.layout.readingMax</code></td>
+<td>dimension</td>
+<td><code>920px</code></td>
+<td>Widest a column of prose becomes, so a line stays a comfortable length</td>
+</tr>
+<tr>
+<td><code>component.layout.gutterCompact</code></td>
+<td>dimension</td>
+<td><code>18px</code></td>
+<td>Shell gutter below the sm breakpoint</td>
+</tr>
+<tr>
+<td><code>component.layout.gutterBase</code></td>
+<td>dimension</td>
+<td><code>26px</code></td>
+<td>Shell gutter between the sm and lg breakpoints</td>
+</tr>
+<tr>
+<td><code>component.layout.gutterWide</code></td>
+<td>dimension</td>
+<td><code>44px</code></td>
+<td>Shell gutter at the lg breakpoint and above</td>
+</tr>
+<tr>
+<td><code>component.layout.minCellWidth</code></td>
+<td>dimension</td>
+<td><code>240px</code></td>
+<td>Narrowest an auto-flowing grid cell becomes before the grid drops a column</td>
+</tr>
+<tr>
+<td><code>component.layout.sidebarWidth</code></td>
+<td>dimension</td>
+<td><code>280px</code></td>
+<td>Default width of a shell's supporting panel: a two-word label plus an icon at comfortable density</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-icon">Component · icon</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.icon.size</code></td>
+<td>dimension</td>
+<td><code>20px</code></td>
+<td>An icon in running content or beside a label</td>
+</tr>
+<tr>
+<td><code>component.icon.action</code></td>
+<td>dimension</td>
+<td><code>24px</code></td>
+<td>The single icon inside an icon button</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-choice">Component · choice</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.choice.boxSize</code></td>
+<td>dimension</td>
+<td><code>26px</code></td>
+<td>A checkbox box or a radio circle</td>
+</tr>
+<tr>
+<td><code>component.choice.boxRadius</code></td>
+<td>dimension</td>
+<td><code>9px</code></td>
+<td>The checkbox box corner; a radio is a circle</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-switch">Component · switch</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.switch.trackWidth</code></td>
+<td>dimension</td>
+<td><code>44px</code></td>
+<td>Switch track width</td>
+</tr>
+<tr>
+<td><code>component.switch.trackHeight</code></td>
+<td>dimension</td>
+<td><code>28px</code></td>
+<td>Switch track height</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-slider">Component · slider</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.slider.trackHeight</code></td>
+<td>dimension</td>
+<td><code>8px</code></td>
+<td>Slider track thickness</td>
+</tr>
+<tr>
+<td><code>component.slider.thumbSize</code></td>
+<td>dimension</td>
+<td><code>26px</code></td>
+<td>Slider thumb, padded to the target floor</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-chip">Component · chip</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.chip.height</code></td>
+<td>dimension</td>
+<td><code>32px</code></td>
+<td>A compact chip, inside a 44px target</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-overlayarrow">Component · overlayArrow</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.overlayArrow.size</code></td>
+<td>dimension</td>
+<td><code>14px</code></td>
+<td>The side of the rotated square that points at an overlay's trigger</td>
+</tr>
+<tr>
+<td><code>component.overlayArrow.radius</code></td>
+<td>dimension</td>
+<td><code>3px</code></td>
+<td>The arrow's tip radius, so a pointer is not a needle</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-overlay">Component · overlay</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.overlay.maxWidth</code></td>
+<td>dimension</td>
+<td><code>480px</code></td>
+<td>How wide an anchored popover may grow before it stops being anchored to anything</td>
+</tr>
+<tr>
+<td><code>component.overlay.tooltipMaxWidth</code></td>
+<td>dimension</td>
+<td><code>352px</code></td>
+<td>About sixty characters: a tooltip longer than this is documentation</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-field">Component · field</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.field.wellInset</code></td>
+<td>dimension</td>
+<td><code>7px</code></td>
+<td>How much tighter a well's radius is than the shell containing it</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-card">Component · card</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.card.radius</code></td>
+<td>dimension</td>
+<td><code>{semantic.shape.contentRadius}</code></td>
+<td>Card-shaped buttons keep the content radius so artwork is not clipped</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-focus">Component · focus</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.focus.coreWidth</code></td>
+<td>dimension</td>
+<td><code>2px</code></td>
+<td>Crisp focus core, never blurred</td>
+</tr>
+<tr>
+<td><code>component.focus.coreOffset</code></td>
+<td>dimension</td>
+<td><code>3px</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-indicator">Component · indicator</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.indicator.size</code></td>
+<td>dimension</td>
+<td><code>20px</code></td>
+<td>Circular state badge</td>
+</tr>
+<tr>
+<td><code>component.indicator.fieldSize</code></td>
+<td>dimension</td>
+<td><code>24px</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>component.indicator.lineWidth</code></td>
+<td>dimension</td>
+<td><code>3px</code></td>
+<td>A line that marks: a drop target's rule, a selected swatch's ring, a quotation's leading rule</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-anchor">Component · anchor</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.anchor.underlineOffset</code></td>
+<td>dimension</td>
+<td><code>4px</code></td>
+<td>How far a link's underline sits below the baseline, so a descender is not struck through</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-tree">Component · tree</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.tree.indentStep</code></td>
+<td>dimension</td>
+<td><code>20px</code></td>
+<td>How far one level of a tree is indented from its parent</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-haze">Component · haze</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.haze.inset</code></td>
+<td>dimension</td>
+<td><code>8px</code></td>
+<td>How far a Resin surface holds its Haze content fill back from its own rim, so the glass edge still reads while the label sits on a stable ground. The fill is feathered and therefore lives on an isolated layer behind the content; feathering an element that contains text blurs the text. A Resin strip uses the same inset and its pills carry no material of their own.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="deprecations">Deprecations</h2>
+<p>A deprecated token still resolves. It is listed here so adopters can migrate before
+it is removed, which is the only reason to keep a name that no longer describes its
+value.</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Replacement or reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>removedIn</code></td>
+<td>3.0.0</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>Superseded by the named material vocabulary. Two names for one concept is a documentation and tooling problem that multiplies across platform libraries.</td>
+</tr>
+<tr>
+<td><code>tokens</code></td>
+<td>[object Object]</td>
+</tr>
+<tr>
+<td><code>classes</code></td>
+<td>[object Object]</td>
+</tr>
+</tbody>
+</table></div></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/tokens.md">Specification source</a></footer></div></body></html>

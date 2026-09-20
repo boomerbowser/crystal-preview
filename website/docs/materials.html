@@ -1,0 +1,591 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Materials, depth and optical detail · Crystal</title><link rel="icon" href="../vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="../assets/controls.css?v=pill-focus-2"><script src="../vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="../vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="../assets/motion-shaders.js" defer></script><script src="../assets/menu.js" defer></script><script src="../assets/docs.js" defer></script><script src="../assets/controls.js?v=pill-focus-2" defer></script></head><body><a class="skip" href="#main">Skip to specification</a><div class="shell"><header class="site-header"><a class="wordmark" href="../index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="../vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="../index.html">Overview</a><a class="cr-control menu-item" href="../playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="../docs/principles.html">Foundations</a><a class="cr-control menu-item" href="../docs/colors.html">Color</a><a class="cr-control menu-item" href="../docs/materials.html" aria-current="page">Materials</a><a class="cr-control menu-item" href="../docs/components.html">Components</a><a class="cr-control menu-item" href="../docs/catalogue.html">Catalogue</a><a class="cr-control menu-item" href="../docs/icons.html">Icons</a><a class="cr-control menu-item" href="../docs/tokens.html">Tokens</a><a class="cr-control menu-item" href="../docs/motion.html">Motion</a><a class="cr-control menu-item" href="../docs/motion-components.html">Component motion</a><a class="cr-control menu-item" href="../docs/accessibility.html">Accessibility</a><a class="cr-control menu-item" href="../docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="../motion.html">Motion studies</a><a class="cr-control menu-item" href="../verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="materials-depth-and-optical-detail">Materials, depth and optical detail</h1>
+<p><strong>The defining order is Plastic → Frost → Resin, from back to front.</strong> Plastic is the foundation, Frost the intermediate material layer, and Resin the highest functional control layer. Haze reading wells preserve legibility within this hierarchy. It is a custom design system, not a vendor-certified combination of Microsoft and Apple systems.</p>
+<h2 id="visual-acceptance-requirement">Visual acceptance requirement</h2>
+<p>The approved Crystal material studies define the intended appearance, not merely inspiration. Every implementation must preserve their distinct opacity and diffusion, transmitted color, optical contours, elevation, soft reading-fill edges and crisp text. If a component or material departs from those qualities without an approved reason, treat it as a defect. Check actual UI screenshots as well as tokens. Dark mode and alternate palettes must preserve the same relationships; documented accessibility fallbacks remain required.</p>
+<h2 id="recommended-defaults">Recommended defaults</h2>
+<p>Use these settings as Crystal’s recommended starting point across products:</p>
+<!-- generated:defaults -->
+
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Setting</th>
+<th>Recommended default</th>
+<th>Valid range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Color atmosphere</td>
+<td>90%</td>
+<td>15% – 90%</td>
+</tr>
+<tr>
+<td>Frost base tint</td>
+<td>35%</td>
+<td>35% – 85%</td>
+</tr>
+<tr>
+<td>Elevation</td>
+<td>125%</td>
+<td>60% – 150%</td>
+</tr>
+<tr>
+<td>Corner radius</td>
+<td>28px</td>
+<td>14px – 28px</td>
+</tr>
+<tr>
+<td>Motion speed</td>
+<td>1×</td>
+<td>0.25× – 2×</td>
+</tr>
+<tr>
+<td>Palette</td>
+<td><code>prism</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Mode</td>
+<td><code>light</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Density</td>
+<td><code>comfortable</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Font</td>
+<td><code>manrope</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Reduced</td>
+<td><code>false</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Reduce motion</td>
+<td><code>false</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /generated:defaults -->
+
+<p>The canonical tokens, generated theme and playground’s <strong>Reset</strong> action use these values. Saved user preferences remain customizable. Frost’s existing recipe adds 10 percentage points to its base tint, so the recommended 35% base produces a 45% surface fill. Resin remains fixed at 20% fill opacity; opaque accessibility fallbacks take precedence.</p>
+<h2 id="material-family-and-inspiration">Material family and inspiration</h2>
+<p>Crystal has <strong>six first-class materials: Plastic, Frost, Resin, Haze, Stone, and Mirage</strong>. Each has its own named recipe and reusable primitive. Plastic → Frost → Resin is the main spatial stack; Haze and Stone are readable fills within components, while Mirage separates a modal from the rest of the interface.</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Crystal material</th>
+<th>Previous name / inspiration</th>
+<th>Crystal adaptation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plastic</td>
+<td>Microsoft Mica</td>
+<td>Opaque contextual foundation, bounded product tint and neutral inactive state</td>
+</tr>
+<tr>
+<td>Frost</td>
+<td>Microsoft Acrylic</td>
+<td>Diffusion, tint and grain tuned for Crystal’s intermediate surfaces</td>
+</tr>
+<tr>
+<td>Resin</td>
+<td>Apple Liquid Glass</td>
+<td>Floating optical contours, 20% fill and authored web blur rather than native refraction</td>
+</tr>
+<tr>
+<td>Haze</td>
+<td>Solid content</td>
+<td>80% reading fill with a 1.95px feathered perimeter</td>
+</tr>
+<tr>
+<td>Stone</td>
+<td>Protected labels</td>
+<td>55% light / 60% dark backing, feathered like Haze, with crisp labels</td>
+</tr>
+<tr>
+<td>Mirage</td>
+<td>Smoke / modal scrim</td>
+<td>Chromatic diffusion of the underlying scene, darkened behind a focused modal</td>
+</tr>
+</tbody>
+</table></div>
+<p>Plastic, Frost and Resin are based in and inspired by their respective platform materials, then adjusted to work together as Crystal. They are not vendor-certified implementations. Microsoft’s <a href="https://learn.microsoft.com/en-us/windows/apps/design/style/mica">Mica</a> describes an opaque contextual base; <a href="https://learn.microsoft.com/en-us/windows/apps/design/style/acrylic">Acrylic</a> combines tint, diffusion and texture; Apple’s <a href="https://developer.apple.com/design/human-interface-guidelines/materials">material guidance</a> informs Resin’s floating functional role. Haze, Stone and Mirage are Crystal’s adaptations of content fills, readability veils and modal scrims.</p>
+<h2 id="material-assignment">Material assignment</h2>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Material</th>
+<th>Web recipe</th>
+<th>Where it belongs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plastic</td>
+<td>Opaque canvas with bounded product-color gradients; no backdrop blur</td>
+<td>Root scene/window; one contextual foundation</td>
+</tr>
+<tr>
+<td>Haze</td>
+<td>80% content fill, 1.95px feathered perimeter and shallow paired shadows; crisp foreground</td>
+<td>Reading, structured lists, forms, messages, consequential decisions</td>
+</tr>
+<tr>
+<td>Frost</td>
+<td>Default 45% surface tint (35% base), 40px blur, 125% saturation, grain opacity .045</td>
+<td>Intermediate task frames, transient panels and overlays, with Haze reading/input surrounds</td>
+</tr>
+<tr>
+<td>Resin</td>
+<td>Fixed 20% surface tint, 20px blur, 165% saturation, defined rim, strongest floating shadow</td>
+<td>One clustered navigation or control plane</td>
+</tr>
+<tr>
+<td>Stone</td>
+<td>55% light / 60% dark fill with a 1.95px feather inside the Resin plane</td>
+<td>Navigation labels and material comparison captions</td>
+</tr>
+<tr>
+<td>Mirage</td>
+<td>#111525 at 38% opacity; 28px backdrop blur, 165% saturation, 88% brightness; Haze decision surface above</td>
+<td>Blocking decisions, focus managed by the dialog</td>
+</tr>
+</tbody>
+</table></div>
+<p>Resin renders at a fixed 20% fill opacity in both modes, independent of the Frost base tint control. Frost retains its existing recipe (45% fill from the recommended 35% base). Text, rims and shadows retain their opacity. Label protection is 55% in light mode and 60% in dark mode, with the dark backing strengthened to preserve contrast over bright backdrops at this lower glass opacity. Opaque accessibility fallbacks remain fully opaque. This deliberately differs from the original recipes preserved in <code>reference/</code>.</p>
+<p>The persistent Frost task frame is an intentional Crystal hybrid, not a claim of strict Microsoft placement conformance. One frame can contain several softened content wells; avoid nesting independently blurred panes. All three live scenes show that same stack.</p>
+<p>Do not apply opacity to an entire pane containing text. Do not stack backdrop blur on adjacent cards or every message; the content recipe feathers only its own background paint. Do not sample the desktop, capture other windows or duplicate private content into canvases to create a refraction effect. This implementation provides CSS blur, tint, texture, highlights and shadows; it does not implement native optical lensing.</p>
+<h2 id="material-recipe-values">Material recipe values</h2>
+<p>The numbers every material resolves to, generated from <code>tokens/crystal.json</code>. This table
+is the authority; where the prose above describes a technique, these are the values that
+technique uses.</p>
+<!-- generated:material-recipes -->
+
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Material</th>
+<th>Diffusion</th>
+<th>Fill</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Plastic</strong></td>
+<td>Opaque. No backdrop filter at all.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Frost</strong></td>
+<td>40px blur, 125% saturation</td>
+<td>grain 0.045</td>
+</tr>
+<tr>
+<td><strong>Resin</strong></td>
+<td>20px blur, 165% saturation</td>
+<td>fixed 20% fill, both modes</td>
+</tr>
+<tr>
+<td><strong>Haze</strong></td>
+<td>80% content fill</td>
+<td>1.95px feather</td>
+</tr>
+<tr>
+<td><strong>Stone</strong></td>
+<td>55% light / 60% dark</td>
+<td>1.95px feather</td>
+</tr>
+<tr>
+<td><strong>Mirage</strong></td>
+<td>28px blur, 165% saturation, 88% brightness</td>
+<td>#111525 at 38%; 64% without backdrop filtering</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /generated:material-recipes -->
+
+<h2 id="haze-integrated-reading-surfaces">Haze: integrated reading surfaces</h2>
+<p>Haze is Crystal’s named content material, previously called Solid. Its normal recipe now uses <strong>80% fill opacity</strong> and a <strong>1.95px edge feather</strong>, so the underlying Frost or Resin contributes color rather than ending abruptly at a sheet of blank fill. Plastic → Frost → Resin remains the governing hierarchy; a reading fill within a Resin component is part of that component.</p>
+<p>The <code>.cr-haze</code>, <code>.cr-well</code>, <code>.cr-bubble</code>, <code>.cr-content-fill</code> and <code>.cr-dialog</code> primitives paint the fill on an isolated, non-interactive <code>::before</code> layer. Only that paint layer receives <code>filter: blur(1.95px)</code>; text, icons, selection, hit areas and focus outlines stay sharp and fully opaque. The broad interior remains at 80%, while the narrow perimeter feathers into its surroundings. Keep at least <strong>12px of padding</strong> between readable content and the feathered edge, including around rounded corners. Do not clip the feather with an ancestor’s overflow unless deliberately necessary for media.</p>
+<p>Neutral and tinted message surfaces both follow this recipe. The Harbor palette uses stronger supporting ink and a deeper authored-message fill to retain contrast with the added transparency. This is separate from the palette’s solid action/status colors. Actual input controls, status badges and consequential action buttons retain explicit boundaries and their protected color pairs; their surrounding content surface uses the softened fill. Stone retains its own label-backing opacity, separate from Haze.</p>
+<p>The reference includes a content card over a Resin panel. Its appearance follows the palette and light/dark controls, and opaque fallback restores a 100% fill with no feather. Reduced-transparency preferences and forced colors also restore stable surfaces. Exported CSS and JSON include <code>--cr-haze-fill</code>, <code>--cr-haze-own-fill</code>, <code>--cr-haze-feather</code>, <code>--cr-haze-inset</code>, and the corresponding content foreground roles.</p>
+<p>The contrast model tests 80% interior fill and a conservative 79% reading-area bound against RGB-corner backdrops in every palette and mode. It does not certify pixels along the intentionally fading perimeter; place no text in that perimeter and verify actual padding, imagery and layering in each product.</p>
+<h2 id="stone-protected-labels">Stone: protected labels</h2>
+<p>Stone is the lighter-density backing shown inside Resin controls. It now has the <strong>same 1.95px background feather as Haze</strong>, while retaining <strong>55% opacity in light mode and 60% in dark mode</strong>. Haze remains 80%; these recipes are deliberately independent.</p>
+<p><code>.cr-stone</code> paints <code>--cr-stone-fill</code> on an isolated <code>::before</code> layer with <code>--cr-stone-feather</code>; text and icons are neither blurred nor faded. The dock’s <code>.cr-dock-inner</code> uses the same recipe. Keep readable content at least 12px from the feathered perimeter, counting both group and button padding. Shapes, marks and labels continue to convey state beyond color. Reduced transparency restores an opaque, unfeathered backing; forced colors uses system colors.</p>
+<p>Stone’s contrast model includes Resin’s 20% fill, optical highlights and a conservative one-percentage-point reduction in the label fill to cover the feather’s reading-area tail. The feathered perimeter itself is not a valid text area.</p>
+<h2 id="mirage-modal-separation">Mirage: modal separation</h2>
+<p>Mirage is the named material formerly called Smoke. Its recipe blends the actual colors underneath into a dark, chromatic backdrop: <strong>28px blur → 165% saturation → 88% brightness</strong>, followed by a <strong>38% <code>#111525</code> tint</strong>. Broad diffusion merges shapes into color fields; saturation preserves their color through the dark veil. No fixed brand gradient, hue rotation, screenshot capture or duplicate page render is used. A Haze modal sits above it and remains crisp. Mirage is not a content surface and must not carry ordinary reading text.</p>
+<p>The working native dialog uses Mirage through <code>::backdrop</code>. <code>.cr-mirage</code> exposes the same paint recipe for application-owned overlay implementations; it does not itself implement modal behavior, positioning or focus management. Products must provide actual modality, keyboard containment, a named dialog, dismissal and focus return. The preview’s <strong>Preview Mirage</strong> button opens the real dialog. Reduced transparency removes diffusion and color filtering and uses a stronger <strong>64% <code>#111525</code> scrim</strong>; the same scrim is the unsupported-filter fallback. Modal separation remains visible. The preview also includes a live artwork comparison: toggle Mirage to see the real underlying colors before and after the filter. Changing the palette changes the artwork and therefore the resulting chromatic blur.</p>
+<h2 id="plastic-mica-inspiration-and-adaptation">Plastic: Mica inspiration and adaptation</h2>
+<p>Plastic adapts Mica’s opacity, subtle contextual tint, light/dark awareness, and a neutral inactive-window fallback. The active/inactive study demonstrates those properties: the window remains fully opaque, and the context’s shapes do not pass through it. The browser uses a preselected product color impression; it does not access desktop wallpaper. Native implementations should use supported OS facilities for wallpaper influence and activation behavior.</p>
+<p>The broader Frost/Resin study contains deliberately vivid <strong>artwork above the Plastic foundation</strong> so blur can be inspected. That artwork is content, not a claim that native Mica itself paints saturated wallpaper detail. The ordinary app preview keeps a restrained contextual base and puts stronger colors into accents and content. <a href="https://fluent2.microsoft.design/material">Fluent material roles</a>.</p>
+<p>The reusable <code>.cr-plastic[data-window-active="false"]</code> state removes contextual gradients and uses the opaque <code>--cr-plastic-inactive</code> token: <code>#f1f1f3</code> in light mode and <code>#202126</code> in dark. These are Crystal fallback values, not vendor constants. The host supplies activation state; the preview uses an explicit switch. Active tint is bounded by the atmosphere control: the two gradient alpha maxima are 21.6%/17.1% in light mode and 26.1%/20.7% in dark, always composited over an opaque canvas.</p>
+<h2 id="frost-acrylic-inspiration-and-adaptation">Frost: Acrylic inspiration and adaptation</h2>
+<p>Frost adapts Acrylic’s broad backdrop diffusion; the light version has milky tint, while the dark version has charcoal tint, with background color and large shapes still visible. The shared extension increases Frost diffusion to 40px, uses 125% saturation and fine grain at .045 opacity. Resin retains its sharper rim and 20px blur. These authored web values are visual targets, not extracted Microsoft constants.</p>
+<p>The playground includes a layered, adjustable material study.</p>
+<h2 id="resin-liquid-glass-inspiration-and-adaptation">Resin: Liquid Glass inspiration and adaptation</h2>
+<p>Resin adapts Liquid Glass’s rounded volume, visible backdrop color, a fine illuminated perimeter, smooth surfaces and floating separation. The refinement adds directional optical sheen and an inner rim, and reduces label backing from 92% to 55% in light mode and 60% in dark mode. Frost remains grainier and more broadly diffused; Resin remains the clearer top functional layer.</p>
+<p>The text safety calculation includes the fixed 20% Resin tint, the label veil, and a bright optical highlight over extreme backdrops. Readability relies on tested foreground/background pairs and protected labels, not text shadows. Product layouts still require accessibility verification. The CSS implementation does not claim physical refraction.</p>
+<h2 id="elevation-hierarchy">Elevation hierarchy</h2>
+<p>At 100% elevation, the reference geometry is shown below. The recommended default is 125%, which scales these shadow offsets and blur radii by 1.25:</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Surface</th>
+<th>Contact shadow</th>
+<th>Ambient shadow</th>
+<th>Optical contour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content</td>
+<td>0 2px 3px</td>
+<td>0 7px 15px</td>
+<td>Fine edge</td>
+</tr>
+<tr>
+<td>Supporting panel</td>
+<td>0 3px 5px</td>
+<td>0 14px 28px</td>
+<td>Inset top highlight</td>
+</tr>
+<tr>
+<td>Floating controls</td>
+<td>0 4px 7px</td>
+<td>0 20px 40px</td>
+<td>Top highlight and lower inset contour</td>
+</tr>
+</tbody>
+</table></div>
+<p>Shadow colors adapt to mode. The elevation control scales offsets and blur from 60–150%; hierarchy remains ordered. Depth is a visual relationship, not a z-index value. Products must also manage their actual overlay stack and focus order. Dark mode uses contours and tonal separation alongside shadows.</p>
+<h2 id="fallbacks">Fallbacks</h2>
+<p>Reduce transparency replaces supporting materials with opaque content surfaces, removes grain/blur, and restores a visible outline. CSS also honors reduced-transparency preferences where supported and falls back when backdrop filtering is unavailable. Reduced motion removes movement; forced colors use system colors and borders. None of these modes hides essential content.</p>
+<p>Support claims must be verified on actual target browsers/devices. A native implementation should use supported compositor APIs where appropriate and deliberately adapt the custom hierarchy elsewhere. The browser preview does not prove native rendering, energy performance or accessibility parity.</p>
+<h2 id="performance-and-composition">Performance and composition</h2>
+<p>Keep backdrop filters confined to a few bounded surfaces, avoid continuous blur animations, and avoid putting a scrolling text layer under numerous overlapping filters. A low-power mode can select the opaque recipe without changing geometry. Measure actual scroll/compositor behavior before setting device-specific budgets.</p>
+<h2 id="spacing-and-the-layout-shell">Spacing and the layout shell</h2>
+<p>Two scales that had no tokens until the layout components needed them. Neither is a new design decision: they name what Crystal's own shell already does, so something other than the preview can reach the values.</p>
+<p><strong>The spacing scale</strong> is the 4px rhythm, tied at two points to the reading rhythm so it is not an arbitrary ladder: <code>md</code> is the 16px reading size and <code>lg</code> is the 24px leading, which makes a <code>lg</code> gap exactly one blank line between blocks.</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Step</th>
+<th><code>2xs</code></th>
+<th><code>xs</code></th>
+<th><code>sm</code></th>
+<th><code>md</code></th>
+<th><code>lg</code></th>
+<th><code>xl</code></th>
+<th><code>2xl</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>4px</td>
+<td>8px</td>
+<td>12px</td>
+<td>16px</td>
+<td>24px</td>
+<td>32px</td>
+<td>48px</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>--cr-space</code> is a different thing and stays: it is the density-aware padding step, 20px comfortable and 14px compact. The spacing scale does not vary with density, palette or mode.</p>
+<p><strong>The breakpoints</strong> are where the shell already changes: <code>sm</code> 600px, <code>md</code> 850px, <code>lg</code> 1150px, <code>xl</code> 1500px. They cannot be custom properties, because a custom property is not usable inside a media query — libraries compile against them from the generated exports.</p>
+<p><strong>The shell</strong> is a 1536px ceiling with gutters that step down at those breakpoints — 44px at <code>lg</code> and above, 26px between <code>sm</code> and <code>lg</code>, 18px below <code>sm</code> — and a 920px reading column inside it, which is what keeps a line of prose a comfortable length.</p>
+<h2 id="the-type-scale">The type scale</h2>
+<p>Crystal specifies a reading rhythm — Manrope at 16/24 — and the scale is derived from it rather than written down. Each step is a <strong>ratio</strong> of the reading size, so moving <code>typography.readingSize</code> moves all six instead of leaving six literals behind.</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Step</th>
+<th>Ratio</th>
+<th>Size</th>
+<th>Leading</th>
+<th>Tracking</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>display</code></td>
+<td>2</td>
+<td>32px</td>
+<td>1.1</td>
+<td>−0.055em</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>1.5</td>
+<td>24px</td>
+<td>1.2</td>
+<td>−0.04em</td>
+</tr>
+<tr>
+<td><code>heading</code></td>
+<td>1.25</td>
+<td>20px</td>
+<td>1.3</td>
+<td>−0.03em</td>
+</tr>
+<tr>
+<td><code>subheading</code></td>
+<td>1.0625</td>
+<td>17px</td>
+<td>1.45</td>
+<td>−0.01em</td>
+</tr>
+<tr>
+<td><code>body</code></td>
+<td>1</td>
+<td>16px</td>
+<td>1.5</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>caption</code></td>
+<td>0.8125</td>
+<td>13px</td>
+<td>1.45</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>The scale is deliberately modest. Crystal's hierarchy is carried by weight and material as much as by size, and a dramatic scale fights that.</p>
+<p>Leading tightens as size grows — large text needs proportionally less to read as a block rather than as a list of lines — and tracking tightens with it, because default tracking reads loose at display sizes.</p>
+<p>The steps reach CSS as <code>--cr-text-&lt;step&gt;-size</code>, <code>-leading</code> and <code>-tracking</code>. <strong>Density tightens leading and never the size</strong>: shrinking text at higher density trades legibility for space, which Crystal does not do — density tightens spacing and never touches a 44px target or a reading size.</p>
+<p><strong>The level and the step are chosen separately.</strong> A heading's level is its position in the document outline; its step is a design decision. A component where <code>level={2}</code> also means "medium" forces a choice between a correct outline and a correct appearance, and products reliably choose appearance.</p>
+<h2 id="scrolling">Scrolling</h2>
+<p>A scrollbar belongs to the material it scrolls, not to the operating system. There are two, and which one a surface takes follows the hierarchy rather than taste.</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Class</th>
+<th>Material</th>
+<th>Thumb</th>
+<th>Use it on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.cr-scroll-frost</code></td>
+<td>Frost</td>
+<td>palette ink at 55%</td>
+<td>Panels, side navigation, long reading surfaces, and dialogs. Frost is the intermediate surface, so its scrollbar belongs to the panel the way the panel's own text does.</td>
+</tr>
+<tr>
+<td><code>.cr-scroll-resin</code></td>
+<td>Resin</td>
+<td>palette primary at 80%</td>
+<td>Floating control planes, menus, popovers, and compact or horizontal scrollers such as <code>.cr-table-scroll</code>. Resin is the control plane, so a scrollbar there is tinted like a control.</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>.cr-scroll</code> carries the behaviour both build on and is worth applying to any scroll container on its own:</p>
+<ul>
+<li><code>overscroll-behavior: contain</code> stops scroll chaining, so a swipe that reaches the end of a scroller does not carry on into the page underneath. This is invisible with a mouse and immediately obvious on a phone.</li>
+<li><code>scrollbar-gutter: stable</code> keeps content from shifting when a vertical scrollbar appears. It is not applied to horizontal-only scrollers, where the gutter would reserve space against a scrollbar that never arrives. A dialog takes <code>stable both-edges</code> so centred content stays centred.</li>
+<li><code>touch-action: pan-x pan-y</code> leaves the browser's own gesture handling in place, so momentum and rubber-banding still feel native.</li>
+</ul>
+<p>A horizontal scroller is the one case that needs care. Setting <code>overflow-x: auto</code> makes <code>overflow-y</code> compute to <code>auto</code> as well, so a gutter is reserved for a vertical scrollbar that can never appear — 12px lost at the inline edge.</p>
+<p><strong>Add <code>.cr-scroll-x</code> to say a scroller is horizontal-only.</strong> CSS cannot work it out, so it has to be declared:</p>
+<pre><code class="language-html">&lt;div class=&quot;cr-scroll-resin cr-scroll-x&quot;&gt;…&lt;/div&gt;
+</code></pre>
+<p>It clips the block axis and releases the gutter, which is the same treatment <code>.cr-table-scroll</code> gets by being excluded from the gutter rule. <code>verify-scroll</code> fails any container that scrolls across but not down while still holding a gutter, so forgetting it is caught rather than merely costly.</p>
+<p>Both thumbs clear 3:1 against every Crystal surface in all six palettes and both modes; the token gate asserts it. Under reduced transparency and forced colors the thumb goes solid and takes the system or outline colour.</p>
+<h3 id="edge-fades">Edge fades</h3>
+<p>A scroll area fades its content where there is more beyond the edge — 24px, on the scrolling axis, at whichever ends have content past them. A fade says "there is more this way" on a touch device, where the scrollbar is an overlay that is not there until you are already scrolling.</p>
+<p>The fade is a <strong>mask</strong>, not a painted overlay. What an overlay would have to paint is the surrounding material, and a colour approximating a translucent material over an unknown backdrop is wrong at every edge except the one it was sampled at. A mask lets the real material show through.</p>
+<p>Set <code>data-cr-scroll</code> to <code>start</code>, <code>end</code> or <code>both</code> — which edges have content beyond them — together with <code>data-cr-scroll-axis</code> of <code>x</code> or <code>y</code>. <code>start</code> means the container is <em>at</em> its start, so only the far edge fades. Without the attribute nothing fades, so a container with no runtime driving it is unmasked rather than permanently faded at both ends. Start and end are logical: the horizontal gradient turns around in right-to-left.</p>
+<p>A mask fades the whole element — its own fill and border included — so the fade belongs on the element that scrolls. A material surface that also scrolls puts its material on a wrapper, or the panel dissolves along with the content it is holding.</p>
+<p>The same token is the container's <code>scroll-padding</code>, which is what keeps this accessible. Browsers scroll a newly focused element into view respecting scroll padding, so a focus ring can never come to rest underneath the fade — Crystal does not blur focus, and fading one would be the same defect by another route. Forced colors removes the fade entirely.</p>
+<p>What a native scrollbar cannot carry is the material itself — <code>backdrop-filter</code> has no effect on one, and the standard properties expose only two colours and a coarse width. A surface that needs the material in full uses the <strong>scroll area</strong> component, which draws its thumb as a real element.</p>
+<h2 id="acceptance">Acceptance</h2>
+<p>Inspect light/dark, every palette, strongest atmosphere, both Frost tint extremes, reduced effects, narrow layouts, long labels, text zoom, keyboard focus and relevant backdrop extremes. The material comparison board intentionally places all samples over the same saturated motif so differences remain visible. Compare silhouettes and depth relationships, not only pixel similarity.</p>
+<h2 id="resin-with-haze-interactive-and-compact-surfaces">Resin with Haze: interactive and compact surfaces</h2>
+<p>Resin is the primary background for buttons and all interaction surfaces. Its body stays at 20% fill with the existing blur, saturation, illuminated rim and elevation. When contrast requires protection, put an 80% Haze reading fill inside that shell, with the existing 1.95px feather and an 8px visible Resin perimeter, exported as <code>--cr-haze-inset</code>. That inset is a token rather than a number each library retypes: the fill and its feather were always exported, the inset was not, and a library can carry every Haze token and still paint no fill at all. Keep text sufficiently inset from the feather. The adjustable preview always uses this protected construction.</p>
+<p>This same composition is required for small information displays—tooltips, toasts, labels, tags and badges—and temporary secondary menus, dropdowns, flyouts and popovers. It does not replace the structural Plastic → Frost → Resin hierarchy or turn every large component into Resin. Stone remains a named material with its own standalone specifications; compact UI labels now choose Resin/Haze instead of an isolated Stone slab.</p>
+<p>Optical highlights remain below the Haze reading fill, including during animation. They can cross the exposed Resin perimeter without bleaching the protected label background. Contrast models check this actual ordering across all six palettes, both modes and RGB-corner backdrops.</p>
+<h3 id="interaction-surface-geometry">Interaction surface geometry</h3>
+<p>Use a broad, luminous Resin rim with an 8px inset reading fill and diffuse paired shadows. Avoid thin dark perimeter strokes on ordinary action buttons; native text-entry fields retain a functional boundary and every control retains a visible keyboard focus ring. Standalone actions use generous padding and full pill geometry.</p>
+<p>Toolbars, segmented controls and tab groups share one Resin/Haze surface. Their inactive actions have no separate bevel, backdrop filter or raised outline. Only the selected action gains a raised, strongly colored indicator, plus a non-color selection cue. Temporary menus follow the same shared-surface principle. The material motion suite is unchanged by this visual refinement.</p>
+<h2 id="material-definition-on-small-and-nested-surfaces">Material definition on small and nested surfaces</h2>
+<p>A small Resin control over a Haze reading well can lose the color and depth visible in the larger material studies. Keep the 20% Resin body and 80% inset Haze fill. Supply restrained contextual light <strong>under</strong> the Haze rather than increasing body opacity or painting the label. The control optical layer mixes glow at 12.6% and decorative color at 8.4% in light mode; dark mode uses 9.8% and 7% (a 30% reduction from the previous rim color opacity). On buttons and action links, inset the chromatic paint by 2px and feather that paint by 2px beneath Haze, so the color blends inward into the content fill. Keep the outer optical contour and all text crisp. Palette specimen colors and selection marks are not blurred. These are local gradient maxima, not changes to the global atmosphere or material opacity. Do not increase saturation to compensate for every additional nested surface. The approved material studies remain the visual authority.</p>
+<p>Use a luminous outer contour and soft paired shadows instead of a dark hairline around every control. Text fields have a circular Resin/Haze field-state badge within the Resin surround; keyboard focus still adds a full, clearly visible ring. Checkboxes and radios use contained selection marks, switches retain a contrast-bearing thumb, and sliders use a value-driven track and marked glass thumb. Keep labels and native semantics. Status badges use their semantic symbol and words, with the tested semantic ink/surface pair behind the symbol, rather than a colored perimeter stroke. Selection, errors and focus must remain distinguishable without color.</p>
+<p>When adapting controls to different sizes, preserve enough exposed Resin to show the rim and enough protected Haze to keep text crisp. Do not blur the element or its foreground. Opaque, reduced-transparency and forced-color modes remain functional alternatives. Validate actual composed controls in both modes and at narrow widths; a beautiful isolated material swatch does not establish component fidelity.</p>
+<h2 id="light">Light</h2>
+<p>Every material has an optical behaviour, and the behaviour follows from what the material
+physically is. These are rules, not effects.</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Material</th>
+<th>What it does with light</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Plastic</strong></td>
+<td><strong>Emits.</strong> Carries its palette's glow over the atmosphere tint, drifting slowly.</td>
+<td>Opaque things cannot bend light. A foundation that refracted would be claiming a transparency it does not have.</td>
+</tr>
+<tr>
+<td><strong>Frost</strong></td>
+<td><strong>Refracts broadly.</strong> A slow, low-amplitude wander of colour temperature across the surface.</td>
+<td>At 40px of diffusion nothing sharp survives. Light through frosted glass shows you colour, not shape — so Frost's refraction is chromatic and formless.</td>
+</tr>
+<tr>
+<td><strong>Resin</strong></td>
+<td><strong>Refracts sharply.</strong> Dispersion concentrated at the rim, with the specular band tracking interaction.</td>
+<td>At 20px, detail survives. Resin is the front layer and the one the user is closest to, so its optics are the most defined of the three.</td>
+</tr>
+<tr>
+<td><strong>Haze</strong></td>
+<td><strong>Breathes.</strong> Its boundary travels outward and inward.</td>
+<td>Haze <em>is</em> its feathered edge. A fill that pulses in opacity is not an edge that moves; it is the same edge getting fainter.</td>
+</tr>
+<tr>
+<td><strong>Stone</strong></td>
+<td><strong>Breathes, more tightly.</strong> The same boundary motion at a shorter period.</td>
+<td>Stone is a label backing, so its edge is smaller and closer to text. It moves less far and settles sooner.</td>
+</tr>
+<tr>
+<td><strong>Mirage</strong></td>
+<td><strong>Flows.</strong> A slow current while a dialog is open.</td>
+<td>The scrim is the only surface with nothing above it competing for attention.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Resin and Frost differ in <strong>amount and in kind</strong>, not merely in intensity. Turning Resin's
+dispersion down does not produce Frost; it produces weak Resin. The diffusion radius
+decides which is correct.</p>
+<h3 id="light-reaches-the-shadow">Light reaches the shadow</h3>
+<p>The light a material refracts is the light that reaches the surface beneath it, so a
+Crystal shadow is not neutral grey. The active palette's companion mixes into the shadow
+ink — 34% in light mode, 40% in dark.</p>
+<p><strong>The mix is on the colour only.</strong> Each shadow layer keeps its authored alpha exactly,
+because a shadow that is tinted must not also become heavier. Prism's content shadow moves
+from <code>rgba(39,24,68,.15)</code> to <code>rgba(107,40,112,.15)</code>: the same weight, carrying colour.</p>
+<h3 id="motion-at-rest">Motion at rest</h3>
+<p>These behaviours are the material's <strong>rest state</strong>, not a response to being used. A Crystal
+surface is alive before anyone touches it, and interaction <em>adds</em> energy rather than
+starting the effect: rest, faster on hover, faster still on press, decaying back.</p>
+<p>The single exception is text entry. A field being typed into is the one place where motion
+genuinely competes with the task, so ambient pauses there and nowhere else.</p>
+<p>Three rules bound all of it. It runs on the rim and the fill and <strong>never on a surface being
+read</strong> — the same argument that makes Resin lens at its edge rather than ripple through its
+middle. It is the <strong>first thing <code>prefers-reduced-motion</code> removes</strong>, entirely rather than
+gently. And it is an <strong>enhancement on top of a complete floor</strong>: with the shader layer
+unavailable and ambient disabled, every page renders exactly its reference baseline, which
+is what gate G8 proves.</p>
+<h2 id="resin-never-contains-resin">Resin never contains Resin</h2>
+<p><strong>A Resin surface may not contain another Resin surface.</strong> When something has to sit on
+top of a Resin element — a label, a badge, a nested control, a content area — that upper
+layer becomes a <strong>Haze content fill</strong>. This is a hard rule, and it is the one adopters
+break most often.</p>
+<h3 id="why">Why</h3>
+<p>Resin is a backdrop filter: it samples what is behind it, blurs at 20px and saturates to
+165%. Nest a second Resin surface inside the first and the inner one samples <em>the already
+blurred output of the outer one</em>. The result is a blur of a blur — contrast collapses,
+edge definition disappears, and any text on the inner surface is sitting on a field of
+mush that changes as the page scrolls behind it.</p>
+<p>This is the specific, repeatedly documented failure of translucent interface materials
+generally: stacked translucency reads as beautiful in a static mock and as illegible in
+use. Crystal's answer is not to soften Resin — that would regress the material — but to
+change what the upper layer is made of.</p>
+<h3 id="the-fix-is-always-the-upper-layer">The fix is always the upper layer</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Situation</th>
+<th>Wrong</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A label on a Resin dock</td>
+<td>Give the label its own Resin chip</td>
+<td>Give it a Haze content fill, or Stone if the backdrop is unknown</td>
+</tr>
+<tr>
+<td>A control inside a Resin bar</td>
+<td><code>.cr-resin</code> on the control</td>
+<td>Plastic control, no backdrop filter</td>
+</tr>
+<tr>
+<td>A content area in a Resin panel</td>
+<td>Nested <code>.cr-resin</code></td>
+<td><code>.cr-haze</code> recessed into the frame</td>
+</tr>
+</tbody>
+</table></div>
+<p>Never weaken the outer Resin to make a nested one legible. Resin's parameters are fixed
+at 20px blur, 165% saturation and a 20% fill; changing them to accommodate a composition
+that should not exist trades a real material for a local convenience.</p>
+<h3 id="how-it-is-enforced">How it is enforced</h3>
+<p>The rule is enforced in CSS, so a mistake is corrected rather than merely reported:</p>
+<pre><code class="language-css">/* Any control inside a Resin surface loses its own backdrop filter and gets its
+   own stacking context, so it composites against the frame instead of resampling it. */
+:is(.cr-resin,.cr-glass,.cr-resin-haze) :is(button,a.cr-button,.cr-button,.cr-control){
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  isolation:isolate;
+}
+</code></pre>
+<p>It is also checked. <code>npm run audit:materials</code> loads every page in the site, reads the
+<em>computed</em> backdrop filter of every element, classifies each surface by its blur radius
+against the live <code>--cr-resin-blur</code> and <code>--cr-frost-blur</code> tokens, and fails on any Resin
+nested inside Resin. Classifying by radius rather than by "has a backdrop filter" matters:
+Resin inside <strong>Frost</strong> is the intended hierarchy and must not be flagged.</p>
+<p>There is deliberately no live counter-example on this page. A rendered Resin-on-Resin
+specimen would make the specification violate the rule it specifies, and the audit —
+which reads these pages like any other — would fail the build. The failure is described;
+only the correct composition is real.</p>
+<h3 id="the-correct-composition-live">The correct composition, live</h3>
+<p>Haze is the readable fill <em>inside</em> a translucent frame. It is recessed rather than
+raised, because a fill that floats above its own frame reads as a separate object rather
+than as the frame's content:</p>
+<div class="cr-resin" id="haze-in-resin-demo" style="padding:18px;max-width:420px">
+<div class="cr-haze" style="padding:14px 16px;border-radius:14px">
+<p>This paragraph sits on a Haze content fill inside a Resin frame. The fill is 80% opaque
+with a 1.95px feather, and it is recessed into the frame with an inset shadow.</p>
+</div>
+</div>
+<p>The recess is a single pair of inset shadows — a dark inner top edge and a light inner
+bottom edge — which is how neumorphic surfaces express recession under a consistent
+light source. Crystal's light source is above, so the shadow is at the top and the
+highlight at the bottom. Inverting that pair is what makes a surface read as raised:</p>
+<pre><code class="language-css">:is(.cr-resin,.cr-glass,.cr-resin-haze) :is(.cr-haze,.cr-surface,.cr-well,.cr-content-fill){
+  box-shadow:inset 0 1px 2px rgba(39,24,68,.15),  /* light source is above */
+             inset 0 -1px 0 var(--cr-rim);
+}
+</code></pre>
+<p>Crystal takes the recession model from neumorphism and rejects its palette. Neumorphism's
+characteristic failure is that it tints the surface, the highlight and the shadow from one
+near-identical hue, so nothing has enough contrast to be found or read. Here the geometry
+is neumorphic and the contrast is not: the fill is 80% opaque, and the text on it is
+checked against the same ratios as text anywhere else.</p>
+<h3 id="feathering-never-touches-content">Feathering never touches content</h3>
+<p>Haze's 1.95px feather applies to an isolated paint layer only. Text, icons, hit areas and
+focus rings stay crisp. A feathered glyph is a blurry glyph, and no amount of material
+intent makes that legible — the feather exists to soften the <em>edge of the fill</em> against
+the frame behind it, nothing more.</p>
+<h2 id="see-it-working">See it working</h2>
+<p>The <a href="../playground.html#foundations">Playground</a> renders the full hierarchy live, with
+atmosphere, Frost tint, elevation and content radius adjustable. The
+<a href="../playground.html#supporting-materials">supporting materials section</a> shows Haze, Stone
+and Mirage in the compositions each is intended for.</p></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/materials.md">Specification source</a></footer></div></body></html>

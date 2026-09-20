@@ -1,0 +1,1151 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Motion: material in movement · Crystal</title><link rel="icon" href="../vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="../assets/controls.css?v=pill-focus-2"><script src="../vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="../vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="../assets/motion-shaders.js" defer></script><script src="../assets/menu.js" defer></script><script src="../assets/docs.js" defer></script><script src="../assets/controls.js?v=pill-focus-2" defer></script></head><body><a class="skip" href="#main">Skip to specification</a><div class="shell"><header class="site-header"><a class="wordmark" href="../index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="../vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="../index.html">Overview</a><a class="cr-control menu-item" href="../playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="../docs/principles.html">Foundations</a><a class="cr-control menu-item" href="../docs/colors.html">Color</a><a class="cr-control menu-item" href="../docs/materials.html">Materials</a><a class="cr-control menu-item" href="../docs/components.html">Components</a><a class="cr-control menu-item" href="../docs/catalogue.html">Catalogue</a><a class="cr-control menu-item" href="../docs/icons.html">Icons</a><a class="cr-control menu-item" href="../docs/tokens.html">Tokens</a><a class="cr-control menu-item" href="../docs/motion.html" aria-current="page">Motion</a><a class="cr-control menu-item" href="../docs/motion-components.html">Component motion</a><a class="cr-control menu-item" href="../docs/accessibility.html">Accessibility</a><a class="cr-control menu-item" href="../docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="../motion.html">Motion studies</a><a class="cr-control menu-item" href="../verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="motion-material-in-movement">Motion: material in movement</h1>
+<p>Crystal’s motion makes its materials recognizable: Plastic levitates, Frost emerges toward the viewer, Resin flows and catches light, Haze and Stone carry moving feathered edges, and Mirage washes across the scene. <a href="../motion.html">Open the interactive motion studies</a>.</p>
+<h2 id="timing-and-easing">Timing and easing</h2>
+<p>The earlier 25% speed reduction is retained for small interaction tokens. The larger material journeys have their own longer timings so bounded travel and layered detail have time to resolve smoothly. The preview’s <strong>1×</strong> setting uses the defaults below.</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Default</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--cr-press</code></td>
+<td>120ms</td>
+<td>Small button press feedback</td>
+</tr>
+<tr>
+<td><code>--cr-state</code></td>
+<td>213.33ms</td>
+<td>Simple state transitions</td>
+</tr>
+<tr>
+<td><code>--cr-spatial</code></td>
+<td>293.33ms</td>
+<td>Compact product transitions</td>
+</tr>
+<tr>
+<td><code>--cr-exit</code></td>
+<td>160ms</td>
+<td>Compact departures</td>
+</tr>
+<tr>
+<td><code>--cr-material</code></td>
+<td>1000ms</td>
+<td>Plastic, Frost, Haze and Stone choreography</td>
+</tr>
+<tr>
+<td><code>--cr-liquid</code></td>
+<td>1400ms</td>
+<td>Resin deformation and traveling light</td>
+</tr>
+<tr>
+<td><code>--cr-flow</code></td>
+<td>1200ms</td>
+<td>Mirage arrival, including dialog backdrop</td>
+</tr>
+<tr>
+<td><code>--cr-departure</code></td>
+<td>650ms</td>
+<td>Modal dismissal and Mirage withdrawal</td>
+</tr>
+<tr>
+<td><code>--cr-ease-enter</code></td>
+<td><code>cubic-bezier(0.22, 0.65, 0.22, 1)</code></td>
+<td>Progressive arrival, soft settling</td>
+</tr>
+<tr>
+<td><code>--cr-ease-settle</code></td>
+<td><code>cubic-bezier(0.2, 0, 0.2, 1)</code></td>
+<td>Small control response</td>
+</tr>
+<tr>
+<td><code>--cr-ease-exit</code></td>
+<td><code>cubic-bezier(0.4, 0, 0.6, 1)</code></td>
+<td>Smooth acceleration and departure</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ordinary travel stays within <strong>5–30px</strong>, with <strong>50px as the compact-motion guideline</strong>, not a universal ceiling. Larger or longer spatial transitions may exceed it when the movement requires it: full-width sheets, view changes, measured reordering, gallery turns and large material compositions. Each authored exception records its purpose in <code>travelException</code>; do not apply large composition motion to a small button.</p>
+<p>Haze and Stone retain <strong>zero component translation</strong> for their material signatures: their feathered paint shifts and changes contour while text stays fixed. Optical light can travel across an entire surface without moving its content. Small controls use liquid compression and surface tension rather than a generic upward lift.</p>
+<p>The legacy <code>maxTravel: 50</code> token continues to bound the six compact material presets. Larger recipes explicitly define their travel and bypass that compact clamp. <code>layout()</code> uses the actual measured displacement up to the viewport diagonal, with <code>{extended:false}</code> available for a compact crossfade. Motion still respects the user speed factor, five-second duration ceiling, cancellation and reduced motion.</p>
+<h2 id="material-signatures">Material signatures</h2>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Material</th>
+<th>Movement</th>
+<th>Light and perimeter</th>
+<th>Preview use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plastic</td>
+<td>Starts 24px below its resting position and smoothly rises to rest</td>
+<td>A widening shadow reinforces the upward lift; foundation stays opaque once present</td>
+<td>Replay study; never animate a whole app foundation for ordinary focus changes</td>
+</tr>
+<tr>
+<td>Frost</td>
+<td>Emerges from its resting plane to +50px toward the viewer, then settles back; no lateral shift or perspective tilt</td>
+<td>Shadow expands at the nearest point; grain and diffusion remain constant</td>
+<td>Replay study and scene entrance</td>
+</tr>
+<tr>
+<td>Resin</td>
+<td>30px arrival, vertical stretch into horizontal compression, then a small damped settling motion</td>
+<td>A highlight travels across the body; illuminated rim changes direction and contour</td>
+<td>Resin specimen; reserve stronger deformation for compact controls, not dense reading content</td>
+</tr>
+<tr>
+<td>Haze</td>
+<td>Fixed component and label; movement stays within the surface</td>
+<td>Background-only feathered contour drifts up to 6px and changes shape, then returns to the exact resting recipe</td>
+<td>Reading surface study and Haze dialog entrance</td>
+</tr>
+<tr>
+<td>Stone</td>
+<td>Fixed component and label; movement stays within the surface</td>
+<td>Feathered background ripples around its fixed center; label retains its own crisp paint</td>
+<td>Label backing study; ordinary button presses still use the short press token</td>
+</tr>
+<tr>
+<td>Mirage</td>
+<td>Curved reveal spreads from left, right, top or bottom; withdrawal contracts toward an edge</td>
+<td>Actual underlying colors continue to blend through its chromatic blur; no fabricated wallpaper or hue sweep</td>
+<td>Entrance and exit specimens, native dialog backdrop</td>
+</tr>
+</tbody>
+</table></div>
+<p>Resin light is a temporary optical overlay, not a change to the 20% fill recipe. Haze and Stone start and end at rest; neither slides in, scales its content nor changes label opacity during replay. Their feathered backgrounds make one quiet outward-and-return cycle. They move the already feathered <code>::before</code> layer; their blur radius stays at 1.95px and their resting opacity stays unchanged. Foreground labels are not blurred. Component transforms move their children together; Resin’s small scale/skew deformation also affects its compact label. Avoid applying that preset to long-form text.</p>
+<p>Mirage uses an expanding elliptical mask with a broad feathered front rather than physically simulated fluid. Registered CSS properties animate the reveal radius; engines without registration support use a curved clip-path fallback. The native dialog’s entrance begins at the chosen edge and its exit contracts toward the opposite edge. <strong>Cycle directions</strong> advances left → bottom → right → top; explicit direction choices make a study repeatable. Its fixed 28px chromatic filter continues to sample the real scene beneath the reveal.</p>
+<h2 id="working-examples">Working examples</h2>
+<p>Each Replay button runs a finite animation. <strong>Replay Mirage exit</strong> withdraws and hides the specimen; <strong>Replay Mirage</strong> brings it back. Animation speed ranges from 0.25× to 2× and applies to specimens, scene transitions, button feedback and modal/backdrop timings. It is saved as <code>motionSpeed</code> alongside appearance and included in CSS/JSON exports. Labels show the resolved duration. Each resolved duration is <code>min(5000ms, baseDuration / motionSpeed)</code>; reduced motion resolves it to zero. Default sequences should stay within 0–2 seconds. Five seconds is a hard ceiling, including any extra API replay-rate adjustment. At 0.25×, Resin would take 5.6 seconds and is capped at 5 seconds; other effects retain their own scaled timings. Interactions, data and focus respond immediately even during a long visual transition. Appearance and reduced-motion preferences are shared with the main playground. No effects autoplay or loop.</p>
+<p>The native modal opens with Haze’s in-place edge motion, matching its content material, while Mirage reveals the backdrop. Its content stays fixed on entrance; dismissal fades it in place while its edge settles. Focus and modality take effect immediately. The 650ms default exit (scaled by the speed preference, capped at five seconds) finishes before the dialog closes and focus returns. Escape uses that same path; repeated dismissal requests do not stack.</p>
+<h2 id="interruption-accessibility-and-rendering">Interruption, accessibility and rendering</h2>
+<p>New playback cancels the previous animation group on that element, including paint-layer effects. Explicit reduced motion, OS reduced motion and document hiding cancel active JavaScript animations. Reduced motion presents states immediately without spatial travel, deformation, moving highlights, feather movement or backdrop reveals. It always takes precedence over the speed slider. Native CSS backdrop animations also honor reduced motion.</p>
+<p>Reduced transparency and forced colors omit decorative light, shadow choreography and feather-layer movement. They retain their stable material fallback; motion preferences separately govern component movement. Keyboard focus remains immediate and visible. Disabled controls have no press movement, and hover lift is limited to fine pointers that support hover.</p>
+<p>Animations never postpone routing or data availability. Changes in opacity are supplemental: they must never be the sole indication of an essential state. Full-page Mirage clipping can reveal an unobscured portion of the background during transition, but the dialog retains native modality throughout.</p>
+<p>Transforms and opacity are the primary motion channels. Small specimen rim/shadow/background-position effects and directional masks/clip paths can require repainting; they are not guaranteed to run solely on the compositor. Backdrop blur, grain, saturation and feather radii remain constant. Benchmark actual devices before using many simultaneous effects, especially full-screen Mirage. Do not add permanent <code>will-change</code> hints. Screen-reader, zoom, native-renderer and cross-engine verification remain product adoption requirements.</p>
+<h2 id="adoption">Adoption</h2>
+<p>Load the generated theme, <code>assets/crystal.css</code>, then <code>assets/motion.css</code>. Load <code>assets/vendor/crystal-engines.js</code>, <code>assets/motion-catalog.js</code>, then <code>assets/motion.js</code> before application code for the framework-independent browser adapter.</p>
+<pre><code class="language-js">// The application owns visibility, routing and focus.
+const result = await CrystalMotion.play(panel, 'frost');
+await CrystalMotion.play(scrim, 'mirage', { direction: 'left', rate: 1 });
+// result.status: finished, cancelled, or instant.
+CrystalMotion.stop(panel);
+CrystalMotion.stopAll();
+// Before showModal(), choose the CSS backdrop's direction:
+CrystalMotion.direction(dialog, 'bottom');
+</code></pre>
+<p>Presets: <code>plastic</code>, <code>frost</code>, <code>resin</code>, <code>haze</code>, <code>stone</code>, <code>mirage</code>, <code>mirage-out</code>, <code>dismiss</code>. The optional <code>direction</code> accepts <code>left</code>, <code>right</code>, <code>top</code>, <code>bottom</code>; omission or <code>cycle</code> chooses the next direction. The adapter does not hide or remove targets; callers own exit completion. The playground implements the specimen’s hidden state explicitly.</p>
+<p>GSAP controls paint-layer motion through Web Animations pseudo-element targeting on <code>::before</code> and <code>::after</code>. Engines without that support retain supported component movement and may omit the optional optical effects. Haze and Stone stay still in that fallback rather than substituting a sliding animation. Invalid targets or unknown presets produce errors; unavailable animation APIs return <code>instant</code>. Material selectors must supply the actual pseudo-element paints. Use Haze motion for Haze dialogs rather than reusing Resin’s deforming rim on them.</p>
+<p>The canonical motion definitions live in <code>tokens/crystal.json</code>; CSS and JSON exports include both compact and expressive durations and travel values. Always include <code>motion.css</code> for native dialog backdrop choreography and accessibility overrides. The reference provides real visual behavior, not a native compositor or a physics simulation.</p>
+<h2 id="installed-animation-engines">Installed animation engines</h2>
+<p>Both engines are now installed, bundled locally and used by the runtime. <a href="https://motion.dev/docs/animate">Motion’s animate API</a> drives element keyframes. <a href="https://gsap.com/docs/v3/GSAP/Timeline/">GSAP timelines</a> control material paint-layer clocks and selected component sequences. Native Web Animations effects paint actual pseudo-elements under those GSAP clocks; CSS supplies the native dialog backdrop fallback.</p>
+<p>See the <a href="motion-components.html">component motion suite</a> for all 59 recipes, engine assignments, API contracts, live component behavior, test instructions and future component-library/Storybook coverage. <a href="../reference/ASSET-NOTICES.md">License notices</a> accompany the local bundle.</p>
+<p>The compact CSS timing tokens remain available for small state changes. The material-driven Resin press recipe uses 320ms for a complete compression/recovery sequence; hover light uses 700ms. These visual clocks never delay the actual action. The executable catalog lists the current duration of every recipe.</p>
+<h2 id="springs-are-the-portable-primitive">Springs are the portable primitive</h2>
+<p>Every recipe carries a spring — <code>{stiffness, damping, mass}</code> — fitted so that its derived
+settle time matches the authored duration within 15%. The authored duration remains the
+authority; the spring is what makes the recipe portable, because a duration and a cubic
+bezier do not survive being moved to SwiftUI or Compose, and a spring does.</p>
+<p><code>assets/core/spring.js</code> derives everything else from those three numbers, with no DOM and
+no dependencies: damping ratio, sampled displacement, settle time, whether the recipe
+overshoots and by how much. The generated table below is computed from it at build time,
+which is why the numbers there cannot go stale.</p>
+<h3 id="the-three-regimes">The three regimes</h3>
+<p>The damping ratio <strong>ζ = c / (2√(km))</strong> decides which closed form applies, and they are
+genuinely different equations rather than one equation with a parameter:</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>ζ</th>
+<th>Regime</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ζ &lt; 1</td>
+<td>Underdamped</td>
+<td>Overshoots and oscillates back. Damped frequency ωd = ω√(1−ζ²).</td>
+</tr>
+<tr>
+<td>ζ = 1</td>
+<td>Critically damped</td>
+<td>The fastest approach with no overshoot. ωd is exactly zero, so the oscillatory form degenerates and a separate solution is required.</td>
+</tr>
+<tr>
+<td>ζ &gt; 1</td>
+<td>Overdamped</td>
+<td>Approaches without ever crossing the target, more slowly than critical.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Implementations that interpolate through ζ = 1 with the underdamped formula divide by a
+damped frequency of zero. <code>sampleSpring</code> branches on the regime explicitly.</p>
+<h3 id="damping-is-chosen-by-signature-not-by-taste">Damping is chosen by signature, not by taste</h3>
+<p>Whether a movement overshoots is a claim about what the material <em>is</em>:</p>
+<ul>
+<li><strong><code>inertia</code></strong> and <strong><code>coalesce</code></strong> overshoot, most of all — momentum is their entire claim.
+  Mass that stops dead was never moving.</li>
+<li><strong><code>feather</code></strong> and <strong><code>caustic</code></strong> do not overshoot. A soft edge that bounces is wrong: the
+  signature is diffusion, and diffusion has no momentum to carry.</li>
+<li>Everything between is scaled accordingly.</li>
+</ul>
+<p>The generated table shows measured peak overshoot per recipe. <code>feather</code> comes out at 0.1%
+and <code>inertia</code> at 12.6% — the fitting produces the policy rather than being asserted
+alongside it.</p>
+<h2 id="deformation-is-incompressible">Deformation is incompressible</h2>
+<p>Any <code>scale(sx, sy)</code> in a recipe must satisfy <strong>sx · sy = 1</strong> within 0.005. A surface that
+squashes without spreading is a surface losing volume, and it reads as cheap because
+nothing physical behaves that way.</p>
+<p>Corrections divide <strong>both</strong> axes by the square root of the area. Keeping the dominant axis
+and deriving the other also conserves volume, but it changes the deformation's aspect
+ratio — which alters the designed look rather than only the physics. Normalising by √area
+conserves volume <em>and</em> preserves aspect ratio exactly, so the correction removes the
+compressibility error and nothing else. <code>tools/validate-motion.cjs</code> asserts both.</p>
+<h2 id="why-resin-is-not-animated-with-ripples">Why Resin is not animated with ripples</h2>
+<p>An early model animated Resin as a surface wave — a ripple spreading from the contact
+point. It was rejected, and the reasoning is recorded here because the rejected model is
+the one people reach for first.</p>
+<p>A ripple is a <em>surface</em> phenomenon: it says the material has a skin, that the skin was
+disturbed, and that the disturbance is travelling across it. That is water in a dish. Resin
+is not a skin; it is a solid, transparent body with optical depth. Its response to contact
+is not a wave — it is a change in how it bends light.</p>
+<p>What contemporary glass interfaces actually do, and what Crystal now does:</p>
+<ul>
+<li><strong>Edge lensing.</strong> Refraction concentrates in a band just inside the boundary and falls
+  off steeply, leaving the centre optically clear. The interior is shrunk and the edges
+  stretched outward.</li>
+<li><strong>Specular tracking.</strong> The highlight band moves with the interaction rather than
+  spreading from it. Contact changes where the light is, not what the surface shape is.</li>
+<li><strong>Morphing.</strong> The boundary itself changes shape. The lens follows the boundary, because
+  the lens <em>is</em> the boundary.</li>
+</ul>
+<p>The practical difference: a ripple animates the middle of a surface, where the user is
+reading. Edge lensing animates the rim, where nothing is. The optical model is stated in
+<code>assets/shaders/manifest.json</code> under <code>opticalModel</code>, including the rejected approach, so
+that a platform port inherits the reasoning and not just the result.</p>
+<h2 id="the-shader-layer-is-an-enhancement-never-a-requirement">The shader layer is an enhancement, never a requirement</h2>
+<p>WebGL2 shaders are attached only when WebGL2 is available, <code>prefers-reduced-motion</code> is not
+set, and the surface is visible. The CSS approximation is the floor, and it is what the
+committed visual baselines are captured against — with WebGL2 unavailable, every page must
+render exactly those baselines. That is the gate that keeps the shader optional rather
+than load-bearing.</p>
+<p>Two implementation notes that cost real time to find:</p>
+<p><strong>Blend mode.</strong> <code>screen</code> and <code>overlay</code> are both no-ops on a white backdrop — <code>overlay</code>
+resolves to <code>1 − 2(1−b)(1−s)</code>, which is 1 whenever b = 1. Only <code>hard-light</code> produces
+visible output on both white and dark backdrops.</p>
+<p><strong>Stacking.</strong> The shader canvas sits at <code>z-index:-1</code> inside an <code>isolation:isolate</code>
+container, so it paints behind the content rather than over it. Verified by proving label
+glyphs are pixel-identical with the shader on and off.</p>
+<h2 id="ambient-motion">Ambient motion</h2>
+<p><strong>Deferred to a later version of Crystal.</strong> Nothing in 2.0 moves at rest, and a surface
+that animates on its own is not Crystal until a later version specifies how.</p>
+<p>It was built and withdrawn rather than never attempted, and the reasoning is in the
+request log rather than lost. Two findings will apply whenever it returns: a rest state
+can fail by being too strong <em>or</em> too weak, so it needs a measured floor as well as a
+ceiling; and its cost on the reference preview did not follow resolution, blend mode,
+nesting or shader complexity, which means it was structural rather than a tuning problem.</p>
+<p>Motion a person starts is unaffected, and so is the optical layer that runs during it.</p>
+<h2 id="what-triggers-a-recipe">What triggers a recipe</h2>
+<p>A recipe that nothing triggers is a specification, not a behaviour. Crystal binds motion
+to <strong>state, not to clicks</strong>:</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>State change</th>
+<th>Recipe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>checked</code> becomes true / false on a checkbox or radio</td>
+<td><code>check</code> / <code>check-off</code></td>
+</tr>
+<tr>
+<td><code>checked</code> or <code>aria-checked</code> on a switch</td>
+<td><code>switch-on</code> / <code>switch-off</code></td>
+</tr>
+<tr>
+<td>A range commits a value</td>
+<td><code>slider-step</code>, on the linked <code>&lt;output&gt;</code></td>
+</tr>
+<tr>
+<td>A text field takes focus</td>
+<td><code>field-focus</code></td>
+</tr>
+<tr>
+<td><code>aria-invalid</code> becomes true / returns to false</td>
+<td><code>field-invalid</code> / <code>field-valid</code></td>
+</tr>
+<tr>
+<td><code>aria-expanded</code> flips on a control with <code>aria-controls</code></td>
+<td><code>menu-in</code> / <code>menu-out</code></td>
+</tr>
+<tr>
+<td>A <code>&lt;details&gt;</code> opens or closes</td>
+<td><code>accordion-in</code> / <code>accordion-out</code></td>
+</tr>
+<tr>
+<td>A button is pressed or hovered</td>
+<td><code>press</code> / <code>hover</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Binding to <code>pointerdown</code> instead of to the state would give a mouse user motion that a
+keyboard user and a screen reader user never see. Binding to the state means every input
+method produces the same motion, and a programmatic change produces it too.</p>
+<p>Two guards matter in practice. A recipe never restarts itself while that same recipe is
+already running on that element — restarting mid-flight is what makes a continuous control
+feel choppy. And a page that drives a component itself marks that subtree
+<code>data-cr-motion="manual"</code>, so the delegated wiring does not fire the same recipe twice.</p>
+<p><code>npm run verify:interactions</code> asserts all of this in a real browser against plain controls,
+including that reduced motion still applies the state instantly.</p>
+<h2 id="recipe-reference">Recipe reference</h2>
+<!-- generated:recipes -->
+
+<p>All 55 recipes in 9 categories, generated from <code>core/tokens/motion-recipes.json</code>. <strong>Damping ratio</strong> and
+<strong>overshoot</strong> are derived from each recipe's spring by <code>core/assets/core/spring.js</code>, not
+authored — so a spring that was retuned cannot leave a stale number behind in this table.</p>
+<p>A damping ratio below 1 overshoots and settles back; exactly 1 is the fastest approach
+with no overshoot; above 1 crawls in without ever passing the target. Which one is
+correct is a material question, not a taste question — see the signature policy below.</p>
+<h4 id="controls">Controls</h4>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Duration</th>
+<th>Signature</th>
+<th>Material</th>
+<th>Damping ζ</th>
+<th>Overshoot</th>
+<th>Use</th>
+<th>Reduced motion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>press</code> — Press and release</td>
+<td>320ms</td>
+<td>pressure</td>
+<td>resin</td>
+<td>0.660</td>
+<td>6.3%</td>
+<td>Buttons, icon buttons and segmented controls. Disabled controls never animate.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>hover</code> — Light follows the surface</td>
+<td>700ms</td>
+<td>caustic</td>
+<td>resin</td>
+<td>0.900</td>
+<td>0.2%</td>
+<td>Fine-pointer affordance only; keyboard focus is immediate.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>selection</code> — Selection settle</td>
+<td>420ms</td>
+<td>meniscus</td>
+<td>resin</td>
+<td>0.700</td>
+<td>4.6%</td>
+<td>Selected chips, radios, toggles and navigation; set selected semantics first.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>switch-on</code> — Switch on</td>
+<td>460ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Animate the thumb after its checked state is applied.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>switch-off</code> — Switch off</td>
+<td>460ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Animate the thumb after its unchecked state is applied.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>check</code> — Checkmark confirmation</td>
+<td>340ms</td>
+<td>iris</td>
+<td>resin</td>
+<td>0.800</td>
+<td>1.5%</td>
+<td>Checkbox and radio indicators; retain a visible non-color state.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>slider-step</code> — Value response</td>
+<td>400ms</td>
+<td>feather</td>
+<td>stone</td>
+<td>0.920</td>
+<td>none</td>
+<td>Range outputs, steppers and scrubber labels; value updates immediately.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>icon-turn</code> — Disclosure icon</td>
+<td>440ms</td>
+<td>torsion</td>
+<td>resin</td>
+<td>0.660</td>
+<td>6.3%</td>
+<td>Disclosure chevrons; parent expanded state is authoritative.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>copy-confirm</code> — Copy confirmation</td>
+<td>540ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Only after clipboard write succeeds; retain textual confirmation.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>check-off</code> — Uncheck</td>
+<td>300ms</td>
+<td>iris</td>
+<td>plastic</td>
+<td>0.800</td>
+<td>1.5%</td>
+<td>Checkbox and radio indicators returning to unchecked. Paired with <code>check</code>; the iris closes toward the same point it opened from.</td>
+<td>Apply the unchecked state immediately; omit the iris.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="forms">Forms</h4>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Duration</th>
+<th>Signature</th>
+<th>Material</th>
+<th>Damping ζ</th>
+<th>Overshoot</th>
+<th>Use</th>
+<th>Reduced motion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>field-focus</code> — Field focus response</td>
+<td>600ms</td>
+<td>caustic</td>
+<td>resin</td>
+<td>0.900</td>
+<td>0.2%</td>
+<td>Supplementary focus response; never animate or delay the actual focus ring.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>field-invalid</code> — Invalid field</td>
+<td>480ms</td>
+<td>tension</td>
+<td>resin</td>
+<td>0.700</td>
+<td>4.6%</td>
+<td>Single low-amplitude cue with persistent error text; never repeated shaking.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>field-valid</code> — Valid field</td>
+<td>550ms</td>
+<td>meniscus</td>
+<td>resin</td>
+<td>0.700</td>
+<td>4.6%</td>
+<td>After real local validation; never imply a remote operation succeeded.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>hint-in</code> — Help text reveal</td>
+<td>500ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Inline help, character guidance and validation details.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>hint-out</code> — Help text departure</td>
+<td>500ms</td>
+<td>meniscus</td>
+<td>resin</td>
+<td>0.700</td>
+<td>4.6%</td>
+<td>Hide the help only after completion; do not remove focused content.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="navigation">Navigation</h4>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Duration</th>
+<th>Signature</th>
+<th>Material</th>
+<th>Damping ζ</th>
+<th>Overshoot</th>
+<th>Use</th>
+<th>Reduced motion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tab-in</code> — Tab content arrival</td>
+<td>650ms</td>
+<td>refraction</td>
+<td>frost</td>
+<td>0.850</td>
+<td>0.6%</td>
+<td>Selected tab panels; apply aria-selected and hidden state synchronously.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>page-in</code> — View arrival</td>
+<td>1050ms</td>
+<td>inertia</td>
+<td>plastic</td>
+<td>0.550</td>
+<td>12.6%</td>
+<td>New local view after routing is committed; preserve focus and history.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>page-out</code> — View departure</td>
+<td>760ms</td>
+<td>inertia</td>
+<td>plastic</td>
+<td>0.550</td>
+<td>12.6%</td>
+<td>Departing view only; never postpone route authorization or loading.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>breadcrumb</code> — Location update</td>
+<td>500ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>New breadcrumb item; current-page semantics stay explicit.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="overlays">Overlays</h4>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Duration</th>
+<th>Signature</th>
+<th>Material</th>
+<th>Damping ζ</th>
+<th>Overshoot</th>
+<th>Use</th>
+<th>Reduced motion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>drawer-in</code> — Drawer arrival</td>
+<td>1000ms</td>
+<td>refraction</td>
+<td>frost</td>
+<td>0.850</td>
+<td>0.6%</td>
+<td>Side sheets and inspector panels; establish modality first.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>drawer-out</code> — Drawer departure</td>
+<td>650ms</td>
+<td>refraction</td>
+<td>frost</td>
+<td>0.850</td>
+<td>0.6%</td>
+<td>Keep modal focus contained until dismissal completes.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>menu-in</code> — Menu reveal</td>
+<td>620ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Dropdowns, selects and command menus; keyboard behavior belongs to the component.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>menu-out</code> — Menu dismissal</td>
+<td>380ms</td>
+<td>meniscus</td>
+<td>resin</td>
+<td>0.700</td>
+<td>4.6%</td>
+<td>Close menus and restore trigger focus when appropriate.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>tooltip-in</code> — Tooltip arrival</td>
+<td>420ms</td>
+<td>meniscus</td>
+<td>resin</td>
+<td>0.700</td>
+<td>4.6%</td>
+<td>Noninteractive descriptions on focus or hover; Escape dismisses.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>tooltip-out</code> — Tooltip departure</td>
+<td>420ms</td>
+<td>meniscus</td>
+<td>resin</td>
+<td>0.700</td>
+<td>4.6%</td>
+<td>Pointer and focus must both leave before hiding.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>popover-in</code> — Popover arrival</td>
+<td>620ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Nonmodal details with outside-click, Escape and focus handling.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>popover-out</code> — Popover departure</td>
+<td>380ms</td>
+<td>meniscus</td>
+<td>resin</td>
+<td>0.700</td>
+<td>4.6%</td>
+<td>Dismiss nonmodal details without trapping focus.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="content">Content</h4>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Duration</th>
+<th>Signature</th>
+<th>Material</th>
+<th>Damping ζ</th>
+<th>Overshoot</th>
+<th>Use</th>
+<th>Reduced motion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accordion-in</code> — Disclosure reveal</td>
+<td>650ms</td>
+<td>feather</td>
+<td>haze</td>
+<td>0.920</td>
+<td>none</td>
+<td>Animate visible content after expanding; no scripted height measurement needed.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>accordion-out</code> — Disclosure close</td>
+<td>650ms</td>
+<td>feather</td>
+<td>haze</td>
+<td>0.920</td>
+<td>none</td>
+<td>Hide content after completion; return focus first if a child has focus.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>list-in</code> — Item insertion</td>
+<td>650ms</td>
+<td>feather</td>
+<td>haze</td>
+<td>0.920</td>
+<td>none</td>
+<td>Real added messages, table rows, cards and collection items.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>list-out</code> — Item removal</td>
+<td>440ms</td>
+<td>feather</td>
+<td>haze</td>
+<td>0.920</td>
+<td>none</td>
+<td>Remove after completion; announce the actual change and keep focus valid.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>reorder</code> — Reorder settle</td>
+<td>500ms</td>
+<td>inertia</td>
+<td>plastic</td>
+<td>0.550</td>
+<td>12.6%</td>
+<td>Supplement DOM reordering; use layout() for measured bounded displacement.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>highlight</code> — Updated content</td>
+<td>500ms</td>
+<td>feather</td>
+<td>haze</td>
+<td>0.920</td>
+<td>none</td>
+<td>A brief update cue paired with actual content or announcement.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>message-in</code> — Message arrival</td>
+<td>650ms</td>
+<td>feather</td>
+<td>haze</td>
+<td>0.920</td>
+<td>none</td>
+<td>Only on a new message; do not replay on virtualized history or steal scroll.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>reaction</code> — Reaction response</td>
+<td>680ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Toggle the real reaction state and count before the response.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="feedback">Feedback</h4>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Duration</th>
+<th>Signature</th>
+<th>Material</th>
+<th>Damping ζ</th>
+<th>Overshoot</th>
+<th>Use</th>
+<th>Reduced motion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toast-in</code> — Notification arrival</td>
+<td>650ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Live status text with a persistent dismiss button.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>toast-out</code> — Notification departure</td>
+<td>440ms</td>
+<td>meniscus</td>
+<td>resin</td>
+<td>0.700</td>
+<td>4.6%</td>
+<td>No timer required; manual dismissal preserves reading time.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>success</code> — Success acknowledgement</td>
+<td>600ms</td>
+<td>feather</td>
+<td>stone</td>
+<td>0.920</td>
+<td>none</td>
+<td>Use after a successful operation with text and a recognizable mark.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>attention</code> — Attention cue</td>
+<td>500ms</td>
+<td>feather</td>
+<td>stone</td>
+<td>0.920</td>
+<td>none</td>
+<td>Single finite cue for important text; never flash or loop.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>progress-change</code> — Progress settle</td>
+<td>500ms</td>
+<td>feather</td>
+<td>stone</td>
+<td>0.920</td>
+<td>none</td>
+<td>Actual progress is set first; this animation does not fabricate completion.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>busy</code> — Finite busy cue</td>
+<td>680ms</td>
+<td>feather</td>
+<td>stone</td>
+<td>0.920</td>
+<td>none</td>
+<td>One cycle for an actual pending operation; keep a static busy label if it lasts longer.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>skeleton-resolve</code> — Loading content resolve</td>
+<td>650ms</td>
+<td>feather</td>
+<td>haze</td>
+<td>0.920</td>
+<td>none</td>
+<td>Replace a skeleton only when real data arrives; no endless shimmer.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>empty-in</code> — Empty-state reveal</td>
+<td>500ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Shown only when the collection is actually empty.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="media">Media</h4>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Duration</th>
+<th>Signature</th>
+<th>Material</th>
+<th>Damping ζ</th>
+<th>Overshoot</th>
+<th>Use</th>
+<th>Reduced motion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>media-in</code> — Media arrival</td>
+<td>900ms</td>
+<td>refraction</td>
+<td>frost</td>
+<td>0.850</td>
+<td>0.6%</td>
+<td>After an image decodes or media becomes ready; reserve layout space.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>caption-in</code> — Caption reveal</td>
+<td>500ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Optional descriptive caption; text remains accessible in reduced motion.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>carousel-next</code> — Next item</td>
+<td>920ms</td>
+<td>refraction</td>
+<td>frost</td>
+<td>0.850</td>
+<td>0.6%</td>
+<td>Explicit next/previous navigation; never autoplay.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>carousel-previous</code> — Previous item</td>
+<td>920ms</td>
+<td>refraction</td>
+<td>frost</td>
+<td>0.850</td>
+<td>0.6%</td>
+<td>Maintain item count and keyboard navigation.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="manipulation">Manipulation</h4>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Duration</th>
+<th>Signature</th>
+<th>Material</th>
+<th>Damping ζ</th>
+<th>Overshoot</th>
+<th>Use</th>
+<th>Reduced motion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>drag-pickup</code> — Lift to move</td>
+<td>500ms</td>
+<td>tension</td>
+<td>resin</td>
+<td>0.700</td>
+<td>4.6%</td>
+<td>Visual lift for a selected movable item; keyboard alternative required.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>drag-settle</code> — Drop settle</td>
+<td>640ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>After a valid local move, with undo where data changes.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>resize-settle</code> — Resize settle</td>
+<td>600ms</td>
+<td>refraction</td>
+<td>frost</td>
+<td>0.850</td>
+<td>0.6%</td>
+<td>After measured layout size changes; never animate focus or hide handles.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="material-compositions">Material compositions</h4>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Duration</th>
+<th>Signature</th>
+<th>Material</th>
+<th>Damping ζ</th>
+<th>Overshoot</th>
+<th>Use</th>
+<th>Reduced motion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>resin-confluence</code> — Resin confluence</td>
+<td>1600ms</td>
+<td>coalesce</td>
+<td>resin</td>
+<td>0.620</td>
+<td>8.4%</td>
+<td>Explicit material choreography for a large specimen; replay is a visual study, not an application action.</td>
+<td>Keep the resting material visible; omit choreography.</td>
+</tr>
+<tr>
+<td><code>frost-unfold</code> — Frost unfolds into depth</td>
+<td>1900ms</td>
+<td>refraction</td>
+<td>frost</td>
+<td>0.850</td>
+<td>0.6%</td>
+<td>Explicit material choreography for a large specimen; replay is a visual study, not an application action.</td>
+<td>Keep the resting material visible; omit choreography.</td>
+</tr>
+<tr>
+<td><code>plastic-settle</code> — Plastic settles into place</td>
+<td>1700ms</td>
+<td>inertia</td>
+<td>plastic</td>
+<td>0.550</td>
+<td>12.6%</td>
+<td>Explicit material choreography for a large specimen; replay is a visual study, not an application action.</td>
+<td>Keep the resting material visible; omit choreography.</td>
+</tr>
+<tr>
+<td><code>haze-tide</code> — Haze perimeter tide</td>
+<td>1800ms</td>
+<td>feather</td>
+<td>haze</td>
+<td>0.920</td>
+<td>none</td>
+<td>Explicit material choreography for a large specimen; replay is a visual study, not an application action.</td>
+<td>Keep the resting material visible; omit choreography.</td>
+</tr>
+<tr>
+<td><code>stone-contour</code> — Stone contour ripple</td>
+<td>1300ms</td>
+<td>feather</td>
+<td>stone</td>
+<td>0.920</td>
+<td>none</td>
+<td>Explicit material choreography for a large specimen; replay is a visual study, not an application action.</td>
+<td>Keep the resting material visible; omit choreography.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Spring policy.</strong> Every recipe carries a spring fitted to its authored duration, which remains the authority. Damping ratio is chosen by signature: inertia and coalesce overshoot because momentum is their material claim, feather and caustic do not because a soft edge that bounces is wrong. Disabling springs must reproduce the keyframes exactly.</p>
+<p><strong>Travel policy.</strong> 5–30px ordinary, 50px guidance; justified large transitions may exceed it. Haze and Stone paint moves locally while text stays fixed.</p>
+<p><strong>Incompressibility.</strong> Deformations conserve volume: every scale(sx, sy) satisfies sx*sy = 1 within 0.005. Corrected by dividing both axes by the square root of the area, which preserves each deformation's aspect ratio exactly and removes only the compressibility error. Enforced by tools/validate-motion.cjs.</p>
+<!-- /generated:recipes -->
+
+<h2 id="the-shader-contract">The shader contract</h2>
+<!-- generated:shaders -->
+
+<p>Generated from <code>core/assets/shaders/manifest.json</code> (version 2.0.0).</p>
+<p><strong>The contract is the uniform set, not the GLSL.</strong> A platform that honours these
+uniforms has implemented Crystal's shader layer correctly, whether it does so in
+GLSL, Metal or AGSL. The <code>.frag</code> files in this repository are one implementation.</p>
+<h3 id="uniforms">Uniforms</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Uniform</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>u_time</code></td>
+<td>float</td>
+<td>Seconds since the effect began, already divided by the user motion-speed factor.</td>
+</tr>
+<tr>
+<td><code>u_resolution</code></td>
+<td>vec2</td>
+<td>Canvas size, for aspect-correct sampling.</td>
+</tr>
+<tr>
+<td><code>u_progress</code></td>
+<td>float</td>
+<td>Spring displacement from the headless core, not a linear ramp. This is what ties the optical layer to the same physics as the geometry.</td>
+</tr>
+<tr>
+<td><code>u_pressure</code></td>
+<td>float</td>
+<td>Interaction intensity. 0 at rest; 1 at full press or drag.</td>
+</tr>
+<tr>
+<td><code>u_contact</code></td>
+<td>vec2</td>
+<td>Normalised contact point, the origin of a disturbance. Defaults to the centre.</td>
+</tr>
+<tr>
+<td><code>u_tint</code></td>
+<td>vec3</td>
+<td>Resolved material tint in linear sRGB, taken from the palette so shaders never introduce colour of their own.</td>
+</tr>
+<tr>
+<td><code>u_intensity</code></td>
+<td>float</td>
+<td>Global attenuation. Products lower it; reduced transparency drives it to 0.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="shaders">Shaders</h3>
+<h4 id="resin-refraction"><code>resin-refraction</code></h4>
+<ul>
+<li><strong>Material</strong> — resin</li>
+<li><strong>Signatures</strong> — refraction, meniscus, tension</li>
+<li><strong>Blend mode</strong> — <code>hard-light</code></li>
+<li><strong>Degrades to</strong> — The existing CSS travelling-light sweep.</li>
+</ul>
+<p>Resin bends and disperses light at its rim. A signed-distance field gives the lens profile; the lighting response is a specular band that tracks the direction of travel, a defined bright edge, and chromatic separation where the lens is steepest. The interior stays clear so content remains readable through the material.</p>
+<h4 id="resin-caustics"><code>resin-caustics</code></h4>
+<ul>
+<li><strong>Material</strong> — resin</li>
+<li><strong>Signatures</strong> — caustic</li>
+<li><strong>Blend mode</strong> — <code>screen</code></li>
+<li><strong>Degrades to</strong> — A static highlight at the resting opacity.</li>
+</ul>
+<p>Light focused by a curved surface concentrates into bright curves. The curvature here is at the rim, so the caustics fall as sparse arcs along the boundary. Read from the same height field as the refraction shader, so the two agree by construction rather than by tuning.</p>
+<h4 id="frost-displacement"><code>frost-displacement</code></h4>
+<ul>
+<li><strong>Material</strong> — frost</li>
+<li><strong>Signatures</strong> — feather, refraction</li>
+<li><strong>Blend mode</strong> — <code>hard-light</code></li>
+<li><strong>Degrades to</strong> — The existing backdrop-filter blur and grain, unchanged.</li>
+</ul>
+<p>Frost refracts colour, not shape. At 40px of diffusion nothing sharp survives the material, so the three channels sample the same field at slightly separated points and resolve into a slow warm-to-cool wander across the surface rather than a visible fringe. Resin, at 20px, keeps detail and disperses sharply at its rim instead: the diffusion radius decides which behaviour is correct, not taste. Turning Resin down does not produce Frost, it produces weak Resin.</p>
+<h4 id="mirage-flow"><code>mirage-flow</code></h4>
+<ul>
+<li><strong>Material</strong> — mirage</li>
+<li><strong>Signatures</strong> — iris</li>
+<li><strong>Blend mode</strong> — <code>screen</code></li>
+<li><strong>Degrades to</strong> — The existing clip-path ellipse reveal.</li>
+</ul>
+<p>Mirage washes across a scene as a curved front. A flow field advects the front so its edge is organic rather than a geometric ellipse.</p>
+<h3 id="compositing">Compositing</h3>
+<p><strong>element</strong> — A transparent canvas positioned over the surface, never in the content flow.</p>
+<p><strong>blend</strong> — mix-blend-mode as declared per shader; the canvas carries no opaque pixels.</p>
+<p><strong>note</strong> — A web shader cannot sample the page behind it, so refraction is rendered as the lighting response to a computed surface normal rather than by displacing a backdrop. The eye reads normals and specular as refraction, and the technique degrades to nothing rather than to something wrong.</p>
+<h3 id="the-optical-model">The optical model</h3>
+<p><strong>basis</strong> — Edge lensing, not surface waves.</p>
+<p><strong>rationale</strong> — Refraction is concentrated in a band just inside the boundary and falls off steeply, leaving the centre of a surface optically clear. This follows how contemporary glass interfaces behave: the interior is shrunk and the edges stretched outward, which is a displacement concentrated at the rim rather than a wave crossing the surface. A defined, light-catching edge is what separates glass from frosted plastic.</p>
+<p><strong>rejected</strong> — An earlier implementation radiated concentric ripples from the contact point. That is what water does when something is dropped into it, and it read as a pond rather than as a solid transparent material. Meridian rejected it on sight and they were right: glass does not oscillate, it bends light where it curves.</p>
+<p><strong>specular</strong> — The highlight tracks the direction of travel rather than sitting still. On a handset the reference for this is the gyroscope; on the web it is the motion's own direction, taken from the contact point. A highlight that does not move with the object reads as a painted-on gradient.</p>
+<p><strong>morphing</strong> — Shape-shifting between states is geometry, not optics, and is carried by the spring recipes: the coalesce and meniscus signatures describe surfaces merging and separating. The optical layer lights whatever shape the geometry produces.</p>
+<h3 id="platform-mapping">Platform mapping</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Platform</th>
+<th>Shading language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>web</td>
+<td>GLSL ES 3.00 fragment shaders on WebGL2, as authored here.</td>
+</tr>
+<tr>
+<td>apple</td>
+<td>Metal Shading Language. Port mechanically; uniforms become a single constant buffer in the declared order.</td>
+</tr>
+<tr>
+<td>android</td>
+<td>AGSL via RuntimeShader. Uniforms map one to one; AGSL is GLSL-derived and the bodies transfer with signature changes only.</td>
+</tr>
+<tr>
+<td>note</td>
+<td>A platform that cannot meet the contract must degrade as declared per shader rather than approximate it differently, because a divergent approximation is worse for parity than an honest absence.</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /generated:shaders --></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/motion.md">Specification source</a></footer></div></body></html>

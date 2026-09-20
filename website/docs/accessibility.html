@@ -1,0 +1,209 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Accessibility contract and validation · Crystal</title><link rel="icon" href="../vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="../assets/controls.css?v=pill-focus-2"><script src="../vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="../vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="../assets/motion-shaders.js" defer></script><script src="../assets/menu.js" defer></script><script src="../assets/docs.js" defer></script><script src="../assets/controls.js?v=pill-focus-2" defer></script></head><body><a class="skip" href="#main">Skip to specification</a><div class="shell"><header class="site-header"><a class="wordmark" href="../index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="../vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="../index.html">Overview</a><a class="cr-control menu-item" href="../playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="../docs/principles.html">Foundations</a><a class="cr-control menu-item" href="../docs/colors.html">Color</a><a class="cr-control menu-item" href="../docs/materials.html">Materials</a><a class="cr-control menu-item" href="../docs/components.html">Components</a><a class="cr-control menu-item" href="../docs/catalogue.html">Catalogue</a><a class="cr-control menu-item" href="../docs/icons.html">Icons</a><a class="cr-control menu-item" href="../docs/tokens.html">Tokens</a><a class="cr-control menu-item" href="../docs/motion.html">Motion</a><a class="cr-control menu-item" href="../docs/motion-components.html">Component motion</a><a class="cr-control menu-item" href="../docs/accessibility.html" aria-current="page">Accessibility</a><a class="cr-control menu-item" href="../docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="../motion.html">Motion studies</a><a class="cr-control menu-item" href="../verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="accessibility-contract-and-validation">Accessibility contract and validation</h1>
+<p>Crystal preserves the original project's strict accessibility intent. WCAG 2.2 is the current Recommendation verified from the W3C source on September 17, 2026; recheck the latest finalized standard at adoption and release. AA is this reusable system’s engineering baseline, not a claim that the entire package or a consuming application has been certified. <a href="https://www.w3.org/TR/WCAG22/">WCAG 2.2</a>.</p>
+<h2 id="color-and-material-requirements">Color and material requirements</h2>
+<p>Normal reading/control text must meet at least 4.5:1 against its actual background; applicable large text and essential non-text identification have 3:1 requirements. Use the standard's definitions and exceptions, not a blanket assumption that a decorative border must pass or that every large label qualifies.</p>
+<p>No essential meaning depends solely on hue. Use visible words, circular symbol badges or other shapes alongside programmatic state. Screen-reader labels alone do not address a sighted user who cannot distinguish colors. Functional colors remain independent of the product theme. <a href="https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html">W3C use-of-color explanation</a>.</p>
+<p>The live table checks ten defined solid color pairs per palette/mode. It does not sample every rendered pixel or arbitrary imported background. The automated report separately bounds Stone composites (including its feathered reading-area bound) against RGB corner backdrops and the supported foundation gradient contributions. Content fills are additionally tested at 80% and a conservative 79% reading-area bound; a minimum 12px inset keeps text out of the feathered perimeter. Consumers must test new imagery or layering, interactive states and actual devices.</p>
+<h2 id="interaction-requirements">Interaction requirements</h2>
+<ul>
+<li>Keyboard: all actions reachable and operable; focus visible, logical and not obscured by floating controls.</li>
+<li>Dialogs: correctly labeled; modal focus containment; Escape where appropriate; restore focus to the invoking control.</li>
+<li>Forms: persistent label, associated instructions/errors, native semantics, no placeholder-only labeling, useful validation.</li>
+<li>Text: support 200% text enlargement and applicable 400% zoom/reflow; do not hide overflow to mask failures.</li>
+<li>Touch: preserve target-size requirements and spacing; prefer 44px targets for primary actions.</li>
+<li>Motion/effects: honor reduced-motion, reduced-transparency where supported, explicit opaque mode and forced colors.</li>
+<li>Structure: meaningful landmarks/headings, list/table semantics, accessible names and visible state cues.</li>
+<li>RTL/localization: mirrored directional geometry, logical ordering, long translations and native reading direction.</li>
+</ul>
+<h2 id="test-matrix-for-consumers">Test matrix for consumers</h2>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Axis</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Theme</td>
+<td>Every supported palette, light/dark/system, user preference restoration</td>
+</tr>
+<tr>
+<td>Material</td>
+<td>Default and extreme tint/atmosphere, opaque fallback, unsupported backdrop filtering</td>
+</tr>
+<tr>
+<td>Layout</td>
+<td>Narrow/wide, dense/comfortable, long text, zoom/reflow, safe areas</td>
+</tr>
+<tr>
+<td>Inputs</td>
+<td>Keyboard, touch, pointer, relevant assistive technologies</td>
+</tr>
+<tr>
+<td>States</td>
+<td>Focus, pressed, selected, disabled, pending, empty, invalid, denied, offline</td>
+</tr>
+<tr>
+<td>Platform</td>
+<td>Actual supported browser engines and native adapters, not just one screenshot</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use automated scans as one part of review. Screen-reader journeys, focus recovery, content clarity, high zoom, mobile behavior and native accessibility APIs require direct testing. Runtime contrast exports are evidence about token pairs, not a complete conformance claim.</p>
+<h2 id="what-this-delivery-verifies">What this delivery verifies</h2>
+<p>See the <a href="../verification/report.html">verification report</a> for checks actually run, environments and limits. Proposed product tests above do not count as executed checks. The package includes no backend, no native material implementation and no production service stubs.</p>
+<h2 id="forced-colours">Forced colours</h2>
+<p>Windows High Contrast — <code>forced-colors: active</code> in CSS — replaces the page's palette with
+a small set of system colours the user has chosen: <code>Canvas</code>, <code>CanvasText</code>, <code>Highlight</code>,
+<code>HighlightText</code>, <code>ButtonFace</code>, <code>ButtonText</code>, <code>LinkText</code>. Crystal honours that choice
+rather than opting out of it.</p>
+<h3 id="selection-is-a-ring-never-a-fill">Selection is a ring, never a fill</h3>
+<p>This is the rule, and it comes from a real defect found in this system.</p>
+<p>Chromium paints an opaque <strong>text backplate</strong> behind text runs in forced-colors mode: a
+rectangle of <code>Canvas</code> drawn <em>above</em> the element's own background, so that text is
+guaranteed to sit on the user's background colour. A selected control styled as a filled
+row therefore renders as: your fill, then an opaque <code>Canvas</code> rectangle over it, then the
+label. In the dark high-contrast palette <code>HighlightText</code> and <code>Canvas</code> are both black — so
+the label disappears into the backplate and the control becomes a solid black block.</p>
+<p>The fix is to stop filling and start ringing:</p>
+<pre><code class="language-css">@media (forced-colors: active){
+  .menu-item[aria-current]{
+    background:Canvas;                  /* agree with the backplate rather than fight it */
+    color:CanvasText;
+    outline:2px solid Highlight;        /* selection lives outside the text run */
+    outline-offset:-3px;                /* inside the pill's own edge */
+  }
+}
+</code></pre>
+<p>An outline is not covered by the backplate, because the backplate only spans the text. The
+negative offset draws the ring just inside the control's boundary so it reads as "this one"
+rather than as a focus ring.</p>
+<p><strong><code>forced-color-adjust: none</code> is not the fix.</strong> It works, and it does so by discarding the
+palette the user deliberately chose — which is the entire point of the mode. It is
+reserved for content whose meaning <em>is</em> its colour, such as a palette swatch.</p>
+<p>Verified in both the light and dark high-contrast palettes. The captures and the defect
+this rule came from are in
+<code>validation/captures/2026-09-17-forced-colours/</code>.</p>
+<h2 id="reduced-motion">Reduced motion</h2>
+<p><code>prefers-reduced-motion: reduce</code> is honoured by every one of the 55 motion recipes. Each
+recipe declares its own <code>reduced</code> behaviour rather than being globally switched off,
+because "no animation" and "no <em>movement</em>" are different requirements.</p>
+<p>The contract is: <strong>the semantic state change still happens, immediately; the decorative
+travel does not.</strong> A menu that opens still opens. A button that has been pressed still
+shows it has been pressed. What is removed is the travel, the overshoot and the shader
+layer. Reduced motion resolves to zero displacement regardless of the recipe's spring —
+this is asserted by <code>tools/validate-motion.cjs</code>, not left to each implementation.</p>
+<h2 id="reduced-transparency">Reduced transparency</h2>
+<p><code>prefers-reduced-transparency: reduce</code> sets <code>data-effects="opaque"</code>, which replaces every
+backdrop filter with a solid surface and a stronger border:</p>
+<pre><code class="language-css">[data-effects=opaque] :is(.cr-frost,.cr-acrylic),
+[data-effects=opaque] :is(.cr-resin,.cr-glass){
+  backdrop-filter:none;
+  background:var(--cr-surface);
+  border-color:var(--cr-outline);
+}
+</code></pre>
+<p>The border strengthens deliberately. Translucency was carrying some of the edge
+definition; removing it without compensating leaves surfaces that are technically opaque
+and visually unbounded. Contrast is re-checked in this mode — a regression here was found
+and fixed during verification, recorded in
+<code>validation/captures/2026-09-17-rtl-and-reduced-effects/</code>.</p>
+<h2 id="target-size">Target size</h2>
+<p>Every interactive control has a minimum target of <strong>44 × 44 px</strong>, including controls that
+look smaller than that. A 24px icon button carries 44px of hit area; a menu entry is 44px
+tall even where the label is 19px. This is a floor, not a target — it is not reduced on
+dense layouts, because "dense" is a visual decision and the hand does not get more precise.</p>
+<h2 id="direction">Direction</h2>
+<p>Right-to-left is a verified axis, not an aspiration. Layout uses logical properties
+throughout — <code>inset-inline-start</code>, <code>padding-inline-start</code>, <code>margin-inline-end</code> — so mirroring
+is a direction change rather than a stylesheet. The menu indentation, the drop indicator
+and the focus offset all follow.</p>
+<p>Physical properties are correct only where the meaning is physical: a light source is
+above in both directions, so the Haze recess keeps <code>inset 0 1px</code> rather than becoming a
+logical offset.</p>
+<h2 id="colour-is-never-the-only-signal">Colour is never the only signal</h2>
+<p>Every state that is communicated with colour is also communicated another way:</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>State</th>
+<th>Colour</th>
+<th>Second signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Selected</td>
+<td>Primary fill</td>
+<td>Label weight, which is typographic rather than chromatic</td>
+</tr>
+<tr>
+<td>Focused</td>
+<td>Primary ring</td>
+<td>A 2px outline at 3px offset</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>Status red</td>
+<td>Icon and message text</td>
+</tr>
+<tr>
+<td>Validated</td>
+<td>Status green</td>
+<td>A check mark</td>
+</tr>
+<tr>
+<td>Current page</td>
+<td>Primary</td>
+<td><code>aria-current="page"</code> and weight</td>
+</tr>
+</tbody>
+</table></div>
+<p>Status colours are independent of the six brand palettes, so none of these signals changes
+meaning when a product re-themes. See <a href="colors.html#status">Color</a>.</p>
+<h2 id="contrast">Contrast</h2>
+<!-- generated:contrast -->
+
+<p><strong>1,788 contrast cases</strong> are computed across all six palettes in both
+modes, including bounded composites: Resin and Haze control labels are checked with the
+optical sheen beneath the protective fill, against content composites and RGB-corner
+backdrops with the fixed Resin fill.</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Measure</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cases computed</td>
+<td>1,788</td>
+</tr>
+<tr>
+<td>Failures</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Lowest result of any kind</td>
+<td>3.07:1</td>
+</tr>
+<tr>
+<td>Lowest normal-text result</td>
+<td>4.67:1</td>
+</tr>
+<tr>
+<td>Checks run</td>
+<td>2026-09-20</td>
+</tr>
+</tbody>
+</table></div>
+<p>Normal text is held to 4.5:1. Essential non-text — focus rings, control boundaries,
+indicator lines — uses its separate 3:1 threshold, which is the correct standard for those
+elements rather than a relaxation for them.</p>
+<!-- /generated:contrast -->
+
+<p>What that does and does not establish is stated plainly in the
+<a href="../verification/report.html">verification report</a>: it is evidence about this reference
+package, not a claim of complete WCAG conformance for a product built with it.</p></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/accessibility.md">Specification source</a></footer></div></body></html>
