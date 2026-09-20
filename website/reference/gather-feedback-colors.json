@@ -1,0 +1,22 @@
+{
+  "revision": "crystal-feedback-01",
+  "scope": "Additive functional accents only; approved Crystal palette and material recipes remain unchanged",
+  "light": {
+    "feedback-success-surface": "#E5F4EA",
+    "feedback-success-ink": "#175D38",
+    "feedback-attention-surface": "#FFF0CD",
+    "feedback-attention-ink": "#714B00"
+  },
+  "dark": {
+    "feedback-success-surface": "#173525",
+    "feedback-success-ink": "#9BE2B3",
+    "feedback-attention-surface": "#3D2D0E",
+    "feedback-attention-ink": "#FFDA8A"
+  },
+  "shared": {
+    "feedback-error-surface": "var(--errorContainer)",
+    "feedback-error-ink": "var(--onErrorContainer)",
+    "feedback-info-surface": "var(--primaryContainer)",
+    "feedback-info-ink": "var(--onPrimaryContainer)"
+  }
+}

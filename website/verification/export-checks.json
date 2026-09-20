@@ -1,0 +1,57 @@
+{
+  "scope": "Actual files produced by browser download buttons",
+  "css": "crystal-theme (9).css",
+  "json": "crystal-theme (9).json",
+  "bothModes": true,
+  "currentAcrylicBlur": "40px",
+  "currentLabelVeil": {
+    "light": 0.55,
+    "dark": 0.6
+  },
+  "micaInactive": {
+    "light": "#f1f1f3",
+    "dark": "#202126"
+  },
+  "result": "passed",
+  "actualGlassAlpha": 0.2,
+  "contentOpacity": 0.8,
+  "contentFeather": "1.95px",
+  "materialNames": [
+    "plastic",
+    "frost",
+    "resin",
+    "haze",
+    "stone",
+    "mirage"
+  ],
+  "stoneFeather": "1.95px",
+  "stoneOpacity": {
+    "light": 0.55,
+    "dark": 0.6
+  },
+  "mirage": {
+    "opacity": 0.38,
+    "blur": "28px",
+    "saturation": "165%",
+    "brightness": "88%",
+    "fallbackOpacity": 0.64
+  },
+  "motion": {
+    "press": 90,
+    "state": 160,
+    "spatial": 220,
+    "exit": 120,
+    "easing": {
+      "enter": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "settle": "cubic-bezier(0.2, 0, 0.2, 1)",
+      "exit": "cubic-bezier(0.4, 0, 1, 1)"
+    },
+    "distance": {
+      "panel": 6,
+      "floating": 4,
+      "content": 3,
+      "exit": 2
+    }
+  },
+  "reduceMotionExported": true
+}

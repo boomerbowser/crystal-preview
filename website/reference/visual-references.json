@@ -1,0 +1,125 @@
+{
+  "recorded": "2026-09-17",
+  "scope": "User-supplied positive visual references from this conversation. Defect reports and purely textual clarifications are excluded.",
+  "images": [
+    {
+      "file": "material-examples/frost/acrylic-light.png",
+      "sourcePath": "/home/oshun/Downloads/acrylic-light-theme-base.png",
+      "role": "Frost inspiration",
+      "subject": "Acrylic light diffusion and grain",
+      "sha256": "adec7792f7fc2c6031bf757ab709e960a57b8ca7bed1d13e205249c300edf825"
+    },
+    {
+      "file": "material-examples/frost/acrylic-dark.png",
+      "sourcePath": "/home/oshun/Downloads/acrylic-dark-theme-base.png",
+      "role": "Frost inspiration",
+      "subject": "Acrylic dark diffusion and grain",
+      "sha256": "1070c637e855c25267af0a4a22606c3253385f29070358919404742183e88b41"
+    },
+    {
+      "file": "material-examples/resin/spatial-interface.webp",
+      "sourcePath": "/home/oshun/Downloads/original-ac4007c1adee685cb4dfa6f59fe2a744.webp",
+      "role": "Resin inspiration",
+      "subject": "Floating glass navigation, media and messaging",
+      "sha256": "27a895688a1a1fcece601f687e500bdb53ac9d463be788d45cd0b27a2a711bd2"
+    },
+    {
+      "file": "material-examples/resin/home-controls.jpg",
+      "sourcePath": "/home/oshun/Downloads/images.jpg",
+      "role": "Resin inspiration",
+      "subject": "Glass home controls and information cards",
+      "sha256": "e8d0154e30905733486fc75bffd1fdbafda4207080ad06a534c9eab46eafb14b"
+    },
+    {
+      "file": "material-examples/resin/mobile-and-widgets.jpg",
+      "sourcePath": "/home/oshun/Downloads/1_cIe2J8nha7XSlYu6-oJo2g.jpg",
+      "role": "Resin inspiration",
+      "subject": "Mobile expression and translucent desktop widgets",
+      "sha256": "030f5a931950e8130b9a9e020295d240241f1d929b99fc5a20492c67b5f40650"
+    },
+    {
+      "file": "material-examples/resin/glass-button.png",
+      "sourcePath": "/home/oshun/Downloads/button.png",
+      "role": "Resin inspiration",
+      "subject": "Luminous pill button over a landscape",
+      "sha256": "f6c79f953b10f7a29d90261d6d5fc2c957977fe7ef3bed48a43d62c011b94c28"
+    },
+    {
+      "file": "material-examples/resin/glass-profile-card.png",
+      "sourcePath": "/home/oshun/Downloads/card.png",
+      "role": "Resin inspiration",
+      "subject": "Glass profile card with transmitted scenery",
+      "sha256": "f459e42b60357c5d965dc48147413186ae4c219119196ec1ad8158ece1c4a404"
+    },
+    {
+      "file": "material-examples/resin/restaurant-panel.png",
+      "sourcePath": "/home/oshun/Downloads/network-image-1757044557004.png",
+      "role": "Resin inspiration",
+      "subject": "Translucent panel over photographic context",
+      "sha256": "2ed7cbee9459a5754cefc3be4bfd5a26554f2f08597a9aaadd29be10cc4c3808"
+    },
+    {
+      "file": "material-examples/resin/mobile-sign-in.png",
+      "sourcePath": "/home/oshun/Downloads/network-image-1757044557024.png",
+      "role": "Resin inspiration",
+      "subject": "Layered translucent mobile form",
+      "sha256": "54bae0aed621809126a33ec33690120458ef1d4c2e0c4ed3f9be5d914e5e4748"
+    },
+    {
+      "file": "material-examples/plastic/mica-definition-and-modes.png",
+      "sourcePath": "/home/oshun/Pictures/Screenshots/Screenshot_20260917_020155.png",
+      "role": "Plastic inspiration",
+      "subject": "Mica definition, opacity and light/dark examples",
+      "sha256": "a9c1e582dea1542eaa43b7871a174a41f64b8df26154336dcbf22254b25a8e69"
+    },
+    {
+      "file": "material-examples/plastic/mica-contextual-tint.png",
+      "sourcePath": "/home/oshun/Pictures/Screenshots/Screenshot_20260917_020054.png",
+      "role": "Plastic inspiration",
+      "subject": "Opaque Mica with contextual tint",
+      "sha256": "326058587c567e16e0e143480171037ae3e537262f872219e4e844761a0f36fb"
+    },
+    {
+      "file": "approved-controls/resin-pill.png",
+      "sourcePath": "/home/oshun/Pictures/Screenshots/Screenshot_20260917_023842.png",
+      "role": "Approved control reference",
+      "subject": "Broad luminous Resin rim and soft protected pill fill",
+      "sha256": "6192d27fe273b808c50d6caf53b91f3c6d3340749e7ee0a635b3c59bf286cfb9"
+    },
+    {
+      "file": "approved-controls/floating-toolbar.png",
+      "sourcePath": "/home/oshun/Pictures/Screenshots/Screenshot_20260917_023819.png",
+      "role": "Approved control reference",
+      "subject": "Shared glass toolbar with raised selected action",
+      "sha256": "9d1c8226b0370c46395f4e0125c745cbbe74c306790a0d546266d74b61825796"
+    },
+    {
+      "file": "approved-crystal/material-hierarchy.png",
+      "sourcePath": "/home/oshun/Pictures/Screenshots/Screenshot_20260917_125508.png",
+      "role": "Authoritative Crystal visual baseline",
+      "subject": "Plastic, Frost and Resin side by side",
+      "sha256": "45ffe42becee9461bebecb7b36ae6af26eb413fecdea7e2368bca553ad10489a"
+    },
+    {
+      "file": "approved-crystal/plastic-foundation.png",
+      "sourcePath": "/home/oshun/Pictures/Screenshots/Screenshot_20260917_125424.png",
+      "role": "Authoritative Crystal visual baseline",
+      "subject": "Opaque contextual Plastic with protected content",
+      "sha256": "8d439c3eed20747bc236deceae50b84ff94832cafc82eed57012a66ff1f8af99"
+    },
+    {
+      "file": "approved-crystal/haze-over-resin.png",
+      "sourcePath": "/home/oshun/Pictures/Screenshots/Screenshot_20260917_125251.png",
+      "role": "Authoritative Crystal visual baseline",
+      "subject": "Feathered Haze reading fill within an elevated Resin shell",
+      "sha256": "3b1967426d8c49acbc2a8edb86d00d23d291d254ad3c4b9f5786463a245d47f8"
+    },
+    {
+      "file": "approved-crystal/layered-materials.png",
+      "sourcePath": "/home/oshun/Pictures/Screenshots/Screenshot_20260917_125233.png",
+      "role": "Authoritative Crystal visual baseline",
+      "subject": "Plastic foundation, visibly diffused Frost and floating Resin control",
+      "sha256": "104281ce29e192f9de06dd82019fe6b2cde7358155e2eb7a274e6d02497a26dd"
+    }
+  ]
+}

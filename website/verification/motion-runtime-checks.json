@@ -1,0 +1,74 @@
+{
+  "passed": 16,
+  "failed": 0,
+  "recipes": 54,
+  "results": [
+    {
+      "name": "Installed Motion and GSAP versions",
+      "status": "pass"
+    },
+    {
+      "name": "Every catalog recipe completes on the real engine",
+      "status": "pass"
+    },
+    {
+      "name": "Every material signature completes on real paint layers",
+      "status": "pass"
+    },
+    {
+      "name": "Motion cancellation settles and restores owned inline style",
+      "status": "pass"
+    },
+    {
+      "name": "GSAP cancellation settles and restores native paint",
+      "status": "pass"
+    },
+    {
+      "name": "Rapid replacement cannot overwrite the new animation state",
+      "status": "pass"
+    },
+    {
+      "name": "Haze and Stone keep foreground geometry fixed",
+      "status": "pass"
+    },
+    {
+      "name": "Reduced motion cancels layers and resolves immediately",
+      "status": "pass"
+    },
+    {
+      "name": "Duration cap applies to slow factors",
+      "status": "pass"
+    },
+    {
+      "name": "Measured layout supports large travel with an opt-out",
+      "status": "pass"
+    },
+    {
+      "name": "Material light and pseudo-layer timelines release effects",
+      "status": "pass"
+    },
+    {
+      "name": "Resin controls retain a separate Haze reading fill",
+      "status": "pass"
+    },
+    {
+      "name": "Component preview fits a 320px browsing context",
+      "status": "pass"
+    },
+    {
+      "name": "Main preview fits 320px with semantic badges and visible focus",
+      "status": "pass"
+    },
+    {
+      "name": "Completed animations restore paint after subsequent browser frames",
+      "status": "pass"
+    },
+    {
+      "name": "Mirage dialog remains visible across repeated real preview openings",
+      "status": "pass"
+    }
+  ],
+  "observedIn": "Codex in-app browser over localhost:4321, September 17, 2026",
+  "scope": "Real browser and installed engines. Includes 320px layout, Resin/Haze popup composition, highlight stacking, 54 recipes and extended travel. Not full WCAG or cross-platform certification.",
+  "revision": "Glowing focus and Resin/Haze indicators: 16 browser contracts pass, including native required/error badges, accessible label preservation, 320px layout, focus paint, and Mirage reopening. Focus checked in light and dark modes; fractional CSS pixel rounding at browser zoom is allowed."
+}

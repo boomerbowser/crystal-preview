@@ -1,0 +1,1210 @@
+{
+  "date": "2026-09-17T07:29:40.350Z",
+  "environment": "Codex in-app browser; desktop 1440\u00d71080, narrow 390\u00d7844 and 320\u00d7900",
+  "scope": "Observed local interactions, material behavior and responsive layouts. Not a complete WCAG audit.",
+  "checks": [
+    {
+      "check": "palette and material rendering",
+      "palette": "Prism",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(249, 246, 254)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "prism",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(23, 93, 56)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Prism",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(18, 13, 38)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "prism",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(155, 226, 179)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Fuchsia",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(252, 245, 250)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "fuchsia",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(23, 93, 56)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Fuchsia",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(25, 10, 30)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "fuchsia",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(155, 226, 179)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Cobalt",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(245, 247, 254)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "cobalt",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(23, 93, 56)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Cobalt",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(11, 16, 37)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "cobalt",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(155, 226, 179)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Ion",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(244, 249, 250)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "ion",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(23, 93, 56)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Ion",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(7, 20, 30)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "ion",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(155, 226, 179)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Amethyst",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(249, 246, 252)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "amethyst",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(23, 93, 56)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Amethyst",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(19, 13, 34)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "amethyst",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(155, 226, 179)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Harbor",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(250, 248, 254)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "harbor",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(23, 93, 56)"
+      }
+    },
+    {
+      "check": "palette and material rendering",
+      "palette": "Harbor",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(24px) saturate(1.45)",
+        "background": "rgb(13, 14, 18)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "harbor",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "glass": "blur(20px) saturate(1.65)",
+        "overflow": false,
+        "success": "rgb(155, 226, 179)"
+      }
+    },
+    {
+      "check": "all appearance adjustments",
+      "observed": {
+        "configuration": {
+          "atmosphere": 90,
+          "density": "compact",
+          "elevation": 150,
+          "font": "system",
+          "mode": "dark",
+          "palette": "prism",
+          "radius": 28,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 85,
+          "version": "1.0.0"
+        },
+        "font": "system-ui, sans-serif",
+        "radius": "34px",
+        "shadow": "rgba(255, 255, 255, 0.17) 0px 1px 1px 0px inset, rgba(0, 0, 0, 0.5) 0px -1px 1px 0px inset, rgba(0, 0, 0, 0.5) 0px 6px 10.5px 0px, rgba(0, 0, 0, 0.55) 0px 30px 60px 0px",
+        "surface": "rgba(29, 23, 48, 0.94)"
+      }
+    },
+    {
+      "check": "reduced transparency",
+      "observed": {
+        "blur": "none",
+        "fill": "rgb(29, 23, 48)",
+        "tintDisabled": true
+      }
+    },
+    {
+      "check": "preference restoration after reload",
+      "observed": {
+        "atmosphere": 90,
+        "density": "compact",
+        "elevation": 150,
+        "font": "system",
+        "mode": "dark",
+        "palette": "prism",
+        "radius": 28,
+        "reduced": true,
+        "system": "Crystal",
+        "translucency": 85,
+        "version": "1.0.0"
+      }
+    },
+    {
+      "check": "scene navigation",
+      "result": "conversation and library visible when selected"
+    },
+    {
+      "check": "dialog focus containment, Escape and return",
+      "observed": {
+        "wrappedFocus": "close-dialog",
+        "returnFocus": "open-dialog"
+      },
+      "note": "Explicit Tab wrap added after native dialog initially allowed focus to browser chrome."
+    },
+    {
+      "check": "local product naming form",
+      "observed": "Atelier"
+    },
+    {
+      "check": "export inspection and download initiation",
+      "result": "CSS contains both modes, current palette and 40px Acrylic; both download buttons invoked"
+    },
+    {
+      "check": "responsive scene",
+      "scene": "Workspace",
+      "canvas": 339.20001220703125,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "check": "responsive scene",
+      "scene": "Conversation",
+      "canvas": 339.20001220703125,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "check": "responsive scene",
+      "scene": "Library",
+      "canvas": 339.20001220703125,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "check": "responsive scene",
+      "scene": "Workspace",
+      "canvas": 268.8000183105469,
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "check": "responsive scene",
+      "scene": "Conversation",
+      "canvas": 268.8000183105469,
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "check": "responsive scene",
+      "scene": "Library",
+      "canvas": 268.8000183105469,
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Prism",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "prism",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(249, 246, 254)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Prism",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "prism",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(18, 13, 38)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Fuchsia",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "fuchsia",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(252, 245, 250)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Fuchsia",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "fuchsia",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(25, 10, 30)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Cobalt",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "cobalt",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(245, 247, 254)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Cobalt",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "cobalt",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(11, 16, 37)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Ion",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "ion",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(244, 249, 250)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Ion",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "ion",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(7, 20, 30)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Amethyst",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "amethyst",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(249, 246, 252)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Amethyst",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "amethyst",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(19, 13, 34)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Harbor",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "harbor",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(250, 248, 254)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "material hierarchy rendering",
+      "palette": "Harbor",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "blur(40px) saturate(1.25)",
+        "config": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "dark",
+          "palette": "harbor",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 48,
+          "version": "1.0.0"
+        },
+        "foundation": "rgb(13, 14, 18)",
+        "glass": "blur(20px) saturate(1.65)"
+      }
+    },
+    {
+      "check": "specification navigation and shared appearance",
+      "observed": {
+        "background": "rgb(18, 13, 38)",
+        "mode": "dark"
+      }
+    },
+    {
+      "check": "material study synchronized controls and fallback",
+      "observed": {
+        "study": {
+          "glass": "rgba(29, 23, 48, 0.35)",
+          "mode": "dark",
+          "tint": "35",
+          "veil": "rgba(29, 23, 48, 0.55)"
+        },
+        "fallback": {
+          "blur": "none",
+          "opaque": true
+        }
+      }
+    },
+    {
+      "check": "Mica opaque active/inactive behavior",
+      "mode": "Light material appearance",
+      "activeMica": {
+        "fill": "rgb(249, 246, 254)",
+        "filter": "none",
+        "image": "linear-gradient(135deg, rgba(115, 56, 239, 0.157), rgba(0, 0, 0, 0) 65%)",
+        "opacity": "1"
+      },
+      "inactiveMica": {
+        "fill": "rgb(241, 241, 243)",
+        "filter": "none",
+        "image": "none",
+        "opacity": "1"
+      }
+    },
+    {
+      "check": "Mica opaque active/inactive behavior",
+      "mode": "Dark material appearance",
+      "activeMica": {
+        "fill": "rgb(18, 13, 38)",
+        "filter": "none",
+        "image": "linear-gradient(135deg, rgba(126, 72, 240, 0.19), rgba(0, 0, 0, 0) 65%)",
+        "opacity": "1"
+      },
+      "inactiveMica": {
+        "fill": "rgb(32, 33, 38)",
+        "filter": "none",
+        "image": "none",
+        "opacity": "1"
+      }
+    },
+    {
+      "check": "final materials at 320px",
+      "observed": {
+        "micaWidth": 1336.800048828125,
+        "scrollWidth": 1425,
+        "studyWidth": 1336.800048828125,
+        "width": 1440
+      }
+    },
+    {
+      "check": "Reusable inactive Mica primitive and exported token",
+      "mode": "Light",
+      "observed": {
+        "background": "rgb(241, 241, 243)",
+        "filter": "none",
+        "image": "none",
+        "opacity": "1",
+        "state": "false",
+        "token": "#f1f1f3"
+      }
+    },
+    {
+      "check": "Reusable inactive Mica primitive and exported token",
+      "mode": "Dark",
+      "observed": {
+        "background": "rgb(32, 33, 38)",
+        "filter": "none",
+        "image": "none",
+        "opacity": "1",
+        "state": "false",
+        "token": "#202126"
+      }
+    },
+    {
+      "check": "Liquid Glass opacity reduced 20% with current preferences preserved",
+      "observed": {
+        "acrylic": "rgba(255, 255, 255, 0.45)",
+        "configuration": {
+          "atmosphere": 65,
+          "density": "comfortable",
+          "elevation": 100,
+          "font": "manrope",
+          "mode": "light",
+          "palette": "prism",
+          "radius": 22,
+          "reduced": false,
+          "system": "Crystal",
+          "translucency": 35,
+          "version": "1.0.0"
+        },
+        "glass": "rgba(255, 255, 255, 0.28)"
+      }
+    },
+    {
+      "check": "Fixed 20% Glass fill across specimens",
+      "mode": "Dark",
+      "observed": {
+        "acrylic": "rgba(29, 23, 48, 0.45)",
+        "glass": [
+          "rgba(29, 23, 48, 0.2)",
+          "rgba(29, 23, 48, 0.2)",
+          "rgba(29, 23, 48, 0.2)"
+        ],
+        "label": "rgba(29, 23, 48, 0.6)"
+      }
+    },
+    {
+      "check": "Fixed 20% Glass fill across specimens",
+      "mode": "Light",
+      "observed": {
+        "acrylic": "rgba(255, 255, 255, 0.45)",
+        "glass": [
+          "rgba(255, 255, 255, 0.2)",
+          "rgba(255, 255, 255, 0.2)",
+          "rgba(255, 255, 255, 0.2)"
+        ],
+        "label": "rgba(255, 255, 255, 0.55)"
+      }
+    },
+    {
+      "check": "Opaque fallback retained with 20% Glass recipe",
+      "observed": "rgb(255, 255, 255)"
+    },
+    {
+      "check": "80% Solid content with background-only feather",
+      "mode": "Dark",
+      "observed": {
+        "feather": "blur(3px)",
+        "fill": "rgba(29, 23, 48, 0.8)",
+        "glass": "rgba(29, 23, 48, 0.2)",
+        "textFilter": "none",
+        "textOpacity": "1"
+      }
+    },
+    {
+      "check": "80% Solid content with background-only feather",
+      "mode": "Light",
+      "observed": {
+        "feather": "blur(3px)",
+        "fill": "rgba(255, 255, 255, 0.8)",
+        "glass": "rgba(255, 255, 255, 0.2)",
+        "textFilter": "none",
+        "textOpacity": "1"
+      }
+    },
+    {
+      "check": "Solid content opaque fallback",
+      "observed": {
+        "fill": "rgb(255, 255, 255)",
+        "filter": "none"
+      }
+    },
+    {
+      "check": "Soft content study at 320px without horizontal overflow",
+      "observed": {
+        "scroll": 305,
+        "width": 320
+      }
+    },
+    {
+      "check": "Solid content feather reduced 35% to 1.95px",
+      "observed": {
+        "feather": "blur(1.95px)",
+        "fill": "rgba(255, 255, 255, 0.8)",
+        "textFilter": "none"
+      }
+    },
+    {
+      "check": "Six-material naming and unchanged fill recipes; Stone feather applied",
+      "mode": "Dark",
+      "observed": {
+        "frost": "blur(40px) saturate(1.25)",
+        "haze": "rgba(29, 23, 48, 0.8)",
+        "hazeFeather": "blur(1.95px)",
+        "plastic": "rgb(18, 13, 38)",
+        "resin": "rgba(29, 23, 48, 0.2)",
+        "stone": "rgba(29, 23, 48, 0.6)",
+        "stoneFeather": "blur(1.95px)",
+        "stoneTextFilter": "none"
+      }
+    },
+    {
+      "check": "Six-material naming and unchanged fill recipes; Stone feather applied",
+      "mode": "Light",
+      "observed": {
+        "frost": "blur(40px) saturate(1.25)",
+        "haze": "rgba(255, 255, 255, 0.8)",
+        "hazeFeather": "blur(1.95px)",
+        "plastic": "rgb(249, 246, 254)",
+        "resin": "rgba(255, 255, 255, 0.2)",
+        "stone": "rgba(255, 255, 255, 0.55)",
+        "stoneFeather": "blur(1.95px)",
+        "stoneTextFilter": "none"
+      }
+    },
+    {
+      "check": "Mirage modal opens with dimming, diffusion and Escape focus return",
+      "observed": {
+        "blur": "blur(5px)",
+        "fill": "rgba(17, 21, 37, 0.533)",
+        "open": true
+      }
+    },
+    {
+      "check": "Stone opaque fallback and narrow material layout",
+      "observed": {
+        "stoneFallback": {
+          "feather": "none",
+          "fill": "rgb(255, 255, 255)"
+        },
+        "matNarrow": {
+          "scroll": 305,
+          "width": 320
+        }
+      }
+    },
+    {
+      "check": "Chromatic Mirage modal with crisp Haze foreground",
+      "mode": "Dark",
+      "observed": {
+        "fill": "rgba(17, 21, 37, 0.38)",
+        "filter": "blur(28px) saturate(1.65) brightness(0.88)",
+        "foregroundFilter": "none",
+        "open": true
+      }
+    },
+    {
+      "check": "Chromatic Mirage modal with crisp Haze foreground",
+      "mode": "Light",
+      "observed": {
+        "fill": "rgba(17, 21, 37, 0.38)",
+        "filter": "blur(28px) saturate(1.65) brightness(0.88)",
+        "foregroundFilter": "none",
+        "open": true
+      }
+    },
+    {
+      "check": "Chromatic Mirage comparison toggle and reduced effects",
+      "observed": {
+        "fill": "rgba(17, 21, 37, 0.64)",
+        "filter": "blur(0px) saturate(1) brightness(1)"
+      }
+    },
+    {
+      "check": "Material animation renders through the browser animation API",
+      "material": "Plastic",
+      "observed": {
+        "name": "plastic",
+        "opacity": "0.878205",
+        "state": "running",
+        "transform": "none"
+      }
+    },
+    {
+      "check": "Material animation renders through the browser animation API",
+      "material": "Frost",
+      "observed": {
+        "name": "frost",
+        "opacity": "0.858376",
+        "state": "running",
+        "transform": "matrix(1, 0, 0, 1, 0, 0.849743)"
+      }
+    },
+    {
+      "check": "Material animation renders through the browser animation API",
+      "material": "Resin",
+      "observed": {
+        "name": "resin",
+        "opacity": "0.847098",
+        "state": "running",
+        "transform": "matrix(0.997706, 0, 0, 0.997706, 0, 0.611607)"
+      }
+    },
+    {
+      "check": "Material animation renders through the browser animation API",
+      "material": "Haze",
+      "observed": {
+        "name": "haze",
+        "opacity": "0.919201",
+        "state": "running",
+        "transform": "matrix(1, 0, 0, 1, 0, 0.242398)"
+      }
+    },
+    {
+      "check": "Material animation renders through the browser animation API",
+      "material": "Stone",
+      "observed": {
+        "name": "stone",
+        "opacity": "1",
+        "state": "running",
+        "transform": "matrix(0.997834, 0, 0, 0.997834, 0, 0)"
+      }
+    },
+    {
+      "check": "Material animation renders through the browser animation API",
+      "material": "Mirage",
+      "observed": {
+        "name": "mirage",
+        "opacity": "0.643223",
+        "state": "running",
+        "transform": "none"
+      }
+    },
+    {
+      "check": "Reduced-motion cancellation, persistence and immediate modal; standard modal entrance",
+      "observed": {
+        "rmObs": {
+          "preference": true,
+          "states": [
+            "finished",
+            "cancelled",
+            "instant",
+            "finished",
+            "finished",
+            "finished"
+          ],
+          "status": "Replay Resin: shown immediately (reduced motion or animation unavailable)."
+        },
+        "rmModalFinal": {
+          "backdropAnimation": "none",
+          "state": "instant"
+        },
+        "modalNormal": {
+          "backdropAnimation": "cr-veil-in",
+          "open": true
+        }
+      }
+    },
+    {
+      "check": "Dialog exit focus return, rapid scene navigation and 320px motion layout",
+      "observed": {
+        "modalClosed": {
+          "closing": false,
+          "focus": "motion-dialog",
+          "open": false
+        },
+        "sceneMotion": {
+          "state": "finished",
+          "visible": [
+            "scene-library"
+          ]
+        },
+        "motionNarrow": {
+          "scroll": 305,
+          "width": 320
+        }
+      }
+    },
+    {
+      "check": "Dedicated Motion page and return to playground",
+      "observed": {
+        "replayButtonsExercised": 6,
+        "completion": "Replay Mirage: complete.",
+        "reducedMotion": "Replay Resin: shown immediately (reduced motion or animation unavailable).",
+        "escapeFocusReturn": "motion-dialog",
+        "playgroundMotionLink": "motion.html"
+      }
+    },
+    {
+      "check": "Expressive material choreography and directional soft Mirage",
+      "observed": {
+        "plasticTranslationY": 28.7945,
+        "frostPerspective": "matrix3d with depth and tilt",
+        "resinHighlightPosition": "83.933% 0px",
+        "hazeFeatherTransform": "matrix(1.01276, 0, 0, 1.00418, -0.664732, -0.0751485)",
+        "stoneFeatherTransform": "matrix(1.01159, 0, 0, 1.0053, 5.51253, -0.145779)",
+        "mirageOrigins": [
+          "0% 65%",
+          "100% 35%",
+          "65% 0%",
+          "35% 100%"
+        ],
+        "dialogBackdropAnimation": "cr-soft-flow-in",
+        "dialogBackdropDuration": "0.64s",
+        "dialogMaterial": "haze",
+        "escapeFocusReturn": "motion-dialog",
+        "mirageExitHidden": true,
+        "reducedMotion": {
+          "resin": "instant",
+          "dialog": "instant",
+          "backdrop": "none"
+        }
+      }
+    },
+    {
+      "check": "Saved global animation speed and bounded expressive durations",
+      "observed": {
+        "quarterSpeed": {
+          "resin": "5000ms",
+          "dialogBackdrop": "4.8s",
+          "dialogMaterial": "4000ms"
+        },
+        "mainPlaygroundRestoredPreference": 0.25,
+        "restoredDefaultSpeed": 1,
+        "defaultMaterialLabels": [
+          "1000ms",
+          "1000ms",
+          "1400ms",
+          "1000ms",
+          "1000ms",
+          "1200ms"
+        ]
+      }
+    },
+    {
+      "check": "In-place Haze and Stone, anchored modal and reduced motion",
+      "observed": {
+        "haze": {
+          "transform": "none",
+          "opacity": "1",
+          "edge": "matrix(1, 0, 0, 1, 2.57206, 0)"
+        },
+        "stone": {
+          "transform": "none",
+          "opacity": "1",
+          "edge": "matrix(1, 0, 0, 1, -2.51965, 0)"
+        },
+        "dialog": {
+          "transform": "none",
+          "edge": "matrix(1, 0, 0, 1, 2.90649, 0)"
+        },
+        "reducedHaze": {
+          "state": "instant",
+          "edge": "none"
+        }
+      }
+    },
+    {
+      "check": "Motion and GSAP component suite: real local interactions",
+      "observed": {
+        "engines": {
+          "motion": "13.4.0",
+          "gsap": "3.15.0"
+        },
+        "runtimeContracts": {
+          "passed": 12,
+          "failed": 0,
+          "recipes": 49
+        },
+        "localValidation": "Invalid short name rejected; valid Crystal studio name applied.",
+        "keyboardTabs": "ArrowRight selected Details.",
+        "collectionOrderAfterAddAndMove": [
+          "Specimen 1",
+          "Specimen 3",
+          "Specimen 2"
+        ],
+        "messages": "Local message appended and reaction changed to pressed with count 1.",
+        "computation": "24 actual SHA-256 digests completed; progress value 24.",
+        "drawer": "Shift+Tab/Tab wrapped between close and done; Escape dismissed and returned focus to trigger.",
+        "menu": "Compact selected; Tab dismissed menu and focused the inspector trigger.",
+        "popover": "Escape dismissed and returned trigger focus.",
+        "tooltip": "Shown on focus; Escape dismissed.",
+        "notification": "Shown then manually dismissed.",
+        "carousel": "Next selected Layered rhythm, 2 of 3.",
+        "filters": "Tooltip search returned 2 recipes; Manipulation category returned 3.",
+        "reducedMotion": "Resin replay used reduced-motion mode.",
+        "appearance": "Light and dark component pages visually inspected.",
+        "mainPlayground": "Conversation scene and dialog open/Escape exercised with bundled engines.",
+        "console": "No warnings or errors in exercised preview paths."
+      }
+    },
+    {
+      "check": "Material-driven revision and Resin/Haze interaction surfaces",
+      "observed": {
+        "recipes": 54,
+        "families": 9,
+        "runtimeContractsPassed": 13,
+        "runtimeContractsFailed": 0,
+        "contrastCases": 1692,
+        "contrastFailures": 0,
+        "controls": "20% Resin body with inset 80% Haze; optical highlight below label protection.",
+        "compactSurfaces": [
+          "Tooltip",
+          "Toast",
+          "Display labels and tags",
+          "Secondary menu",
+          "Popover"
+        ],
+        "extendedTravel": "Measured 250px reordering allowed; compact opt-out crossfades. Full-width sheet and larger material studies have documented exceptions.",
+        "localForm": "Native field labels/validation preserved; Crystal motion applied successfully.",
+        "keyboard": "Inspector Shift+Tab contained focus; Escape closed it. Tooltip Escape and compact-menu focus return passed.",
+        "visual": "Light and dark inspected; Frost unfolding inspected during motion; main conversation scene used Resin navigation.",
+        "console": "No errors or warnings in exercised paths."
+      }
+    },
+    {
+      "check": "Broad Resin rim and shared toolbar surface refinement",
+      "observed": {
+        "screenshots": "Captured current toolbar and individual controls before editing, then refined light and dark controls and a Prism toolbar comparison.",
+        "inactiveToolbarShadow": "none",
+        "selectedPrismFill": "rgb(115, 56, 239)",
+        "paletteSwatches": "All six seed colors preserved; 32px outer swatch height.",
+        "animationFiles": "SHA-256 unchanged for motion.js, motion-interactions.js, motion-recipes.json and src/engines.js.",
+        "runtimeContractsPassed": 13,
+        "runtimeContractsFailed": 0,
+        "contrastCases": 1692,
+        "contrastFailures": 0,
+        "geometry": "8px inset Haze, luminous rim, diffuse shadows; inactive grouped controls share the outer surface."
+      }
+    }
+  ],
+  "limitations": [
+    "Direct file URL test blocked by browser URL policy; no workaround attempted. HTTP preview verified.",
+    "No screen-reader, full zoom, native rendering or complete accessibility audit performed."
+  ],
+  "historicalChecksNote": "Checks are recorded in chronological order; older recipe measurements are historical. The final material-driven revision describes current control surfaces and travel policy."
+}

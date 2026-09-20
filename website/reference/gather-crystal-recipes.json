@@ -1,0 +1,44 @@
+{
+  "revision": "crystal-03-balanced",
+  "status": "user-approved Crystal visual reference; Gather-authored recipes, not vendor constants",
+  "light": {
+    "mica-tint": "36%",
+    "acrylic-tint": "58%",
+    "acrylic-blur": "24px",
+    "acrylic-saturation": "145%",
+    "glass-tint": "48%",
+    "glass-blur": "20px",
+    "glass-saturation": "165%",
+    "material-highlight": "#ffffff9c",
+    "material-shadow": "#26385b36",
+    "material-contact": "#26385b30",
+    "content-surface": "var(--surfaceContainerLowest)"
+  },
+  "dark": {
+    "mica-tint": "20%",
+    "acrylic-tint": "54%",
+    "acrylic-blur": "24px",
+    "acrylic-saturation": "145%",
+    "glass-tint": "44%",
+    "glass-blur": "20px",
+    "glass-saturation": "165%",
+    "material-highlight": "#ffffff26",
+    "material-shadow": "#00000085",
+    "material-contact": "#00000080",
+    "content-surface": "var(--surfaceContainerLow)"
+  },
+  "shared": {
+    "acrylic-grain": ".035",
+    "selected-tint": "100%",
+    "reading-size": "16px",
+    "reading-leading": "24px",
+    "press-duration": "120ms",
+    "state-duration": "180ms",
+    "spatial-duration": "240ms",
+    "elevation-message": "0 2px 3px var(--material-contact),0 7px 15px var(--material-shadow)",
+    "elevation-panel": "inset 0 1px 0 var(--material-highlight),0 3px 5px var(--material-contact),0 14px 28px var(--material-shadow)",
+    "elevation-floating": "inset 0 1px 1px var(--material-highlight),inset 0 -1px 1px var(--material-contact),0 4px 7px var(--material-contact),0 20px 40px var(--material-shadow)",
+    "message-radius": "6px 22px 22px 22px",
+    "message-radius-own": "22px 6px 22px 22px"
+  }
+}

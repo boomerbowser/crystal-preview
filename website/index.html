@@ -1,0 +1,109 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Crystal</title><link rel="icon" href="vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="assets/site.css"><link rel="stylesheet" href="vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="assets/controls.css?v=pill-focus-2"><script src="vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="assets/motion-shaders.js" defer></script><script src="assets/menu.js" defer></script><script src="assets/docs.js" defer></script><script src="assets/controls.js?v=pill-focus-2" defer></script><script>if(location.hash&&/^#(playground|workbench|palettes|foundations|content-blending|supporting-materials|components|accessibility|motion|adoption|specification)$/.test(location.hash))location.replace("playground.html"+location.hash);</script></head><body><a class="skip" href="#main">Skip to content</a><div class="shell"><header class="site-header"><a class="wordmark" href="index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="index.html" aria-current="page">Overview</a><a class="cr-control menu-item" href="playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="docs/principles.html">Foundations</a><a class="cr-control menu-item" href="docs/colors.html">Color</a><a class="cr-control menu-item" href="docs/materials.html">Materials</a><a class="cr-control menu-item" href="docs/components.html">Components</a><a class="cr-control menu-item" href="docs/catalogue.html">Catalogue</a><a class="cr-control menu-item" href="docs/icons.html">Icons</a><a class="cr-control menu-item" href="docs/tokens.html">Tokens</a><a class="cr-control menu-item" href="docs/motion.html">Motion</a><a class="cr-control menu-item" href="docs/motion-components.html">Component motion</a><a class="cr-control menu-item" href="docs/accessibility.html">Accessibility</a><a class="cr-control menu-item" href="docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="motion.html">Motion studies</a><a class="cr-control menu-item" href="verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="crystal">Crystal</h1>
+<p>Crystal is Meridian's shared visual language: a token source of truth, a set of material
+primitives, a headless interaction core, a 119-component catalogue and about a thousand
+icons. It is one system with several renderings — the web reference in this repository,
+and the platform libraries that must match it.</p>
+<p>This site is both the specification and a working copy of the system. Every specimen on
+these pages is live: the same CSS that ships is the CSS drawing the examples, so a rule
+that has stopped being true shows it here first.</p>
+<div class="docs-grid">
+<a class="doc-link" href="playground.html"><strong>Open the Playground</strong><p>Change palette, atmosphere, elevation and material depth on a real interface, then export the configuration.</p></a>
+<a class="doc-link" href="docs/principles.html"><strong>Read the foundations</strong><p>What the system is for, and the decisions that everything else follows from.</p></a>
+<a class="doc-link" href="docs/adoption.html"><strong>Adopt it</strong><p>Install, build, theme, and the parity bar a platform library has to clear.</p></a>
+</div>
+
+<h2 id="the-material-hierarchy">The material hierarchy</h2>
+<p>Crystal has three stacked materials and three named specials. The hierarchy runs
+back to front — <strong>Plastic → Frost → Resin</strong> — and the order is not decorative. Each
+layer forward is more translucent and more expensive, so each one has to earn its place
+by being closer to the user's attention.</p>
+<div class="materials">
+<div class="material-card">
+<div class="material-scene">
+<div class="material-sample foundation"><span class="protected">Plastic</span></div>
+</div>
+<div class="material-info">
+<h3 id="plastic">Plastic</h3>
+<p>The opaque base. Everything readable starts here. Plastic has no backdrop filter, costs
+nothing to composite, and is the correct answer whenever you are not sure.</p>
+</div>
+</div>
+<div class="material-card">
+<div class="material-scene">
+<div class="material-sample cr-frost"><span class="protected">Frost</span></div>
+</div>
+<div class="material-info">
+<h3 id="frost">Frost</h3>
+<p>40px blur at 125% saturation. The middle layer: panels, sidebars, sheets — surfaces that
+persist while content moves behind them. The side menu on this page is Frost.</p>
+</div>
+</div>
+<div class="material-card">
+<div class="material-scene">
+<div class="material-sample cr-resin"><span class="protected">Resin</span></div>
+</div>
+<div class="material-info">
+<h3 id="resin">Resin</h3>
+<p>20px blur at 165% saturation over a fixed 20% fill. The front layer, reserved for things
+that float above everything: docks, floating bars, the leading edge of an overlay.</p>
+</div>
+</div>
+</div>
+<p>Plus three specials that are not layers in the stack:</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Material</th>
+<th>What it is</th>
+<th>Where it belongs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Haze</strong></td>
+<td>An 80% content fill with a 1.95px feather</td>
+<td>Readable content sitting <em>inside</em> a translucent frame</td>
+</tr>
+<tr>
+<td><strong>Stone</strong></td>
+<td>A 55% (light) / 60% (dark) label backing</td>
+<td>A label that must stay legible over an unknown backdrop</td>
+</tr>
+<tr>
+<td><strong>Mirage</strong></td>
+<td>The modal scrim</td>
+<td>Behind a dialog, and nowhere else</td>
+</tr>
+</tbody>
+</table></div>
+<p>Feathering applies only to an isolated paint layer. Text, icons, hit areas and focus rings
+stay crisp — a feathered glyph is a blurry glyph, and no amount of material intent makes
+that acceptable.</p>
+<p><a href="docs/materials.html">The full material specification →</a></p>
+<h2 id="rules-that-catch-people-out">Rules that catch people out</h2>
+<p>These are the ones adopters get wrong most often. Each is a real constraint with a real
+failure behind it, not a style preference.</p>
+<p><strong>Resin never contains Resin.</strong> A translucent surface stacked on a translucent surface
+blurs a blur, and the content stops being legible. When something has to sit on top of a
+Resin element, it becomes a Haze content fill. The fix is always to change the upper
+layer — never to weaken Resin.
+<a href="docs/materials.html#resin-never-contains-resin">Why →</a></p>
+<p><strong>A check mark means validated or informational — never "selected".</strong> Selection is a
+label weight. The side menu on this page is the pattern.
+<a href="docs/components.html#selection">Why →</a></p>
+<p><strong>Selection in forced colours is a ring, never a fill.</strong> Chromium paints an opaque
+<code>Canvas</code> backplate behind text runs, <em>above</em> the element's own background, so a filled
+selected row loses its label completely.
+<a href="docs/accessibility.html#forced-colours">Why →</a></p>
+<p><strong>Action controls are pill-shaped.</strong> Card-shaped buttons — a button that is really a
+tappable card — keep the content radius instead. Those are the only two options.
+<a href="docs/components.html#geometry">Why →</a></p>
+<p><strong>Status colours are independent of brand palettes.</strong> All six palettes change the brand
+colours and none of them change what "error" looks like.
+<a href="docs/colors.html#status">Why →</a></p>
+<h2 id="evidence">Evidence</h2>
+<p>Claims on this site are bounded and checked. The <a href="verification/report.html">verification
+report</a> lists what was actually executed — contrast across all six
+palettes in both modes, forced colours in both high-contrast palettes, reduced
+transparency, right-to-left, and a twelve-frame visual regression gate — together with
+what those checks do <em>not</em> cover.</p></main></div><footer class="site-footer"><p>Crystal 2.0 · Meridian Digital, Inc.</p><a href="verification/report.html">Verification</a></footer></div></body></html>

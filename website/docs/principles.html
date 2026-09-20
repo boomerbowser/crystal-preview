@@ -1,0 +1,104 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Crystal: a shared visual language · Crystal</title><link rel="icon" href="../vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="../assets/controls.css?v=pill-focus-2"><script src="../vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="../vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="../assets/motion-shaders.js" defer></script><script src="../assets/menu.js" defer></script><script src="../assets/docs.js" defer></script><script src="../assets/controls.js?v=pill-focus-2" defer></script></head><body><a class="skip" href="#main">Skip to specification</a><div class="shell"><header class="site-header"><a class="wordmark" href="../index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="../vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="../index.html">Overview</a><a class="cr-control menu-item" href="../playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="../docs/principles.html" aria-current="page">Foundations</a><a class="cr-control menu-item" href="../docs/colors.html">Color</a><a class="cr-control menu-item" href="../docs/materials.html">Materials</a><a class="cr-control menu-item" href="../docs/components.html">Components</a><a class="cr-control menu-item" href="../docs/catalogue.html">Catalogue</a><a class="cr-control menu-item" href="../docs/icons.html">Icons</a><a class="cr-control menu-item" href="../docs/tokens.html">Tokens</a><a class="cr-control menu-item" href="../docs/motion.html">Motion</a><a class="cr-control menu-item" href="../docs/motion-components.html">Component motion</a><a class="cr-control menu-item" href="../docs/accessibility.html">Accessibility</a><a class="cr-control menu-item" href="../docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="../motion.html">Motion studies</a><a class="cr-control menu-item" href="../verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="crystal-a-shared-visual-language">Crystal: a shared visual language</h1>
+<p>Crystal 2.0 is Meridian Digital's reusable design system, built out from the approved <code>crystal-03-balanced</code> design. It retains the material hierarchy and recognizable silhouettes while allowing stronger product color identities. The original proposal and application that design came from are not modified by this system.</p>
+<h2 id="governing-hierarchy">Governing hierarchy</h2>
+<p><strong>Plastic → Frost → Resin, from back to front, is Crystal’s defining invariant.</strong> The user explicitly reaffirmed this priority on September 17, 2026. Product colors and layouts may vary; the hierarchy must remain recognizable. Plastic grounds the window, Frost forms the intermediate material layer, and Resin floats above it for functional controls. Haze reading wells live within the hierarchy for legibility; they are not a replacement theme or a competing fourth material identity.</p>
+<p>Crystal names six materials: <strong>Plastic, Frost, Resin, Haze, Stone, Mirage</strong>. Haze fills reading surfaces; Stone protects labels within controls; Mirage separates modal decisions. The first three establish the main spatial hierarchy.</p>
+<h2 id="shared-identity-product-freedom">Shared identity, product freedom</h2>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Shared across products</th>
+<th>A product may vary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Opaque colored foundation, 80% reading fills with feathered edges, selective Frost support, floating Resin controls</td>
+<td>Curated brand palette, editorial imagery, name and product mark</td>
+</tr>
+<tr>
+<td>Typography rhythm, focus behavior, semantic statuses, accessible interaction contracts</td>
+<td>Navigation destinations, task density and information architecture</td>
+</tr>
+<tr>
+<td>Paired shadows, defined contours, radius relationships and restrained highlights</td>
+<td>Atmosphere intensity and depth within the documented ranges</td>
+</tr>
+<tr>
+<td>Clear ownership/direction expressed through an optional asymmetric corner</td>
+<td>Whether a product needs messages, a dock, or any particular component</td>
+</tr>
+</tbody>
+</table></div>
+<p>Visual continuity does not require every product to look like a messenger. Preserve the relationships between surfaces; adapt the components to the work. A data-intensive product can use flatter rows inside a lifted Haze panel. A media product can expose richer artwork around protected controls. Avoid copying one product's feature requirements into unrelated products.</p>
+<h2 id="foundation-rules">Foundation rules</h2>
+<ol>
+<li>The content is the most readable thing in the scene. Keep text itself opaque and crisp; content fills use 80% opacity with a feathered perimeter outside the reading area.</li>
+<li>Use color in the atmosphere, selected surfaces and artwork. Do not cover every surface with the same accent fill.</li>
+<li>Elevation describes a relationship: content above foundation, support above content, functional controls above the task, modal decisions above everything.</li>
+<li>Put optical detail around the task: a defined rim, slight grain and a narrow highlight. Do not blur or texture every line of text.</li>
+<li>Every meaningful state is recognizable without perceiving hue.</li>
+<li>A fallback keeps the geometry and hierarchy. Reduced effects must not feel like a different product.</li>
+</ol>
+<h2 id="typography-and-reading">Typography and reading</h2>
+<p>Manrope is the shared default, bundled locally under its accompanying SIL Open Font License. System UI is an intentional alternative for platform integration. Do not fetch font services just to render the system.</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Role</th>
+<th>Size / line height</th>
+<th>Weight</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Display</td>
+<td>36–50px / 1.08–1.2</td>
+<td>750</td>
+<td>Product or section introduction; responsive</td>
+</tr>
+<tr>
+<td>Page title</td>
+<td>28–32px / 1.2</td>
+<td>750</td>
+<td>Primary task context</td>
+</tr>
+<tr>
+<td>Section</td>
+<td>20–24px / 1.25</td>
+<td>700</td>
+<td>Local hierarchy</td>
+</tr>
+<tr>
+<td>Reading</td>
+<td>16px / 24px</td>
+<td>400–500</td>
+<td>Messages, documents, sustained reading</td>
+</tr>
+<tr>
+<td>Control</td>
+<td>14–16px / 1.3–1.5</td>
+<td>650–750</td>
+<td>Primary application controls</td>
+</tr>
+<tr>
+<td>Supporting</td>
+<td>12–14px / 1.5–1.7</td>
+<td>500–650</td>
+<td>Metadata and short labels, never a replacement for reading type</td>
+</tr>
+</tbody>
+</table></div>
+<p>Respect user scaling. Do not cap text zoom or hide overflow to conceal clipped labels. Aim for 45–75 characters per line for sustained prose. Compact density reduces spacing, not reading size.</p>
+<h2 id="geometry-spacing-and-responsive-layout">Geometry, spacing and responsive layout</h2>
+<p>Use a 4px base rhythm with 8, 12, 16, 20, 24, 32 and 48px spacing. The default content radius is 28px, adjustable between 14 and 28px. Supporting panels use content radius + 6px; input wells use content radius − 7px. Person avatars stay circular.</p>
+<p><strong>Actions are fully rounded.</strong> Every action control — primary, secondary, quiet and compact buttons, segmented options, dock destinations and navigation pills — uses a pill radius (<code>999px</code>) independent of the content-radius control, so the radius slider never turns an action into a rectangle. Card-shaped buttons are the deliberate exception: a button whose content is a layout with artwork (specimen cards, palette cards, library items) keeps the content radius so its artwork is not clipped into a lozenge. The distinction is behavioral, not tag-based — it depends on whether the control reads as an action or as a card.</p>
+<p>An authored bubble uses 6 / R / R / R corners. A counterpart uses R / 6 / R / R; mirror the direction for RTL. Do not use asymmetric corners indiscriminately on controls.</p>
+<p>The playground moves its inspector below the canvas under 850px and stacks components under 600px. These are demonstration breakpoints, not universal product breakpoints. Product layouts should adapt to content and input modality, preserving navigation and avoiding horizontal page scroll at 320 CSS pixels.</p>
+<h2 id="icons-and-motion">Icons and motion</h2>
+<p>Use a coherent 24px icon grid, approximately 1.8px rounded strokes, visible labels for primary destinations, and accessible names for icon-only actions. The included SVGs are original simple line drawings. Do not rely on emoji as the only status or control vocabulary.</p>
+<p>Press feedback is 120ms, state feedback 213.33ms, compact spatial entrances 293.33ms and exits 160ms. Expressive material journeys use 1000–1400ms, 5–30px ordinary travel (50px compact guidance; larger spatial compositions may exceed it), in-place Haze/Stone movement and 650ms departures. A saved user speed factor scales motion, with a five-second ceiling and immediate reduced-motion states. The <a href="motion.html">motion specification</a> defines all six material signatures, easing, interruption and live examples. Use motion in response to user action; no continuous decorative motion is required. Reduced motion removes spatial effects while retaining immediate state feedback.</p>
+<h2 id="system-boundaries">System boundaries</h2>
+<p>This package implements a static reference site, theme resolver/exporter, CSS primitives and local preview interactions. It does not implement a complete component framework, production authentication, backend services, a native renderer or all application accessibility behavior. See <a href="components.html">component scope</a> and <a href="adoption.html">adoption</a>.</p>
+<p>The compact CSS timing tokens remain available for small state changes. The material-driven Resin press recipe uses 320ms for a complete compression/recovery sequence; hover light uses 700ms. These visual clocks never delay the actual action. The executable catalog lists the current duration of every recipe.</p></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/principles.md">Specification source</a></footer></div></body></html>

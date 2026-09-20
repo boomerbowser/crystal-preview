@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Icons · Crystal</title><link rel="icon" href="../vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="../assets/controls.css?v=pill-focus-2"><script src="../vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="../vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="../assets/motion-shaders.js" defer></script><script src="../assets/menu.js" defer></script><script src="../assets/docs.js" defer></script><script src="../assets/controls.js?v=pill-focus-2" defer></script></head><body><a class="skip" href="#main">Skip to specification</a><div class="shell"><header class="site-header"><a class="wordmark" href="../index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="../vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="../index.html">Overview</a><a class="cr-control menu-item" href="../playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="../docs/principles.html">Foundations</a><a class="cr-control menu-item" href="../docs/colors.html">Color</a><a class="cr-control menu-item" href="../docs/materials.html">Materials</a><a class="cr-control menu-item" href="../docs/components.html">Components</a><a class="cr-control menu-item" href="../docs/catalogue.html">Catalogue</a><a class="cr-control menu-item" href="../docs/icons.html" aria-current="page">Icons</a><a class="cr-control menu-item" href="../docs/tokens.html">Tokens</a><a class="cr-control menu-item" href="../docs/motion.html">Motion</a><a class="cr-control menu-item" href="../docs/motion-components.html">Component motion</a><a class="cr-control menu-item" href="../docs/accessibility.html">Accessibility</a><a class="cr-control menu-item" href="../docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="../motion.html">Motion studies</a><a class="cr-control menu-item" href="../verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="icons">Icons</h1>
+<p>Crystal's icon set is one grid: a 24px view box, 1.8px strokes, round caps and joins, and <code>currentColor</code> so every icon inherits a tested foreground colour.</p>
+<p>Icon files carry no stroke width, cap, join or colour of their own. Those come from the stylesheet, so the contract lives in one place and cannot drift across a thousand files. An icon that carries its own stroke is a defect, not a variant.</p>
+<p>Thirteen symbols are original Crystal work and live in the sprite at <code>assets/icons.svg</code>: <code>crystal</code>, <code>layers</code>, <code>document</code>, <code>directions</code>, <code>workspace</code>, <code>conversation</code>, <code>library</code>, <code>check</code>, <code>attention</code>, <code>alert</code>, <code>info</code>, <code>sparkle</code> and <code>chevron</code>. They are authoritative and are never replaced by a sourced icon of the same name. The remainder are derived from Lucide under the ISC License and vendored into <code>assets/icons/</code>; see <a href="../reference/ASSET-NOTICES.md">asset notices</a>.</p>
+<h2 id="using-an-icon">Using an icon</h2>
+<p>Reference a sprite symbol, or inline a vendored file:</p>
+<pre><code class="language-html">&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+  &lt;use href=&quot;assets/icons.svg#workspace&quot;/&gt;
+&lt;/svg&gt;
+</code></pre>
+<p>Icons beside text are decorative and hidden from assistive technology. An icon-only control needs an accessible name on the control itself and a full-sized interaction target. Do not reduce an icon's opacity to simulate glass, and do not apply material feathering to one: icons stay crisp.</p>
+<h2 id="gallery">Gallery</h2>
+<div id="icon-gallery" data-manifest="../core/assets/icons/manifest.json">
+  <p class="stage-note">Enable JavaScript to search the icon set. The complete list is in <code>assets/icons/manifest.json</code>.</p>
+</div>
+
+<script src="../vendor/@crystal-ui/core/assets/icons.js" defer></script>
+
+<h2 id="the-sets">The sets</h2>
+<!-- generated:icon-counts -->
+
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Source</th>
+<th>Count</th>
+<th>Licence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>crystal</td>
+<td>13</td>
+<td>Original work</td>
+</tr>
+<tr>
+<td>lucide</td>
+<td>998</td>
+<td>ISC (<a href="../vendor/@crystal-ui/core/licenses/lucide-LICENSE.txt">notice</a>)</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>1011</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>One grid: <code>0 0 24 24</code> view box, 1.8px strokes, round caps and round joins, and <code>currentColor</code> so every icon inherits a tested foreground colour.</p>
+<p>This site's own interface uses 13 of them, inlined as a sprite in <code>core/assets/icons.svg</code>; the full set is one file per icon under <code>core/assets/icons/</code>.</p>
+<!-- /generated:icon-counts --></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/icons.md">Specification source</a></footer></div></body></html>

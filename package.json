@@ -1,0 +1,29 @@
+{
+  "name": "crystal-preview",
+  "private": true,
+  "description": "Crystal's documentation website. Not published: it is a site, it consumes @crystal-ui/core, and it needs no package identity.",
+  "scripts": {
+    "assemble": "node tools/assemble-site.mjs",
+    "build": "python3 tools/build.py",
+    "test": "python3 tools/build.py && node tools/validate-tokens.cjs && node tools/validate-motion.cjs && node tools/validate-docs.cjs && python3 tools/validate.py",
+    "build:motion": "node tools/build-motion.cjs",
+    "report": "python3 tools/report.py",
+    "serve": "python3 tools/serve.py",
+    "verify:deploy": "node tools/verify-deploy.mjs website",
+    "verify:scroll": "node tools/verify-scroll.mjs",
+    "verify:interactions": "node tools/verify-interactions.mjs",
+    "audit:materials": "node tools/audit-materials.mjs",
+    "capture:frames": "node tools/capture-frames.mjs",
+    "verify:visual": "node tools/verify-frames.mjs",
+    "verify:floor": "node tools/verify-frames.mjs --no-webgl"
+  },
+  "dependencies": {
+    "@crystal-ui/core": "file:../crystal-design-system/core"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "gsap": "3.15.0",
+    "motion": "13.4.0",
+    "playwright": "^1.63.0"
+  }
+}

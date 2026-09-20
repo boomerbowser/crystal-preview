@@ -1,0 +1,170 @@
+{
+  "$description": "The visual regression frame set. Each entry is one deterministic rendering of the preview. A frame exists because some axis of it has broken before, or because a contract says it must not break; the 'why' field records which. Captures live in validation/captures/<date>-<topic>/ and are compared with tools/compare-captures.py.",
+  "$status": "Frame set and comparison tool are complete. The capture driver that walks this file automatically is NOT yet written; frames so far were driven manually through a real browser. See proposals/crystal-2.0-status.md, task 14.",
+  "defaults": {
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "palette": "prism",
+    "mode": "light",
+    "density": "comfortable",
+    "effects": "full",
+    "direction": "ltr",
+    "forcedColors": "none",
+    "settleMs": 900
+  },
+  "axes": {
+    "mode": [
+      "light",
+      "dark"
+    ],
+    "effects": [
+      "full",
+      "opaque",
+      "reduced-transparency"
+    ],
+    "direction": [
+      "ltr",
+      "rtl"
+    ],
+    "forcedColors": [
+      "none",
+      "active"
+    ],
+    "density": [
+      "compact",
+      "comfortable"
+    ]
+  },
+  "frames": [
+    {
+      "id": "playground-light",
+      "page": "playground.html",
+      "anchor": "#playground",
+      "why": "The primary composition. Guards the material hierarchy, pill geometry and focus ring."
+    },
+    {
+      "id": "playground-dark",
+      "page": "playground.html",
+      "anchor": "#playground",
+      "mode": "dark",
+      "why": "Dark mode resolves a different Stone fill; regressions here do not show in light."
+    },
+    {
+      "id": "components-light",
+      "page": "playground.html",
+      "anchor": "#components",
+      "why": "Control surfaces: dock, segmented, tabs, fields, table."
+    },
+    {
+      "id": "playground-reduced-transparency",
+      "page": "playground.html",
+      "anchor": "#playground",
+      "effects": "reduced-transparency",
+      "why": "Caught a real defect: selected controls rendered white-on-white at 1:1 after a specificity change. Four full-effects frames missed it."
+    },
+    {
+      "id": "playground-opaque",
+      "page": "playground.html",
+      "anchor": "#playground",
+      "effects": "opaque",
+      "why": "The [data-effects=opaque] path carries its own selector weight and can drift from the media-query path."
+    },
+    {
+      "id": "forced-colours-light",
+      "page": "playground.html",
+      "anchor": "#playground",
+      "forcedColors": "active",
+      "why": "Forced colours discards box-shadow, so the focus ring must survive as an outline."
+    },
+    {
+      "id": "forced-colours-dark",
+      "page": "playground.html",
+      "anchor": "#playground",
+      "mode": "dark",
+      "forcedColors": "active",
+      "why": "Caught a real defect: a Highlight fill put HighlightText on Chromium's Canvas-coloured text backplate, erasing the selected segment's label."
+    },
+    {
+      "id": "playground-rtl",
+      "page": "playground.html",
+      "anchor": "#playground",
+      "direction": "rtl",
+      "why": "Logical properties must mirror: bubble corners, menu padding, no horizontal overflow."
+    },
+    {
+      "id": "motion",
+      "page": "motion.html",
+      "why": "Motion recipes and their material choreography."
+    },
+    {
+      "id": "catalogue",
+      "page": "docs/catalogue.html",
+      "why": "Generated from the component catalogue; guards the table surface and the docs page scaffolding."
+    },
+    {
+      "id": "icons",
+      "page": "docs/icons.html",
+      "why": "Icon grid rendering and the 24px/1.8px stroke contract. The path was wrong until 2026-09-17 and this frame silently guarded a 404 page; the capture driver now refuses a non-OK response."
+    },
+    {
+      "id": "playground-narrow",
+      "page": "playground.html",
+      "anchor": "#playground",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "why": "Narrow layout must not overflow horizontally and must keep 44px targets."
+    },
+    {
+      "id": "overview-light",
+      "page": "index.html",
+      "why": "The documentation home, which is now the index page. Guards the side menu, the Frost panel behind it, and the live material specimens on the overview."
+    },
+    {
+      "id": "overview-dark",
+      "page": "index.html",
+      "mode": "dark",
+      "why": "Frost and the menu resolve differently in dark; the overview specimens are the only place the three materials appear side by side."
+    },
+    {
+      "id": "docs-menu-light",
+      "page": "docs/materials.html",
+      "why": "A specification page with a current menu entry. Guards that selection reads by label weight alone and that menu entries stay Plastic rather than inheriting the Resin of .cr-control."
+    },
+    {
+      "id": "docs-menu-forced-colours",
+      "page": "docs/materials.html",
+      "forcedColors": "active",
+      "why": "Selection must be a Highlight ring, not a fill. A filled current entry is erased by Chromium's text backplate, which is the defect this rule exists to prevent."
+    },
+    {
+      "id": "docs-menu-narrow",
+      "page": "docs/materials.html",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "why": "Below 860px the menu collapses behind its toggle. Guards that the toggle is present, reaches 44px, and that the page does not overflow."
+    },
+    {
+      "id": "haze-in-resin",
+      "page": "docs/materials.html",
+      "anchor": "#the-correct-composition-live",
+      "why": "The only composition on the site that exercises Haze inside a Resin frame. The rule forbidding Resin inside Resin is audited in the DOM, but the recess that makes the Haze fill read as the frame's content — an inset dark top edge and light bottom edge, under a light source above — is purely visual and was gated by nothing. Clipped to the composition itself: anchored to the page, the frame re-rasterised on every edit to the prose above it, and a baseline that changes for reasons unrelated to what it guards is a baseline nobody reads carefully. Clipped to the composition itself: anchored to the page, the frame re-rasterised on every edit to the prose above it, and a baseline that changes for reasons unrelated to what it guards is a baseline nobody reads carefully.",
+      "clip": "#haze-in-resin-demo"
+    }
+  ],
+  "reblessing": {
+    "rule": "A baseline is re-blessed only when the change to it is intended and explained.",
+    "procedure": [
+      "1. Capture the new frames and run tools/compare-captures.py against the committed baselines.",
+      "2. For every frame that differs, look at both images. A diff you cannot explain is a defect, not a new baseline.",
+      "3. Record the reason in the capture directory's README.md next to the before and after images.",
+      "4. Commit the replaced baselines and that README in the same commit as the change that caused them.",
+      "Never re-bless a baseline in a commit that also changes behaviour elsewhere: the reviewer cannot tell which change moved the pixels."
+    ]
+  }
+}

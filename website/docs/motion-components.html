@@ -1,0 +1,605 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Component motion suite · Crystal</title><link rel="icon" href="../vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="../assets/controls.css?v=pill-focus-2"><script src="../vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="../vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="../assets/motion-shaders.js" defer></script><script src="../assets/menu.js" defer></script><script src="../assets/docs.js" defer></script><script src="../assets/controls.js?v=pill-focus-2" defer></script></head><body><a class="skip" href="#main">Skip to specification</a><div class="shell"><header class="site-header"><a class="wordmark" href="../index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="../vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="../index.html">Overview</a><a class="cr-control menu-item" href="../playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="../docs/principles.html">Foundations</a><a class="cr-control menu-item" href="../docs/colors.html">Color</a><a class="cr-control menu-item" href="../docs/materials.html">Materials</a><a class="cr-control menu-item" href="../docs/components.html">Components</a><a class="cr-control menu-item" href="../docs/catalogue.html">Catalogue</a><a class="cr-control menu-item" href="../docs/icons.html">Icons</a><a class="cr-control menu-item" href="../docs/tokens.html">Tokens</a><a class="cr-control menu-item" href="../docs/motion.html">Motion</a><a class="cr-control menu-item" href="../docs/motion-components.html" aria-current="page">Component motion</a><a class="cr-control menu-item" href="../docs/accessibility.html">Accessibility</a><a class="cr-control menu-item" href="../docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="../motion.html">Motion studies</a><a class="cr-control menu-item" href="../verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="component-motion-suite">Component motion suite</h1>
+<p><a href="../motion.html#component-motion">Open the live component studies</a> · <a href="../motion.html#recipe-library">Search all recipes</a> · <a href="../motion-contracts.html">Run browser contracts</a></p>
+<p>Crystal ships 55 executable component recipes in nine families, the six material signatures, Mirage withdrawal, a modal dismissal, and a measured-layout helper. This is the animation foundation for future component libraries. The demonstration includes real local component behavior, but is not an audited production React, Rust or native component library. No remote operation is represented as implemented.</p>
+<h2 id="engine-responsibilities">Engine responsibilities</h2>
+<p><strong>Motion 13.4.0</strong> runs component and material element keyframes: translation, opacity, scale and state feedback. <strong>GSAP 3.15.0</strong> timelines coordinate the paint-layer clocks for feathered edges, optical highlights and rims, plus selected component sequences. Recipes declare a material and a motion signature: pressure, coalescence, meniscus movement, caustic light, surface tension, feathering, refraction or inertia. Optical layers share the component’s cancellation group and never animate text blur. GSAP drives paused native effects when targeting actual pseudo-elements. It does not clone private page content or replace the material with a screenshot.</p>
+<p>Both packages are installed with exact versions in <code>package.json</code>, resolved transitively in <code>package-lock.json</code>, and bundled locally as <code>assets/vendor/crystal-engines.js</code>. No runtime CDN is required. The pure token resolver remains independent of the engines. The preview’s native dialog backdrop keeps a CSS fallback with the same timing tokens. Frost unfolds in depth; Plastic settles with weight; Resin compresses and redistributes its light; Haze and Stone move through their perimeter. Five larger material studies have generously sized replay stages.</p>
+<p>The engine bridge gives both libraries one cancellation contract: <code>finished</code> settles on completion or cancellation, and only properties owned by the effect are restored. Cancellation never leaves a promise waiting for a killed GSAP timeline. Material replay, component recipes, and layout changes all participate in <code>CrystalMotion.stop()</code> and <code>stopAll()</code>.</p>
+<h2 id="motion-rules-shared-by-every-component">Motion rules shared by every component</h2>
+<ul>
+<li>Semantic state, selected values, routing decisions, modality and focus take effect immediately. A visual transition cannot authorize an action or fabricate success.</li>
+<li>Ordinary translation is 5–30px. 50px guides compact motion; documented larger compositions may exceed it. Haze and Stone content stays in place; only their feathered paint moves locally.</li>
+<li>Typical sequences stay under two seconds at 1×. Each animation is capped at five seconds after speed adjustment. Defaults for controls are substantially shorter than material studies.</li>
+<li>The saved 0.25–2× speed factor applies throughout the preview and both engines. OS or explicit reduced motion overrides it and presents the final semantic state immediately.</li>
+<li>No automatic carousel, endless shimmer, flashing error, or infinite decorative loop is included. A finite busy cue can end while an operation remains busy; its static status remains.</li>
+<li>Exits keep focus safe. Move focus out before hiding nonmodal content; keep native modality during a modal exit, then restore the trigger.</li>
+<li>Never animate a visible keyboard focus ring away. Hover is supplementary, and disabled controls do not animate.</li>
+<li>Adopters must cancel effects on unmount, suspend offscreen work, and run assistive-technology and platform-performance checks on their actual components.</li>
+</ul>
+<h2 id="interaction-and-compact-surface-materials">Interaction and compact-surface materials</h2>
+<p>All interaction surfaces use a 20% Resin body, visible illuminated rim and an inset 80% Haze reading fill where contrast needs protection. The preview uses the protected form consistently because its surroundings are adjustable. The reading fill is physically inset, so the Resin perimeter stays visible. Standalone actions keep a neutral Haze reading fill inside a broad Resin rim. Grouped actions share one Resin/Haze container: inactive items are transparent, and the selected item uses the tested primary/on-primary color pair as a raised indicator with a circular check badge. The group retains the surrounding material shell.</p>
+<p>The same formula applies to <strong>tooltips, toasts, display labels, tags and badges</strong>, and <strong>secondary menus, dropdowns, flyouts and popovers</strong>. Use <code>.cr-resin-haze</code> for these shells; <code>.cr-tag</code> adds compact label geometry. This does not change large persistent Frost panels, Plastic foundations, Haze reading areas, or the standalone Stone material. Plain prose and ordinary form-label text do not need their own material container. Native OS option popups and file choosers retain platform drawing; the in-app menu and select trigger use Crystal.</p>
+<h2 id="component-coverage-and-composition">Component coverage and composition</h2>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Component family</th>
+<th>Recipes / composition</th>
+<th>Required semantics and state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Button, icon button, action link</td>
+<td><code>press</code>, <code>hover</code></td>
+<td>Native activation; disabled state; visible focus</td>
+</tr>
+<tr>
+<td>Toggle, checkbox, radio, segmented control, selectable chip</td>
+<td><code>selection</code>, <code>switch-on</code>, <code>switch-off</code>, <code>check</code></td>
+<td>Checked/pressed state and a non-color indicator</td>
+</tr>
+<tr>
+<td>Slider, stepper, numeric output</td>
+<td><code>slider-step</code></td>
+<td>Native keyboard range interaction and current value</td>
+</tr>
+<tr>
+<td>Input, textarea, validation group</td>
+<td><code>field-focus</code>, <code>field-invalid</code>, <code>field-valid</code>, <code>hint-in/out</code></td>
+<td>Real validation, associated error text, <code>aria-invalid</code></td>
+</tr>
+<tr>
+<td>Copy action, confirmation mark</td>
+<td><code>copy-confirm</code>, <code>success</code></td>
+<td>Play only after the actual action succeeds</td>
+</tr>
+<tr>
+<td>Tab, navigation rail, bottom navigation</td>
+<td><code>selection</code>, <code>tab-in</code></td>
+<td>Selected semantics, roving tab stop, panel visibility</td>
+</tr>
+<tr>
+<td>Page/view, wizard step, breadcrumb, pagination</td>
+<td><code>page-in/out</code>, <code>breadcrumb</code></td>
+<td>Router/history and focus managed by the host</td>
+</tr>
+<tr>
+<td>Dialog / alert dialog</td>
+<td>Haze + Mirage + <code>dismiss</code></td>
+<td>Native modality, initial focus, Escape, focus return</td>
+</tr>
+<tr>
+<td>Drawer / inspector / sheet</td>
+<td><code>drawer-in/out</code> + Mirage</td>
+<td>Native modality or an explicitly nonmodal panel contract</td>
+</tr>
+<tr>
+<td>Dropdown / select / command menu</td>
+<td><code>menu-in/out</code></td>
+<td>Keyboard selection, dismissal and trigger state</td>
+</tr>
+<tr>
+<td>Popover / hover card</td>
+<td><code>popover-in/out</code></td>
+<td>No accidental focus trap; close and outside dismissal</td>
+</tr>
+<tr>
+<td>Tooltip</td>
+<td><code>tooltip-in/out</code></td>
+<td>Focus and hover access; <code>aria-describedby</code>; Escape</td>
+</tr>
+<tr>
+<td>Accordion / disclosure / tree group</td>
+<td><code>accordion-in/out</code>, <code>icon-turn</code></td>
+<td>Expanded state, region relation, focus before collapse</td>
+</tr>
+<tr>
+<td>List / table row / card / grid cell</td>
+<td><code>list-in/out</code>, <code>highlight</code></td>
+<td>Update actual collection data and announce meaningful changes</td>
+</tr>
+<tr>
+<td>Reordering / sortable item / drag-and-drop</td>
+<td><code>layout()</code>, <code>reorder</code>, <code>drag-pickup</code>, <code>drag-settle</code></td>
+<td>Host owns pointer capture, drop validation and keyboard alternative</td>
+</tr>
+<tr>
+<td>Resizable panel / split view</td>
+<td><code>resize-settle</code>, <code>layout()</code></td>
+<td>Host owns resize handles and keyboard bounds</td>
+</tr>
+<tr>
+<td>Chat message / reaction / activity entry</td>
+<td><code>message-in</code>, <code>reaction</code>, <code>highlight</code></td>
+<td>Real local/remote data state; no forced scroll or replay on history</td>
+</tr>
+<tr>
+<td>Toast / snackbar / banner</td>
+<td><code>toast-in/out</code>, <code>attention</code></td>
+<td>Persistent readable status; manual dismissal in this preview</td>
+</tr>
+<tr>
+<td>Progress bar / transfer indicator</td>
+<td><code>progress-change</code>, <code>success</code></td>
+<td>Actual measured progress; never animate a fabricated success</td>
+</tr>
+<tr>
+<td>Busy indicator / skeleton</td>
+<td><code>busy</code>, <code>skeleton-resolve</code></td>
+<td>Real pending/ready state, no inference from animation completion</td>
+</tr>
+<tr>
+<td>Empty state / no-results panel</td>
+<td><code>empty-in</code></td>
+<td>Actual empty collection or search result</td>
+</tr>
+<tr>
+<td>Image / video surface / lightbox</td>
+<td><code>media-in</code>, <code>caption-in</code>, Haze/Mirage if modal</td>
+<td>Decode/readiness event, reserved layout space, media controls owned by host</td>
+</tr>
+<tr>
+<td>Carousel / gallery / thumbnail strip</td>
+<td><code>carousel-next/previous</code>, <code>selection</code></td>
+<td>Explicit navigation, item count, descriptive text; no autoplay</td>
+</tr>
+<tr>
+<td>Avatar / presence / badge / unread counter</td>
+<td><code>selection</code>, <code>highlight</code>, <code>attention</code></td>
+<td>Status text or accessible label; no color-only meaning</td>
+</tr>
+<tr>
+<td>Calendar / date picker / combobox</td>
+<td><code>menu-in/out</code>, <code>selection</code>, <code>page-in</code></td>
+<td>Full keyboard/locale/date semantics supplied by the component library</td>
+</tr>
+</tbody>
+</table></div>
+<p>Mappings intentionally share recipes. Each new product component should select a behavior contract rather than invent another animation for a synonymous state. The suite does not implement a router, a production combobox, pointer dragging, a video player, or network services; it provides their usable motion primitives and exact integration responsibilities.</p>
+<h2 id="executable-recipe-catalog">Executable recipe catalog</h2>
+<p>Base times below are at 1×; the preview resolves the saved speed at playback. Every row has an executable recipe and a replay in the library.</p>
+<!-- generated:component-recipes -->
+
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>ID</th>
+<th>Material / behavior</th>
+<th>Engine</th>
+<th>Base duration</th>
+<th>Intended use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>press</code></td>
+<td>resin / pressure</td>
+<td>Motion</td>
+<td>320ms</td>
+<td>Buttons, icon buttons and segmented controls. Disabled controls never animate.</td>
+</tr>
+<tr>
+<td><code>hover</code></td>
+<td>resin / caustic</td>
+<td>Motion</td>
+<td>700ms</td>
+<td>Fine-pointer affordance only; keyboard focus is immediate.</td>
+</tr>
+<tr>
+<td><code>selection</code></td>
+<td>resin / meniscus</td>
+<td>Motion</td>
+<td>420ms</td>
+<td>Selected chips, radios, toggles and navigation; set selected semantics first.</td>
+</tr>
+<tr>
+<td><code>switch-on</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>460ms</td>
+<td>Animate the thumb after its checked state is applied.</td>
+</tr>
+<tr>
+<td><code>switch-off</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>460ms</td>
+<td>Animate the thumb after its unchecked state is applied.</td>
+</tr>
+<tr>
+<td><code>check</code></td>
+<td>resin / iris</td>
+<td>Motion</td>
+<td>340ms</td>
+<td>Checkbox and radio indicators; retain a visible non-color state.</td>
+</tr>
+<tr>
+<td><code>slider-step</code></td>
+<td>stone / feather</td>
+<td>Motion</td>
+<td>400ms</td>
+<td>Range outputs, steppers and scrubber labels; value updates immediately.</td>
+</tr>
+<tr>
+<td><code>icon-turn</code></td>
+<td>resin / torsion</td>
+<td>Motion</td>
+<td>440ms</td>
+<td>Disclosure chevrons; parent expanded state is authoritative.</td>
+</tr>
+<tr>
+<td><code>copy-confirm</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>540ms</td>
+<td>Only after clipboard write succeeds; retain textual confirmation.</td>
+</tr>
+<tr>
+<td><code>field-focus</code></td>
+<td>resin / caustic</td>
+<td>Motion</td>
+<td>600ms</td>
+<td>Supplementary focus response; never animate or delay the actual focus ring.</td>
+</tr>
+<tr>
+<td><code>field-invalid</code></td>
+<td>resin / tension</td>
+<td>GSAP</td>
+<td>480ms</td>
+<td>Single low-amplitude cue with persistent error text; never repeated shaking.</td>
+</tr>
+<tr>
+<td><code>field-valid</code></td>
+<td>resin / meniscus</td>
+<td>Motion</td>
+<td>550ms</td>
+<td>After real local validation; never imply a remote operation succeeded.</td>
+</tr>
+<tr>
+<td><code>hint-in</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>500ms</td>
+<td>Inline help, character guidance and validation details.</td>
+</tr>
+<tr>
+<td><code>hint-out</code></td>
+<td>resin / meniscus</td>
+<td>Motion</td>
+<td>500ms</td>
+<td>Hide the help only after completion; do not remove focused content.</td>
+</tr>
+<tr>
+<td><code>tab-in</code></td>
+<td>frost / refraction</td>
+<td>Motion</td>
+<td>650ms</td>
+<td>Selected tab panels; apply aria-selected and hidden state synchronously.</td>
+</tr>
+<tr>
+<td><code>page-in</code></td>
+<td>plastic / inertia</td>
+<td>Motion</td>
+<td>1050ms</td>
+<td>New local view after routing is committed; preserve focus and history.</td>
+</tr>
+<tr>
+<td><code>page-out</code></td>
+<td>plastic / inertia</td>
+<td>Motion</td>
+<td>760ms</td>
+<td>Departing view only; never postpone route authorization or loading.</td>
+</tr>
+<tr>
+<td><code>breadcrumb</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>500ms</td>
+<td>New breadcrumb item; current-page semantics stay explicit.</td>
+</tr>
+<tr>
+<td><code>drawer-in</code></td>
+<td>frost / refraction</td>
+<td>GSAP</td>
+<td>1000ms</td>
+<td>Side sheets and inspector panels; establish modality first.</td>
+</tr>
+<tr>
+<td><code>drawer-out</code></td>
+<td>frost / refraction</td>
+<td>GSAP</td>
+<td>650ms</td>
+<td>Keep modal focus contained until dismissal completes.</td>
+</tr>
+<tr>
+<td><code>menu-in</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>620ms</td>
+<td>Dropdowns, selects and command menus; keyboard behavior belongs to the component.</td>
+</tr>
+<tr>
+<td><code>menu-out</code></td>
+<td>resin / meniscus</td>
+<td>Motion</td>
+<td>380ms</td>
+<td>Close menus and restore trigger focus when appropriate.</td>
+</tr>
+<tr>
+<td><code>tooltip-in</code></td>
+<td>resin / meniscus</td>
+<td>Motion</td>
+<td>420ms</td>
+<td>Noninteractive descriptions on focus or hover; Escape dismisses.</td>
+</tr>
+<tr>
+<td><code>tooltip-out</code></td>
+<td>resin / meniscus</td>
+<td>Motion</td>
+<td>420ms</td>
+<td>Pointer and focus must both leave before hiding.</td>
+</tr>
+<tr>
+<td><code>popover-in</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>620ms</td>
+<td>Nonmodal details with outside-click, Escape and focus handling.</td>
+</tr>
+<tr>
+<td><code>popover-out</code></td>
+<td>resin / meniscus</td>
+<td>Motion</td>
+<td>380ms</td>
+<td>Dismiss nonmodal details without trapping focus.</td>
+</tr>
+<tr>
+<td><code>accordion-in</code></td>
+<td>haze / feather</td>
+<td>Motion</td>
+<td>650ms</td>
+<td>Animate visible content after expanding; no scripted height measurement needed.</td>
+</tr>
+<tr>
+<td><code>accordion-out</code></td>
+<td>haze / feather</td>
+<td>Motion</td>
+<td>650ms</td>
+<td>Hide content after completion; return focus first if a child has focus.</td>
+</tr>
+<tr>
+<td><code>list-in</code></td>
+<td>haze / feather</td>
+<td>Motion</td>
+<td>650ms</td>
+<td>Real added messages, table rows, cards and collection items.</td>
+</tr>
+<tr>
+<td><code>list-out</code></td>
+<td>haze / feather</td>
+<td>Motion</td>
+<td>440ms</td>
+<td>Remove after completion; announce the actual change and keep focus valid.</td>
+</tr>
+<tr>
+<td><code>reorder</code></td>
+<td>plastic / inertia</td>
+<td>GSAP</td>
+<td>500ms</td>
+<td>Supplement DOM reordering; use layout() for measured bounded displacement.</td>
+</tr>
+<tr>
+<td><code>highlight</code></td>
+<td>haze / feather</td>
+<td>Motion</td>
+<td>500ms</td>
+<td>A brief update cue paired with actual content or announcement.</td>
+</tr>
+<tr>
+<td><code>message-in</code></td>
+<td>haze / feather</td>
+<td>Motion</td>
+<td>650ms</td>
+<td>Only on a new message; do not replay on virtualized history or steal scroll.</td>
+</tr>
+<tr>
+<td><code>reaction</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>680ms</td>
+<td>Toggle the real reaction state and count before the response.</td>
+</tr>
+<tr>
+<td><code>toast-in</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>650ms</td>
+<td>Live status text with a persistent dismiss button.</td>
+</tr>
+<tr>
+<td><code>toast-out</code></td>
+<td>resin / meniscus</td>
+<td>Motion</td>
+<td>440ms</td>
+<td>No timer required; manual dismissal preserves reading time.</td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td>stone / feather</td>
+<td>GSAP</td>
+<td>600ms</td>
+<td>Use after a successful operation with text and a recognizable mark.</td>
+</tr>
+<tr>
+<td><code>attention</code></td>
+<td>stone / feather</td>
+<td>Motion</td>
+<td>500ms</td>
+<td>Single finite cue for important text; never flash or loop.</td>
+</tr>
+<tr>
+<td><code>progress-change</code></td>
+<td>stone / feather</td>
+<td>Motion</td>
+<td>500ms</td>
+<td>Actual progress is set first; this animation does not fabricate completion.</td>
+</tr>
+<tr>
+<td><code>busy</code></td>
+<td>stone / feather</td>
+<td>GSAP</td>
+<td>680ms</td>
+<td>One cycle for an actual pending operation; keep a static busy label if it lasts longer.</td>
+</tr>
+<tr>
+<td><code>skeleton-resolve</code></td>
+<td>haze / feather</td>
+<td>Motion</td>
+<td>650ms</td>
+<td>Replace a skeleton only when real data arrives; no endless shimmer.</td>
+</tr>
+<tr>
+<td><code>empty-in</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>500ms</td>
+<td>Shown only when the collection is actually empty.</td>
+</tr>
+<tr>
+<td><code>media-in</code></td>
+<td>frost / refraction</td>
+<td>Motion</td>
+<td>900ms</td>
+<td>After an image decodes or media becomes ready; reserve layout space.</td>
+</tr>
+<tr>
+<td><code>caption-in</code></td>
+<td>resin / coalesce</td>
+<td>Motion</td>
+<td>500ms</td>
+<td>Optional descriptive caption; text remains accessible in reduced motion.</td>
+</tr>
+<tr>
+<td><code>carousel-next</code></td>
+<td>frost / refraction</td>
+<td>GSAP</td>
+<td>920ms</td>
+<td>Explicit next/previous navigation; never autoplay.</td>
+</tr>
+<tr>
+<td><code>carousel-previous</code></td>
+<td>frost / refraction</td>
+<td>GSAP</td>
+<td>920ms</td>
+<td>Maintain item count and keyboard navigation.</td>
+</tr>
+<tr>
+<td><code>drag-pickup</code></td>
+<td>resin / tension</td>
+<td>Motion</td>
+<td>500ms</td>
+<td>Visual lift for a selected movable item; keyboard alternative required.</td>
+</tr>
+<tr>
+<td><code>drag-settle</code></td>
+<td>resin / coalesce</td>
+<td>GSAP</td>
+<td>640ms</td>
+<td>After a valid local move, with undo where data changes.</td>
+</tr>
+<tr>
+<td><code>resize-settle</code></td>
+<td>frost / refraction</td>
+<td>Motion</td>
+<td>600ms</td>
+<td>After measured layout size changes; never animate focus or hide handles.</td>
+</tr>
+<tr>
+<td><code>resin-confluence</code></td>
+<td>resin / coalesce</td>
+<td>GSAP</td>
+<td>1600ms</td>
+<td>Explicit material choreography for a large specimen; replay is a visual study, not an application action.</td>
+</tr>
+<tr>
+<td><code>frost-unfold</code></td>
+<td>frost / refraction</td>
+<td>GSAP</td>
+<td>1900ms</td>
+<td>Explicit material choreography for a large specimen; replay is a visual study, not an application action.</td>
+</tr>
+<tr>
+<td><code>plastic-settle</code></td>
+<td>plastic / inertia</td>
+<td>GSAP</td>
+<td>1700ms</td>
+<td>Explicit material choreography for a large specimen; replay is a visual study, not an application action.</td>
+</tr>
+<tr>
+<td><code>haze-tide</code></td>
+<td>haze / feather</td>
+<td>GSAP</td>
+<td>1800ms</td>
+<td>Explicit material choreography for a large specimen; replay is a visual study, not an application action.</td>
+</tr>
+<tr>
+<td><code>stone-contour</code></td>
+<td>stone / feather</td>
+<td>GSAP</td>
+<td>1300ms</td>
+<td>Explicit material choreography for a large specimen; replay is a visual study, not an application action.</td>
+</tr>
+<tr>
+<td><code>check-off</code></td>
+<td>plastic / iris</td>
+<td>Motion</td>
+<td>300ms</td>
+<td>Checkbox and radio indicators returning to unchecked. Paired with <code>check</code>; the iris closes toward the same point it opened from.</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /generated:component-recipes -->
+
+<h2 id="runtime-api">Runtime API</h2>
+<p>Load <code>controls.css</code> after the other preview styles; <code>controls.js</code> adds Resin shells around native text fields and selects while preserving their labels, validation and keyboard behavior. Load scripts in this order: theme CSS, primitive CSS, motion CSS, <code>assets/vendor/crystal-engines.js</code>, <code>assets/motion-catalog.js</code>, then <code>assets/motion.js</code>. Load <code>tokens.js</code> and <code>crystal.js</code> first if resolving user preferences dynamically. <code>motion-interactions.js</code> optionally installs delegated button feedback; omit it when your component library owns gesture handling to avoid duplicate effects.</p>
+<pre><code class="language-js">// Apply real UI state before giving it visual feedback.
+button.setAttribute('aria-pressed', 'true');
+const result = await CrystalMotion.play(button, 'selection');
+// result.status is finished, cancelled or instant.
+
+// A real reorder, with measured motion that may exceed 50px.
+const before = row.getBoundingClientRect();
+list.insertBefore(row, row.previousElementSibling);
+await CrystalMotion.layout(row, before);
+
+// Cleanup on unmount or superseding intent.
+CrystalMotion.stop(row);
+CrystalMotion.stopAll();
+</code></pre>
+<p><code>play(element, recipeId, {rate})</code> accepts all material and component recipe IDs. An additional replay rate is optional; the default uses the user's factor once, not twice. <code>duration(baseMilliseconds, rate)</code> resolves the same factor and cap. <code>recipes</code> exposes the catalog metadata. Unknown presets and invalid targets throw rather than reporting a fake completion.</p>
+<p><code>layout(element, previousRect)</code> compares the previous and current DOM position. Displacements up to the viewport diagonal use a GSAP-controlled inverse transform, with duration adapting to distance. Pass <code>{extended:false}</code> to retain the compact 50px/crossfade behavior. Offscreen-scale moves beyond the viewport diagonal crossfade. The final order is always the real DOM order. Layout animation is cosmetic and does not supply drag-and-drop behavior.</p>
+<p>The engine bridge restores prior inline values and priorities for its owned properties. Consumers should avoid modifying the same animated property during an effect; stop it before changing that property. Component implementations should use a dedicated animated wrapper when they already own a nontrivial transform. Libraries must not let two engines compete for the same property.</p>
+<h2 id="live-examples-and-interruption">Live examples and interruption</h2>
+<p>The component page includes local validation and actual clipboard handling; keyboard tabs and menus; a disclosure protected against rapid open/close races; hover/focus tooltip; dismissible popover; native modal inspector sheet; collection insertion/removal/reordering; a local message log with reactions; manually dismissed notifications; actual browser SHA-256 computation; carousel studies; and decoding of a user-selected local image without uploading it.</p>
+<p>Disclosure, popover, menu and toast closures use an intent counter so a stale completion cannot hide a reopened component. A removed item preserves focus. Tab changes cancel the previous panel. Modal dismissal contains focus until it ends. The sheet exit shares the 650ms departure clock with its Mirage backdrop. Tooltip display is tied to both hover (including the tooltip itself) and focus; Escape dismisses it. Files use object URLs that are revoked when replaced or the page exits.</p>
+<p>The catalog replays visual recipes on isolated specimens; a menu recipe replay is not itself a menu implementation. The separate live examples demonstrate behavior where supplied. This separation prevents a replay sample from being mistaken for a production application feature.</p>
+<h2 id="packaging-and-validation">Packaging and validation</h2>
+<pre><code class="language-sh">npm ci
+npm run build:motion
+npm test
+python3 tools/build.py
+python3 tools/validate.py
+python3 tools/package.py
+</code></pre>
+<p>Python documentation tooling needs the packages listed in <code>tools/requirements.txt</code>. Prebuilt assets are included for offline viewing; no install is required to open the preview through a local static server. <code>node_modules</code> is excluded from the ZIP; sources, pinned lockfile, catalog, bundle, notices and tests are included.</p>
+<p><code>npm test</code> checks token contracts, recipe uniqueness, duration/travel bounds, engine declarations and installed dependency metadata. The browser check page uses the real installed engines to verify recipe completion, cancellation, supersession, property restoration, reduced motion, duration limits, stationary foregrounds, every material signature and the component page in a 320px browsing context. Test results are evidence for the exercised browser, not a full WCAG, native-renderer or cross-browser certification.</p>
+<h3 id="storybook-and-future-component-packages">Storybook and future component packages</h3>
+<p>For each actual component, add stories for default/hover/focus/pressed/selected/disabled/error/busy states as applicable; enter/exit; rapid reversal; long labels and RTL; narrow viewports; both color modes; opaque fallback; reduced motion; and 0.25×/1×/2× timing. Interaction tests must assert the real semantic result and focus behavior, not merely that an animation finished. Pin a known frame or use reduced motion for stable visual snapshots, then test motion separately.</p>
+<p>The current package is framework-independent. Future React, Rust or native packages can map this catalog to platform engines while preserving the ordinary travel guidance and documented large-travel exceptions, the stationary Haze/Stone rule, timing relationships, material effects, cancellation and accessibility behavior. A production Storybook is a future component-library deliverable; it is not claimed as shipped by this static reference.</p>
+<h3 id="interaction-surface-geometry">Interaction surface geometry</h3>
+<p>Use a broad, luminous Resin rim with an 8px inset reading fill and diffuse paired shadows. Avoid thin dark perimeter strokes on ordinary action buttons; native text-entry fields retain a functional boundary and every control retains a visible keyboard focus ring. Standalone actions use generous padding and soft capsule geometry.</p>
+<p>Toolbars, segmented controls and tab groups share one Resin/Haze surface. Their inactive actions have no separate bevel, backdrop filter or raised outline. Only the selected action gains a raised, strongly colored indicator, plus a non-color selection cue. Temporary menus follow the same shared-surface principle. The material motion suite is unchanged by this visual refinement.</p>
+<h2 id="completion-and-reusable-overlays">Completion and reusable overlays</h2>
+<p>The Motion adapter uses its native <code>motion/mini</code> entry point for the existing CSS keyframes; GSAP still coordinates pseudo-element paint. Wait for the complete property group before restoring the caller's inline values and priorities. Do not restore paint inside a per-property completion callback while another renderer can still commit final values. In particular, dismissal must never leave <code>opacity: 0</code> on a reusable dialog.</p>
+<p>The runtime regression checks inspect restored styles after subsequent browser frames and exercise four real Mirage open/close cycles, including reduced motion and focus return. Main and motion previews share this adapter. Dialogs suppress incidental horizontal overflow caused by animated feather paint; long code content retains its own scroll container.</p></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/motion-components.md">Specification source</a></footer></div></body></html>

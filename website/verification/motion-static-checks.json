@@ -1,0 +1,9 @@
+{
+  "recipes": 55,
+  "categories": 9,
+  "engines": {
+    "motion": "13.4.0",
+    "gsap": "3.15.0"
+  },
+  "staticContracts": "passed"
+}
