@@ -1,0 +1,106 @@
+# The website's gates, run on every push and pull request.
+#
+# This file is the browser half of Crystal's old verify.yml, which stayed with
+# the pages it is about when the library and the website became two
+# repositories. It checks the site, and it checks the site against the library
+# it installed — not against a working copy of Crystal sitting next door, which
+# is a different and weaker question.
+#
+# The order is dependency order: the build assembles the library into the site
+# and renders every page, and nothing downstream can run before that. Without it
+# the site comes up with no Crystal in it, and the symptom is not "the library
+# is missing" — it is every scroll container reporting `scrollbar-color: auto`.
+name: Verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    name: Pages, tokens and documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: npm ci --no-audit --no-fund
+      # The page build is Python and does not live on stdlib alone.
+      - run: pip install -r tools/requirements.txt
+
+      # Assembles the installed library into the site, renders the fourteen
+      # pages, then checks what this site owes the library, token contrast,
+      # the motion recipes and bundle, documentation drift, and the link graph.
+      - run: npm test
+
+      # Generated output is generated, not authored. If a build produces
+      # something different from what is committed, the committed copy is stale
+      # and every downstream gate is reading a file nobody has looked at.
+      #
+      # `website/verification/token-checks.json` is the exception, and only for
+      # its `date`: it records when the evidence was produced, so it differs on
+      # every run by design. Its numbers are held to the same rule — the second
+      # command fails if anything but the timestamp moved.
+      - name: Generated files match their source
+        run: |
+          git diff --exit-code -- ':(top)' \
+            ':(exclude,top)website/verification/token-checks.json' || {
+            echo "::error::A build changed a committed file. Run the build and commit the result."
+            exit 1
+          }
+          drift=$(git diff -U0 -- ':(top)website/verification/token-checks.json' \
+            | grep -E '^[+-]' | grep -vE '^(\+\+\+|---)' | grep -v '"date"' || true)
+          if [ -n "$drift" ]; then
+            echo "::error::The token evidence changed beyond its timestamp:"
+            echo "$drift"
+            exit 1
+          fi
+
+  browser:
+    name: Scrolling, interactions and deployability
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: npm ci --no-audit --no-fund
+      - run: pip install -r tools/requirements.txt
+      - run: npx playwright install --with-deps chromium
+
+      # The library is copied into the site by the build, and the copy is
+      # gitignored, so nothing else here would make it. serve.py refuses to
+      # start without it rather than serving a convincing ruin.
+      - run: npm run build
+
+      # The site has no backend, but it is verified served rather than opened
+      # from the filesystem — `file:` and `http:` differ on enough of what these
+      # checks measure that one is not evidence for the other.
+      - name: Start the site
+        run: |
+          python3 tools/serve.py &
+          for _ in $(seq 1 40); do
+            curl -sf http://127.0.0.1:4321/ >/dev/null && exit 0
+            sleep 0.5
+          done
+          echo "::error::The site did not come up on 127.0.0.1:4321"
+          exit 1
+
+      - run: npm run verify:scroll
+        env:
+          CRYSTAL_ORIGIN: http://127.0.0.1:4321
+      - run: npm run verify:interactions
+      - run: npm run verify:deploy

@@ -5,7 +5,7 @@
   "scripts": {
     "assemble": "node tools/assemble-site.mjs",
     "build": "python3 tools/build.py",
-    "test": "python3 tools/build.py && node tools/validate-tokens.cjs && node tools/validate-motion.cjs && node tools/validate-docs.cjs && python3 tools/validate.py",
+    "test": "python3 tools/build.py && node tests/site-contracts.cjs && node tools/validate-tokens.cjs && node tools/validate-motion.cjs && node tools/validate-docs.cjs && python3 tools/validate.py",
     "build:motion": "node tools/build-motion.cjs",
     "report": "python3 tools/report.py",
     "serve": "python3 tools/serve.py",
@@ -18,7 +18,7 @@
     "verify:floor": "node tools/verify-frames.mjs --no-webgl"
   },
   "dependencies": {
-    "@crystal-ui/core": "file:../crystal-design-system/core"
+    "@crystal-ui/core": "^2.0.0"
   },
   "devDependencies": {
     "esbuild": "0.28.2",
