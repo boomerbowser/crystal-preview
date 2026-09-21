@@ -82,7 +82,19 @@ always eventually reports on another.
 whole set rather than only the frames that differ. Worth knowing before reading a
 blessing commit's diff.
 
-**What changed so this cannot go unwatched again.** The gate was manual, and a manual
-gate is one nobody runs — that is the specific way it stayed red. It now runs in CI
-on every push, alongside `tests/visual-gate-contracts.py`, which proves the allowance
-cannot hide what the gate is for.
+**The gate is still manual, and the attempt to fix that failed usefully.** It was
+wired into CI on 21 September 2026 and taken out again the same hour. The run that
+added it failed **16 of the 18 frames**, with channel deltas up to 255 and tens of
+thousands of visibly-changed pixels — `docs-menu-forced-colours` at 46,058,
+`icons.png` at 25,866 — and the frames that failed hardest are the text-heavy ones.
+That is font rasterisation: these baselines are captured on a contributor's machine,
+and a GitHub runner does not draw type the same way, so comparing them there measures
+the font stack rather than Crystal.
+
+**These baselines are therefore machine-specific**, which D-13 suspected and nobody
+had demonstrated. Capture them where you compare them. The route to a CI gate is a
+second baseline set captured *by* a runner and committed from one, and it is recorded
+as D-15 in Crystal's tracker rather than half-built here.
+
+`tests/visual-gate-contracts.py` does run in CI, because it compares synthetic PNGs it
+generates itself and means the same thing everywhere.

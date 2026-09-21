@@ -105,19 +105,17 @@ jobs:
       - run: npm run verify:interactions
       - run: npm run verify:deploy
 
-      # The visual gate, which until 21 September 2026 was not run here.
+      # The contracts the visual gate rests on. Environment-independent: they
+      # compare synthetic PNGs this file generates, so they mean the same thing
+      # on a runner as on a desk.
       #
-      # That omission is the whole of D-13. The gate was red on nine frames for
-      # an unknown length of time and nobody knew, because running it was
-      # somebody's job rather than the build's — and a manual gate is one nobody
-      # runs. Two of those nine differed visibly and had never been looked at.
-      #
-      # `verify:floor` rather than `verify:visual`: a GitHub runner has no GPU,
-      # so the frames that photograph WebGL output cannot be compared here and
-      # --no-webgl excludes them. That is a smaller gate than the one a person
-      # runs locally, and it is the largest one this environment can honestly
-      # support. Blessing is refused outright without WebGL2, so a green run
-      # here can never quietly re-baseline anything.
+      # `verify:floor` is deliberately NOT here, and the reason is recorded in
+      # D-15. It was added on 21 September 2026 and taken out again in the same
+      # hour, because the run that added it failed 16 of 18 frames with channel
+      # deltas up to 255 — the text-heavy frames worst of all. The baselines are
+      # captured on a contributor's machine and a runner does not rasterise type
+      # the same way, so comparing them here measures the font stack rather than
+      # Crystal. A gate that fails on every push teaches people to ignore it,
+      # which is a worse failure than the manual one it was meant to fix.
       - name: The gate that proves the allowance cannot hide a change
         run: python3 tests/visual-gate-contracts.py
-      - run: npm run verify:floor
