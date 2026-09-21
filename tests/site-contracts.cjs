@@ -135,11 +135,13 @@ const SITE_ONLY = /\.(?!cr-)[a-zA-Z_-][\w-]*|#[a-zA-Z_-][\w-]*/;
 
 const ALLOWED_RULES = new Map([
   [/^\.cr-dock-inner(::before)?$/,
-    'components.md says .cr-dock-inner shares the Stone recipe; materials.md says a label on a '
-    + 'Resin dock takes its own chip. The library follows the first and this site the second, and '
-    + 'this site\'s rule is also too broad — it blanks .cr-dock-inner.cr-stone, the "Stone on '
-    + 'Resin" specimen on playground.html. Open in Crystal\'s tracker; do not adopt or delete '
-    + 'this until it is decided.'],
+    'Crystal D-16. This suppresses the Stone label backing that components.md and materials.md '
+    + 'both require, and because it matches the class rather than the context it also blanks '
+    + '.cr-dock-inner.cr-stone — the "Stone on Resin" specimen on playground.html, which '
+    + 'therefore shows no Stone. It is exempted rather than fixed only because the fix changes '
+    + 'six playground baselines and re-blessing needs WebGL2 (D-15). The fix is verified: narrow '
+    + 'to .cr-dock-inner:not(.cr-stone), or delete both rules. Not a decision — a defect with a '
+    + 'known remedy and a hardware blocker.'],
 ]);
 
 check('this site styles nothing that belongs to Crystal', () => {
