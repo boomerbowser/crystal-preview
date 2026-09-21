@@ -80,8 +80,13 @@ check('every breakpoint in site.css is a token or a named exception', () => {
 const ALLOWED = new Map([
   /* Genuinely the site's own, with no library equivalent. A name here must be
      a property the library does not define; the check below proves that, so an
-     entry cannot be used to smuggle an override past it. */
-  ['--cr-range-progress', 'the playground\'s range inputs, which are site furniture'],
+     entry cannot be used to smuggle an override past it.
+
+     Empty as of the second adoption pass: `--cr-range-progress` was the last
+     entry, and the range inputs it belonged to were never site furniture. The
+     library styled no native control at all — no checkbox, radio, range, file
+     button, select option or menu item — so every one of them lived here. They
+     are Crystal's now, and the property went with them. */
 ]);
 
 check('this site redefines no custom property the library already defines', () => {
@@ -107,6 +112,84 @@ check('this site redefines no custom property the library already defines', () =
   const stale = [...ALLOWED.keys()].filter((name) => library.has(name));
   assert.deepEqual(stale, [],
     'these are on the allow-list and the library now defines them, so the exemption is hiding a clash');
+});
+
+/* This site styles nothing that is Crystal's.
+ *
+ * The property check above is about *values*. This one is about *scope*, and it
+ * is the check that would have caught what the property check could not: after
+ * the first adoption pass, `controls.css` still carried 75 rules and 238
+ * declarations that were Crystal's — a `.cr-table-scroll` with the whole Resin
+ * surface, a `.cr-dock` pill, a status chip at twice the library's padding, and
+ * every native form control there is. None of it redefined a custom property,
+ * so the gate above stayed green while the site quietly out-specified the
+ * library it installs.
+ *
+ * The rule fails closed, which is the whole point: a selector stays here only
+ * if it names a class or an id *outside* Crystal's `cr-` namespace. A rule with
+ * no classes at all — `input[type=range]`, `[role=menu] button` — is Crystal's,
+ * because the library claims bare elements. Anything this site wants to keep
+ * that does not name furniture has to be argued for by name, below.
+ */
+const SITE_ONLY = /\.(?!cr-)[a-zA-Z_-][\w-]*|#[a-zA-Z_-][\w-]*/;
+
+const ALLOWED_RULES = new Map([
+  [/^\.cr-dock-inner(::before)?$/,
+    'components.md says .cr-dock-inner shares the Stone recipe; materials.md says a label on a '
+    + 'Resin dock takes its own chip. The library follows the first and this site the second, and '
+    + 'this site\'s rule is also too broad — it blanks .cr-dock-inner.cr-stone, the "Stone on '
+    + 'Resin" specimen on playground.html. Open in Crystal\'s tracker; do not adopt or delete '
+    + 'this until it is decided.'],
+]);
+
+check('this site styles nothing that belongs to Crystal', () => {
+  const css = fs.readFileSync(path.join(SITE, 'assets/controls.css'), 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+
+  /* Selectors only. A regex cannot do this: `@media` preludes are heads too,
+     and `:is(a, b)` holds a comma that is not a selector boundary. So the file
+     is walked, at-rule preludes are skipped, and heads are split on commas at
+     parenthesis depth zero. */
+  const selectors = [];
+  let head = '';
+  let parens = 0;
+  for (let i = 0; i < css.length; i += 1) {
+    const c = css[i];
+    if (c === '(') parens += 1;
+    else if (c === ')') parens -= 1;
+    if (c === '{') {
+      const text = head.trim();
+      head = '';
+      if (!text || text.startsWith('@')) continue;
+      let depth = 0;
+      let part = '';
+      for (const ch of text) {
+        if (ch === '(') depth += 1;
+        else if (ch === ')') depth -= 1;
+        if (ch === ',' && depth === 0) { if (part.trim()) selectors.push(part.trim()); part = ''; }
+        else part += ch;
+      }
+      if (part.trim()) selectors.push(part.trim());
+    } else if (c === '}' || (c === ';' && parens === 0)) head = '';
+    else head += c;
+  }
+  assert.ok(selectors.length > 20,
+    `read ${selectors.length} selectors from controls.css, which is too few to be right — `
+    + 'the file moved or the parse broke, and this check is looking at almost nothing');
+
+  const crystal = selectors.filter((sel) =>
+    !SITE_ONLY.test(sel) && ![...ALLOWED_RULES.keys()].some((r) => r.test(sel)));
+  assert.deepEqual(crystal, [],
+    'these selectors name nothing outside Crystal\'s namespace, so this site is specifying '
+    + 'Crystal components in a stylesheet the library does not ship');
+
+  /* An exemption for a selector the file no longer contains is a note about a
+     decision nobody has to make any more. */
+  const stale = [...ALLOWED_RULES.keys()]
+    .filter((r) => !selectors.some((sel) => r.test(sel)))
+    .map(String);
+  assert.deepEqual(stale, [],
+    'these exemptions match no rule in controls.css and should go');
 });
 
 const failures = results.filter((r) => r.status === 'fail');
