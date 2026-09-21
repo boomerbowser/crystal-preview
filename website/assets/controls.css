@@ -24,11 +24,6 @@
 /* Resin is the interaction plane. Haze is a separate, inset reading fill.
    Context light stays beneath Haze: nested white wells must not erase Resin. */
 @layer crystal.component {
-:root{--cr-control-light:color-mix(in srgb,var(--cr-glow) 12.6%,transparent);--cr-control-color:color-mix(in srgb,var(--cr-decorative) 8.4%,transparent);}
-:root[data-crystal-mode=dark]{--cr-control-light:color-mix(in srgb,var(--cr-glow) 9.8%,transparent);--cr-control-color:color-mix(in srgb,var(--cr-decorative) 7%,transparent);}
-:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status){position:relative;isolation:isolate;background:var(--cr-resin-fill);color:var(--cr-text);border:1px solid var(--cr-rim);box-shadow:var(--cr-shadow-float);backdrop-filter:blur(var(--cr-resin-blur)) saturate(var(--cr-resin-saturation));-webkit-backdrop-filter:blur(var(--cr-resin-blur)) saturate(var(--cr-resin-saturation));filter:none;}
-:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::before{content:'';position:absolute;inset:var(--cr-haze-inset);z-index:-1;pointer-events:none;border-radius:inherit;background:var(--cr-haze-fill);filter:blur(var(--cr-haze-feather));box-shadow:none;}
-:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::after{content:'';position:absolute;inset:0;z-index:-2;pointer-events:none;border-radius:inherit;background:linear-gradient(115deg,transparent 20%,#ffffff30 43%,#ffffff0a 55%,transparent 72%),radial-gradient(ellipse at 12% 0%,var(--cr-control-light),transparent 75%),linear-gradient(135deg,var(--cr-control-color),transparent 60%,var(--cr-control-light));background-size:220% 100%,100% 100%,100% 100%;background-position:100% 0;box-shadow:inset 0 2px 1px var(--cr-rim),inset 0 -1px 1px var(--cr-rim);}
 /* Feather only the chromatic paint, beneath Haze. The parent retains the crisp optical rim. */
 :is(button:not(.swatch),a.cr-button,.cr-control)::after{inset:2px;filter:blur(2px);box-shadow:none;}
 :is(button,a.cr-button){min-height:48px;}
@@ -39,12 +34,7 @@
 .cr-button.danger{color:var(--cr-text);border-color:var(--cr-rim);}
 .cr-button.danger::before{background:var(--cr-haze-fill);}
 /* Circular badges carry state; native semantics remain authoritative. */
-.cr-field-shell{display:inline-flex;align-items:center;min-width:0;border-radius:20px;padding:8px;vertical-align:middle;}
-.cr-field-shell:has(.cr-input){width:100%;}
-.cr-field-shell :is(input,select,textarea){position:relative;background:transparent;border:0;box-shadow:none;border-radius:12px;min-width:0;color:var(--cr-text);min-height:44px;max-width:100%;}
 select option{background:var(--cr-surface);color:var(--cr-text);}
-.cr-field-shell:focus-within{outline:2px solid var(--cr-focus-core);outline-offset:3px;}
-.cr-field-shell :focus-visible{outline:0;}
 /* Compact controls have a luminous shell and a contained contrast-bearing mark.
    The mark identifies the control without a dark wire around the outer material. */
 input:is([type=checkbox],[type=radio]){appearance:none;width:26px;height:26px;flex:none;vertical-align:middle;border:1px solid var(--cr-rim);border-radius:9px;background:linear-gradient(135deg,var(--cr-control-light),var(--cr-control-color)),var(--cr-resin-fill);backdrop-filter:blur(20px);box-shadow:inset 0 2px 2px var(--cr-rim),0 2px 3px var(--cr-control-edge),0 5px 10px var(--cr-shadow-contact);display:inline-grid;place-items:center;}
@@ -67,17 +57,8 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bor
 .swatch::before{inset:8px;background:transparent;filter:none;}
 .palette-card::before{display:none;}
 .swatch{color:var(--cr-text);text-shadow:0 0 2px var(--cr-surface);}
-[data-effects=opaque] :is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status){background:var(--cr-surface);backdrop-filter:none;-webkit-backdrop-filter:none;}
-[data-effects=opaque] :is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::after{display:none;}
-@media(prefers-reduced-transparency:reduce){:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status){background:var(--cr-surface);backdrop-filter:none;-webkit-backdrop-filter:none}:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::after{display:none}}
-@media(forced-colors:active){:is(button,a.cr-button,.cr-control,.cr-field-shell,input){background:Canvas!important;color:CanvasText!important;border:1px solid ButtonText;box-shadow:none;backdrop-filter:none}:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::before,:is(button,a.cr-button,.cr-control,.cr-field-shell,.cr-resin-haze,.cr-status)::after{display:none}input:is([type=checkbox],[type=radio]){appearance:auto}input:is([type=checkbox],[type=radio])::after{display:none}}
-
-.cr-resin-haze{border-radius:18px;padding:16px;line-height:1.5;}
-.cr-status{--cr-outline:var(--status-ink);padding:10px 14px;min-height:36px;}
-.cr-tag{display:inline-flex;align-items:center;gap:6px;padding:10px 14px;border-radius:99px;font-size:13px;font-weight:700;}
-
-nav a.cr-control{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:99px;min-height:44px;text-decoration:none;}
-nav a.cr-control[aria-current]{text-decoration:none;}
+@media(forced-colors:active){input:is([type=checkbox],[type=radio]){appearance:auto}input:is([type=checkbox],[type=radio])::after{display:none}}
+.cr-status{padding:10px 14px;min-height:36px;}
 input[type=file]::file-selector-button{min-height:44px;padding:10px 16px;border:1px solid var(--cr-rim);border-radius:99px;color:var(--cr-text);background:linear-gradient(var(--cr-haze-fill),var(--cr-haze-fill)) padding-box,var(--cr-resin-fill);box-shadow:inset 1px 1px 2px var(--cr-rim),0 4px 8px var(--cr-shadow-contact);margin-inline-end:8px;cursor:pointer;}
 /* Palette colors are specimen content inside the Resin control, not its shell. */
 .swatch::before{inset:5px;background:var(--swatch);border-radius:inherit;filter:none;}
@@ -87,9 +68,6 @@ input[type=file]::file-selector-button{min-height:44px;padding:10px 16px;border:
 /* Broad Resin frame, soft inset fill, and one shared plane for grouped actions. */
 .cr-button{padding:15px 24px;}
 .export-controls .cr-button{padding-inline:14px;}
-.cr-field-shell{box-shadow:inset 0 2px 1px var(--cr-rim),0 3px 5px var(--cr-control-edge),0 12px 24px var(--cr-shadow-contact);}
-:is(.cr-tag,.cr-resin-haze){padding:17px 24px;}
-.cr-tag{min-height:48px;}
 :is(.cr-dock,.segmented,.suite-tabs){position:relative;isolation:isolate;background:var(--cr-resin-fill);border:1px solid var(--cr-rim);border-radius:999px;padding:9px;gap:4px;box-shadow:var(--cr-shadow-float);backdrop-filter:blur(var(--cr-resin-blur)) saturate(var(--cr-resin-saturation));}
 :is(.cr-dock,.segmented,.suite-tabs)::before{content:'';position:absolute;inset:var(--cr-haze-inset);border-radius:inherit;z-index:-1;background:var(--cr-haze-fill);filter:blur(var(--cr-haze-feather));pointer-events:none;}
 .cr-dock-inner{background:transparent;padding:0;isolation:auto;}
@@ -127,33 +105,22 @@ button.swatch::before{background:var(--swatch);filter:none;inset:5px;}
 button.palette-card[aria-pressed=true]{color:var(--cr-text);}
 button.palette-card[aria-pressed=true]::before{background:var(--cr-haze-fill);}
 /* Native fields retain their material paint; badges identify entry and requirements. */
-span.cr-field-shell{border-color:var(--cr-rim);}
-span.cr-field-shell::after{background-image:radial-gradient(ellipse at 12% 0%,var(--cr-control-light),transparent 75%),linear-gradient(135deg,var(--cr-control-color),transparent 60%,var(--cr-control-light));background-size:100% 100%,100% 100%;background-position:0 0,0 0;background-repeat:no-repeat;}
-span.cr-field-shell:has([aria-invalid=true])::after{background-image:radial-gradient(ellipse at 12% 0%,var(--cr-control-light),transparent 75%),linear-gradient(135deg,var(--cr-control-color),transparent 60%,var(--cr-control-light));}
 span.cr-status{border-color:var(--cr-rim);border-radius:18px;padding:12px 18px;}
 span.cr-status>span{display:inline-grid;place-items:center;min-width:24px;height:24px;border-radius:50%;background:var(--status-surface);color:var(--status-ink);font-weight:800;}
 /* Content boundaries are gentle; functional contrast belongs to the controls. */
 :is(.suite-list li,.cr-dialog,.recipe-specimen.cr-resin,.recipe-specimen.cr-frost){border-color:var(--cr-rim);}
 .suite-list li{background:var(--cr-haze-fill);box-shadow:0 3px 8px var(--cr-control-edge);}
-[data-effects=opaque] span.cr-field-shell::after{display:none;}
-@media(prefers-reduced-transparency:reduce){span.cr-field-shell::after{display:none;}}
-@media(forced-colors:active){span.cr-field-shell{border:1px solid ButtonText}span.cr-field-shell::after{display:none}.switch-track{border:1px solid ButtonText;background:Canvas}.switch-thumb{background:ButtonText}input[type=range]{appearance:auto}input[type=range]::-webkit-slider-runnable-track{background:CanvasText}input[type=range]::-webkit-slider-thumb{background:ButtonText;border-color:Canvas}span.cr-status>span{background:Canvas;color:CanvasText}}
+@media(forced-colors:active){.switch-track{border:1px solid ButtonText;background:Canvas}.switch-thumb{background:ButtonText}input[type=range]{appearance:auto}input[type=range]::-webkit-slider-runnable-track{background:CanvasText}input[type=range]::-webkit-slider-thumb{background:ButtonText;border-color:Canvas}span.cr-status>span{background:Canvas;color:CanvasText}}
 
 
 /* An immediate, contrast-bearing core sits inside a lightly feathered halo.
    Focus changes the elevation shadow's hue without blurring any foreground. */
-:root{--cr-focus-core:var(--cr-primary);--cr-focus-feather-1:color-mix(in srgb,var(--cr-primary) 46%,transparent);--cr-focus-feather-2:color-mix(in srgb,var(--cr-primary) 30%,transparent);--cr-focus-feather-3:color-mix(in srgb,var(--cr-primary) 17%,transparent);--cr-focus-feather-4:color-mix(in srgb,var(--cr-primary) 8%,transparent);--cr-focus-shadow:color-mix(in srgb,var(--cr-decorative) 27%,transparent);/* Halo spread halved (2/6/12/22 -> 1/3/6/11) at Meridian's request. The blur radii
+:root{/* Halo spread halved (2/6/12/22 -> 1/3/6/11) at Meridian's request. The blur radii
    are unchanged, so the ring gets thinner without the falloff flattening — halving
    both would have produced a tighter but harder edge. The 2px core at 3px offset is
-   untouched: it is what proves focus at a glance and what survives forced colours. */
---cr-focus-ring:0 0 6px 1px var(--cr-focus-feather-1),0 0 16px 3px var(--cr-focus-feather-2),0 0 30px 6px var(--cr-focus-feather-3),0 0 54px 11px var(--cr-focus-feather-4),0 8px 18px var(--cr-focus-feather-2),0 22px 40px var(--cr-focus-shadow);}
+   untouched: it is what proves focus at a glance and what survives forced colours. */}
 /* Dark mode needs more light in the feather to read against a deep canvas. */
-:root[data-crystal-mode=dark]{--cr-focus-feather-1:color-mix(in srgb,var(--cr-primary) 56%,transparent);--cr-focus-feather-2:color-mix(in srgb,var(--cr-primary) 38%,transparent);--cr-focus-feather-3:color-mix(in srgb,var(--cr-primary) 22%,transparent);--cr-focus-feather-4:color-mix(in srgb,var(--cr-primary) 11%,transparent);}
-:is(button,a,input,select,textarea,summary,[tabindex]):focus-visible,
-span.cr-field-shell:focus-within,
-.suite-switch input:focus-visible+.switch-track,
-:is(.cr-dock,.segmented,.suite-tabs) button:focus-visible{outline:2px solid var(--cr-focus-core);outline-offset:3px;box-shadow:inset 0 2px 1px var(--cr-rim),var(--cr-focus-ring);}
-span.cr-field-shell :is(input,select,textarea):focus-visible{outline:0;box-shadow:none;}
+:is(button,a,input,select,textarea,summary,[tabindex]):focus-visible,.suite-switch input:focus-visible+.switch-track,:is(.cr-dock,.segmented,.suite-tabs) button:focus-visible{outline:2px solid var(--cr-focus-core);outline-offset:3px;box-shadow:inset 0 2px 1px var(--cr-rim),var(--cr-focus-ring);}
 /* Each indicator is a small Resin shell with its own Haze reading fill. */
 /* Haze filling a Resin frame is recessed, not floating.
    A Haze fill inside a Resin frame is a content well: it sits *in* the frame,
@@ -171,9 +138,6 @@ span.cr-field-shell :is(input,select,textarea):focus-visible{outline:0;box-shado
 
    Scoped rather than applied to every Haze surface, because a standalone Haze
    card genuinely is raised and its existing recipe is correct. */
-:is(.cr-resin,.cr-glass,.cr-resin-haze) :is(.cr-haze,.cr-surface,.cr-well,.cr-content-fill){
-  box-shadow:inset 0 1px 2px var(--cr-shadow-contact),inset 0 -1px 0 var(--cr-rim);
-}
 
 /* Resin never contains Resin.
    A control dropped into a Resin surface — a button in a menu, a popover or a
@@ -184,16 +148,6 @@ span.cr-field-shell :is(input,select,textarea):focus-visible{outline:0;box-shado
    patched instances, so the law holds for markup nobody has written yet.
    Deliberately not solved by softening Resin, which would disturb a material
    specification. Verified by tools/audit-materials.mjs. */
-:is(.cr-resin,.cr-glass,.cr-resin-haze) :is(button,a.cr-button,.cr-button,.cr-control){
-  backdrop-filter:none;-webkit-backdrop-filter:none;
-  /* backdrop-filter silently creates a stacking context, and these controls
-     paint their fill on a ::before at z-index -1 which was relying on it. Drop
-     the filter alone and that pseudo-element escapes to the nearest ancestor
-     context and paints behind the button's own background instead of above it —
-     which erased the selected dock label completely. Isolation restores the
-     containment without restoring the second blur. */
-  isolation:isolate;
-}
 /* Only the backdrop filter is removed, and deliberately no background is
    imposed. These controls already carry their fill on a ::before that paints
    beneath the element's own background box, so assigning a Haze fill here
@@ -210,48 +164,27 @@ span.cr-field-shell :is(input,select,textarea):focus-visible{outline:0;box-shado
    material specification. Haze exists for precisely this job — a readable 80%
    fill with a 1.95px feather on the background layer only, leaving the glyph
    crisp. Enforced by tools/audit-materials.cjs. */
-.cr-indicator{position:absolute;isolation:isolate;display:grid;place-items:center;inset-block-start:-4px;inset-inline-end:-3px;width:20px;height:20px;min-width:20px;border-radius:50%;border:1px solid var(--cr-rim);background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 2px 4px var(--cr-control-edge),0 4px 8px var(--cr-shadow-contact);color:var(--cr-text);font:800 12px/1 var(--cr-font);z-index:2;pointer-events:none;text-decoration:none;text-shadow:none;}
 /* The feathered background layer of the Haze fill. The glyph above it stays crisp. */
-.cr-indicator::before{content:'';position:absolute;inset:1px;z-index:-1;border-radius:50%;background:var(--cr-haze-fill);filter:blur(var(--cr-haze-feather));}
 /* A check mark means validated or informational, never "this one is selected".
    Selection is carried by label weight; location is a dot; activity an ellipsis. */
-.cr-indicator:is([data-kind=selection],[data-kind=current],[data-kind=busy]){display:none;}
-[aria-current]:not([aria-current=false])>.cr-indicator[data-kind=current]{display:grid;}
-[aria-busy=true]>.cr-indicator[data-kind=busy]{display:grid;}
-.cr-indicator[data-kind=current]::after{content:'●';font-size:9px;}
-.cr-indicator[data-kind=busy]::after{content:'…';font-size:14px;}
 /* Nothing is drawn for the selection kind. A mark set beside a label offsets the very
    label it points at, so selection is carried by label weight instead — typographic
    rather than chromatic, which still satisfies the requirement that selection never
    rests on colour alone. The rules below suppress the badge the base indicator would
    otherwise paint. */
-:is([aria-pressed=true],[aria-selected=true],[aria-checked=true])>.cr-indicator[data-kind=selection]{display:none}
-.cr-indicator[data-kind=selection]::before,.cr-indicator[data-kind=selection]::after{content:none;display:none;}
 :is(button[aria-pressed=true],button[aria-selected=true],button[aria-checked=true],[role=tab][aria-selected=true]){font-weight:800;}
 /* Round specimen swatches cannot carry a weight change; they take a ring gap instead. */
 button.swatch>.cr-indicator[data-kind=selection]{display:none;}
 button.swatch[aria-pressed=true]{box-shadow:inset 0 0 0 3px var(--cr-surface),0 0 0 2px var(--cr-primary);}
 
-
-span.cr-field-shell{padding-inline-end:40px;}
-span.cr-field-shell>.cr-indicator{inset-block-start:50%;inset-inline-end:10px;transform:translateY(-50%);width:24px;height:24px;}
-span.cr-field-shell>.cr-indicator::after{content:'○';font-size:15px;}
-span.cr-field-shell:focus-within>.cr-indicator::after{content:'●';font-size:9px;}
-span.cr-field-shell:has(:is([required],[aria-required=true]))>.cr-indicator::after{content:'*';font-size:19px;}
-span.cr-field-shell:has([aria-invalid=true])>.cr-indicator::after{content:'!';font-size:15px;}
-:is(button[aria-pressed],button[aria-selected],button[aria-checked],a.cr-control[aria-current]){text-decoration:none;}
-
 .palette-card[aria-pressed=true] strong::after{content:none;}
 #suite-chip[aria-pressed=true]::after{content:'';}
 .suite-menu button[aria-checked=true]::after{content:none;}
-[data-effects=opaque] .cr-indicator{background:var(--cr-surface);backdrop-filter:none;}
-[data-effects=opaque] .cr-indicator::before{filter:none;}
-@media(prefers-reduced-transparency:reduce){.cr-indicator{background:var(--cr-surface);backdrop-filter:none}.cr-indicator::before{filter:none}}
-@media(forced-colors:active){.cr-indicator{background:Canvas;color:CanvasText;border:1px solid ButtonText;box-shadow:none;backdrop-filter:none}.cr-indicator::before{display:none}:is(button,a,input,select,textarea,summary,[tabindex]):focus-visible,span.cr-field-shell:focus-within,.suite-switch input:focus-visible+.switch-track,:is(.cr-dock,.segmented,.suite-tabs) button:focus-visible{outline:2px solid Highlight;box-shadow:none}}
+@media(forced-colors:active){:is(button,a,input,select,textarea,summary,[tabindex]):focus-visible,.suite-switch input:focus-visible+.switch-track,:is(.cr-dock,.segmented,.suite-tabs) button:focus-visible{outline:2px solid Highlight;box-shadow:none}}
 
 /* Pill padding is generous by default; narrow viewports keep the shape but stop
    short labels from wrapping inside the capsule. */
-@media(max-width:600px){.tiny-button{padding:8px 14px;white-space:nowrap}.cr-tag{padding:10px 15px;min-height:40px;white-space:nowrap}}
+@media(max-width:600px){.tiny-button{padding:8px 14px;white-space:nowrap}}
 
 /* Tables are reading content, so they sit on Haze inside a Resin-rimmed shell
    rather than a grid of hard rules. Cells carry a single hairline separator and

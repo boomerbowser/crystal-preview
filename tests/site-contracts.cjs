@@ -57,36 +57,56 @@ check('every breakpoint in site.css is a token or a named exception', () => {
   assert.deepEqual(stray, [], 'breakpoints that match neither a token nor a named exception');
 });
 
-/* This site overrides the library's focus halo, so the two can disagree and only
-   a person reading both stylesheets would know. They did disagree. The halo was
-   halved at Meridian's request — 2/6/12/22 to 1/3/6/11 — in `controls.css`,
-   which is what the site renders. The library kept emitting the withdrawn
-   spreads into the exported theme, which is what every consumer reads, so
-   Crystal React's focus ring was visibly wider than Crystal's own for as long
-   as that was true.
+/* The site redefines no custom property the library already defines.
+ *
+ * This is the check D-11 asked for from the day it was opened and could not be
+ * written until 21 September 2026, because writing it earlier would have frozen
+ * an undecided divergence into a gate — which is how the halo's spreads got out
+ * of step in the first place.
+ *
+ * What it replaces was narrower and is now pointless: a comparison of this
+ * site's `--cr-focus-ring` against the library's, blur and spread only, first
+ * four layers only. The site no longer defines `--cr-focus-ring` at all. The
+ * library carries the six-layer recipe, the dark-mode feather alphas, the
+ * Resin interaction surface and the five components this site used to hold
+ * alone, so there is nothing left here to compare — and this check is what
+ * keeps it that way.
+ *
+ * The rule is deliberately about *definition*, not about value. A site that
+ * redefines a library property to the same value is still a site whose blessed
+ * appearance can drift from what the library exports without anybody noticing,
+ * which is exactly what D-9 and D-11 both were.
+ */
+const ALLOWED = new Map([
+  /* Genuinely the site's own, with no library equivalent. A name here must be
+     a property the library does not define; the check below proves that, so an
+     entry cannot be used to smuggle an override past it. */
+  ['--cr-range-progress', 'the playground\'s range inputs, which are site furniture'],
+]);
 
-   Nothing caught it. Crystal React's appearance, theme and material gates all
-   pass with either value, because they check that `--cr-focus-ring` is defined
-   rather than what it says — which was the right check when the bug was that it
-   was defined by nothing, and is no check at all against a wrong number.
+check('this site redefines no custom property the library already defines', () => {
+  const defined = (file) => new Set(
+    [...fs.readFileSync(file, 'utf8').matchAll(/(--cr-[a-z0-9-]+)\s*:/g)].map(([, name]) => name),
+  );
+  const library = new Set([
+    ...defined(path.join(CORE, 'assets/crystal-theme.css')),
+    ...defined(path.join(CORE, 'assets/crystal.css')),
+  ]);
+  assert.ok(library.size > 100,
+    `read ${library.size} custom properties from the installed library, which is too few to be right `
+    + '— the paths moved and this check is comparing against almost nothing');
 
-   Blur and spread only, and only the first four layers. This site composes two
-   further elevation layers on top of the halo and the library ships none;
-   whether it should is a material question for Meridian, recorded in D-11 and
-   not frozen here. The dark-mode feather alphas diverge for the same reason and
-   are likewise not compared. */
-check('the halo this site renders is the halo the library exports', () => {
-  const geometry = (file, what) => {
-    const value = /--cr-focus-ring:\s*([^;]+);/.exec(fs.readFileSync(file, 'utf8'));
-    assert.ok(value, `${what} defines no --cr-focus-ring`);
-    return [...value[1].matchAll(/0\s+0\s+(\d+)px\s+(\d+)px/g)].map(([, b, s]) => `${b}/${s}`);
-  };
-  const exported = geometry(path.join(CORE, 'assets/crystal-theme.css'), 'the installed library');
-  const rendered = geometry(path.join(SITE, 'assets/controls.css'), 'this site');
+  const site = [...defined(path.join(SITE, 'assets/controls.css'))];
+  const clashes = site.filter((name) => library.has(name) && !ALLOWED.has(name));
+  assert.deepEqual(clashes, [],
+    'this site redefines library properties, so what it renders can differ from what the library '
+    + 'exports and only a person reading both stylesheets would know');
 
-  assert.equal(exported.length, 4, 'expected four halo layers in the installed theme');
-  assert.deepEqual(exported, rendered.slice(0, 4),
-    'this site renders a focus halo the installed library does not export');
+  /* An allow-list entry for a property the library *does* define would silence
+     a real clash. Fail on the entry rather than on the property. */
+  const stale = [...ALLOWED.keys()].filter((name) => library.has(name));
+  assert.deepEqual(stale, [],
+    'these are on the allow-list and the library now defines them, so the exemption is hiding a clash');
 });
 
 const failures = results.filter((r) => r.status === 'fail');

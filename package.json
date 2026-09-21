@@ -18,7 +18,7 @@
     "verify:floor": "node tools/verify-frames.mjs --no-webgl"
   },
   "dependencies": {
-    "@crystal-ui/core": "^2.0.0"
+    "@crystal-ui/core": "^2.1.0"
   },
   "devDependencies": {
     "esbuild": "0.28.2",
