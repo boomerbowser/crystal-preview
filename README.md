@@ -38,24 +38,39 @@ npm run serve      # http://127.0.0.1:4321/
 serving a site with no Crystal in it — which does not look broken, it looks like
 a design regression.
 
-## The dependency, and the one thing that is not finished
+## The dependency
 
 ```json
-"@crystal-ui/core": "file:../crystal-design-system/core"
+"@crystal-ui/core": "^2.0.0"
 ```
 
-That path is a **local checkout**, and it is temporary. It resolves on a
-contributor's disk, where the design system sits beside this repository, and
-resolves to nothing anywhere else — including on Vercel. Until
-`@crystal-ui/core` is published, this repository can be built and served locally
-but **cannot be deployed**.
+From npm, like any other consumer. That is the point of the split: this site has
+no privileged access to Crystal and renders only what the published package
+contains, so a specification sentence the site can show is a sentence a consumer
+also got.
 
-When `2.0.0` is on npm, the dependency becomes `"^2.0.0"`, `npm install` runs,
-and the deployment works with no other change: `vercel.json` already declares
-`installCommand: "npm ci --omit=dev"` for exactly that moment.
+`vercel.json` declares `installCommand: "npm ci --omit=dev"` and
+`buildCommand: "node tools/assemble-site.mjs"`, so the deployment installs the
+library from the registry and the build copies it into `website/vendor/`. Nothing
+about Crystal is in this repository's git history, and nothing needs to be.
 
-Until then the live site is still built from the `crystal` repository, which
-still contains a copy of `website/`. **Removing it there before Vercel has been
-re-based onto this repository takes the site down.** The order is: publish
-`2.0.0` → push this repository → re-base the Vercel project onto it → then
-remove `website/` from `crystal`.
+## Checking a deployment
+
+The build is the only place that proves the library is *installed* rather than
+*found beside the repository on somebody's disk* — locally, `assemble-site.mjs`
+would fall back to a sibling checkout. So after a deployment, the load-bearing
+check is:
+
+```
+/vendor/@crystal-ui/core/assets/crystal.css
+```
+
+A `404` there means the build did not run, and every page would render unstyled.
+`npm test` runs `tools/verify-deploy.mjs` over the assembled tree and catches the
+same thing before it ships, because it resolves every `href` and `src` as a file
+the way a static host does rather than as a path the way a filesystem does.
+
+The project has Vercel Authentication turned on, so an unauthenticated request to
+any URL answers `302` to `vercel.com/sso-api`. That is deployment protection
+working as configured, and it is why the check above has to be made from a signed-in
+browser rather than with `curl`.
