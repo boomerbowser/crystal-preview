@@ -67,8 +67,11 @@ jobs:
           fi
 
   browser:
-    name: Scrolling, interactions and deployability
-    runs-on: ubuntu-latest
+    name: Scrolling, interactions, appearance and deployability
+    # Pinned, not `ubuntu-latest`: this job compares screenshots against
+    # baselines captured on a runner, and a baseline is only a baseline for the
+    # renderer that made it. The capture workflow pins the same image.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -108,14 +111,18 @@ jobs:
       # The contracts the visual gate rests on. Environment-independent: they
       # compare synthetic PNGs this file generates, so they mean the same thing
       # on a runner as on a desk.
-      #
-      # `verify:floor` is deliberately NOT here, and the reason is recorded in
-      # D-15. It was added on 21 September 2026 and taken out again in the same
-      # hour, because the run that added it failed 16 of 18 frames with channel
-      # deltas up to 255 — the text-heavy frames worst of all. The baselines are
-      # captured on a contributor's machine and a runner does not rasterise type
-      # the same way, so comparing them here measures the font stack rather than
-      # Crystal. A gate that fails on every push teaches people to ignore it,
-      # which is a worse failure than the manual one it was meant to fix.
       - name: The gate that proves the allowance cannot hide a change
         run: python3 tests/visual-gate-contracts.py
+
+      # And the visual gate itself, which was absent from this file between 21
+      # and 22 September 2026. It was added, failed 16 of 18 frames with channel
+      # deltas to 255, and was removed within the hour — the baselines were
+      # captured on a contributor's machine and this runner does not rasterise
+      # type the same way, so the comparison measured the font stack rather than
+      # Crystal. Raising the tolerance would have hidden real changes instead.
+      #
+      # The fix is a second baseline set, captured by the "Capture runner
+      # baselines" workflow on this same pinned image and committed under
+      # validation/baselines-ci. Capture where you compare. D-15.
+      - name: Appearance
+        run: npm run verify:visual:ci
