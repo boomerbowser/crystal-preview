@@ -35,6 +35,14 @@
     "density": [
       "compact",
       "comfortable"
+    ],
+    "focus": [
+      "none",
+      "visible"
+    ],
+    "scrollbars": [
+      "hidden",
+      "painted"
     ]
   },
   "frames": [
@@ -153,8 +161,50 @@
       "id": "haze-in-resin",
       "page": "docs/materials.html",
       "anchor": "#the-correct-composition-live",
-      "why": "The only composition on the site that exercises Haze inside a Resin frame. The rule forbidding Resin inside Resin is audited in the DOM, but the recess that makes the Haze fill read as the frame's content — an inset dark top edge and light bottom edge, under a light source above — is purely visual and was gated by nothing. Clipped to the composition itself: anchored to the page, the frame re-rasterised on every edit to the prose above it, and a baseline that changes for reasons unrelated to what it guards is a baseline nobody reads carefully. Clipped to the composition itself: anchored to the page, the frame re-rasterised on every edit to the prose above it, and a baseline that changes for reasons unrelated to what it guards is a baseline nobody reads carefully.",
+      "why": "The only composition on the site that exercises Haze inside a Resin frame. The rule forbidding Resin inside Resin is audited in the DOM, but the recess that makes the Haze fill read as the frame's content \u2014 an inset dark top edge and light bottom edge, under a light source above \u2014 is purely visual and was gated by nothing. Clipped to the composition itself: anchored to the page, the frame re-rasterised on every edit to the prose above it, and a baseline that changes for reasons unrelated to what it guards is a baseline nobody reads carefully. Clipped to the composition itself: anchored to the page, the frame re-rasterised on every edit to the prose above it, and a baseline that changes for reasons unrelated to what it guards is a baseline nobody reads carefully.",
       "clip": "#haze-in-resin-demo"
+    },
+    {
+      "id": "focus-ring-light",
+      "page": "playground.html",
+      "anchor": "#components",
+      "focus": "#open-dialog",
+      "why": "The focus ring, actually focused. Every other frame photographs a page where nothing holds focus, so the six-layer recipe had no visual coverage at all \u2014 2.1.0 changed it from four halo layers to six and all eighteen frames passed at zero tolerance."
+    },
+    {
+      "id": "focus-ring-dark",
+      "page": "playground.html",
+      "anchor": "#components",
+      "mode": "dark",
+      "focus": "#open-dialog",
+      "why": "The feather alphas differ by mode (46/30/17/8 light, 56/38/22/11 dark), so a light-only focus frame guards half the recipe."
+    },
+    {
+      "id": "focus-ring-forced-colours",
+      "page": "playground.html",
+      "anchor": "#components",
+      "forcedColors": "active",
+      "focus": "#open-dialog",
+      "why": "Forced colours discards box-shadow, so the ring must survive as an outline. forced-colours-light has claimed to guard exactly this since it was written, with nothing focused in it."
+    },
+    {
+      "id": "scrollbar-resin",
+      "page": "docs/tokens.html",
+      "scrollbars": true,
+      "clip": "#component-chip ~ .cr-table-scroll",
+      "why": "The Resin scrollbar. `.cr-scroll-resin` appears on this site only as escaped sample code, so the live Resin scroller is `.cr-table-scroll`, and it overflows only when the viewport is narrow \u2014 at 390px this one scrolls 243px sideways and paints a 12px horizontal bar. Anchored to the heading rather than to an index, because `.cr-table-scroll` matches thirty-two elements on this page and the twenty-third of them is not a thing anybody can keep true. Headless Chromium paints no scrollbar only because Playwright passes --hide-scrollbars; this frame drops it, which is what D-4 recorded as a property of the browser.",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "anchor": "#component-chip"
+    },
+    {
+      "id": "scrollbar-frost",
+      "page": "docs/materials.html",
+      "scrollbars": true,
+      "clip": ".cr-scroll-frost",
+      "why": "The Frost scrollbar. A scrollbar belongs to the material it scrolls, and the two differ by thumb colour, so one frame cannot stand for both."
     }
   ],
   "reblessing": {
