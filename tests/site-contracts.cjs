@@ -191,6 +191,48 @@ check('this site styles nothing that belongs to Crystal', () => {
     'these exemptions match no rule in controls.css and should go');
 });
 
+/* The site does not write markup for a Crystal class the library withdrew.
+ *
+ * The other direction of the same rule. `core-contracts` stops `.cr-button.secondary`
+ * coming back as a *rule*; nothing stopped it surviving as *markup*, which is
+ * worse, because a class with no rule looks like it works — it renders as an
+ * ordinary action, which is what it already looked like, and nobody notices until
+ * somebody adds a rule for it again.
+ *
+ * `.secondary` named a second action colour and Crystal defines one: the palettes
+ * publish a single action pair, and the companion and glow hues are expressive
+ * paint that `colors.md` says is never assumed to be text-safe. Meridian withdrew
+ * the variant on 22 September 2026. The pages that used it now say what they
+ * meant — `.cr-button` for an ordinary action, `.cr-button.primary` for the
+ * emphatic one.
+ *
+ * Read from the hand-authored sources rather than the built pages, because the
+ * built pages are output: fixing them without fixing the source puts the class
+ * back on the next build.
+ */
+const WITHDRAWN = [
+  { pattern: /\bcr-button\b[^"]*\bsecondary\b/, why: 'the .secondary button variant was withdrawn; an ordinary action is `cr-button` and the emphatic one is `cr-button primary`' },
+];
+
+check('the site writes no markup for a withdrawn Crystal class', () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const dir = path.join(__dirname, '../website/src/pages');
+  const pages = fs.readdirSync(dir).filter((name) => name.endsWith('.html'));
+  assert.ok(pages.length > 0, `no hand-authored pages under ${dir}; this check is looking at nothing`);
+
+  const found = [];
+  for (const page of pages) {
+    const html = fs.readFileSync(path.join(dir, page), 'utf8');
+    for (const { pattern, why } of WITHDRAWN) {
+      for (const match of html.matchAll(new RegExp(pattern.source, 'g'))) {
+        found.push(`${page}: ${match[0]} — ${why}`);
+      }
+    }
+  }
+  assert.deepEqual(found, [], 'withdrawn Crystal classes in the site\'s own markup');
+});
+
 const failures = results.filter((r) => r.status === 'fail');
 console.log(JSON.stringify({
   suite: 'what the site owes the library',
