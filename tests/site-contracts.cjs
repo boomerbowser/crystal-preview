@@ -134,14 +134,11 @@ check('this site redefines no custom property the library already defines', () =
 const SITE_ONLY = /\.(?!cr-)[a-zA-Z_-][\w-]*|#[a-zA-Z_-][\w-]*/;
 
 const ALLOWED_RULES = new Map([
-  [/^\.cr-dock-inner(::before)?$/,
-    'Crystal D-16. This suppresses the Stone label backing that components.md and materials.md '
-    + 'both require, and because it matches the class rather than the context it also blanks '
-    + '.cr-dock-inner.cr-stone — the "Stone on Resin" specimen on playground.html, which '
-    + 'therefore shows no Stone. It is exempted rather than fixed only because the fix changes '
-    + 'six playground baselines and re-blessing needs WebGL2 (D-15). The fix is verified: narrow '
-    + 'to .cr-dock-inner:not(.cr-stone), or delete both rules. Not a decision — a defect with a '
-    + 'known remedy and a hardware blocker.'],
+  /* Empty, and the check below keeps it honest: an entry that matches no rule
+     in controls.css fails, so this cannot quietly become a list of things
+     nobody re-examined. The one entry it held was `.cr-dock-inner`, exempted
+     while Crystal D-16 was open; D-16 is closed, the rule is gone from this
+     file, and this check is what noticed the exemption had outlived it. */
 ]);
 
 check('this site styles nothing that belongs to Crystal', () => {
