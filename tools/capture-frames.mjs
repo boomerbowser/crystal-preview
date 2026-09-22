@@ -64,12 +64,33 @@ const preferencesFor = (frame) => ({
 
 mkdirSync(OUT, { recursive: true });
 
-const browser = await chromium.launch();
+/* Two browsers, because one Chromium switch decides whether this gate can see a
+   scrollbar at all. Playwright pushes `--hide-scrollbars` whenever `headless` is
+   true, so every frame ever captured here has been of a page with no scrollbar
+   in it — which is why D-4 recorded "headless Chromium paints no scrollbar" as a
+   fact about the browser. It is a fact about the flag. Drop it and Chromium
+   paints a classic 15px scrollbar, and `.cr-scroll-frost` and `.cr-scroll-resin`
+   become photographable like anything else.
+
+   It is a second browser rather than the default for every frame because the
+   other seventeen baselines were captured with scrollbars hidden, and a
+   page-level screenshot that suddenly gains a document scrollbar would reflow
+   every one of them. Frames opt in. */
+const browsers = new Map();
+async function browserFor(frame) {
+  const key = frame.scrollbars ? 'scrollbars' : 'default';
+  if (!browsers.has(key)) {
+    browsers.set(key, await chromium.launch(
+      frame.scrollbars ? { ignoreDefaultArgs: ['--hide-scrollbars'] } : {},
+    ));
+  }
+  return browsers.get(key);
+}
 const failures = [];
 const captured = [];
 
 for (const frame of frames) {
-  const context = await browser.newContext({
+  const context = await (await browserFor(frame)).newContext({
     viewport: frame.viewport,
     colorScheme: frame.mode === 'dark' ? 'dark' : 'light',
     forcedColors: frame.forcedColors === 'active' ? 'active' : 'none',
@@ -152,6 +173,30 @@ for (const frame of frames) {
     }
     await page.waitForTimeout(frame.settleMs);
 
+    /* A frame may photograph a focused control. Until this existed, nothing in
+       the frame set ever held focus — and both `playground-light` and
+       `forced-colours-light` said in their own `why` that they guarded the focus
+       ring. They did not. 2.1.0 took the ring from four halo layers to six and
+       all eighteen frames passed at zero tolerance, which is the demonstration
+       rather than the suspicion.
+
+       `:focus-visible` follows keyboard modality, so pressing Tab first is not
+       decoration: a bare `.focus()` gives `:focus` without `:focus-visible` and
+       the ring does not paint. The state is then verified rather than assumed,
+       for the same reason the 404 guard above exists — a capture harness must
+       never bless a frame that did not get the state it asked for. */
+    if (frame.focus) {
+      await page.keyboard.press('Tab');
+      const ok = await page.evaluate((sel) => {
+        const el = document.querySelector(sel);
+        if (!el) return 'missing';
+        el.focus();
+        return el.matches(':focus-visible') ? 'ok' : 'not-focus-visible';
+      }, frame.focus);
+      if (ok !== 'ok') throw new Error(`focus target ${frame.focus}: ${ok}`);
+      await page.waitForTimeout(frame.settleMs);
+    }
+
     const file = `${OUT}/${frame.id}.png`;
     /* A frame may photograph one specimen instead of the viewport. The material
        studies sit far below the fold of every 1280x900 frame, so nothing that
@@ -172,7 +217,7 @@ for (const frame of frames) {
   }
 }
 
-await browser.close();
+for (const b of browsers.values()) await b.close();
 
 console.log(JSON.stringify({
   base: BASE,
