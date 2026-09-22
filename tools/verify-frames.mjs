@@ -9,6 +9,17 @@
  *   node tools/verify-frames.mjs
  *   node tools/verify-frames.mjs --bless       (replace the baselines)
  *   node tools/verify-frames.mjs --no-webgl    (gate G8: prove the CSS floor)
+ *   node tools/verify-frames.mjs --baselines validation/baselines-ci
+ *
+ * The baseline directory is a flag because a screenshot is only comparable to
+ * one taken the same way, and this project has two "same ways". D-15: the
+ * committed `validation/baselines` are captured on a contributor's machine, and
+ * a GitHub runner does not rasterise type the way that machine does — comparing
+ * the two failed 16 of 18 frames with channel deltas up to 255, worst on the
+ * text-heavy frames. That is not a tolerance problem and no allowance fixes it;
+ * a baseline means "what this renderer produced". So there is a second set,
+ * captured on the runner by the workflow that compares against it, and CI reads
+ * that one. Capture where you compare.
  */
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, readdirSync, copyFileSync, existsSync, readFileSync } from 'node:fs';
@@ -18,7 +29,11 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
-const BASELINES = join(ROOT, 'validation/baselines');
+const arg = (name, fallback) => {
+  const i = process.argv.indexOf(`--${name}`);
+  return i === -1 ? fallback : process.argv[i + 1];
+};
+const BASELINES = resolve(ROOT, arg('baselines', 'validation/baselines'));
 const BLESS = process.argv.includes('--bless');
 /* Gate G8: with WebGL2 unavailable, every page must still render exactly the
    committed baselines — the optical layer is an enhancement on top of a complete
@@ -29,6 +44,12 @@ const BLESS = process.argv.includes('--bless');
 const NO_WEBGL = process.argv.includes('--no-webgl');
 if (BLESS && NO_WEBGL) {
   console.error('Refusing to bless baselines captured without WebGL2.');
+  process.exit(2);
+}
+if (!existsSync(BASELINES)) {
+  console.error(`No baseline directory at ${BASELINES}.`);
+  console.error('If this is CI, the runner baselines have not been captured yet —');
+  console.error('run the "Capture runner baselines" workflow and commit what it uploads.');
   process.exit(2);
 }
 
