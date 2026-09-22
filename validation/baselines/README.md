@@ -202,3 +202,23 @@ When 2.1.0 is published and `adopt-crystal-2.1.0` merges, these two frames will
 move again, and the commit that moves them should say so — that is the whole
 mechanism working as intended.
 
+### On `adopt-crystal-2.1.0`: the two focus frames move again
+
+This branch installs 2.1.0, whose theme exports a six-layer `--cr-focus-ring`
+where 2.0.0 exports four. `focus-ring-light` and `focus-ring-dark` are therefore
+re-blessed here and differ from `main`'s by exactly those two elevation layers —
+`0 8px 18px` and `0 22px 40px`. Nothing else in the set differs between the two
+libraries; all twenty-one other frames pass against `main`'s baselines
+unchanged.
+
+That is the whole reason those frames exist. D-11's first divergence was
+invisible to this gate until 22 September 2026, and this is the first time a
+library upgrade has had to say out loud, in a diff, that it changed how focus
+looks.
+
+**`validation/baselines-ci` is *not* updated here and cannot be.** The runner
+captures against the installed package, and 2.1.0 is not published yet, so the
+capture workflow cannot resolve it. Re-run *Capture runner baselines* on this
+branch after publication and before merging; until then this branch's Appearance
+gate is expected to fail on those two frames, for a reason that is written down.
+
