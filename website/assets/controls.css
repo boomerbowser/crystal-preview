@@ -44,11 +44,18 @@
 .export-controls .cr-button{padding-inline:14px;}
 .segmented,.suite-tabs{position:relative;isolation:isolate;background:var(--cr-resin-fill);border:1px solid var(--cr-rim);border-radius:999px;padding:9px;gap:4px;box-shadow:var(--cr-shadow-float);backdrop-filter:blur(var(--cr-resin-blur)) saturate(var(--cr-resin-saturation));}
 .segmented::before,.suite-tabs::before{content:'';position:absolute;inset:var(--cr-haze-inset);border-radius:inherit;z-index:-1;background:var(--cr-haze-fill);filter:blur(var(--cr-haze-feather));pointer-events:none;}
-.cr-dock-inner{background:transparent;padding:0;isolation:auto;}
-.cr-dock-inner::before{display:none;}
 .segmented button,.suite-tabs button{border:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:999px;color:var(--cr-text);}
 .segmented button::before,.suite-tabs button::before,.segmented button::after,.suite-tabs button::after{display:none;}
 .segmented button:is([aria-pressed=true],[aria-selected=true]),.suite-tabs button:is([aria-pressed=true],[aria-selected=true]){background:var(--cr-primary);color:var(--cr-on-primary);box-shadow:0 3px 7px var(--cr-shadow-contact);}
+/* These two rules used to switch the Stone backing off .cr-dock-inner:
+   `background:transparent;padding:0;isolation:auto` and `::before{display:none}`.
+   components.md says .cr-dock-inner shares the Stone recipe, materials.md's prose
+   says the same, and materials.md's table puts "a Haze content fill, or Stone if
+   the backdrop is unknown" in its *Right* column. All three agree, so suppressing
+   it was a regression of a documented material — and because the second selector
+   matched the class rather than the context, it also blanked
+   .cr-dock-inner.cr-stone, the "Stone on Resin" specimen on this very site.
+   Removed 21 September 2026, Crystal D-16. */
 .segmented button{min-height:44px;padding-inline:16px;}
 .suite-tabs{gap:2px;}
 .suite-tabs button{min-height:44px;padding:8px 16px;}
@@ -168,4 +175,4 @@ button.swatch[aria-pressed=true]{box-shadow:inset 0 0 0 3px var(--cr-surface),0 
    it misreports that colour. The library used to be told this with a
    `:not(.swatch)` inside a Crystal selector, which put the site's furniture
    inside the library's rule; the exclusion belongs here instead. */
-button.swatch::after{inset:0;filter:none;}
+button.swatch::after{inset:0;filter:none;box-shadow:inset 0 2px 1px var(--cr-rim),inset 0 -1px 1px var(--cr-rim);}
