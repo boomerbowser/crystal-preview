@@ -188,3 +188,17 @@ checks across twelve palette-and-mode combinations, is what holds the alphas.
 correct: forced colours discards `box-shadow`, so that frame guards the outline
 that survives it, not the halo that does not.
 
+### The focus baselines are 2.0.0's, and that is the point
+
+These were first captured against a working copy of 2.1.0 and then re-blessed
+here against the published **2.0.0** the site actually installs. Exactly two
+frames moved — `focus-ring-light` and `focus-ring-dark` — because 2.0.0's theme
+exports a four-layer `--cr-focus-ring` and 2.1.0's exports six. Nothing else in
+the set differed between the two libraries.
+
+That is the gate catching the change it was built for, across a real version
+difference rather than a planted one, five minutes after being told it could.
+When 2.1.0 is published and `adopt-crystal-2.1.0` merges, these two frames will
+move again, and the commit that moves them should say so — that is the whole
+mechanism working as intended.
+
