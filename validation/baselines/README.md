@@ -1,6 +1,6 @@
 # Visual regression baselines
 
-These eighteen PNGs are the committed baselines for the frame set in
+These twenty-three PNGs are the committed baselines for the frame set in
 [`../../website/verification/frames.json`](../../website/verification/frames.json).
 They are generated, never hand-edited.
 
@@ -134,4 +134,57 @@ forced-colors:active   padding:3px  ::before display:none
 
 Every changed pixel is inside the dock: band y 617-688, x 403-829 on
 `playground-light`. Nothing else in any frame moved.
+
+## Five frames added 22 September 2026 — focus and scrollbars
+
+Both were gaps the frame set described itself as covering and did not.
+
+**Focus.** `playground-light`'s own `why` said it guards "the material hierarchy,
+pill geometry and focus ring", and `forced-colours-light`'s said "the focus ring
+must survive as an outline". Nothing in the frame set had ever held focus, so
+neither guarded any ring at all. That is not a suspicion: 2.1.0 changed the
+recipe from four halo layers to six, and all eighteen frames passed at **zero
+tolerance**.
+
+`focus-ring-light`, `focus-ring-dark` and `focus-ring-forced-colours` focus
+`#open-dialog` before the shutter. `:focus-visible` follows keyboard modality, so
+the harness presses Tab first and then *verifies* `el.matches(':focus-visible')`,
+failing the frame if it does not — the same rule as the 404 guard: never bless a
+frame that did not get the state it asked for.
+
+**Scrollbars.** D-4 recorded that "headless Chromium paints no scrollbar at all,
+so no reference frame contains one". That is a fact about a flag, not a browser:
+Playwright pushes `--hide-scrollbars` whenever `headless` is true. Drop it and
+Chromium paints a classic 15px bar. `scrollbar-resin` and `scrollbar-frost` opt
+in with `"scrollbars": true`, which puts them on a second browser — the other
+frames keep the flag, because a page-level screenshot that suddenly gained a
+document scrollbar would reflow every one of them.
+
+`.cr-scroll-resin` appears on this site only as escaped sample code, so the live
+Resin scroller is `.cr-table-scroll`, and it overflows only when the viewport is
+narrow. `scrollbar-resin` is therefore 390px wide, anchored to the
+`#component-chip` heading rather than to an index, because `.cr-table-scroll`
+matches thirty-two elements on that page.
+
+### What these five were shown to catch
+
+Each was mutated at the resolver and watched go red, then restored:
+
+| Planted in `crystal.js` | Frames that failed |
+| --- | --- |
+| The two focus elevation layers withdrawn — exactly what 2.1.0 added | `focus-ring-light`, `focus-ring-dark` |
+| Halo spreads back to the withdrawn 2/6/12/22 | `focus-ring-light`, `focus-ring-dark` |
+| Resin scrollbar thumb 80% → 50% | `scrollbar-resin` |
+| Frost scrollbar thumb from ink to primary | `scrollbar-frost` |
+| One feather alpha 46% → 40% | **none — correctly** |
+
+The last row is the gate working, not failing. A six-point alpha shift on one
+feather moves a channel by about eight, and this gate fails only above
+twenty-four; `tests/visual-gate-contracts.py` pins that boundary. A change too
+small to see is a change this gate is not for. The contrast gate, at 1,788
+checks across twelve palette-and-mode combinations, is what holds the alphas.
+
+`focus-ring-forced-colours` did not fail on either halo mutation, which is also
+correct: forced colours discards `box-shadow`, so that frame guards the outline
+that survives it, not the halo that does not.
 
