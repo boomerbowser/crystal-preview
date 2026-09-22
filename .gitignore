@@ -23,3 +23,4 @@ CODEX.md
 .env
 .env.*
 !.env.example
+validation/failed-frames/

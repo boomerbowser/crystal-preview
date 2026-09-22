@@ -126,3 +126,17 @@ jobs:
       # validation/baselines-ci. Capture where you compare. D-15.
       - name: Appearance
         run: npm run verify:visual:ci
+
+      # The gate's own instruction is "look at both images before deciding", and
+      # until this step existed it printed that into an environment where both
+      # images lived in a temp directory the process deleted on its way out. A
+      # failure named a frame, gave a pixel count, and left nobody anything to
+      # look at. Only the differing frames are kept, actual- and expected- for
+      # each.
+      - name: Keep the frames that differed
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failed-frames
+          path: validation/failed-frames
+          if-no-files-found: ignore

@@ -22,7 +22,7 @@
  * that one. Capture where you compare.
  */
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readdirSync, copyFileSync, existsSync, readFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readdirSync, copyFileSync, existsSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -101,6 +101,27 @@ console.log(JSON.stringify({
   missingBaseline: missing,
   ...(skipped.length ? { skipped, why: 'these frames photograph the optical layer, which this run disables' } : {}),
 }, null, 2));
+
+/* "Look at both images before deciding" is the instruction this gate prints, and
+   until now it printed it into an environment where both images were in a
+   temporary directory that the process deleted on the way out. On a runner that
+   leaves nobody anything to look at: a failure names a frame, gives a pixel
+   count, and offers no way to see what changed. So a failing run writes the pair
+   — what it captured and what it expected — somewhere the job can upload.
+   Only the differing frames, because twenty-three of everything is noise around
+   the one that matters. */
+const KEEP = arg('keep', null);
+if (KEEP && differing.length) {
+  const out = resolve(ROOT, KEEP);
+  mkdirSync(out, { recursive: true });
+  for (const { name } of differing) {
+    copyFileSync(join(work, name), join(out, `actual-${name}`));
+    if (existsSync(join(BASELINES, name))) {
+      copyFileSync(join(BASELINES, name), join(out, `expected-${name}`));
+    }
+  }
+  console.error(`\nWrote ${differing.length * 2} image(s) to ${KEEP} — actual- and expected- for each frame.`);
+}
 
 if (differing.length || missing.length) {
   console.error('\nA frame differs from its baseline. Look at both images before deciding.');
