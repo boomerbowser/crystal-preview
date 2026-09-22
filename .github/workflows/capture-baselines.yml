@@ -1,0 +1,60 @@
+# Capture the visual baselines on the runner that compares against them.
+#
+# D-15: `validation/baselines` are captured on a contributor's machine. Comparing
+# them here failed 16 of 18 frames, channel deltas to 255, worst on the
+# text-heavy ones — a GitHub runner does not rasterise type the way that machine
+# does. No tolerance fixes that, because it is not noise: it is a different
+# renderer. A baseline only ever means "what this renderer produced".
+#
+# So there are two sets. `validation/baselines` is the desk set, re-blessed by a
+# person who looked at the images. `validation/baselines-ci` is this set,
+# produced here and committed, and it is what `Verify` compares against.
+#
+# Run this by hand when a frame legitimately changes, download the artifact, and
+# commit it in the same commit as the change that caused it — the same rule the
+# desk set follows. The runner image is pinned rather than `ubuntu-latest`
+# precisely because this job's whole purpose is that the renderer stays put.
+name: Capture runner baselines
+
+on:
+  workflow_dispatch:
+
+jobs:
+  capture:
+    name: Capture the frame set here
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: npm ci --no-audit --no-fund
+      - run: pip install -r tools/requirements.txt
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+
+      - name: Start the site
+        run: |
+          python3 tools/serve.py &
+          for _ in $(seq 1 40); do
+            curl -sf http://127.0.0.1:4321/ >/dev/null && exit 0
+            sleep 0.5
+          done
+          echo "::error::The site did not come up on 127.0.0.1:4321"
+          exit 1
+
+      - name: Capture
+        run: npm run capture:frames -- --out "$RUNNER_TEMP/baselines-ci"
+
+      # Captured, not verified: there is nothing here to compare against yet.
+      # What makes this trustworthy is that the same commit's `Verify` run will
+      # compare against exactly these files, and a person looks at them before
+      # committing them — the frames the capture produced are the artifact.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runner-baselines
+          path: ${{ runner.temp }}/baselines-ci
+          if-no-files-found: error
