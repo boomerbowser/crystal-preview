@@ -98,3 +98,40 @@ as D-15 in Crystal's tracker rather than half-built here.
 
 `tests/visual-gate-contracts.py` does run in CI, because it compares synthetic PNGs it
 generates itself and means the same thing everywhere.
+
+## Re-blessed 21 September 2026 — the dock regains its Stone label backing
+
+Eight frames: `playground-{light,dark,narrow,opaque,reduced-transparency,rtl}`
+and `forced-colours-{light,dark}`. The cause is Crystal **D-16**: this site's
+`controls.css` carried
+
+```css
+.cr-dock-inner{background:transparent;padding:0;isolation:auto;}
+.cr-dock-inner::before{display:none;}
+```
+
+which switched off the Stone backing that `components.md` ("Stone label backing
+… `.cr-dock-inner` shares the recipe"), `materials.md`'s prose and
+`materials.md`'s table all require — the table puts "a Haze content fill, or
+Stone if the backdrop is unknown" in its **Right** column. Suppressing it was a
+regression of a documented material, and because the second selector matched the
+class rather than the context it also blanked `.cr-dock-inner.cr-stone`, the
+"Stone on Resin" specimen on `playground.html`.
+
+**What the frames show.** In the six normal frames the dock gains the protected
+label group that `components.md` names in its Resin-toolbar row: a Stone tray
+behind the labels, 55% white with the 1.95px feather, inside the Resin pill.
+Before the fix there was no protected label group at all. In the two
+forced-colours frames the Stone layer stays hidden — the library suppresses
+`.cr-dock-inner::before` there, as it should — and the only difference is
+geometry, because removing the site's `padding:0` restores the library's
+`padding:3px`. Both were checked on the running page before blessing:
+
+```
+forced-colors:none     padding:3px  ::before display:block  background:rgba(255,255,255,0.55)
+forced-colors:active   padding:3px  ::before display:none
+```
+
+Every changed pixel is inside the dock: band y 617-688, x 403-829 on
+`playground-light`. Nothing else in any frame moved.
+
