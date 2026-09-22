@@ -15,7 +15,8 @@
     "audit:materials": "node tools/audit-materials.mjs",
     "capture:frames": "node tools/capture-frames.mjs",
     "verify:visual": "node tools/verify-frames.mjs",
-    "verify:floor": "node tools/verify-frames.mjs --no-webgl"
+    "verify:floor": "node tools/verify-frames.mjs --no-webgl",
+    "verify:visual:ci": "node tools/verify-frames.mjs --baselines validation/baselines-ci"
   },
   "dependencies": {
     "@crystal-ui/core": "^2.0.0"
