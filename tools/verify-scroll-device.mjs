@@ -56,6 +56,18 @@ for (const page of PAGES) {
   const tab = await context.newPage();
   await tab.goto(`http://localhost:${PORT}/${page}`, { waitUntil: 'load' });
   await tab.waitForTimeout(900);
+  /* A vertical scroller, put there by the site's own control. On a phone every
+     container the pages show at rest scrolls across — tables — so without this
+     the one question this script adds would never be asked. The playground's
+     "inspect the export" opens the specification dialog with the generated CSS
+     as code, which scrolls down inside the dialog's body: the scroller a Crystal
+     dialog has had since 2.3.0. */
+  const opener = await tab.$('#inspect-export');
+  if (opener) {
+    await opener.scrollIntoViewIfNeeded();
+    await opener.click();
+    await tab.waitForTimeout(600);
+  }
   await tab.evaluate(() => {
     for (const dialog of document.querySelectorAll('dialog')) if (!dialog.open) dialog.show();
   });
@@ -106,12 +118,20 @@ for (const page of PAGES) {
 await context.close();
 await device.close();
 
+/* Fail closed. A run that met no vertical scroller measured nothing about the
+   shift it exists to measure, and a green result would say otherwise — which is
+   what the first runs on a Pixel 6 Pro did: fifty-one containers, every one
+   horizontal, and a pass. */
+const vertical = measured.filter((m) => m.scrollsY).length;
+if (vertical === 0) failures.push('measured no vertical scroll container, so whether content shifts when a scrollbar appears was not asked');
+
 console.log(JSON.stringify({
   suite: 'the scroll contract, on a phone',
   device: MODEL,
   containers: measured.length,
-  vertical: measured.filter((m) => m.scrollsY).length,
+  vertical,
   shifting: measured.filter((m) => m.scrollsY && m.shift !== 0).length,
+  measuredVertical: measured.filter((m) => m.scrollsY).map((m) => `${m.where}: ${m.shift}px (scrollbar-gutter: ${m.scrollbarGutter})`),
   failures,
 }, null, 2));
 if (failures.length) process.exit(1);
