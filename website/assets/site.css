@@ -138,3 +138,5 @@
     .site-menu{border-color:CanvasText}
   }
 }
+/* The small buttons above the stage are this site's own, so their press motion is too. Crystal carried it in motion.css until 2.3.0 (its 4.4): a library stylesheet naming a consumer's class. Same values, read from the same tokens. */
+.tiny-button{transition:transform var(--cr-press) var(--cr-ease-settle),background-color var(--cr-state) var(--cr-ease-settle)}.tiny-button:hover:not(:disabled),.tiny-button:active:not(:disabled){transform:none}
