@@ -19,7 +19,7 @@
     "verify:visual:ci": "node tools/verify-frames.mjs --baselines validation/baselines-ci --keep validation/failed-frames"
   },
   "dependencies": {
-    "@crystal-ui/core": "^2.0.0"
+    "@crystal-ui/core": "^2.3.0"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

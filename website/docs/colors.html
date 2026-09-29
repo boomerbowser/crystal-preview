@@ -89,6 +89,79 @@
 </tr>
 </tbody>
 </table></div>
+<h3 id="there-is-no-secondary-colour-and-that-is-a-decision">There is no secondary colour, and that is a decision</h3>
+<p>Crystal defines <strong>one action pair per palette</strong> — <code>primary</code> with <code>onPrimary</code>, and
+<code>primarySoft</code> with <code>onPrimarySoft</code> for the container form. There is no
+<code>secondary</code>, and nothing in the token set, the exported theme or the component
+vocabulary names one.</p>
+<p>A palette is not one hue: each carries a seed, a <strong>companion</strong> and a <strong>glow</strong>, and
+all three ship as <code>--cr-decorative</code>, <code>--cr-companion</code> and <code>--cr-glow</code>. What they
+do not carry is an ink. They sit in the Expressive layer above precisely because
+they have never been given a tested foreground, and the resolver consumes them in
+four places, all of them paint rather than ground: the three atmosphere stops and
+the focus shadow.</p>
+<p>Promoting the companion is not a matter of renaming it. As a solid reading fill it
+fails the 4.5 floor with <strong>both</strong> candidate inks in a third of the matrix — Prism
+dark 3.27 against white and 3.00 against the text ink, Amethyst dark 4.02 / 3.68,
+Harbor 4.16 / 3.07 in light and 4.16 / 3.32 in dark. The other eight
+palette-and-mode combinations clear it between 4.54 and 6.60, and a role that
+works in eight of twelve is not a role. A secondary action colour would need its
+own tuned tones and its own tested ink authored per palette per mode, which is
+work nobody has done and not an omission anybody can close by promotion.</p>
+<p>The consequence for components is that <strong>no variant may be named after it</strong>. A
+<code>.secondary</code> button existed until 22 September 2026 and was withdrawn for exactly
+this reason: a variant named after a colour the system does not define is a
+promise it cannot keep. Emphasis is carried by <code>.primary</code> being opt-in, by label
+weight, and by placement.</p>
+<h3 id="the-chart-series-scale-which-is-not-that">The chart series scale, which is not that</h3>
+<p>Charts need several colours at once and a palette gives one. Crystal 2.1.0
+therefore publishes a <strong>series scale</strong>: six categorical colours per palette per
+mode, as <code>--cr-chart-series-1</code> through <code>--cr-chart-series-6</code>, alongside
+<code>--cr-chart-axis</code> and <code>--cr-chart-grid</code>.</p>
+<p>This is not the secondary colour arriving by another door, and the distinction is
+worth being exact about. A series colour is <strong>for data marks only</strong> — a bar, a
+line, a segment, a cell. It is never ink, never an action fill, never a surface
+and never a state. It has no tested foreground, because nothing is ever set on
+top of it; that is precisely the property the companion lacks and cannot be given
+by renaming.</p>
+<p>They are derived rather than picked, in <code>tools/build-tokens.cjs</code>, because the
+thing that has to be true of seventy-two colours is a measurement and not a
+preference. Take the palette's seed hue, turn half a step off it, step six times
+around the hue circle, and draw all six at one OKLab lightness (0.55 light, 0.72
+dark) and one chroma (0.18). Then:</p>
+<ul>
+<li><strong>Every one clears 3:1 against both the surface and the canvas of its mode.</strong> A
+  data mark is a graphical object carrying information, so WCAG 1.4.11 applies.
+  Where a hue cannot reach the floor at the stated lightness its lightness moves
+  until it does — the floor is a promise, the family resemblance is a preference.</li>
+<li><strong>No two in a scale are closer than 0.10 in OKLab.</strong> Segments and stacked bars
+  are adjacent to each other, not only to the ground.</li>
+<li><strong>One lightness for all six</strong>, deliberately: a categorical scale must not imply
+  an order, and a ramp does.</li>
+<li><strong>The ring is centred on the palette hue rather than started from it.</strong> A slot
+  on the seed hue at these lightnesses is the palette's action colour, and a data
+  mark the colour of every button on the page is one people try to press.</li>
+</ul>
+<p>All four are asserted in <code>tests/core-contracts.cjs</code> for all twelve
+palette-and-mode combinations.</p>
+<p>Beside the series scale, and on the same principle from the other direction,
+Crystal 2.1.0 publishes an <strong>intensity ramp</strong>: <code>--cr-chart-heat-1</code> through
+<code>--cr-chart-heat-5</code>, for a heatmap cell or a calendar day, each with its own ink
+as <code>--cr-chart-on-heat-N</code>. A cell is a <em>ground</em> rather than a mark — the value is
+written on it — so the floor that applies is the text one, 4.5:1, and it applies
+to every step. The ink changes partway along the ramp in some palettes, which is
+what a ramp spanning light to dark has to do; what the construction guarantees is
+that no step falls in the gap where neither of a mode's inks reaches the floor.
+Harbor is why that is a search and not a constant: its body ink is a soft grey
+rather than a near-black, and a ramp built for the other five would be unreadable
+in exactly the palette that chose to be quiet.</p>
+<p>Six is where hue separation runs out, not where charts do. <strong>A seventh series
+repeats the first colour and must differ by another channel</strong> — a dash pattern, a
+fill pattern, a marker shape. That rule is not a fallback for the seventh series
+only: colour is never the sole carrier of a series at any count, because six hues
+at sixty degrees do not survive dichromatic vision, and the scale is not built to
+pretend otherwise. Two of the six also sit near the danger and success hues; they
+carry no such meaning, and a chart that needs to say "bad" says it in words.</p>
 <p>CSS variables use the <code>--cr-</code> namespace and kebab-case names. Source JSON uses camelCase keys and the explicit <code>Crystal token schema v1</code>; it is not advertised as a Design Tokens Community Group interchange schema.</p>
 <h2 id="functional-meanings">Functional meanings</h2>
 <div class="cr-table-scroll"><table class="cr-table">

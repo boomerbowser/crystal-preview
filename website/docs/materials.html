@@ -416,7 +416,7 @@ technique uses.</p>
 <p>Inspect light/dark, every palette, strongest atmosphere, both Frost tint extremes, reduced effects, narrow layouts, long labels, text zoom, keyboard focus and relevant backdrop extremes. The material comparison board intentionally places all samples over the same saturated motif so differences remain visible. Compare silhouettes and depth relationships, not only pixel similarity.</p>
 <h2 id="resin-with-haze-interactive-and-compact-surfaces">Resin with Haze: interactive and compact surfaces</h2>
 <p>Resin is the primary background for buttons and all interaction surfaces. Its body stays at 20% fill with the existing blur, saturation, illuminated rim and elevation. When contrast requires protection, put an 80% Haze reading fill inside that shell, with the existing 1.95px feather and an 8px visible Resin perimeter, exported as <code>--cr-haze-inset</code>. That inset is a token rather than a number each library retypes: the fill and its feather were always exported, the inset was not, and a library can carry every Haze token and still paint no fill at all. Keep text sufficiently inset from the feather. The adjustable preview always uses this protected construction.</p>
-<p>This same composition is required for small information displays—tooltips, toasts, labels, tags and badges—and temporary secondary menus, dropdowns, flyouts and popovers. It does not replace the structural Plastic → Frost → Resin hierarchy or turn every large component into Resin. Stone remains a named material with its own standalone specifications; compact UI labels now choose Resin/Haze instead of an isolated Stone slab.</p>
+<p>This same composition is required for small information displays that sit on content — labels, tags, badges and keyboard caps. Transient overlays — tooltips, toasts, menus, dropdowns, flyouts and popovers — are <strong>Frost</strong> (R15e): they open over content, so they are intermediate panels rather than compact controls, and their reading content sits on Haze inside them. It does not replace the structural Plastic → Frost → Resin hierarchy or turn every large component into Resin. Stone remains a named material with its own standalone specifications; compact UI labels now choose Resin/Haze instead of an isolated Stone slab.</p>
 <p>Optical highlights remain below the Haze reading fill, including during animation. They can cross the exposed Resin perimeter without bleaching the protected label background. Contrast models check this actual ordering across all six palettes, both modes and RGB-corner backdrops.</p>
 <h3 id="interaction-surface-geometry">Interaction surface geometry</h3>
 <p>Use a broad, luminous Resin rim with an 8px inset reading fill and diffuse paired shadows. Avoid thin dark perimeter strokes on ordinary action buttons; native text-entry fields retain a functional boundary and every control retains a visible keyboard focus ring. Standalone actions use generous padding and full pill geometry.</p>
@@ -480,9 +480,16 @@ ink — 34% in light mode, 40% in dark.</p>
 because a shadow that is tinted must not also become heavier. Prism's content shadow moves
 from <code>rgba(39,24,68,.15)</code> to <code>rgba(107,40,112,.15)</code>: the same weight, carrying colour.</p>
 <h3 id="motion-at-rest">Motion at rest</h3>
-<p>These behaviours are the material's <strong>rest state</strong>, not a response to being used. A Crystal
-surface is alive before anyone touches it, and interaction <em>adds</em> energy rather than
-starting the effect: rest, faster on hover, faster still on press, decaying back.</p>
+<p><strong>Deferred.</strong> This subsection describes the ambient tier Crystal 2.0 specified, built,
+measured and then withdrew at Meridian's direction (R22; §8 of the library contract). It is
+kept as the record of what will return, not as a rule in force: <strong>nothing in 2.x moves at
+rest</strong>, and the optical behaviours in the table above run only for the duration of a
+motion a person started. Plastic's glow is a material property and stays; its drift was
+ambient and does not.</p>
+<p>What was specified, for when it returns: these behaviours are the material's <strong>rest
+state</strong>, not a response to being used. A Crystal surface is alive before anyone touches it,
+and interaction <em>adds</em> energy rather than starting the effect: rest, faster on hover,
+faster still on press, decaying back.</p>
 <p>The single exception is text entry. A field being typed into is the one place where motion
 genuinely competes with the task, so ambient pauses there and nowhere else.</p>
 <p>Three rules bound all of it. It runs on the rim and the fill and <strong>never on a surface being

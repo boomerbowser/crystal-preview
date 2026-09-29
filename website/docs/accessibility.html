@@ -86,7 +86,7 @@ reserved for content whose meaning <em>is</em> its colour, such as a palette swa
 this rule came from are in
 <code>validation/captures/2026-09-17-forced-colours/</code>.</p>
 <h2 id="reduced-motion">Reduced motion</h2>
-<p><code>prefers-reduced-motion: reduce</code> is honoured by every one of the 55 motion recipes. Each
+<p><code>prefers-reduced-motion: reduce</code> is honoured by every one of the 59 motion recipes. Each
 recipe declares its own <code>reduced</code> behaviour rather than being globally switched off,
 because "no animation" and "no <em>movement</em>" are different requirements.</p>
 <p>The contract is: <strong>the semantic state change still happens, immediately; the decorative
@@ -94,6 +94,12 @@ travel does not.</strong> A menu that opens still opens. A button that has been 
 shows it has been pressed. What is removed is the travel, the overshoot and the shader
 layer. Reduced motion resolves to zero displacement regardless of the recipe's spring —
 this is asserted by <code>tools/validate-motion.cjs</code>, not left to each implementation.</p>
+<p>The three continuous indicators are the one place this reads differently, because what they
+report is not a change but a state that lasts: work that is pending. Under reduced motion the
+movement goes and the whole track or fill stays, static — never a segment frozen part of the way
+along, which would report a measurement nobody took — and the text beside the indicator still
+says what is loading. With or without reduced motion, a continuous indicator stops when the work
+resolves; none of them repeats at rest.</p>
 <h2 id="reduced-transparency">Reduced transparency</h2>
 <p><code>prefers-reduced-transparency: reduce</code> sets <code>data-effects="opaque"</code>, which replaces every
 backdrop filter with a solid surface and a stronger border:</p>
@@ -155,8 +161,8 @@ logical offset.</p>
 </tr>
 <tr>
 <td>Current page</td>
-<td>Primary</td>
-<td><code>aria-current="page"</code> and weight</td>
+<td>A primary dot</td>
+<td>The dot is a mark rather than a tint, and the label takes weight; <code>aria-current="page"</code></td>
 </tr>
 </tbody>
 </table></div>
@@ -195,7 +201,7 @@ backdrops with the fixed Resin fill.</p>
 </tr>
 <tr>
 <td>Checks run</td>
-<td>2026-09-20</td>
+<td>2026-09-29</td>
 </tr>
 </tbody>
 </table></div>
@@ -204,6 +210,14 @@ indicator lines — uses its separate 3:1 threshold, which is the correct standa
 elements rather than a relaxation for them.</p>
 <!-- /generated:contrast -->
 
+<p><strong>The field shell's rim is decorative, by ruling.</strong> <code>.cr-field-shell</code> draws its edge in the
+white rim, which measures 1.06:1 against the page in light mode and 1.63:1 in dark — well
+under the 3:1 above. Meridian ruled on 28 September 2026 (D-24) that the field is drawn as
+written: the rim is not the thing that identifies a field. What does is the Resin shell's
+fill and float shadow, the Haze well the value is read on, and the visible label every
+Crystal field carries. Those are not covered by the 1,788 checks above, and a product that
+needs a field boundary it can defend against WCAG 1.4.11 on its own terms should measure its
+own backdrops rather than rely on this table.</p>
 <p>What that does and does not establish is stated plainly in the
 <a href="../verification/report.html">verification report</a>: it is evidence about this reference
 package, not a claim of complete WCAG conformance for a product built with it.</p></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/accessibility.md">Specification source</a></footer></div></body></html>

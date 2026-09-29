@@ -87,10 +87,11 @@ are written by <code>tools/build-reference.cjs</code> and are overwritten too; t
 them is not.</p>
 <p>The site uses relative local assets without fetching fonts or services. Review it through a loopback HTTP server; that path has been browser-tested. Direct file opening has not been browser-verified. Do not introduce an application/backend dependency to serve the documentation.</p>
 <h2 id="static-css-adoption">Static CSS adoption</h2>
-<p>Copy <code>assets/crystal.css</code>, <code>assets/controls.css</code>, <code>assets/fonts/</code>, <code>assets/grain.svg</code>, and the theme CSS into the product. Preserve the primitive stylesheet’s relative asset paths. Load theme CSS before primitive CSS. The reference-site CSS/JS are not needed by a product.</p>
+<p>Copy <code>assets/crystal.css</code>, <code>assets/fonts/</code>, <code>assets/grain.svg</code>, and the theme CSS into the product. Preserve the primitive stylesheet’s relative asset paths. Load theme CSS before primitive CSS. The reference-site CSS/JS are not needed by a product.</p>
+<p><code>assets/crystal.css</code> carries the Resin interaction surface, the components built on it — <code>.cr-control</code>, <code>.cr-field-shell</code>, <code>.cr-indicator</code>, <code>.cr-resin-haze</code> and <code>.cr-tag</code> — the dock, the table and its scroller, and every native form control: checkbox, radio, switch, range, file button, select option and menu item. As of 2.2.0 it also carries the four recipes the catalogue needed and no consumer could obtain: <code>.cr-nav-item</code> (a navigation entry, selected by label weight), <code>.cr-bare</code> (a control with no Resin coat, for controls inside a surface that already has one), <code>.cr-drag-handle</code>, and <code>.cr-resin.panel</code> (the Resin plane with the content radius). Before 2.1.0 it carried none of the control surface, and this page told you to copy a second stylesheet, <code>assets/controls.css</code>, that the package has never contained. There is no second stylesheet to copy.</p>
+<p>Every component in the catalogue names the surface it is made of, from the closed vocabulary in <code>tokens/surfaces.json</code> (exported as <code>@crystal-ui/core/surfaces</code>). A library implements each surface once — as a class, a mixin or a native view — and every component made of it inherits the implementation. The catalogue chapter lists the vocabulary with the <code>crystal.css</code> recipe behind each entry.</p>
 <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;crystal-theme.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;assets/crystal.css&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;assets/controls.css&quot;&gt;
 &lt;section class=&quot;cr-plastic&quot;&gt;
   &lt;section class=&quot;cr-frost&quot;&gt;
     &lt;article class=&quot;cr-haze&quot;&gt;Readable product content&lt;/article&gt;
@@ -174,52 +175,28 @@ document.documentElement.style.colorScheme = 'dark';
 </ul>
 <p>Anything else — internal selectors, generated file ordering, the preview site — may change in a patch release.</p>
 <p><strong>Deprecate before removing.</strong> A deprecated name keeps working for at least one minor version, and the version that will remove it is named at the moment it is deprecated. Removal happens only in a major release. The legacy material vocabulary — <code>--cr-acrylic-*</code>, <code>--cr-glass-*</code>, <code>--cr-mica-*</code> and the <code>.cr-acrylic</code> and <code>.cr-glass</code> classes — is deprecated in 2.0.0 and will be removed in 3.0.0; they currently ship as aliases of the Frost, Resin and Plastic tokens.</p>
-<p>Crystal publishes privately to GitHub Packages under the <code>@meridian</code> scope. Products pin a version, which is what makes one-version-per-product and a CI parity check enforceable. The packaged ZIP remains available as a release asset for consumers that do not use a package manager.</p>
-<h2 id="rebuild-and-validate">Rebuild and validate</h2>
-<p>Use an isolated environment for documentation tools, then run from the package root:</p>
-<pre><code class="language-sh">python3 -m venv .venv
-.venv/bin/pip install -r tools/requirements.txt
-.venv/bin/python tools/build.py
-node tools/validate-tokens.cjs
-.venv/bin/python tools/validate.py
-.venv/bin/python tools/report.py
-.venv/bin/python tools/package.py
+<p>Crystal publishes publicly to npm as <strong><code>@crystal-ui/core</code></strong>:</p>
+<pre><code class="language-sh">npm install @crystal-ui/core
 </code></pre>
-<p>Node is used for the same resolver/exporter consumed by the browser; no Node package installation is required. Python requirements support Markdown rendering and HTML link checks. Browser checks are recorded separately as actual UI observations. Rebuilding never reads or writes the originating project. Keep dependencies and temporary environments out of distributable ZIPs.</p>
-<h2 id="deploying-the-preview">Deploying the preview</h2>
-<p>The preview is static. Every page, stylesheet, script, icon and shader in this directory is
-committed, so a host only has to serve the directory — there is no build step at deploy time,
-and adding one would only introduce a way for the published site to disagree with the
-validated one.</p>
-<p><code>vercel.json</code> at the repository root serves <code>design-system/</code> as the site root with no build
-and no install. The constraints worth knowing before changing it:</p>
-<p><strong>Every path is relative and must stay that way.</strong> Nothing references an absolute <code>/path</code>, so
-the site works at a domain root, under a subpath, or from a preview URL without alteration.
-An absolute path added anywhere would break the last two.</p>
-<p><strong>Scripts that fetch must resolve against their own URL, not the page's.</strong> <code>motion-shaders.js</code>
-derives its base from <code>document.currentScript.src</code>. A page-relative <code>assets/…</code> only works for
-pages at the site root; from <code>/docs/materials.html</code> it resolves to <code>/docs/assets/…</code>. Because
-the shader runtime fails quietly by design, that broke the optical layer on ten documentation
-pages with no visible symptom until it was measured.</p>
-<p><strong>Caching assumes filenames are not content-hashed, because they are not.</strong> Assets carry
-<code>max-age=0, must-revalidate</code> for browsers and a long <code>s-maxage</code> for the edge, which Vercel
-purges on each deployment: the edge serves cached bytes, browsers always revalidate, and a
-redeploy is picked up immediately. Fonts are the exception and are cached immutably for a
-year. Do not mark the stylesheets or scripts <code>immutable</code> unless their names gain hashes;
-clients would hold a stale Crystal for a year.</p>
-<p><strong>Shader sources are served as text.</strong> <code>.frag</code> and <code>.glsl</code> are given an explicit
-<code>text/plain</code> content type, which matters because <code>X-Content-Type-Options: nosniff</code> is set.</p>
-<p><strong><code>cleanUrls</code> is deliberately off.</strong> Every internal link is written with its <code>.html</code>
-extension and <code>tools/validate.py</code> checks that link graph. Enabling clean URLs would redirect
-each of those and publish a site whose routes differ from the validated ones.</p>
-<p><code>.vercelignore</code> keeps the build and test machinery out of the upload. Only two directories
-are excluded, <code>tools/</code> and <code>src/</code>, and both were verified to be referenced by no page. The
-link graph resolves with zero errors against the exact tree that gets uploaded; <code>tests/</code>,
-<code>reference/</code>, <code>tokens/</code>, <code>artifacts/</code> and the Markdown sources are all linked and are all
-published.</p>
+<p>Products pin a version, which is what makes one-version-per-product and a CI parity check enforceable. Every release after 2.0.0 is published from a tag by GitHub Actions through npm Trusted Publishing and carries a provenance attestation, so a consumer can verify the tarball came from <code>boomerbowser/crystal</code> and from the commit the tag names. 2.0.0 itself was published by hand and is the one version without an attestation — npm cannot attach a trusted publisher to a package that does not exist yet.</p>
+<p>A specification bundle — the token files, the generated Swift and Kotlin exports and the parity contract — is attached to each GitHub release, for platform libraries that cannot install an npm package.</p>
+<h2 id="rebuild-and-validate">Rebuild and validate</h2>
+<p>From the <code>crystal</code> repository:</p>
+<pre><code class="language-sh">npm ci
+npm run build
+npm test
+</code></pre>
+<p><code>npm run build</code> regenerates everything the library generates rather than stores: the flat token file from the DTCG source, <code>tokens.js</code>, the exported theme, and the reference sections in <code>docs/</code>. <code>npm test</code> runs that build and then checks token contracts and contrast, recipe uniqueness, duration and travel bounds, the engine versions against the lockfile, documentation drift, and what the published package may contain. Node and nothing else — the library has no Python tooling.</p>
+<p>The exported theme is produced by running the resolver, not by writing CSS. Any other method would be a second implementation of alias resolution, which is the divergence the token pipeline exists to prevent.</p>
+<p>The documentation website is a separate repository, <code>crystal-preview</code>. It installs this package, renders the specification it installed, and runs the browser gates — pages, links, scrolling, interactions and the visual baselines — against what was published rather than against a working copy.</p>
+<h2 id="deploying-the-documentation-website">Deploying the documentation website</h2>
+<p>The website is <code>crystal-preview</code>, a separate repository that installs this package. How it is deployed — the Vercel settings, the caching rules, the relative-path and clean-URL constraints — is documented there, because it is a fact about that site rather than about Crystal. Nothing in this package depends on it.</p>
 <h3 id="user-animation-speed">User animation speed</h3>
 <p><code>Crystal.normalize({ motionSpeed: 1 })</code> accepts a factor from 0.25 to 2. Resolved durations divide by that factor and cap each animation at 5000ms; reduced motion produces zero durations. CSS and JSON exports retain this preference. The playground and Motion page share it, including real dialog/backdrop timing. Products should target 0–2 seconds by default and expose reduced motion independently of speed.</p>
 <h3 id="motion-engine-dependencies">Motion engine dependencies</h3>
-<p>The motion runtime now requires the locally bundled engines and recipe catalog. Load <code>assets/vendor/crystal-engines.js</code>, <code>assets/motion-catalog.js</code>, then <code>assets/motion.js</code>. <code>npm ci</code> reproduces the pinned Motion 13.4.0 and GSAP 3.15.0 dependencies; <code>npm run build:motion</code> rebuilds the bundle with esbuild. Preserve the vendor legal-comment file and <code>reference/licenses/</code> when distributing it. The token resolver and static material CSS do not require these libraries. See <a href="motion-components.html">component motion</a> for integration and cancellation contracts.</p>
+<p>The motion runtime needs the engines and the recipe catalogue. <code>@crystal-ui/core</code> declares Motion 13.4.0 and GSAP 3.15.0 as dependencies and ships <code>engines.js</code>, which re-exports both; bundle it however your product bundles anything else. The recipes are <code>@crystal-ui/core/motion-recipes</code>. Ship <code>licenses/</code> with any bundle that includes the engines.</p>
+<p><strong>The token resolver and the static material CSS do not need either library.</strong> A product that uses Crystal's colour, materials and geometry without its motion installs nothing extra. See <a href="motion-components.html">component motion</a> for the integration and cancellation contracts.</p>
 <h3 id="interaction-surfaces-and-revised-motion">Interaction surfaces and revised motion</h3>
-<p>Include <code>assets/controls.css</code> after base/layout styles. Use <code>assets/controls.js</code> for the preview's native field shells, or render equivalent shells in your component framework. Compact information surfaces and ephemeral menus use <code>.cr-resin-haze</code>. Do not transplant the legacy solid button rules without this material layer. The 54-recipe catalog declares material signatures and justified extended travel; the old 50px token describes compact motion only.</p></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/adoption.md">Specification source</a></footer></div></body></html>
+<p>Render the field shells in your component framework: a bare <code>&lt;input&gt;</code> cannot carry Crystal's focus ring, because the ring belongs to the shell around it and the input itself takes <code>outline: 0</code>. Compact information surfaces and ephemeral menus use <code>.cr-resin-haze</code>. Do not transplant the legacy solid button rules without this material layer. The 54-recipe catalogue declares material signatures and justified extended travel; the old 50px token describes compact motion only.</p>
+<p><code>controls.css</code> is <strong>not</strong> part of this package and never will be — but as of 2.1.0 the part of it you needed is. It was the documentation site's own stylesheet, and it carried a great deal that this specification describes and the library did not ship, so a product following this page reached for <code>.cr-indicator</code> or <code>.cr-resin-haze</code> and got nothing, styled a <code>.cr-table-scroll</code> that never scrolled, and got no checkbox, radio, range or select styling at all.</p>
+<p>It took two passes to find it. The first lifted five components and the interaction surface and was checked by rendering the site with and without them, which proved the lift faithful and said nothing about what the site still overrode — both sides of that comparison kept the sheet. The second measured the residual directly and moved a further 75 rules. Those now live in <code>assets/crystal.css</code>; the site keeps what is genuinely its own — its switches, its segmented controls, its colour swatches. What remains of <code>controls.css</code> is still not exportable: it styles bare elements, and exporting it once already caused a 32px chip to render 50px tall in Crystal React — D-9. <code>tools/verify-package.cjs</code> fails a tarball that contains it.</p></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/adoption.md">Specification source</a></footer></div></body></html>

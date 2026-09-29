@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Component motion suite · Crystal</title><link rel="icon" href="../vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="../assets/controls.css?v=pill-focus-2"><script src="../vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="../vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="../assets/motion-shaders.js" defer></script><script src="../assets/menu.js" defer></script><script src="../assets/docs.js" defer></script><script src="../assets/controls.js?v=pill-focus-2" defer></script></head><body><a class="skip" href="#main">Skip to specification</a><div class="shell"><header class="site-header"><a class="wordmark" href="../index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="../vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="../index.html">Overview</a><a class="cr-control menu-item" href="../playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="../docs/principles.html">Foundations</a><a class="cr-control menu-item" href="../docs/colors.html">Color</a><a class="cr-control menu-item" href="../docs/materials.html">Materials</a><a class="cr-control menu-item" href="../docs/components.html">Components</a><a class="cr-control menu-item" href="../docs/catalogue.html">Catalogue</a><a class="cr-control menu-item" href="../docs/icons.html">Icons</a><a class="cr-control menu-item" href="../docs/tokens.html">Tokens</a><a class="cr-control menu-item" href="../docs/motion.html">Motion</a><a class="cr-control menu-item" href="../docs/motion-components.html" aria-current="page">Component motion</a><a class="cr-control menu-item" href="../docs/accessibility.html">Accessibility</a><a class="cr-control menu-item" href="../docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="../motion.html">Motion studies</a><a class="cr-control menu-item" href="../verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="component-motion-suite">Component motion suite</h1>
 <p><a href="../motion.html#component-motion">Open the live component studies</a> · <a href="../motion.html#recipe-library">Search all recipes</a> · <a href="../motion-contracts.html">Run browser contracts</a></p>
-<p>Crystal ships 55 executable component recipes in nine families, the six material signatures, Mirage withdrawal, a modal dismissal, and a measured-layout helper. This is the animation foundation for future component libraries. The demonstration includes real local component behavior, but is not an audited production React, Rust or native component library. No remote operation is represented as implemented.</p>
+<p>Crystal ships 59 executable component recipes in nine families — three of them continuous indicators of pending work — the six material signatures, Mirage withdrawal, a modal dismissal, and a measured-layout helper. This is the animation foundation for future component libraries. The demonstration includes real local component behavior, but is not an audited production React, Rust or native component library. No remote operation is represented as implemented.</p>
 <h2 id="engine-responsibilities">Engine responsibilities</h2>
 <p><strong>Motion 13.4.0</strong> runs component and material element keyframes: translation, opacity, scale and state feedback. <strong>GSAP 3.15.0</strong> timelines coordinate the paint-layer clocks for feathered edges, optical highlights and rims, plus selected component sequences. Recipes declare a material and a motion signature: pressure, coalescence, meniscus movement, caustic light, surface tension, feathering, refraction or inertia. Optical layers share the component’s cancellation group and never animate text blur. GSAP drives paused native effects when targeting actual pseudo-elements. It does not clone private page content or replace the material with a screenshot.</p>
 <p>Both packages are installed with exact versions in <code>package.json</code>, resolved transitively in <code>package-lock.json</code>, and bundled locally as <code>assets/vendor/crystal-engines.js</code>. No runtime CDN is required. The pure token resolver remains independent of the engines. The preview’s native dialog backdrop keeps a CSS fallback with the same timing tokens. Frost unfolds in depth; Plastic settles with weight; Resin compresses and redistributes its light; Haze and Stone move through their perimeter. Five larger material studies have generously sized replay stages.</p>
@@ -17,8 +17,8 @@
 <li>Adopters must cancel effects on unmount, suspend offscreen work, and run assistive-technology and platform-performance checks on their actual components.</li>
 </ul>
 <h2 id="interaction-and-compact-surface-materials">Interaction and compact-surface materials</h2>
-<p>All interaction surfaces use a 20% Resin body, visible illuminated rim and an inset 80% Haze reading fill where contrast needs protection. The preview uses the protected form consistently because its surroundings are adjustable. The reading fill is physically inset, so the Resin perimeter stays visible. Standalone actions keep a neutral Haze reading fill inside a broad Resin rim. Grouped actions share one Resin/Haze container: inactive items are transparent, and the selected item uses the tested primary/on-primary color pair as a raised indicator with a circular check badge. The group retains the surrounding material shell.</p>
-<p>The same formula applies to <strong>tooltips, toasts, display labels, tags and badges</strong>, and <strong>secondary menus, dropdowns, flyouts and popovers</strong>. Use <code>.cr-resin-haze</code> for these shells; <code>.cr-tag</code> adds compact label geometry. This does not change large persistent Frost panels, Plastic foundations, Haze reading areas, or the standalone Stone material. Plain prose and ordinary form-label text do not need their own material container. Native OS option popups and file choosers retain platform drawing; the in-app menu and select trigger use Crystal.</p>
+<p>All interaction surfaces use a 20% Resin body, visible illuminated rim and an inset 80% Haze reading fill where contrast needs protection. The preview uses the protected form consistently because its surroundings are adjustable. The reading fill is physically inset, so the Resin perimeter stays visible. Standalone actions keep a neutral Haze reading fill inside a broad Resin rim. Grouped actions share one Resin/Haze container: inactive items are transparent, and the selected item uses the tested primary/on-primary color pair as a raised indicator, with its label at weight 800. Nothing is drawn beside the label — a check mark means validated, never selected. The group retains the surrounding material shell.</p>
+<p>The same formula applies to <strong>display labels, tags, badges and keyboard caps</strong>. Use <code>.cr-resin-haze</code> for these shells; <code>.cr-tag</code> adds compact label geometry. <strong>Tooltips, toasts, menus, dropdowns, flyouts and popovers are Frost</strong> (<code>.cr-frost</code>), at Meridian's direction (R15e): they open over content, so they are intermediate panels, and their reading content sits on Haze inside them. This does not change large persistent Frost panels, Plastic foundations, Haze reading areas, or the standalone Stone material. Plain prose and ordinary form-label text do not need their own material container. Native OS option popups and file choosers retain platform drawing; the in-app menu and select trigger use Crystal.</p>
 <h2 id="component-coverage-and-composition">Component coverage and composition</h2>
 <div class="cr-table-scroll"><table class="cr-table">
 <thead>
@@ -121,13 +121,18 @@
 </tr>
 <tr>
 <td>Progress bar / transfer indicator</td>
-<td><code>progress-change</code>, <code>success</code></td>
-<td>Actual measured progress; never animate a fabricated success</td>
+<td><code>progress-change</code>, <code>success</code>; indeterminate: <code>activity-travel</code> (bar) or <code>activity-turn</code> (ring)</td>
+<td>Actual measured progress; never animate a fabricated success. Indeterminate only while the work cannot be measured, and determinate the moment it can</td>
 </tr>
 <tr>
 <td>Busy indicator / skeleton</td>
-<td><code>busy</code>, <code>skeleton-resolve</code></td>
-<td>Real pending/ready state, no inference from animation completion</td>
+<td><code>busy</code>, <code>skeleton-resolve</code>; while pending: <code>activity-turn</code> (loader), <code>skeleton-sweep</code> (skeleton)</td>
+<td>Real pending/ready state, no inference from animation completion. The continuous recipe runs only while the work is pending and stops when it resolves</td>
+</tr>
+<tr>
+<td>Chart mark — bar, series, segment</td>
+<td><code>mark-in</code>, staggered by index</td>
+<td>Plays when the chart first appears, never when its data changes; critically damped, so no mark ever shows a value it does not have</td>
 </tr>
 <tr>
 <td>Empty state / no-results panel</td>
@@ -292,6 +297,20 @@
 <td>Departing view only; never postpone route authorization or loading.</td>
 </tr>
 <tr>
+<td><code>view-push-in</code></td>
+<td>plastic / inertia</td>
+<td>GSAP</td>
+<td>700ms</td>
+<td>A view pushed onto a stack. It arrives from the inline-end edge, along the reading direction, so the movement says the stack went forward. Mirror it for a pop, and again for right-to-left.</td>
+</tr>
+<tr>
+<td><code>view-push-out</code></td>
+<td>plastic / inertia</td>
+<td>GSAP</td>
+<td>700ms</td>
+<td>The view a push covered. It travels a fraction of the incoming view's distance and stays behind it, so the two read as one stack rather than two independent slides; it is still there, which is what makes the back gesture legible.</td>
+</tr>
+<tr>
 <td><code>breadcrumb</code></td>
 <td>resin / coalesce</td>
 <td>Motion</td>
@@ -404,13 +423,6 @@
 <td>Only on a new message; do not replay on virtualized history or steal scroll.</td>
 </tr>
 <tr>
-<td><code>reaction</code></td>
-<td>resin / coalesce</td>
-<td>Motion</td>
-<td>680ms</td>
-<td>Toggle the real reaction state and count before the response.</td>
-</tr>
-<tr>
 <td><code>toast-in</code></td>
 <td>resin / coalesce</td>
 <td>Motion</td>
@@ -444,13 +456,6 @@
 <td>Motion</td>
 <td>500ms</td>
 <td>Actual progress is set first; this animation does not fabricate completion.</td>
-</tr>
-<tr>
-<td><code>busy</code></td>
-<td>stone / feather</td>
-<td>GSAP</td>
-<td>680ms</td>
-<td>One cycle for an actual pending operation; keep a static busy label if it lasts longer.</td>
 </tr>
 <tr>
 <td><code>skeleton-resolve</code></td>
@@ -557,12 +562,40 @@
 <td>300ms</td>
 <td>Checkbox and radio indicators returning to unchecked. Paired with <code>check</code>; the iris closes toward the same point it opened from.</td>
 </tr>
+<tr>
+<td><code>activity-turn</code></td>
+<td>stone / feather</td>
+<td>Motion</td>
+<td>1200ms per cycle, while pending</td>
+<td>A loader, or an indeterminate progress ring, while an operation is genuinely pending — and only then. Starts when the work starts and stops when it resolves. One period for every continuous indicator, so two in one view never tick against each other.</td>
+</tr>
+<tr>
+<td><code>activity-travel</code></td>
+<td>stone / feather</td>
+<td>Motion</td>
+<td>1200ms per cycle, while pending</td>
+<td>Indeterminate linear progress while an operation is genuinely pending, stopping when it resolves or becomes measurable.</td>
+</tr>
+<tr>
+<td><code>skeleton-sweep</code></td>
+<td>haze / feather</td>
+<td>Motion</td>
+<td>1200ms per cycle, while pending</td>
+<td>A skeleton while its content is genuinely loading, on the Haze fill and never on the text that replaces it. Ends with skeleton-resolve.</td>
+</tr>
+<tr>
+<td><code>mark-in</code></td>
+<td>haze / feather</td>
+<td>Motion</td>
+<td>500ms</td>
+<td>A data mark — a bar, a series, a segment — growing from its baseline when a chart first appears, and not when its data later changes. transform-origin is the baseline. Staggered by index up to 24 marks; past that every mark arrives together, because a sequence nobody can count is decoration.</td>
+</tr>
 </tbody>
 </table></div>
 <!-- /generated:component-recipes -->
 
 <h2 id="runtime-api">Runtime API</h2>
-<p>Load <code>controls.css</code> after the other preview styles; <code>controls.js</code> adds Resin shells around native text fields and selects while preserving their labels, validation and keyboard behavior. Load scripts in this order: theme CSS, primitive CSS, motion CSS, <code>assets/vendor/crystal-engines.js</code>, <code>assets/motion-catalog.js</code>, then <code>assets/motion.js</code>. Load <code>tokens.js</code> and <code>crystal.js</code> first if resolving user preferences dynamically. <code>motion-interactions.js</code> optionally installs delegated button feedback; omit it when your component library owns gesture handling to avoid duplicate effects.</p>
+<p>The field shell's appearance is in <code>crystal.css</code> as of 2.1.0; the documentation site wraps its native fields with a script of its own, and a product wraps them in its own markup or component. Load the theme CSS, then <code>crystal.css</code>, then <code>motion.css</code>. The engines are the consumer's to bundle — <code>@crystal-ui/core</code> ships <code>engines.js</code> and declares gsap and motion as dependencies — and <code>assets/motion.js</code> is the adapter over them, reading the recipe catalogue from <code>window.CRYSTAL_MOTION_RECIPES</code> (the contents of <code>motion-recipes.json</code>). Load <code>tokens.js</code> and <code>crystal.js</code> first if resolving user preferences dynamically. The material presets a recipe id can also name — <code>plastic</code>, <code>frost</code>, <code>resin</code>, <code>haze</code>, <code>stone</code>, <code>mirage</code>, <code>mirage-out</code>, <code>dismiss</code> — are computed from tokens by <code>core/presets</code>, which a platform library imports directly. Delegated button feedback is the documentation site's; a component library binds motion to state in its own lifecycle.</p>
 <pre><code class="language-js">// Apply real UI state before giving it visual feedback.
 button.setAttribute('aria-pressed', 'true');
 const result = await CrystalMotion.play(button, 'selection');
@@ -586,14 +619,11 @@ CrystalMotion.stopAll();
 <p>The catalog replays visual recipes on isolated specimens; a menu recipe replay is not itself a menu implementation. The separate live examples demonstrate behavior where supplied. This separation prevents a replay sample from being mistaken for a production application feature.</p>
 <h2 id="packaging-and-validation">Packaging and validation</h2>
 <pre><code class="language-sh">npm ci
-npm run build:motion
+npm run build
 npm test
-python3 tools/build.py
-python3 tools/validate.py
-python3 tools/package.py
 </code></pre>
-<p>Python documentation tooling needs the packages listed in <code>tools/requirements.txt</code>. Prebuilt assets are included for offline viewing; no install is required to open the preview through a local static server. <code>node_modules</code> is excluded from the ZIP; sources, pinned lockfile, catalog, bundle, notices and tests are included.</p>
-<p><code>npm test</code> checks token contracts, recipe uniqueness, duration/travel bounds, engine declarations and installed dependency metadata. The browser check page uses the real installed engines to verify recipe completion, cancellation, supersession, property restoration, reduced motion, duration limits, stationary foregrounds, every material signature and the component page in a 320px browsing context. Test results are evidence for the exercised browser, not a full WCAG, native-renderer or cross-browser certification.</p>
+<p><code>npm run build</code> regenerates the token data, the exported theme and the reference sections in <code>docs/</code>. <code>npm test</code> runs that build and then checks token contracts and contrast, recipe uniqueness, duration and travel bounds, engine declarations against the lockfile, documentation drift, and what the published package may contain. It needs Node and nothing else — the library has no Python tooling.</p>
+<p>The motion engines are bundled for a browser by the documentation website, not here: <code>@crystal-ui/core</code> ships <code>engines.js</code> and declares gsap and motion as dependencies, and a consumer bundles them as it prefers. The browser contract page that exercises the real engines — recipe completion, cancellation, supersession, property restoration, reduced motion, duration limits, stationary foregrounds and every material signature — lives in <code>crystal-preview</code> and runs against the published package. Its results are evidence for the exercised browser, not a full WCAG, native-renderer or cross-browser certification.</p>
 <h3 id="storybook-and-future-component-packages">Storybook and future component packages</h3>
 <p>For each actual component, add stories for default/hover/focus/pressed/selected/disabled/error/busy states as applicable; enter/exit; rapid reversal; long labels and RTL; narrow viewports; both color modes; opaque fallback; reduced motion; and 0.25×/1×/2× timing. Interaction tests must assert the real semantic result and focus behavior, not merely that an animation finished. Pin a known frame or use reduced motion for stable visual snapshots, then test motion separately.</p>
 <p>The current package is framework-independent. Future React, Rust or native packages can map this catalog to platform engines while preserving the ordinary travel guidance and documented large-travel exceptions, the stationary Haze/Stone rule, timing relationships, material effects, cancellation and accessibility behavior. A production Storybook is a future component-library deliverable; it is not claimed as shipped by this static reference.</p>

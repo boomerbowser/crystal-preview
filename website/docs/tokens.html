@@ -2,7 +2,7 @@
 <p>Every value Crystal ships, generated from <code>core/tokens/crystal.tokens.json</code> — the W3C
 Design Tokens (DTCG) source of truth. This page is written by
 <code>tools/build-reference.cjs</code>; editing it by hand is pointless, because the next build
-overwrites it. Edit the token file and run <code>python3 tools/build.py</code>.</p>
+overwrites it. Edit the token file and run <code>npm run build</code>.</p>
 <h2 id="how-the-three-tiers-work">How the three tiers work</h2>
 <p>Crystal resolves a value through three tiers, and the direction is strictly one way:
 a component reads a semantic token, a semantic token reads a primitive, and nothing
@@ -2165,7 +2165,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 </table></div>
 <h2 id="component-tokens">Component tokens</h2>
 <p>Values that belong to one component family and would be wrong to reuse elsewhere. This tier exists so a component can be specific without inventing a private constant.</p>
-<p>40 tokens.</p>
+<p>59 tokens.</p>
 <h3 id="component-action">Component · action</h3>
 <div class="cr-table-scroll"><table class="cr-table">
 <thead>
@@ -2186,8 +2186,8 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <tr>
 <td><code>component.action.minTarget</code></td>
 <td>dimension</td>
-<td><code>44px</code></td>
-<td>Minimum interactive target</td>
+<td><code>48px</code></td>
+<td>Minimum interactive target. Above the 44px floor Crystal specifies, which this must never fall below.</td>
 </tr>
 <tr>
 <td><code>component.action.paddingBlock</code></td>
@@ -2487,6 +2487,12 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>352px</code></td>
 <td>About sixty characters: a tooltip longer than this is documentation</td>
 </tr>
+<tr>
+<td><code>component.overlay.tooltipRadius</code></td>
+<td>dimension</td>
+<td><code>18px</code></td>
+<td>A tooltip's corner radius. Smaller than the content radius the other overlays share, because a tooltip is a compact panel of one or two lines.</td>
+</tr>
 </tbody>
 </table></div>
 <h3 id="component-field">Component · field</h3>
@@ -2637,6 +2643,140 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td>dimension</td>
 <td><code>8px</code></td>
 <td>How far a Resin surface holds its Haze content fill back from its own rim, so the glass edge still reads while the label sits on a stable ground. The fill is feathered and therefore lives on an isolated layer behind the content; feathering an element that contains text blurs the text. A Resin strip uses the same inset and its pills carry no material of their own.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-chart">Component · chart</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.chart.seriesCount</code></td>
+<td>number</td>
+<td><code>6</code></td>
+<td>How many categorical series the palette can tell apart by colour. A seventh series repeats the first colour and must differ by another channel — a dash pattern, a fill pattern or a marker shape — because six hues is where perceptual separation runs out, not where charts do.</td>
+</tr>
+<tr>
+<td><code>component.chart.seriesLightness.light</code></td>
+<td>number</td>
+<td><code>0.55</code></td>
+<td>OKLab lightness every light-mode series colour is drawn at. One lightness for all six is what makes them read as one family rather than a ramp: a categorical scale must not imply an order it does not have.</td>
+</tr>
+<tr>
+<td><code>component.chart.seriesLightness.dark</code></td>
+<td>number</td>
+<td><code>0.72</code></td>
+<td>The same, for dark mode. Higher than light, because the ground is dark and a mark must be lighter than it — but not as high as the ground allows. At 0.80 sRGB can no longer hold the chroma at the violet and blue hues, the colours there go pale, and the first series of a violet palette lands on the same colour as the palette's own action colour, which is a data mark that reads as a button.</td>
+</tr>
+<tr>
+<td><code>component.chart.seriesChroma</code></td>
+<td>number</td>
+<td><code>0.18</code></td>
+<td>OKLab chroma asked for at each series hue, reduced per hue only where sRGB cannot hold it. Asking for one chroma and clipping is what keeps the six equally saturated to the eye.</td>
+</tr>
+<tr>
+<td><code>component.chart.seriesHueOffset</code></td>
+<td>number</td>
+<td><code>30</code></td>
+<td>Degrees the ring of series hues is turned from the palette's own seed hue. Half a step, so the palette hue falls exactly between the first and last series rather than on the first. The ring is centred on the palette rather than started from it for one reason: a series colour sitting on the seed hue at the lightness these are drawn at is the palette's action colour, and a data mark that is the colour of every button on the page is a data mark people try to press.</td>
+</tr>
+<tr>
+<td><code>component.chart.seriesContrast</code></td>
+<td>number</td>
+<td><code>3</code></td>
+<td>The floor every series colour clears against both the surface and the canvas of its mode. A data mark is a graphical object carrying information, so WCAG 1.4.11 applies to it and 3:1 is the bar. Where a hue cannot reach the floor at the stated lightness, its lightness moves until it does — the floor is not negotiable and the family resemblance is.</td>
+</tr>
+<tr>
+<td><code>component.chart.stroke</code></td>
+<td>dimension</td>
+<td><code>2px</code></td>
+<td>Line and edge weight for a data mark: a chart line, a polygon edge, a candle wick.</td>
+</tr>
+<tr>
+<td><code>component.chart.hairline</code></td>
+<td>dimension</td>
+<td><code>1px</code></td>
+<td>The separation a chart draws in the surface colour rather than in ink — between pie segments, heatmap cells, treemap rectangles and map regions. It is a gap, not a border: it shows the ground through.</td>
+</tr>
+<tr>
+<td><code>component.chart.pointMin</code></td>
+<td>dimension</td>
+<td><code>6px</code></td>
+<td>Smallest drawn point diameter. Points are sized on a scale between this and pointMax; the hit area is the action minimum regardless, so a 6px point is still a 44px target.</td>
+</tr>
+<tr>
+<td><code>component.chart.pointMax</code></td>
+<td>dimension</td>
+<td><code>18px</code></td>
+<td>Largest drawn point diameter.</td>
+</tr>
+<tr>
+<td><code>component.chart.barRadius</code></td>
+<td>dimension</td>
+<td><code>4px</code></td>
+<td>Radius on the value end of a bar only. The base end stays square because it sits on the axis, and rounding it would lift the bar off the line it is measured from.</td>
+</tr>
+<tr>
+<td><code>component.chart.cellGap</code></td>
+<td>dimension</td>
+<td><code>2px</code></td>
+<td>Gap between the square cells of a heatmap or calendar heatmap.</td>
+</tr>
+<tr>
+<td><code>component.chart.ringThickness</code></td>
+<td>number</td>
+<td><code>0.32</code></td>
+<td>A donut's ring thickness as a proportion of its outer radius. Declared rather than chosen per chart so a donut is recognisably the same object at every size.</td>
+</tr>
+<tr>
+<td><code>component.chart.fillOpacity</code></td>
+<td>number</td>
+<td><code>0.25</code></td>
+<td>Opacity of a fill whose job is to show extent without hiding what is behind it — the region under a line, the inside of a radar polygon. Low enough that two overlapping series are still two, and that the gridlines a reader measures against are still legible through both.</td>
+</tr>
+<tr>
+<td><code>component.chart.linkOpacity</code></td>
+<td>number</td>
+<td><code>0.45</code></td>
+<td>Opacity of a flow between two nodes. Higher than a fill because a link is the mark rather than its backing, and low enough that a crossing reads as two links rather than as a third shape.</td>
+</tr>
+<tr>
+<td><code>component.chart.intensitySteps</code></td>
+<td>number</td>
+<td><code>5</code></td>
+<td>How many buckets an intensity scale has — a heatmap cell, a calendar day. Five, because a reader comparing cells is matching them to a key rather than reading a gradient, and a key with more entries than a hand has fingers is a key nobody uses.</td>
+</tr>
+<tr>
+<td><code>component.chart.gaugeSweep</code></td>
+<td>number</td>
+<td><code>270</code></td>
+<td>Degrees an arc gauge sweeps, centred on the bottom. Not a full circle, because a full circle has no ends and a gauge is a value between two of them; not a half, because three quarters gives the same travel half the diameter would and leaves the centre square for the value.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="component-progress">Component · progress</h3>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Type</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.progress.ringStroke</code></td>
+<td>dimension</td>
+<td><code>8px</code></td>
+<td>Stroke of a circular progress ring, and of the gauge arc that the catalogue says matches it. One value so the two cannot drift: a gauge is a progress ring that has been told what it is measuring.</td>
 </tr>
 </tbody>
 </table></div>

@@ -123,7 +123,7 @@
 <p>Resin light is a temporary optical overlay, not a change to the 20% fill recipe. Haze and Stone start and end at rest; neither slides in, scales its content nor changes label opacity during replay. Their feathered backgrounds make one quiet outward-and-return cycle. They move the already feathered <code>::before</code> layer; their blur radius stays at 1.95px and their resting opacity stays unchanged. Foreground labels are not blurred. Component transforms move their children together; Resin’s small scale/skew deformation also affects its compact label. Avoid applying that preset to long-form text.</p>
 <p>Mirage uses an expanding elliptical mask with a broad feathered front rather than physically simulated fluid. Registered CSS properties animate the reveal radius; engines without registration support use a curved clip-path fallback. The native dialog’s entrance begins at the chosen edge and its exit contracts toward the opposite edge. <strong>Cycle directions</strong> advances left → bottom → right → top; explicit direction choices make a study repeatable. Its fixed 28px chromatic filter continues to sample the real scene beneath the reveal.</p>
 <h2 id="working-examples">Working examples</h2>
-<p>Each Replay button runs a finite animation. <strong>Replay Mirage exit</strong> withdraws and hides the specimen; <strong>Replay Mirage</strong> brings it back. Animation speed ranges from 0.25× to 2× and applies to specimens, scene transitions, button feedback and modal/backdrop timings. It is saved as <code>motionSpeed</code> alongside appearance and included in CSS/JSON exports. Labels show the resolved duration. Each resolved duration is <code>min(5000ms, baseDuration / motionSpeed)</code>; reduced motion resolves it to zero. Default sequences should stay within 0–2 seconds. Five seconds is a hard ceiling, including any extra API replay-rate adjustment. At 0.25×, Resin would take 5.6 seconds and is capped at 5 seconds; other effects retain their own scaled timings. Interactions, data and focus respond immediately even during a long visual transition. Appearance and reduced-motion preferences are shared with the main playground. No effects autoplay or loop.</p>
+<p>Each Replay button runs a finite animation. <strong>Replay Mirage exit</strong> withdraws and hides the specimen; <strong>Replay Mirage</strong> brings it back. Animation speed ranges from 0.25× to 2× and applies to specimens, scene transitions, button feedback and modal/backdrop timings. It is saved as <code>motionSpeed</code> alongside appearance and included in CSS/JSON exports. Labels show the resolved duration. Each resolved duration is <code>min(5000ms, baseDuration / motionSpeed)</code>; reduced motion resolves it to zero. Default sequences should stay within 0–2 seconds. Five seconds is a hard ceiling, including any extra API replay-rate adjustment. At 0.25×, Resin would take 5.6 seconds and is capped at 5 seconds; other effects retain their own scaled timings. Interactions, data and focus respond immediately even during a long visual transition. Appearance and reduced-motion preferences are shared with the main playground. No effect autoplays, and nothing loops, with one exception: a <strong>continuous indicator</strong> — <code>activity-turn</code>, <code>activity-travel</code>, <code>skeleton-sweep</code> — repeats while the work it reports is genuinely pending and stops when that work resolves. It is not ambient motion, which is what a surface does at rest; a continuous indicator has no rest state, only a pending one. All three share one period, <code>motion.flow</code>, and reduced motion replaces each with its whole track or fill, static. The rule is enforced by <code>tools/validate-motion.cjs</code>, which refuses a loop by any other name.</p>
 <p>The native modal opens with Haze’s in-place edge motion, matching its content material, while Mirage reveals the backdrop. Its content stays fixed on entrance; dismissal fades it in place while its edge settles. Focus and modality take effect immediately. The 650ms default exit (scaled by the speed preference, capped at five seconds) finishes before the dialog closes and focus returns. Escape uses that same path; repeated dismissal requests do not stack.</p>
 <h2 id="interruption-accessibility-and-rendering">Interruption, accessibility and rendering</h2>
 <p>New playback cancels the previous animation group on that element, including paint-layer effects. Explicit reduced motion, OS reduced motion and document hiding cancel active JavaScript animations. Reduced motion presents states immediately without spatial travel, deformation, moving highlights, feather movement or backdrop reveals. It always takes precedence over the speed slider. Native CSS backdrop animations also honor reduced motion.</p>
@@ -310,7 +310,7 @@ including that reduced motion still applies the state instantly.</p>
 <h2 id="recipe-reference">Recipe reference</h2>
 <!-- generated:recipes -->
 
-<p>All 55 recipes in 9 categories, generated from <code>core/tokens/motion-recipes.json</code>. <strong>Damping ratio</strong> and
+<p>All 59 recipes in 9 categories, generated from <code>core/tokens/motion-recipes.json</code>. <strong>Damping ratio</strong> and
 <strong>overshoot</strong> are derived from each recipe's spring by <code>core/assets/core/spring.js</code>, not
 authored — so a spring that was retuned cannot leave a stale number behind in this table.</p>
 <p>A damping ratio below 1 overshoots and settles back; exactly 1 is the fastest approach
@@ -546,6 +546,26 @@ correct is a material question, not a taste question — see the signature polic
 <td>Apply the semantic state immediately; omit decorative movement.</td>
 </tr>
 <tr>
+<td><code>view-push-in</code> — Pushed view arrival</td>
+<td>700ms</td>
+<td>inertia</td>
+<td>plastic</td>
+<td>0.550</td>
+<td>12.6%</td>
+<td>A view pushed onto a stack. It arrives from the inline-end edge, along the reading direction, so the movement says the stack went forward. Mirror it for a pop, and again for right-to-left.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>view-push-out</code> — Pushed view departure</td>
+<td>700ms</td>
+<td>inertia</td>
+<td>plastic</td>
+<td>0.550</td>
+<td>12.6%</td>
+<td>The view a push covered. It travels a fraction of the incoming view's distance and stays behind it, so the two read as one stack rather than two independent slides; it is still there, which is what makes the back gesture legible.</td>
+<td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
 <td><code>breadcrumb</code> — Location update</td>
 <td>500ms</td>
 <td>coalesce</td>
@@ -740,14 +760,24 @@ correct is a material question, not a taste question — see the signature polic
 <td>Apply the semantic state immediately; omit decorative movement.</td>
 </tr>
 <tr>
-<td><code>reaction</code> — Reaction response</td>
-<td>680ms</td>
-<td>coalesce</td>
-<td>resin</td>
-<td>0.620</td>
-<td>8.4%</td>
-<td>Toggle the real reaction state and count before the response.</td>
-<td>Apply the semantic state immediately; omit decorative movement.</td>
+<td><code>skeleton-sweep</code> — Luminance sweep</td>
+<td>1200ms</td>
+<td>feather</td>
+<td>haze</td>
+<td>linear loop</td>
+<td>—</td>
+<td>A skeleton while its content is genuinely loading, on the Haze fill and never on the text that replaces it. Ends with skeleton-resolve.</td>
+<td>Static Haze fill.</td>
+</tr>
+<tr>
+<td><code>mark-in</code> — Mark arriving</td>
+<td>500ms</td>
+<td>feather</td>
+<td>haze</td>
+<td>1.000</td>
+<td>none</td>
+<td>A data mark — a bar, a series, a segment — growing from its baseline when a chart first appears, and not when its data later changes. transform-origin is the baseline. Staggered by index up to 24 marks; past that every mark arrives together, because a sequence nobody can count is decoration. Staggered 24ms per mark, up to 24.</td>
+<td>Marks appear in place at their values.</td>
 </tr>
 </tbody>
 </table></div>
@@ -817,16 +847,6 @@ correct is a material question, not a taste question — see the signature polic
 <td>Apply the semantic state immediately; omit decorative movement.</td>
 </tr>
 <tr>
-<td><code>busy</code> — Finite busy cue</td>
-<td>680ms</td>
-<td>feather</td>
-<td>stone</td>
-<td>0.920</td>
-<td>none</td>
-<td>One cycle for an actual pending operation; keep a static busy label if it lasts longer.</td>
-<td>Apply the semantic state immediately; omit decorative movement.</td>
-</tr>
-<tr>
 <td><code>skeleton-resolve</code> — Loading content resolve</td>
 <td>650ms</td>
 <td>feather</td>
@@ -845,6 +865,26 @@ correct is a material question, not a taste question — see the signature polic
 <td>8.4%</td>
 <td>Shown only when the collection is actually empty.</td>
 <td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>activity-turn</code> — Indeterminate arc</td>
+<td>1200ms</td>
+<td>feather</td>
+<td>stone</td>
+<td>linear loop</td>
+<td>—</td>
+<td>A loader, or an indeterminate progress ring, while an operation is genuinely pending — and only then. Starts when the work starts and stops when it resolves. One period for every continuous indicator, so two in one view never tick against each other.</td>
+<td>Static: the whole track visible and nothing turning. Never a partial arc, which reports a measurement nobody took.</td>
+</tr>
+<tr>
+<td><code>activity-travel</code> — Indeterminate bar</td>
+<td>1200ms</td>
+<td>feather</td>
+<td>stone</td>
+<td>linear loop</td>
+<td>—</td>
+<td>Indeterminate linear progress while an operation is genuinely pending, stopping when it resolves or becomes measurable.</td>
+<td>Static: the whole track visible. A segment frozen part of the way along reports a measurement nobody took.</td>
 </tr>
 </tbody>
 </table></div>
@@ -1020,6 +1060,8 @@ correct is a material question, not a taste question — see the signature polic
 </tbody>
 </table></div>
 <p><strong>Spring policy.</strong> Every recipe carries a spring fitted to its authored duration, which remains the authority. Damping ratio is chosen by signature: inertia and coalesce overshoot because momentum is their material claim, feather and caustic do not because a soft edge that bounces is wrong. Disabling springs must reproduce the keyframes exactly.</p>
+<p><strong>Continuous policy.</strong> A continuous recipe is the one kind of motion that repeats, and it is not ambient: it reports work that is genuinely pending, runs only while that work is pending, and stops when it resolves. Nothing loops at rest. Every continuous recipe travels linearly at one period, motion.flow, so no two indicators in a view tick against each other, and none carries a spring, because a loop has no rest position to settle to. Reduced motion removes it and leaves the whole track or fill in place — never a partial segment, which would report a measurement nobody took.</p>
+<p><strong>Stagger policy.</strong> A recipe that animates many marks at once may declare a stagger: a step between consecutive marks and a ceiling on how many are staggered. Past the ceiling every mark arrives together. The whole staggered sequence stays within the recipe's duration ceiling, and a recipe that shows data declares overshoot never and is critically damped — a mark that overshoots its value has shown a number that is not true.</p>
 <p><strong>Travel policy.</strong> 5–30px ordinary, 50px guidance; justified large transitions may exceed it. Haze and Stone paint moves locally while text stays fixed.</p>
 <p><strong>Incompressibility.</strong> Deformations conserve volume: every scale(sx, sy) satisfies sx*sy = 1 within 0.005. Corrected by dividing both axes by the square root of the area, which preserves each deformation's aspect ratio exactly and removes only the compressibility error. Enforced by tools/validate-motion.cjs.</p>
 <!-- /generated:recipes -->
