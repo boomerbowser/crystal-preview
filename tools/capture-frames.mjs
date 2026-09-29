@@ -163,7 +163,29 @@ for (const frame of frames) {
     if (!response || !response.ok()) {
       throw new Error(`HTTP ${response ? response.status() : 'no response'} for ${url}`);
     }
-    await page.evaluate(() => document.fonts.ready);
+    /* Every declared face loaded, then one layout with all of them, before
+       anything is photographed. `document.fonts.ready` alone resolves as soon as
+       nothing is loading *at that moment*, and a face the page has not asked for
+       yet is not loading. D-17: under forced colours a <select> is laid out
+       natively, and one run in twenty it kept a text baseline measured before
+       Manrope was in use — the glyphs painted in Manrope, 0.8px high, inside a
+       box whose width did not move, which is why nothing reflowed around it. */
+    await page.evaluate(async () => {
+      await Promise.all([...document.fonts].map((face) => face.load().catch(() => null)));
+      await document.fonts.ready;
+      /* A native <select> lays its own text out, and one run in twenty keeps a
+         layout from before the page settled — the text 0.8px off inside a box
+         that did not move. Taking each one out of the layout and putting it
+         back makes the browser lay it out again, now. */
+      for (const select of document.querySelectorAll('select')) {
+        const display = select.style.display;
+        select.style.display = 'none';
+        void select.offsetHeight;
+        select.style.display = display;
+      }
+      void document.body.offsetHeight;
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    });
     if (frame.anchor) {
       /* Re-apply the anchor: the hash is consumed before styles settle. */
       await page.evaluate((hash) => {
@@ -197,6 +219,23 @@ for (const frame of frames) {
       await page.waitForTimeout(frame.settleMs);
     }
 
+    /* Nothing moving when the picture is taken. A settle time is a guess about
+       how long motion lasts; the page can say whether any is still running. Every
+       finite animation and transition is awaited — CSS and Web Animations alike,
+       which is what `getAnimations` returns — bounded so a stuck one cannot hang
+       the run. An infinite one is skipped: in Crystal only continuous indicators
+       of pending work loop, and none is in a frame. D-17's second finding: one run
+       in sixty photographed a button's rim a sub-pixel into a transition. */
+    const settle = async () => page.evaluate(async () => {
+      const running = document.getAnimations().filter((animation) => animation.effect?.getComputedTiming().iterations !== Infinity);
+      await Promise.race([
+        Promise.all(running.map((animation) => animation.finished.catch(() => null))),
+        new Promise((resolve) => setTimeout(resolve, 3000)),
+      ]);
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    });
+    await settle();
+
     const file = `${OUT}/${frame.id}.png`;
     /* A frame may photograph one specimen instead of the viewport. The material
        studies sit far below the fold of every 1280x900 frame, so nothing that
@@ -205,6 +244,7 @@ for (const frame of frames) {
       const element = await page.waitForSelector(frame.clip, { timeout: 10000 });
       await element.scrollIntoViewIfNeeded();
       await page.waitForTimeout(frame.settleMs);
+      await settle();
       await element.screenshot({ path: file });
     } else {
       await page.screenshot({ path: file });
