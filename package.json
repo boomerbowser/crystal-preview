@@ -16,7 +16,8 @@
     "capture:frames": "node tools/capture-frames.mjs",
     "verify:visual": "node tools/verify-frames.mjs",
     "verify:floor": "node tools/verify-frames.mjs --no-webgl",
-    "verify:visual:ci": "node tools/verify-frames.mjs --baselines validation/baselines-ci --keep validation/failed-frames"
+    "verify:visual:ci": "node tools/verify-frames.mjs --baselines validation/baselines-ci --keep validation/failed-frames",
+    "verify:scroll:device": "node tools/verify-scroll-device.mjs"
   },
   "dependencies": {
     "@crystal-ui/core": "^2.0.0"
