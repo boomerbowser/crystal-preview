@@ -24,3 +24,13 @@ the five is the branch's own markup.
 channel — below the gate's visible threshold, and blessed with the rest.
 
 Each changed frame was looked at before blessing.
+
+## The desk set, caught up on 2 October 2026
+
+The runner set above was re-blessed on 29 September; the desk set in
+`validation/baselines` was not, so `npm run verify:visual` failed locally on
+these seven frames from then on. Captured on the desk at this commit's tree with
+2.3.0 installed, the five visibly changed frames differ from the old desk
+baselines by exactly the pixel counts in the table (2187, 3821, 6241, 7816 and
+112), and `playground-light` and `playground-rtl` again move only below the
+visible threshold. The seven were looked at and blessed; no other frame differs.
