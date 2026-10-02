@@ -1,6 +1,6 @@
 /* The side menu collapses on narrow viewports. Nothing else on the page depends
-   on this: with the script absent the menu is simply always open, which is the
-   correct degradation for navigation. */
+   on this: with the script absent the menu is always open, which is the correct
+   degradation for navigation. */
 (function () {
   'use strict';
   function init() {

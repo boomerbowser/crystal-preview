@@ -1,14 +1,14 @@
 /* Catch documentation that has drifted from the sources it describes.
  *
- * Generated regions cannot drift — `tools/build-reference.cjs` rewrites them. But a
+ * Generated regions cannot drift: `tools/build-reference.cjs` rewrites them. But a
  * specification is mostly prose, and prose quotes values: "an 80% content fill with a
- * 1.95px feather", "Motion 13.4.0". Generating those inline would wreck the writing, so
+ * 1.95px feather", "Motion 13.4.0". Generating those inline would spoil the prose, so
  * instead this asserts that every value the prose quotes is still the value that ships.
  *
- * The check is one-directional and deliberately so: if a token says 40px, the chapter
- * that documents that material must contain "40px" somewhere. Change the token without
- * touching the prose and this fails. It cannot catch a value quoted in a sentence that
- * has become wrong for some other reason, and does not pretend to.
+ * The check is one-directional: if a token says 40px, the chapter that documents that
+ * material must contain "40px" somewhere. Change the token without touching the prose
+ * and this fails. It cannot catch a value quoted in a sentence that has become wrong
+ * for some other reason.
  */
 const fs = require('node:fs');
 const path = require('node:path');
@@ -39,7 +39,7 @@ for (const [needle, why] of [
 
 /* Engine versions, stated in two chapters. */
 /* The published manifest, because the versions the documentation quotes are the
-   ones a consumer installs — not the ones the workspace happens to build with. */
+   ones a consumer installs, whatever the workspace builds with. */
 const pkg = read('node_modules/@crystal-ui/core/package.json');
 for (const where of ['adoption.md', 'motion-components.md']) {
   expect(where, `Motion ${pkg.dependencies.motion}`, 'the pinned Motion version');

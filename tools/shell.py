@@ -1,16 +1,14 @@
 """The page shell: header, side menu and footer, in one place.
 
-The preview previously carried four copies of this markup — the documentation
-builder, the verification report and the two hand-authored pages each had their
-own. They drifted, which is how the navigation came to point at anchors that
-half the site does not have. Every page now renders through `document()`, so
-the site index below is the only description of what the site contains.
+Every page renders through `document()`, so the site index below is the only
+description of what the site contains. A second copy of this markup drifts,
+and the navigation then points at anchors half the site does not have.
 """
 import html
 
 # The site index. Paths are relative to the site root; `document()` rewrites
 # them for the page being generated. This list is the navigation, the sidebar
-# and the definition of the site, and there is deliberately no second copy.
+# and the definition of the site, and there is no second copy.
 SITE = [
     ('Start', [
         ('index.html', 'Overview'),
@@ -35,11 +33,11 @@ SITE = [
     ]),
 ]
 
-# Where the library sits *inside the site*. The library is its own folder at the
+# Where the library sits inside the site. The library is its own folder at the
 # repository root and is not part of the website, so the build copies it in
-# here; `website/vendor/` is generated and ignored. The shape is deliberate: on
-# the day @crystal-ui/core is installed rather than copied, this becomes
-# 'node_modules/@crystal-ui/core' and nothing else on the site changes.
+# here; `website/vendor/` is generated and ignored. On the day @crystal-ui/core
+# is installed rather than copied, this becomes 'node_modules/@crystal-ui/core'
+# and nothing else on the site changes.
 CORE = 'vendor/@crystal-ui/core'
 ICON = CORE + '/assets/icon.svg'
 SPRITE = CORE + '/assets/icons.svg'
@@ -69,7 +67,7 @@ def menu(path):
     """The side menu, as Crystal pill controls.
 
     The current entry is marked with `aria-current="page"` and, visually, with a heavier
-    label — never a check mark, which in Crystal means validated or informational, and
+    label. Never a check mark, which in Crystal means validated or informational, and
     never a mark set beside the label, which offsets the very thing it points at.
     """
     prefix = prefix_for(path)
@@ -99,10 +97,9 @@ def document(*, title, path, content, description=DESCRIPTION, styles=(), script
                  for s in list(BASE_SCRIPTS) + list(scripts))
     foot = f'<p>{html.escape(footer_note)}</p>'
     if footer_link:
-        # Site-root-relative, like every other link this shell writes. It used to
-        # be page-relative, alone among them, and the two callers happened to be
-        # at depths where that made no difference — so the inconsistency could
-        # not show itself until a third caller sat somewhere else.
+        # Site-root-relative, like every other link this shell writes. A
+        # page-relative link here only works for callers at a depth where the
+        # two coincide.
         href, label = footer_link
         foot += f'<a href="{rel(prefix, href)}">{html.escape(label)}</a>'
     return (

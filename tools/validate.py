@@ -5,12 +5,12 @@ import hashlib,json,re
 from bs4 import BeautifulSoup
 ROOT=Path(__file__).resolve().parents[1]
 # Pages belong to the website and nowhere else. Every link below is resolved the
-# way a browser resolves it — from the page, inside `website/` — so a path that
+# way a browser resolves it, from the page inside `website/`, so a path that
 # only works because the repository happens to sit around it fails here.
 SITE=ROOT/'website'
-# The library as the site serves it. This repository does not contain Crystal —
-# it installs it — and what a reader's browser loads is the assembled copy, so
-# that is what is checked. Validating the installed package instead would pass
+# The library as the site serves it. This repository installs Crystal rather
+# than containing it, and a reader's browser loads the assembled copy, so that
+# is what is checked. Validating the installed package instead would pass
 # while the site served something else.
 CORE=SITE/'vendor/@crystal-ui/core'
 errors=[];links=0;pages=sorted(list(SITE.glob('*.html'))+list((SITE/'docs').glob('*.html'))+list((SITE/'verification').glob('*.html')))
@@ -60,20 +60,17 @@ if manifest_path.exists():
     if manifest['total']!=len(manifest['icons']):
         errors.append('manifest: total does not match the icon list')
 
-# Both sides of the boundary: the library's stylesheets under core/ and the
-# preview's own. A url() that resolves in one tree and not the other is exactly
-# what a move like this breaks.
+# Both sides of the boundary: the library's stylesheets in the vendored copy of
+# @crystal-ui/core, and the preview's own. A url() can resolve in one tree and not the other.
 for css in sorted(list(CORE.glob('assets/*.css'))+list((SITE/'assets').glob('*.css'))):
     if re.search(r'(?im)^\s*<(?:!doctype|html\b)',css.read_text()):errors.append(f'{css.name}: HTML in stylesheet')
     for raw in re.findall(r'url\([\'"]?([^\)\'\"]+)',css.read_text()):
         if raw.startswith('data:'):continue
         if not (css.parent/raw).exists():errors.append(f'{css.name}: missing {raw}')
 # Every top-level stylesheet and script must be loaded by at least one page. An asset
-# that nothing references is either dead code or — the case this exists to catch — a
-# reference dropped from a page's asset list. That failure is silent: the page still
-# renders, still returns 200 and still logs nothing; it just stops working. The motion
-# studies page lost its suite CSS, its preview player and its suite chrome exactly this
-# way, and nothing in the build noticed.
+# that nothing references is either dead code or a reference dropped from a page's
+# asset list, which is the case this exists to catch. A dropped reference fails
+# silently: the page still renders, returns 200 and logs nothing, but stops working.
 referenced=set()
 for p_ in pages:
     for el in BeautifulSoup(p_.read_text(),'html.parser').select('[href],[src]'):
@@ -82,11 +79,10 @@ for p_ in pages:
             if not raw:continue
             name=urlsplit(raw).path.rsplit('/',1)[-1]
             if name:referenced.add(name)
-# Only the preview's own assets. A library asset's job is to be *exported*, not to
-# be loaded by a documentation page — `core/package.json`'s exports and
-# `tools/verify-package.cjs` are what hold that side. Globbing core/ here would
-# report every published file the site happens not to use as dead, which is how a
-# gate starts being argued with instead of obeyed.
+# Only the preview's own assets. A library asset's job is to be exported rather than
+# loaded by a documentation page; `core/package.json`'s exports and
+# `tools/verify-package.cjs` hold that side. Globbing core/ here would report every
+# published file the site happens not to use as dead.
 #
 # The other direction still works: the link check above resolves every path a page
 # references, so a library file that moves out from under the site fails there.

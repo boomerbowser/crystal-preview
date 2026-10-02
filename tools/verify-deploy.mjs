@@ -3,10 +3,9 @@
  *
  * `validate.py` already checks that local links resolve, but it resolves them on
  * a filesystem, where a directory exists. Vercel serves files: a directory with
- * no index.html is a 404. That difference hid five broken links in
- * validation/report.html — every capture link pointed at a directory, and every
- * one of them would have 404'd in production while passing locally, because
- * python's http.server invents directory listings and Vercel does not.
+ * no index.html is a 404, while python's http.server invents a directory
+ * listing for it, so a link to a directory passes locally and 404s in
+ * production.
  *
  * Run against the tree that would actually be uploaded:
  *   node tools/verify-deploy.mjs <directory>

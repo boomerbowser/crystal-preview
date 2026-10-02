@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 /* The scroll contract.
  *
- * A team member found this on a phone, which is where it shows: every
- * horizontally scrollable table on the specification pages had
- * `overscroll-behavior: auto`, so a swipe that reached the end of a table
- * scrolled the page underneath instead. That reads as the table refusing to
- * move, and it is invisible on a desktop with a mouse.
+ * With `overscroll-behavior: auto` on a horizontally scrollable table, a swipe
+ * that reaches the end of the table scrolls the page underneath instead. That
+ * reads as the table refusing to move, and it is invisible on a desktop with a
+ * mouse, which is why the check runs on a phone viewport as well.
  *
  * Four things every scroll container in Crystal owes, checked on a phone
  * viewport and a desktop one because the failures differ:
@@ -19,8 +18,8 @@
  *      never arrives and shifts nothing.
  *   3. It carries a Crystal scrollbar, not the operating system's. One of two:
  *      Frost for panels and reading surfaces, Resin for control planes.
- *   4. It actually scrolls. A container styled as scrollable that has nothing to
- *      scroll is a container whose overflow is a mistake.
+ *   4. It actually scrolls. A container styled as scrollable with nothing to
+ *      scroll has its overflow set by mistake.
  *
  * Run: node tools/verify-scroll.mjs   (needs the preview server on 4321)
  */
@@ -32,9 +31,8 @@ const PAGES = [
   'docs/materials.html', 'docs/components.html', 'docs/tokens.html', 'docs/catalogue.html',
 ];
 
-/* The two Crystal scrollbars, by the thumb colour each resolves to. Checking the
-   resolved value rather than the class name is what makes this a check of what
-   renders rather than of what was written. */
+/* The two Crystal scrollbars, by the thumb colour each resolves to. The resolved
+   value is checked rather than the class name, so this tests what renders. */
 const CRYSTAL_SCROLLBAR = /rgba?\(/;
 
 const browser = await chromium.launch();
@@ -52,7 +50,7 @@ for (const [label, contextOptions] of [
     await tab.waitForTimeout(700);
 
     /* A closed dialog has no layout, so a contract checked only on what is on
-       screen never sees one — and a dialog is a scroll container with a material
+       screen never sees one, and a dialog is a scroll container with a material
        of its own. `show` rather than `showModal` because only one dialog may be
        modal at a time and the page may have several; what is being measured is
        the container, not the modality. */
@@ -79,8 +77,9 @@ for (const [label, contextOptions] of [
           scrollbarGutter: cs.scrollbarGutter,
           scrollbarColor: cs.scrollbarColor,
           scrolls: [scrollsX && 'x', scrollsY && 'y'].filter(Boolean).join('+'),
-          /* Not "is it wide", but "can it ever scroll down": a gutter reserved
-             on a surface whose block axis is clipped is space nothing will use. */
+          /* Whether it can ever scroll down, rather than whether it is wide: a
+             gutter reserved on a surface whose block axis is clipped is space
+             nothing will use. */
           canScrollY: !/(hidden|clip)/.test(cs.overflowY),
         });
       }
@@ -96,17 +95,17 @@ for (const [label, contextOptions] of [
       if (container.scrolls.includes('y') && container.scrollbarGutter === 'auto') {
         failures.push(`${where}: no stable scrollbar gutter, so content shifts when the scrollbar appears`);
       }
-      /* The other half of the same contract, and the one that had no gate: a
-         gutter reserved against a scrollbar that can never appear. A container
-         that scrolls across and not down is a horizontal scroller, and the 12px
-         it holds on the inline edge prevents no shift — `overflow-x: auto` alone
-         makes `overflow-y` compute to `auto`, which is how the gutter gets there
-         without anybody asking for it. `.cr-scroll-x` is how a horizontal-only
-         scroller says what CSS cannot work out.
+      /* The other half of the same contract: a gutter reserved against a
+         scrollbar that can never appear. A container that scrolls across and
+         not down is a horizontal scroller, and the 12px it holds on the inline
+         edge prevents no shift. `overflow-x: auto` alone makes `overflow-y`
+         compute to `auto`, which is how the gutter gets there without anybody
+         asking for it. `.cr-scroll-x` is how a horizontal-only scroller says
+         what CSS cannot work out.
 
-         Deliberately not "does not scroll down *yet*": a short list that may grow
-         is exactly what the gutter is for, and such a list does not scroll across
-         either, so it cannot reach this branch. */
+         The test is not "does not scroll down yet": a short list that may grow
+         is exactly what the gutter is for, and such a list does not scroll
+         across either, so it cannot reach this branch. */
       const horizontalOnly = container.scrolls === 'x';
       if ((horizontalOnly || !container.canScrollY) && container.scrollbarGutter !== 'auto') {
         failures.push(`${where}: reserves a gutter it cannot use (scrollbar-gutter: ${container.scrollbarGutter} on a horizontal scroller) — add .cr-scroll-x`);

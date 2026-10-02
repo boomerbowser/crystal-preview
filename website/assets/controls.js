@@ -5,10 +5,10 @@
  * control. All this does is read state and set attributes on elements that
  * already exist.
  *
- * That distinction is the whole point. A script that rewrites other people's
- * DOM cannot coexist with React, SwiftUI or Compose, which own their own trees;
- * one that only reads state and sets attributes can be replaced wholesale by a
- * framework binding to the same headless core.
+ * A script that rewrites other people's DOM cannot coexist with React, SwiftUI
+ * or Compose, which own their own trees; one that only reads state and sets
+ * attributes can be replaced wholesale by a framework binding to the same
+ * headless core.
  */
 (function () {
   'use strict';

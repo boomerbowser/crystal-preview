@@ -2,14 +2,13 @@
 #
 # This file is the browser half of Crystal's old verify.yml, which stayed with
 # the pages it is about when the library and the website became two
-# repositories. It checks the site, and it checks the site against the library
-# it installed — not against a working copy of Crystal sitting next door, which
-# is a different and weaker question.
+# repositories. It checks the site against the library it installed. Checking
+# against a working copy of Crystal beside it would be a weaker test.
 #
 # The order is dependency order: the build assembles the library into the site
-# and renders every page, and nothing downstream can run before that. Without it
-# the site comes up with no Crystal in it, and the symptom is not "the library
-# is missing" — it is every scroll container reporting `scrollbar-color: auto`.
+# and renders every page, and nothing downstream can run before that. Without
+# it the site comes up with no Crystal in it, and the symptom is every scroll
+# container reporting `scrollbar-color: auto`.
 name: Verify
 
 on:
@@ -43,14 +42,14 @@ jobs:
       # the motion recipes and bundle, documentation drift, and the link graph.
       - run: npm test
 
-      # Generated output is generated, not authored. If a build produces
-      # something different from what is committed, the committed copy is stale
-      # and every downstream gate is reading a file nobody has looked at.
+      # If a build produces something different from what is committed, the
+      # committed copy is stale and every downstream gate is reading a file
+      # nobody has looked at.
       #
       # `website/verification/token-checks.json` is the exception, and only for
       # its `date`: it records when the evidence was produced, so it differs on
-      # every run by design. Its numbers are held to the same rule — the second
-      # command fails if anything but the timestamp moved.
+      # every run. Its numbers are held to the same rule: the second command
+      # fails if anything but the timestamp moved.
       - name: Generated files match their source
         run: |
           git diff --exit-code -- ':(top)' \
@@ -68,7 +67,7 @@ jobs:
 
   browser:
     name: Scrolling, interactions, appearance and deployability
-    # Pinned, not `ubuntu-latest`: this job compares screenshots against
+    # Pinned rather than `ubuntu-latest`: this job compares screenshots against
     # baselines captured on a runner, and a baseline is only a baseline for the
     # renderer that made it. The capture workflow pins the same image.
     runs-on: ubuntu-24.04
@@ -84,13 +83,12 @@ jobs:
       - run: pip install -r tools/requirements.txt
       - run: npx playwright install --with-deps chromium
 
-      # The library is copied into the site by the build, and the copy is
-      # gitignored, so nothing else here would make it. serve.py refuses to
-      # start without it rather than serving a convincing ruin.
+      # The build copies the library into the site, and the copy is gitignored,
+      # so nothing else here would make it. serve.py refuses to start without it.
       - run: npm run build
 
       # The site has no backend, but it is verified served rather than opened
-      # from the filesystem — `file:` and `http:` differ on enough of what these
+      # from the filesystem: `file:` and `http:` differ on enough of what these
       # checks measure that one is not evidence for the other.
       - name: Start the site
         run: |
@@ -114,25 +112,21 @@ jobs:
       - name: The gate that proves the allowance cannot hide a change
         run: python3 tests/visual-gate-contracts.py
 
-      # And the visual gate itself, which was absent from this file between 21
-      # and 22 September 2026. It was added, failed 16 of 18 frames with channel
-      # deltas to 255, and was removed within the hour — the baselines were
-      # captured on a contributor's machine and this runner does not rasterise
-      # type the same way, so the comparison measured the font stack rather than
-      # Crystal. Raising the tolerance would have hidden real changes instead.
-      #
-      # The fix is a second baseline set, captured by the "Capture runner
-      # baselines" workflow on this same pinned image and committed under
-      # validation/baselines-ci. Capture where you compare. D-15.
+      # The visual gate. The committed `validation/baselines` are captured on a
+      # contributor's machine, and this runner does not rasterise type the same
+      # way: comparing against them failed 16 of 18 frames with channel deltas
+      # to 255 and measured the font stack rather than Crystal. Raising the
+      # tolerance would hide real changes. So CI compares against a second
+      # baseline set, captured by the "Capture runner baselines" workflow on
+      # this same pinned image and committed under validation/baselines-ci.
+      # D-15.
       - name: Appearance
         run: npm run verify:visual:ci
 
-      # The gate's own instruction is "look at both images before deciding", and
-      # until this step existed it printed that into an environment where both
-      # images lived in a temp directory the process deleted on its way out. A
-      # failure named a frame, gave a pixel count, and left nobody anything to
-      # look at. Only the differing frames are kept, actual- and expected- for
-      # each.
+      # The gate's instruction is "look at both images before deciding", and
+      # both images live in a temp directory the process deletes on its way
+      # out. This step keeps the differing frames, actual- and expected- for
+      # each, so a failure leaves something to look at.
       - name: Keep the frames that differed
         if: failure()
         uses: actions/upload-artifact@v4

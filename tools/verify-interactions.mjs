@@ -1,14 +1,11 @@
-/* Prove that a state change on a real control actually plays its recipe.
+/* Prove that a state change on a real control plays its recipe.
  *
- * Crystal shipped fifty-nine motion recipes with two of them wired to anything. The
- * rest existed as data and played only from the catalogue's replay button, so a product
- * that had adopted Crystal got a press and a hover and nothing else. Static checks could
- * not see this: every recipe was well-formed, spring-fitted and incompressible, and none
- * of them ran.
- *
- * So the contract this file enforces is behavioural. Each case changes state the way a
- * user would — checking a box, focusing a field, opening a disclosure — and asserts that
- * the element carries a running animation of the expected recipe.
+ * A recipe can be well-formed, spring-fitted and incompressible, and still play
+ * only from the catalogue's replay button. Static checks cannot see whether
+ * anything is wired to it, so the contract this file enforces is behavioural.
+ * Each case changes state the way a user would (checking a box, focusing a
+ * field, opening a disclosure) and asserts that the element carries a running
+ * animation of the expected recipe.
  *
  *   node tools/verify-interactions.mjs [--base http://127.0.0.1:4321]
  */
@@ -18,7 +15,7 @@ const BASE = process.argv.includes('--base')
   ? process.argv[process.argv.indexOf('--base') + 1]
   : 'http://127.0.0.1:4321';
 
-/* A scratch harness of plain controls. Deliberately not the page's own components: this
+/* A scratch harness of plain controls rather than the page's own components: this
    tests the delegated wiring every adopter gets, not the studies suite's bespoke demos. */
 const HARNESS = `<div id="probe">
   <input type="checkbox" id="cb">

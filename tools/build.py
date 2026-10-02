@@ -1,11 +1,11 @@
 """Render the website from the specification it installed.
 
-Every page — the overview, the playground, the motion studies and the ten
-specification pages — is generated here and wrapped by `shell.py`. The
-specification markdown is **not** ours: it ships inside `@crystal-ui/core` and
-is read from the copy `assemble-site.mjs` places under
-`website/vendor/@crystal-ui/core/docs/`. What is hand-authored here is
-`website/src/overview.md` and the body fragments under `website/src/pages/`.
+Every page (the overview, the playground, the motion studies and the ten
+specification pages) is generated here and wrapped by `shell.py`. The
+specification markdown ships inside `@crystal-ui/core` and is read from the
+copy `assemble-site.mjs` places under `website/vendor/@crystal-ui/core/docs/`.
+What is hand-authored here is `website/src/overview.md` and the body fragments
+under `website/src/pages/`.
 """
 from pathlib import Path
 import json, re, subprocess, sys
@@ -19,18 +19,17 @@ import shell
 # this script writes belongs to the website.
 SITE = ROOT / 'website'
 
-# The library is a dependency, not a subproject. Its tokens, its catalogue, its
-# specification sections and its theme CSS are built in the library's own
-# repository and ship in the package; this repository renders what it installed
-# and builds nothing of Crystal's. If a token value looks wrong here, it is
-# wrong in @crystal-ui/core and cannot be corrected from this side.
+# The library is a dependency. Its tokens, its catalogue, its specification
+# sections and its theme CSS are built in the library's own repository and ship
+# in the package; this repository renders what it installed and builds nothing
+# of Crystal's. A token value that looks wrong here is wrong in @crystal-ui/core
+# and cannot be corrected from this side.
 subprocess.run(['node', 'tools/assemble-site.mjs'], cwd=ROOT, check=True)
 
 # Assets the interactive pages need on top of the shared base. These lists are the
 # whole definition of what each page loads, so they are kept beside each other: a page
-# that silently loses one renders without error and simply stops working. `validate.py`
-# fails on any asset under `assets/` that no page references, which is what catches a
-# dropped entry here.
+# that loses one renders without error and stops working. `validate.py` fails on any
+# asset under `assets/` that no page references, which catches a dropped entry here.
 INTERACTIVE = ['assets/vendor/crystal-engines.js?v=modal-cleanup-1', 'assets/motion-catalog.js',
                # The shared preset module must load before motion.js, which reads it.
                f'{shell.CORE}/assets/core/presets.js', f'{shell.CORE}/assets/motion.js',
@@ -51,12 +50,12 @@ def fragment(name):
     return p.read_text().strip() if p.exists() else ''
 
 
-# The specification is the library's, not the website's: it ships inside
-# @crystal-ui/core and the site renders the copy it installed. Links in that
-# markdown are written relative to the package — `../assets/icons.svg` resolves
-# inside @crystal-ui/core wherever it sits — and the site is where they have to
-# become site paths, because the package cannot know what a website calls the
-# folder it put the library in.
+# The specification is the library's: it ships inside @crystal-ui/core and the
+# site renders the copy it installed. Links in that markdown are written
+# relative to the package (`../assets/icons.svg` resolves inside
+# @crystal-ui/core wherever it sits), and the site is where they have to become
+# site paths, because the package cannot know what a website calls the folder
+# it put the library in.
 SPEC = SITE / shell.CORE / 'docs'
 LIBRARY_RELATIVE = re.compile(r'(?<=\.\./)(assets|tokens|licenses|exports)/')
 
@@ -68,7 +67,7 @@ def render_markdown(path):
     text = LIBRARY_RELATIVE.sub(lambda m: f'{shell.CORE}/{m.group(1)}/', path.read_text())
     title = text.splitlines()[0].removeprefix('# ')
     body = markdown.markdown(text, extensions=['tables', 'fenced_code', 'toc', 'md_in_html'])
-    # Only wrap real document tables — a table inside an example belongs to the
+    # Only wrap real document tables. A table inside an example belongs to the
     # example, and wrapping it would change what the example demonstrates.
     body = re.sub(r'<table>(?!</table>)', '<div class="cr-table-scroll"><table class="cr-table">', body)
     body = body.replace('</table>', '</table></div>')

@@ -1,19 +1,19 @@
 # Haze filling a Resin frame
 
-Meridian asked that neumorphic practice inform how Haze looks and feels — shadows,
-feathering, light source — particularly when it fills a frame made of Resin.
+Meridian asked that neumorphic practice inform how Haze looks and feels (shadows,
+feathering, light source), particularly when it fills a frame made of Resin.
 
 ## What was worth taking, and what was not
 
-Soft UI's real contribution is a **discipline about light**: one consistent source, and
-definition carried by a *pair* — a highlight where the light lands and a shadow where it is
-occluded. Recession is expressed by inverting that pair rather than by adding contrast.
+Soft UI's contribution is a discipline about light: one consistent source, and definition
+carried by a pair, which is a highlight where the light lands and a shadow where it is
+occluded. Recession is expressed by inverting that pair, with no added contrast.
 
-Its defining failure is the palette. Neumorphism fills an element with the same colour as
-its background, so every bit of definition has to come from shadow, which is precisely why
-it fails contrast checks and why almost nobody ships it now. Crystal takes the light model
-and refuses the palette: Haze keeps its 80% fill and its verified text contrast. The probe
-here measures **18.11:1** for body text on Haze inside Resin.
+Its failure is the palette. Neumorphism fills an element with the same colour as its
+background, so all definition has to come from shadow. That is why it fails contrast checks
+and why almost nobody ships it now. Crystal takes the light model and leaves the palette:
+Haze keeps its 80% fill and its verified text contrast. The probe here measures 18.11:1 for
+body text on Haze inside Resin.
 
 ## What Crystal already had right
 
@@ -31,22 +31,22 @@ paired highlight.
 
 ## The change
 
-A Haze fill inside a Resin frame is a content well: it sits *in* the frame, and an outward
+A Haze fill inside a Resin frame is a content well. It sits in the frame, and an outward
 drop shadow says the opposite. With the source directly overhead, recession inverts the
-pair — an inset shadow along the top edge where the frame occludes the light, and a
-highlight returning along the bottom where it bounces off the far wall:
+pair. An inset shadow runs along the top edge, where the frame occludes the light, and a
+highlight returns along the bottom, where it bounces off the far wall:
 
     box-shadow: inset 0 1px 2px rgba(39,24,68,.15), inset 0 -1px 0 var(--cr-rim);
 
-Scoped to Haze **inside a Resin frame** only. A standalone Haze card genuinely is raised and
-its existing recipe is correct, so the general material specification is untouched.
+The rule is scoped to Haze inside a Resin frame. A standalone Haze card is raised and its
+existing recipe is correct, so the general material specification is untouched.
 
 ## Status of this change in the preview
 
 All twelve reference frames are unchanged, because no composition in the current preview
-puts a Haze fill inside a Resin frame. The rule is therefore correct and specified but not
-yet exercised by the preview itself. `haze-in-resin.png` is that composition built
-deliberately, to show the rule firing:
+puts a Haze fill inside a Resin frame. The rule is therefore specified and correct, and the
+preview does not yet exercise it. `haze-in-resin.png` is that composition, built to show
+the rule firing:
 
 | Check | Result |
 | --- | --- |
@@ -54,5 +54,5 @@ deliberately, to show the rule firing:
 | Body text contrast on the fill | 18.11:1 |
 | Reference frames changed | 0 of 12 |
 
-A specimen belongs in the preview so this is covered by the visual gate rather than by a
-one-off probe. That is recorded as outstanding in the request log.
+A specimen belongs in the preview, so that the visual gate covers this rule and a one-off
+probe is no longer needed. That is recorded as outstanding in the request log.

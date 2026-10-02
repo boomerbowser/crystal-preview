@@ -6,9 +6,9 @@ These 17 images were supplied by the user as material inspiration, desired contr
 
 The four [approved Crystal material studies](approved-crystal/README.md) remain the authoritative visual baseline. The two control references establish the desired broad Resin rim, soft inset fill, elevation and shared toolbar surface. The earlier Acrylic, Liquid Glass and Mica examples explain material inspiration; Crystal adapts those materials into Frost, Resin and Plastic respectively.
 
-Apply the user's subsequent refinements and current specifications: historical labels, selection underlines, focus outlines and exact color strength in an older screenshot are not instructions to undo newer changes. Material-inspiration screenshots are not accessibility certifications or a requirement to reproduce every depicted layout.
+The user's subsequent refinements and the current specifications take precedence over these images. Historical labels, selection underlines, focus outlines and exact color strength in an older screenshot are not instructions to undo newer changes. A material-inspiration screenshot does not certify accessibility and does not require you to reproduce every layout it shows.
 
-These files belong to the reference archive. They are not embedded into the interactive preview, and this index does not restore a public Sources page. Screenshots sent to demonstrate defects (missing dialogs, harsh outlines, incorrect controls) and the textual Solid-content clarification are deliberately excluded from this positive reference collection.
+These files belong to the reference archive. They are not embedded into the interactive preview, and this index does not restore a public Sources page. Screenshots sent to demonstrate defects (missing dialogs, harsh outlines, incorrect controls) and the textual Solid-content clarification are excluded from this collection, which holds positive references only.
 
 ## Approved Crystal baseline
 

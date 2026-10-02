@@ -2,8 +2,8 @@
  *
  * These two checks came from Crystal's own `tests/core-contracts.cjs` and moved
  * here with the site they are about. Both compare something this repository
- * authors against something `@crystal-ui/core` publishes, which is only
- * possible where both are present — and this is the only place they are.
+ * authors against something `@crystal-ui/core` publishes, and this is the only
+ * place both are present.
  *
  *   node tests/site-contracts.cjs
  */
@@ -21,17 +21,16 @@ const check = (name, fn) => {
   catch (error) { results.push({ name, status: 'fail', detail: error.message }); }
 };
 
-/* The preview's own layout is what the layout tokens were derived from, which is
-   why nothing can drift *yet* — and why it will, the first time a token changes
-   and the stylesheet does not. Lengths are var() references now. Breakpoints
-   cannot be: `@media (max-width: 1150px)` will not take a custom property, and
-   no amount of wishing makes it. So they are checked instead.
+/* The layout tokens were derived from the preview's own layout, so nothing has
+   drifted yet; it will, the first time a token changes and the stylesheet does
+   not. Lengths are var() references now. Breakpoints cannot be:
+   `@media (max-width: 1150px)` will not take a custom property. So they are
+   checked instead.
 
    Every width in a `@media` query in site.css must either be one of Crystal's
-   four shell breakpoints or be named below as something else — a component's own
-   threshold, which is a different kind of number and not Crystal's to own. The
-   allowlist is the point: it is short, each entry says what it is, and adding to
-   it is a decision somebody makes rather than a literal nobody notices. */
+   four shell breakpoints or be named below as a component's own threshold,
+   which is not Crystal's to own. The allowlist is short and each entry says
+   what it is, so adding a width is an explicit decision. */
 const COMPONENT_WIDTHS = new Map([
   [1000, 'the documentation shell narrows its sidebar before the marketing shell does'],
   [860, 'the documentation shell drops its sidebar'],
@@ -57,18 +56,13 @@ check('every breakpoint in site.css is a token or a named exception', () => {
   assert.deepEqual(stray, [], 'breakpoints that match neither a token nor a named exception');
 });
 
-/* This site overrides the library's focus halo, so the two can disagree and only
-   a person reading both stylesheets would know. They did disagree. The halo was
-   halved at Meridian's request — 2/6/12/22 to 1/3/6/11 — in `controls.css`,
-   which is what the site renders. The library kept emitting the withdrawn
-   spreads into the exported theme, which is what every consumer reads, so
-   Crystal React's focus ring was visibly wider than Crystal's own for as long
-   as that was true.
-
-   Nothing caught it. Crystal React's appearance, theme and material gates all
-   pass with either value, because they check that `--cr-focus-ring` is defined
-   rather than what it says — which was the right check when the bug was that it
-   was defined by nothing, and is no check at all against a wrong number.
+/* This site overrides the library's focus halo, so the two can disagree and
+   only a person reading both stylesheets would know. The halo was halved at
+   Meridian's request, 2/6/12/22 to 1/3/6/11, in `controls.css`, which is what
+   the site renders; the exported theme, which is what every consumer reads,
+   has to carry the same spreads. Crystal React's appearance, theme and
+   material gates pass with either value, because they check that
+   `--cr-focus-ring` is defined rather than what it says.
 
    Blur and spread only, and only the first four layers. This site composes two
    further elevation layers on top of the halo and the library ships none;
@@ -92,17 +86,15 @@ check('the halo this site renders is the halo the library exports', () => {
 /* The site does not write markup for a Crystal class the library withdrew.
  *
  * The other direction of the same rule. `core-contracts` stops `.cr-button.secondary`
- * coming back as a *rule*; nothing stopped it surviving as *markup*, which is
- * worse, because a class with no rule looks like it works — it renders as an
- * ordinary action, which is what it already looked like, and nobody notices until
- * somebody adds a rule for it again.
+ * coming back as a rule; this stops it surviving as markup. A class with no rule
+ * renders as an ordinary action, so nobody notices it until somebody adds a rule
+ * for it again.
  *
  * `.secondary` named a second action colour and Crystal defines one: the palettes
  * publish a single action pair, and the companion and glow hues are expressive
  * paint that `colors.md` says is never assumed to be text-safe. Meridian withdrew
- * the variant on 22 September 2026. The pages that used it now say what they
- * meant — `.cr-button` for an ordinary action, `.cr-button.primary` for the
- * emphatic one.
+ * the variant on 22 September 2026. An ordinary action is `.cr-button` and the
+ * emphatic one is `.cr-button.primary`.
  *
  * Read from the hand-authored sources rather than the built pages, because the
  * built pages are output: fixing them without fixing the source puts the class

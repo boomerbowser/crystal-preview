@@ -12,8 +12,8 @@ build. Both ceilings default to zero, which means exact equality: that is the
 right setting when proving that a change altered nothing, and it is how the
 gates in this project are run.
 
-The ceilings are deliberately separate rather than a single "percentage
-changed" figure, which would let a real change hide inside an allowance.
+The ceilings are separate rather than a single "percentage changed" figure,
+which would let a real change hide inside an allowance.
 
   --tolerance      per-channel delta below which two pixels count as the same
                    colour. Above 2 this stops describing rasterisation noise.
@@ -22,9 +22,9 @@ changed" figure, which would let a real change hide inside an allowance.
                    person. A single pixel beyond it fails the comparison no
                    matter what --max-differing says.
 
-That last rule is what keeps the allowance honest: --max-differing forgives a
-scatter of near-invisible rasterisation dither, but it can never forgive a
-pixel that actually changed colour, however few of them there are.
+That last rule bounds the allowance: --max-differing forgives a scatter of
+near-invisible rasterisation dither, but never a pixel that changed colour,
+however few of them there are.
 """
 import argparse
 import struct

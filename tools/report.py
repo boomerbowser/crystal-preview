@@ -1,10 +1,10 @@
-"""Render an honest summary of executed verification records."""
+"""Render the verification summary from executed check records."""
 from pathlib import Path
 import json,html
 import sys;sys.path.insert(0,str(Path(__file__).resolve().parent));import shell
 ROOT=Path(__file__).resolve().parents[1]
 # Evidence is part of the website: it is linked from the site and served with
-# it. `validation/` at the repository root keeps only what is never published —
+# it. `validation/` at the repository root keeps only what is never published,
 # the visual baselines this report does not link.
 EVIDENCE=ROOT/'website/verification'
 def read(name):return json.loads((EVIDENCE/name).read_text())

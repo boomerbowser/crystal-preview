@@ -2,15 +2,15 @@
 /* The scroll contract, on a real phone (Crystal's D-4).
  *
  * `verify-scroll.mjs` checks every scroll container on an emulated phone and a
- * desktop. The phone leg proves behaviour — a swipe does not chain — but not
+ * desktop. The phone leg proves behaviour (a swipe does not chain) but not
  * appearance, because Playwright's mobile emulation uses overlay scrollbars on
- * which `scrollbar-gutter` does nothing, and whatever a person's thumb meets on a
- * device is something emulation cannot answer. Meridian ruled on 29 September
- * 2026 that a real Android phone closes it.
+ * which `scrollbar-gutter` does nothing, and emulation cannot say what a
+ * person's thumb meets on a device. Meridian ruled on 29 September 2026 that a
+ * real Android phone closes it.
  *
- * So this runs the same contract in Chrome on a connected phone, and adds the
- * one question only a device can answer: **does content shift when a scrollbar
- * appears?** That is what `scrollbar-gutter: stable` exists to prevent. Each
+ * So this runs the same contract in Chrome on a connected phone, and adds a
+ * check only a device can make: whether content shifts when a scrollbar
+ * appears, which `scrollbar-gutter: stable` exists to prevent. Each
  * vertical scroll container's content width is measured as it is, and again with
  * its block overflow switched off; if the scrollbar the device draws takes room,
  * the two differ unless the gutter reserved it. On an overlay-scrollbar device
@@ -20,8 +20,8 @@
  * Needs, on the phone: USB debugging on and this computer allowed; Chrome, with
  * "Enable command line on non-rooted devices" turned on in chrome://flags
  * (Playwright's Android driver requires it). On this computer: `adb` on the
- * path, and the preview served on 4321 — the phone reaches it through
- * `adb reverse`, which this script sets up.
+ * path, and the preview served on 4321, which the phone reaches through
+ * `adb reverse`, set up by this script.
  *
  *   npm run verify:scroll:device [-- --keep <dir>]
  */
@@ -57,7 +57,7 @@ for (const page of PAGES) {
   await tab.goto(`http://localhost:${PORT}/${page}`, { waitUntil: 'load' });
   await tab.waitForTimeout(900);
   /* A vertical scroller, put there by the site's own control. On a phone every
-     container the pages show at rest scrolls across — tables — so without this
+     container the pages show at rest scrolls across (tables), so without this
      the one question this script adds would never be asked. The playground's
      "inspect the export" opens the specification dialog with the generated CSS
      as code, which scrolls down inside the dialog's body: the scroller a Crystal
@@ -81,8 +81,8 @@ for (const page of PAGES) {
       const scrollsY = el.scrollHeight > el.clientHeight + 2;
       const scrollsX = el.scrollWidth > el.clientWidth + 2;
       if (!/(auto|scroll|overlay)/.test(cs.overflowX + cs.overflowY) || (!scrollsX && !scrollsY)) continue;
-      /* Does a scrollbar appearing move the content? The content box as it is,
-         and with the block overflow off, so no scrollbar can be drawn. */
+      /* Whether a scrollbar appearing moves the content: the content box as it
+         is, and again with block overflow off, so no scrollbar can be drawn. */
       let shift = null;
       if (scrollsY) {
         const withBar = el.clientWidth;
@@ -119,9 +119,9 @@ await context.close();
 await device.close();
 
 /* Fail closed. A run that met no vertical scroller measured nothing about the
-   shift it exists to measure, and a green result would say otherwise — which is
-   what the first runs on a Pixel 6 Pro did: fifty-one containers, every one
-   horizontal, and a pass. */
+   shift it exists to measure, and a green result would say otherwise. The first
+   runs on a Pixel 6 Pro met fifty-one containers, every one horizontal, and
+   passed. */
 const vertical = measured.filter((m) => m.scrollsY).length;
 if (vertical === 0) failures.push('measured no vertical scroll container, so whether content shifts when a scrollbar appears was not asked');
 

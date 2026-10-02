@@ -20,11 +20,10 @@ class PreviewHandler(SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     root = Path(__file__).resolve().parent.parent / 'website'
     # Refuse rather than serve a site with no library in it. The copy under
-    # vendor/ is generated, so it is absent on a fresh checkout, and a site
-    # missing it does not look broken — it looks like a design regression.
-    # Every scroll container loses .cr-scroll-frost, every material loses its
-    # recipe, and the failure that gets reported is the symptom rather than
-    # the cause. Saying so here costs one line and an afternoon of confusion.
+    # vendor/ is generated, so it is absent on a fresh checkout. A site missing
+    # it renders, and looks like a design regression: every scroll container
+    # loses .cr-scroll-frost, every material loses its recipe, and the failure
+    # reported is the symptom rather than the cause.
     if not (root / 'vendor/@crystal-ui/core/assets/crystal.css').exists():
         raise SystemExit(
             'The library is not assembled into the website: '

@@ -1,10 +1,8 @@
 /* Visual regression gate: capture the frame set now and compare it against the
  * committed baselines. Exits non-zero on any difference.
  *
- * A difference is not automatically a failure of the code — it may be an
- * intended change — but it is always a failure of *this check*, and the
- * re-blessing procedure in validation/frames.json says what to do next. The
- * point is that a pixel cannot change without somebody saying why.
+ * A difference may be an intended change, but it still fails this check, and
+ * the re-blessing procedure in validation/frames.json says what to do next.
  *
  *   node tools/verify-frames.mjs
  *   node tools/verify-frames.mjs --bless       (replace the baselines)
@@ -14,12 +12,12 @@
  * The baseline directory is a flag because a screenshot is only comparable to
  * one taken the same way, and this project has two "same ways". D-15: the
  * committed `validation/baselines` are captured on a contributor's machine, and
- * a GitHub runner does not rasterise type the way that machine does — comparing
+ * a GitHub runner does not rasterise type the way that machine does; comparing
  * the two failed 16 of 18 frames with channel deltas up to 255, worst on the
- * text-heavy frames. That is not a tolerance problem and no allowance fixes it;
- * a baseline means "what this renderer produced". So there is a second set,
- * captured on the runner by the workflow that compares against it, and CI reads
- * that one. Capture where you compare.
+ * text-heavy frames. An allowance cannot correct for a different renderer,
+ * because a baseline is only valid for the renderer that produced it. So there
+ * is a second set, captured on the runner by the workflow that compares against
+ * it, and CI reads that one.
  */
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readdirSync, copyFileSync, existsSync, readFileSync } from 'node:fs';
@@ -36,11 +34,9 @@ const arg = (name, fallback) => {
 const BASELINES = resolve(ROOT, arg('baselines', 'validation/baselines'));
 const BLESS = process.argv.includes('--bless');
 /* Gate G8: with WebGL2 unavailable, every page must still render exactly the
-   committed baselines — the optical layer is an enhancement on top of a complete
-   CSS floor, never a requirement.
-   This used to be run by passing a capture directory to this script, which it
-   has never accepted: the flag was ignored, the frames were recaptured with
-   WebGL available, and the gate reported a pass that asserted nothing. */
+   committed baselines. The optical layer is an enhancement on top of a complete
+   CSS floor, never a requirement. The flag has to reach the capture below;
+   frames recaptured with WebGL available would pass while asserting nothing. */
 const NO_WEBGL = process.argv.includes('--no-webgl');
 if (BLESS && NO_WEBGL) {
   console.error('Refusing to bless baselines captured without WebGL2.');
@@ -53,9 +49,9 @@ if (!existsSync(BASELINES)) {
   process.exit(2);
 }
 
-/* Frames that deliberately photograph the optical layer cannot be compared with
-   that layer switched off — they are the enhancement being disabled. They are
-   named and skipped rather than quietly passing. */
+/* Frames that photograph the optical layer cannot be compared with that layer
+   switched off: they are the enhancement being disabled. They are named and
+   skipped rather than quietly passing. */
 const frameSet = JSON.parse(readFileSync(join(ROOT, 'website/verification/frames.json'), 'utf8'));
 const ambientFrames = new Set(
   frameSet.frames.filter((f) => f.ambient === 'rest').map((f) => `${f.id}.png`),
@@ -102,14 +98,11 @@ console.log(JSON.stringify({
   ...(skipped.length ? { skipped, why: 'these frames photograph the optical layer, which this run disables' } : {}),
 }, null, 2));
 
-/* "Look at both images before deciding" is the instruction this gate prints, and
-   until now it printed it into an environment where both images were in a
-   temporary directory that the process deleted on the way out. On a runner that
-   leaves nobody anything to look at: a failure names a frame, gives a pixel
-   count, and offers no way to see what changed. So a failing run writes the pair
-   — what it captured and what it expected — somewhere the job can upload.
-   Only the differing frames, because twenty-three of everything is noise around
-   the one that matters. */
+/* This gate prints "Look at both images before deciding", and both images are
+   in a temporary directory the process deletes on the way out. So a failing run
+   writes the pair, what it captured and what it expected, somewhere the job can
+   upload. Only the differing frames are kept; copying all twenty-three would
+   bury the ones that failed. */
 const KEEP = arg('keep', null);
 if (KEEP && differing.length) {
   const out = resolve(ROOT, KEEP);

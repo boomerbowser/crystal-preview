@@ -22,10 +22,10 @@ for(const palette of Object.keys(D.palettes))for(const mode of ['light','dark'])
  for(const pair of C.audit(config,mode))check(pair.label,pair.foreground,pair.background,pair.minimum,{palette,mode,kind:'solid'});
  for(const background of [p.surface,p.primarySoft])check('Compact control marker',p.primary,background,3,{palette,mode,kind:'control-marker'});
  /* A scrollbar thumb is a control, and it has to be seen against the surface it
-    scrolls. The first version painted it in the material's own surface colour,
-    which is the one colour guaranteed to match the panel behind it — on a light
-    Frost panel the thumb was white on white. 3:1 is the non-text bar, checked
-    against every background a Crystal panel can be. */
+    scrolls. Painting it in the material's own surface colour gives the one
+    colour guaranteed to match the panel behind it: white on white on a light
+    Frost panel. 3:1 is the non-text bar, checked against every background a
+    Crystal panel can be. */
  for(const [label,token] of [['Frost scrollbar thumb','--cr-scrollbar-frost-thumb'],
                              ['Resin scrollbar thumb','--cr-scrollbar-resin-thumb']]){
   const value=C.resolve(config,mode)[token];
@@ -41,7 +41,7 @@ for(const palette of Object.keys(D.palettes))for(const mode of ['light','dark'])
    check('Content supporting text over RGB corner',C.resolve(config,mode)['--cr-content-muted'],bg,4.5,{palette,mode,backdrop,alpha,kind:'content-composite'});
    check('Authored content over RGB corner',C.resolve(config,mode)['--cr-content-own-text'],over(p.contentOwnSurface||p.primarySoft,backdrop,alpha),4.5,{palette,mode,backdrop,alpha,kind:'content-composite'});
   }
-  // Context light remains beneath Haze; RGB-corner bounds include every palette gradient. Resin controls: 20% body, inset 80% Haze, with the brightest optical highlight UNDER the protective reading fill.
+  // Context light remains beneath Haze; RGB-corner bounds include every palette gradient. Resin controls: 20% body, inset 80% Haze, with the brightest optical highlight under the protective reading fill.
   for(const [label,base,ink] of [['Neutral',p.surface,p.text],['Selected',p.contentOwnSurface||p.primarySoft,C.resolve(config,mode)['--cr-content-own-text']]])for(const sheen of [0,.19]){
    const resin=over(p.surface,backdrop,.2),light=over('#ffffff',resin,sheen),background=over(base,light,.79);
    check(label+' Resin/Haze control label',ink,background,4.5,{palette,mode,backdrop,sheen,kind:'control-composite'});

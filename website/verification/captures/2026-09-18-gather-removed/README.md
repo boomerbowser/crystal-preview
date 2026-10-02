@@ -1,8 +1,8 @@
 # Every reference to Gather removed from the docs and the site
 
 Meridian asked for all references to Gather to be removed from the design system
-docs and website. Twenty-four occurrences across fourteen files, rewritten rather
-than deleted — striking the word out would have left sentences like "a custom
+docs and website. Twenty-four occurrences across fourteen files were rewritten,
+since striking the word out would have left sentences like "a custom
 design system derived from , not a vendor-certified combination".
 
 ## What changed, by kind
@@ -20,7 +20,7 @@ design system derived from , not a vendor-certified combination".
 
 **Token descriptions** at their source in `tokens/crystal.json`, then regenerated
 through the DTCG tree and every platform export: the system `basis` and Harbor's
-description. The round trip verified with no token value changed.
+description. The round trip was verified with no token value changed.
 
 ## The preserved source archive
 
@@ -29,27 +29,26 @@ out from, kept with SHA-256 digests. Three are named for their origin and the
 fourth records it as data.
 
 **They are excluded from the published site and kept in the repository.** Editing
-a provenance record to remove the name of the thing it records would not make the
-record neutral, it would make it false — and a provenance record that has been
-edited is not one. So the site no longer references or serves them, and the record
-survives intact where a record belongs.
+a provenance record to remove the name of the thing it records makes the record
+false, not neutral, and an edited provenance record is no record. So the site no
+longer references or serves them, and the record survives intact in the
+repository.
 
 The verification report's link to the manifest is removed with them, and the
 report now says the copies are kept rather than published.
 
-**This is the one part of the request that is a judgment call rather than a
-rewrite, and Meridian should confirm it.** If they want the archive gone from the
-repository as well, that is a deletion rather than an edit, and it is theirs to
-authorise.
+**This is the one part of the request that is a judgment call, and Meridian
+should confirm it.** If they want the archive gone from the repository as well,
+that is a deletion rather than an edit, and it is theirs to authorise.
 
 ## Frames
 
 Three re-blessed, all looked at: `docs-menu-light`, `docs-menu-forced-colours`,
 `docs-menu-narrow`. All three photograph `docs/materials.html`, whose opening
-paragraph lost a clause and reflowed — about 3,500 pixels at 1280×900, and 12% of
-the narrow frame because a reflow moves everything below it.
+paragraph lost a clause and reflowed: about 3,500 pixels at 1280×900, and 12% of
+the narrow frame, because a reflow moves everything below it.
 
-Fifteen frames are byte-identical. The other affected pages — the overview, the
-playground, colours, principles, components and adoption — change below the fold
-of their frames, which is worth noting as a limit of the gate rather than as
-evidence that nothing changed there.
+Fifteen frames are byte-identical. The other affected pages (the overview, the
+playground, colours, principles, components and adoption) change below the fold
+of their frames. That is a limit of the gate, and it is not evidence that nothing
+changed there.

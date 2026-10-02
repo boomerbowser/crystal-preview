@@ -1,13 +1,13 @@
 # Crystal
 
 Crystal is Meridian's shared visual language: a token source of truth, a set of material
-primitives, a headless interaction core, a 119-component catalogue and about a thousand
-icons. It is one system with several renderings — the web reference in this repository,
+primitives, a headless interaction core, a 284-component catalogue and about a thousand
+icons. It is one system with several renderings: the web reference in this repository,
 and the platform libraries that must match it.
 
 This site is both the specification and a working copy of the system. Every specimen on
-these pages is live: the same CSS that ships is the CSS drawing the examples, so a rule
-that has stopped being true shows it here first.
+these pages is live. The CSS that ships also draws the examples, so a rule that has
+stopped being true shows it here first.
 
 <div class="docs-grid">
 <a class="doc-link" href="playground.html"><strong>Open the Playground</strong><p>Change palette, atmosphere, elevation and material depth on a real interface, then export the configuration.</p></a>
@@ -18,9 +18,8 @@ that has stopped being true shows it here first.
 ## The material hierarchy
 
 Crystal has three stacked materials and three named specials. The hierarchy runs
-back to front — **Plastic → Frost → Resin** — and the order is not decorative. Each
-layer forward is more translucent and more expensive, so each one has to earn its place
-by being closer to the user's attention.
+back to front, **Plastic → Frost → Resin**. Each layer forward is more translucent and
+more expensive, so each one is reserved for what is closer to the user's attention.
 
 <div class="materials" markdown="1">
 
@@ -28,8 +27,8 @@ by being closer to the user's attention.
 <div class="material-scene"><div class="material-sample foundation"><span class="protected">Plastic</span></div></div>
 <div class="material-info" markdown="1">
 ### Plastic
-The opaque base. Everything readable starts here. Plastic has no backdrop filter, costs
-nothing to composite, and is the correct answer whenever you are not sure.
+The opaque base. Everything readable starts here. Plastic has no backdrop filter and
+costs nothing to composite. Use it whenever you are not sure which material is correct.
 </div>
 </div>
 
@@ -37,8 +36,8 @@ nothing to composite, and is the correct answer whenever you are not sure.
 <div class="material-scene"><div class="material-sample cr-frost"><span class="protected">Frost</span></div></div>
 <div class="material-info" markdown="1">
 ### Frost
-40px blur at 125% saturation. The middle layer: panels, sidebars, sheets — surfaces that
-persist while content moves behind them. The side menu on this page is Frost.
+40px blur at 125% saturation. The middle layer, for panels, sidebars and sheets: surfaces
+that persist while content moves behind them. The side menu on this page is Frost.
 </div>
 </div>
 
@@ -53,33 +52,32 @@ that float above everything: docks, floating bars, the leading edge of an overla
 
 </div>
 
-Plus three specials that are not layers in the stack:
+The three specials are not layers in the stack:
 
 | Material | What it is | Where it belongs |
 | --- | --- | --- |
-| **Haze** | An 80% content fill with a 1.95px feather | Readable content sitting *inside* a translucent frame |
+| **Haze** | An 80% content fill with a 1.95px feather | Readable content sitting inside a translucent frame |
 | **Stone** | A 55% (light) / 60% (dark) label backing | A label that must stay legible over an unknown backdrop |
-| **Mirage** | The modal scrim | Behind a dialog, and nowhere else |
+| **Mirage** | The modal scrim | Behind a dialog only |
 
 Feathering applies only to an isolated paint layer. Text, icons, hit areas and focus rings
-stay crisp — a feathered glyph is a blurry glyph, and no amount of material intent makes
-that acceptable.
+stay crisp, because a feathered glyph is a blurry glyph.
 
 [The full material specification →](docs/materials.html)
 
 ## Rules that catch people out
 
-These are the ones adopters get wrong most often. Each is a real constraint with a real
-failure behind it, not a style preference.
+These are the rules adopters get wrong most often. Each one is a constraint with a known
+failure behind it.
 
 **Resin never contains Resin.** A translucent surface stacked on a translucent surface
 blurs a blur, and the content stops being legible. When something has to sit on top of a
 Resin element, it becomes a Haze content fill. The fix is always to change the upper
-layer — never to weaken Resin.
+layer and never to weaken Resin.
 [Why →](docs/materials.html#resin-never-contains-resin)
 
-**A check mark means validated or informational — never "selected".** Selection is a
-label weight. The side menu on this page is the pattern.
+**A check mark means validated or informational, never "selected".** Selection is a
+label weight. The side menu on this page shows the pattern.
 [Why →](docs/components.html#selection)
 
 **Selection in forced colours is a ring, never a fill.** Chromium paints an opaque
@@ -87,18 +85,18 @@ label weight. The side menu on this page is the pattern.
 selected row loses its label completely.
 [Why →](docs/accessibility.html#forced-colours)
 
-**Action controls are pill-shaped.** Card-shaped buttons — a button that is really a
-tappable card — keep the content radius instead. Those are the only two options.
+**Action controls are pill-shaped.** A card-shaped button, meaning a button that is a
+tappable card, keeps the content radius instead. Those are the only two options.
 [Why →](docs/components.html#geometry)
 
 **Status colours are independent of brand palettes.** All six palettes change the brand
-colours and none of them change what "error" looks like.
+colours, and none of them changes what "error" looks like.
 [Why →](docs/colors.html#status)
 
 ## Evidence
 
 Claims on this site are bounded and checked. The [verification
-report](verification/report.html) lists what was actually executed — contrast across all six
+report](verification/report.html) lists what was executed: contrast across all six
 palettes in both modes, forced colours in both high-contrast palettes, reduced
-transparency, right-to-left, and a twelve-frame visual regression gate — together with
-what those checks do *not* cover.
+transparency, right-to-left, and a 23-frame visual regression gate. It also lists
+what those checks do not cover.

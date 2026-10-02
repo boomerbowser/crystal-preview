@@ -2,10 +2,9 @@
  *
  * Crystal prohibits Resin on Resin. Resin is a translucent, backdrop-blurring
  * material; stacking one inside another makes a second 20px blur read through
- * the first, and the result is the illegibility that translucent interfaces are
- * routinely and fairly criticised for. The rule is that any layer sitting above
- * a Resin surface — a label, a badge, an indicator — is a Haze content fill:
- * an 80% fill with a 1.95px feather on its background layer, leaving text crisp.
+ * the first, and the result is illegible. Any layer sitting above a Resin
+ * surface (a label, a badge, an indicator) is a Haze content fill: an 80% fill
+ * with a 1.95px feather on its background layer, leaving text crisp.
  *
  * The fix is always to change the upper layer. Softening Resin to compensate
  * would disturb a material specification, which the standing constraint forbids.
@@ -25,9 +24,8 @@ const BASE = process.argv.includes('--base')
   ? process.argv[process.argv.indexOf('--base') + 1]
   : 'http://127.0.0.1:4321';
 
-// Discovered, not listed. A hand-maintained list silently stops covering pages as
-// the site grows — `playground.html`, the richest composition here, went unaudited
-// for exactly that reason.
+// Discovered rather than listed, so a hand-maintained list cannot silently stop
+// covering pages as the site grows.
 const ROOT = path.resolve(fileURLToPath(import.meta.url), '../..');
 // Every page belongs to the website; the library has no pages.
 const SITE = path.join(ROOT, 'website');
@@ -52,10 +50,10 @@ for (const path of PAGES) {
     const describe = (el) =>
       (el.className || '').toString().trim().split(/\s+/).slice(0, 3).join('.') || el.tagName.toLowerCase();
 
-    /* Classify by recipe, not by class name: an element does not have to carry a
-       Resin class to be Resin in substance, and Crystal's hierarchy is
-       Plastic -> Frost -> Resin, so Resin inside Frost is the *intended* layering
-       and must not be reported. Only Resin inside Resin is the prohibited case.
+    /* Classify by recipe rather than by class name: an element does not have to
+       carry a Resin class to be Resin in substance. Crystal's hierarchy is
+       Plastic → Frost → Resin, so Resin inside Frost is the intended layering
+       and must not be reported. Only Resin inside Resin is prohibited.
        The two materials are told apart by their blur radius, read from the live
        token values so this cannot drift from the theme. */
     const root = getComputedStyle(document.documentElement);
@@ -87,7 +85,7 @@ for (const path of PAGES) {
        Frost covers "intermediate task frames, transient panels and overlays"; Resin is
        "one clustered navigation or control plane". A menu, popover, tooltip or toast is
        a transient overlay, so Resin on one is a misassignment even though it nests
-       legally. The suite's menu, popover, tooltip and toast were all Resin. */
+       legally. */
     const TRANSIENT = '[role=menu],[role=tooltip],[role=listbox],[popover],' +
       '.cr-menu,.cr-popover,.cr-tooltip,.cr-toast,[class*=suite-menu],[class*=suite-pop],' +
       '[class*=suite-toast]';

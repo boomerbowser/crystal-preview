@@ -1,28 +1,24 @@
-/* Opt-in installer used by both Crystal preview pages. Returns a real cleanup function.
+/* Opt-in installer used by both Crystal preview pages. Returns a cleanup function.
  *
- * Everything here binds to STATE, not to clicks. A checkbox animates when `checked`
- * changes, not when it is pressed, so a keyboard user and assistive technology get the
- * same motion a pointer user gets. Binding to pointerdown produces motion that only one
- * input method can see, which is how a design system ends up with animations that are
- * real in the demo and absent in use.
- *
- * Until this was extended, only `press` and `hover` were wired — two of fifty-nine
- * recipes. Every other recipe existed as data and played only from the catalogue's
- * replay button, which is why checkboxes, switches, fields and disclosures never
- * animated in an application that had adopted Crystal.
+ * Everything here binds to state. A checkbox animates when `checked` changes, not
+ * when it is pressed, so a keyboard user and assistive technology get the same
+ * motion a pointer user gets. Binding to pointerdown produces motion that only one
+ * input method can see. Control, form, disclosure and overlay state is wired here,
+ * so checkboxes, switches, fields and disclosures animate in an application that
+ * has adopted Crystal and not only from the catalogue's replay button.
  */
 (function(root){
  const MANUAL='[data-cr-motion=manual]';
 
- /* A page may drive a component itself — the motion studies suite does, by id. A
+ /* A page may drive a component itself; the motion studies suite does, by id. A
     delegated listener would then fire the same recipe a second time. */
  const managed=element=>!!element.closest?.(MANUAL);
 
  /* `once` is the runtime's own guard: a repeat of the same recipe on the same element
     while it is still running is coalesced rather than restarted. It lives in
-    CrystalMotion so that a page driving its own components gets the same behaviour —
-    there is no second copy of this rule. A *different* recipe still interrupts, because
-    a checkbox mid `field-focus` must still be allowed to play `check`. */
+    CrystalMotion so that a page driving its own components gets the same behaviour
+    from the one copy of the rule. A different recipe still interrupts, because a
+    checkbox mid `field-focus` must still be allowed to play `check`. */
  const play=(element,name)=>{
   if(!element||managed(element))return;
   root.CrystalMotion?.play(element,name,{once:true});

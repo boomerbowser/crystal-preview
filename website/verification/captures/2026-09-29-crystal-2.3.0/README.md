@@ -21,7 +21,8 @@ the five is the branch's own markup.
 | `playground-dark` | 112 | The palette swatches' rims |
 
 `playground-light` and `playground-rtl` also move, by at most 9 of 255 on any
-channel — below the gate's visible threshold, and blessed with the rest.
+channel, which is below the gate's visible threshold; they were blessed with the
+rest.
 
 Each changed frame was looked at before blessing.
 

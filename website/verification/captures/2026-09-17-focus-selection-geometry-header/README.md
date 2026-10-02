@@ -1,4 +1,4 @@
-# Visual evidence — focus, selection, geometry and header, 2026-09-17
+# Visual evidence: focus, selection, geometry and header, 2026-09-17
 
 > **Superseded in part.** The leading selection mark visible in these frames was withdrawn at Meridian's direction later the same day, because it offset the very label it marked. Selection is label weight alone; see `../2026-09-17-light-and-rest-motion/README.md`. The frames are kept as the record of the run that produced them, not as a picture of how Crystal looks now.
 
@@ -8,7 +8,7 @@ Captures taken in a real browser against the local preview, before and after the
 |---|---|
 | `before-actions-focus-light.png` | Focus ring before: a hard-edged 2px outline with a tight halo |
 | `after-actions-focus-light.png` | Focus ring after, in page context |
-| `after-focus-ring-detail-light.png` | Focus ring after, at device scale — the four-layer graded falloff |
+| `after-focus-ring-detail-light.png` | Focus ring after, at device scale: the four-layer graded falloff |
 | `before-selection-checkmarks-light.png` | Check badges over pressed Workspace / Light / Comfortable and the selected palette swatch |
 | `after-selection-rails-light.png` | The same controls with leading rails and heavier labels; no check marks |
 | `after-focus-and-rails-dark.png` | Dark mode: feathered focus on Reset, rails on Dark and Comfortable, swatch ring gap, pill compact buttons |
@@ -19,4 +19,4 @@ Captures taken in a real browser against the local preview, before and after the
 | `before-menu-rail-crowding.png` | Defect found during verification: the rail touched a left-aligned menu label |
 | `after-menu-rail-spacing.png` | Menu rows reserving rail room on every row, so selection does not shift the label |
 
-These are evidence of the checks actually performed on this package. They are not a WCAG conformance certification, a native-platform review, or cross-browser coverage.
+These frames are evidence of the checks performed on this package. They are not a WCAG conformance certification, a native-platform review or cross-browser coverage.

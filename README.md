@@ -1,28 +1,24 @@
 # Crystal preview
 
 The documentation website for [Crystal](https://github.com/boomerbowser/crystal),
-Meridian's design system. It is a site and nothing else: it consumes
-`@crystal-ui/core` and publishes no package of its own.
+Meridian's design system. The site consumes `@crystal-ui/core` and publishes no
+package of its own.
 
-## What is here, and what is not
+## What is in this repository
 
 `website/` is the site and the deploy root. `tools/` builds and checks it.
-`validation/baselines/` holds the visual-regression baselines, which are the one
-thing here that is never served.
+`validation/` holds the visual-regression baselines, which are never served.
 
-**Crystal is not here.** The tokens, the resolver, the headless core, the
-stylesheets, the icons, the shaders and the eleven specification pages all live
-in `@crystal-ui/core` and arrive as a dependency. If a token value or a
-specification sentence looks wrong, it is wrong in the library and cannot be
-corrected from this side.
+Crystal itself is a dependency. The tokens, the resolver, the headless core, the
+stylesheets, the icons, the shaders and the eleven specification chapters are in
+`@crystal-ui/core`. A wrong token value or specification sentence has to be
+corrected in the library and reaches the site with the next release.
 
 `tools/assemble-site.mjs` copies the installed library into
-`website/vendor/@crystal-ui/core/`, which is **gitignored and rebuilt on every
-build** — never commit or edit anything under it. A browser cannot load from
-`node_modules`, because a static deployment uploads `website/` and
-`node_modules` is not inside it, so the site addresses the library at a path
-shaped like the one it is installed at. That shape is the whole trick: nothing
-on the site knows where the copy came from.
+`website/vendor/@crystal-ui/core/`. That folder is gitignored and rebuilt on every
+build, so never commit or edit anything under it. The copy is needed because a
+static deployment uploads `website/` only, and `node_modules` is outside it. The
+site addresses the library at a path with the same shape as the installed one.
 
 ## Running it
 
@@ -34,43 +30,44 @@ npm test           # the build, plus tokens, motion, documentation drift, artifa
 npm run serve      # http://127.0.0.1:4321/
 ```
 
-`serve` refuses to start if the library has not been assembled, rather than
-serving a site with no Crystal in it — which does not look broken, it looks like
-a design regression.
+`serve` refuses to start until the library has been assembled. A site served
+without Crystal still renders, and looks like a design regression.
 
 ## The dependency
 
 ```json
-"@crystal-ui/core": "^2.0.0"
+"@crystal-ui/core": "^2.3.0"
 ```
 
-From npm, like any other consumer. That is the point of the split: this site has
-no privileged access to Crystal and renders only what the published package
-contains, so a specification sentence the site can show is a sentence a consumer
-also got.
+The library comes from npm, as it does for any other consumer. The site renders
+only what the published package contains.
 
 `vercel.json` declares `installCommand: "npm ci --omit=dev"` and
-`buildCommand: "node tools/assemble-site.mjs"`, so the deployment installs the
-library from the registry and the build copies it into `website/vendor/`. Nothing
-about Crystal is in this repository's git history, and nothing needs to be.
+`buildCommand: "node tools/assemble-site.mjs"`. The deployment installs the
+library from the registry and the build copies it into `website/vendor/`.
 
 ## Checking a deployment
 
-The build is the only place that proves the library is *installed* rather than
-*found beside the repository on somebody's disk* — locally, `assemble-site.mjs`
-would fall back to a sibling checkout. So after a deployment, the load-bearing
-check is:
+Locally, `assemble-site.mjs` falls back to a sibling checkout of the library when
+the package is not installed. A deployment has no sibling checkout, so it is the
+one build that proves the library was installed. After a deployment, request:
 
 ```
 /vendor/@crystal-ui/core/assets/crystal.css
 ```
 
-A `404` there means the build did not run, and every page would render unstyled.
-`npm test` runs `tools/verify-deploy.mjs` over the assembled tree and catches the
-same thing before it ships, because it resolves every `href` and `src` as a file
-the way a static host does rather than as a path the way a filesystem does.
+A `404` means the build did not run and every page renders unstyled. `npm test`
+runs `tools/verify-deploy.mjs` over the assembled tree and catches the same fault
+before release. It resolves every `href` and `src` as a file, the way a static
+host does.
 
-The project has Vercel Authentication turned on, so an unauthenticated request to
-any URL answers `302` to `vercel.com/sso-api`. That is deployment protection
-working as configured, and it is why the check above has to be made from a signed-in
-browser rather than with `curl`.
+The project has Vercel Authentication turned on. An unauthenticated request to any
+URL answers `302` to `vercel.com/sso-api`, so make the check from a signed-in
+browser. `curl` cannot make it.
+
+## Visual baselines
+
+The visual check compares rendered frames with stored baselines, and the text on
+a page is part of a frame. A change to page copy changes frames, so the baselines
+have to be captured again on the CI runner afterwards. See
+`validation/baselines/README.md`.

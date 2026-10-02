@@ -1,7 +1,7 @@
 {
   "name": "crystal-preview",
   "private": true,
-  "description": "Crystal's documentation website. Not published: it is a site, it consumes @crystal-ui/core, and it needs no package identity.",
+  "description": "Crystal's documentation website. It consumes @crystal-ui/core and is not published as a package.",
   "scripts": {
     "assemble": "node tools/assemble-site.mjs",
     "build": "python3 tools/build.py",

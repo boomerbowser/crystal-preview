@@ -5,7 +5,7 @@
 @media(max-width:850px){.workbench{grid-template-columns:1fr}.inspector{margin-top:10px}.inspector-body{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}.inspector-body hr{grid-column:1/-1;width:100%}.inspector-body .export-controls,.inspector-body .saved-line{grid-column:1/-1}.palette-picker{max-width:290px}.hero{display:block}.hero p{max-width:590px;margin-top:18px}.stage{min-height:630px}.materials{gap:12px}.material-info{padding:17px}.component-grid,.principles,.code-layout{gap:15px}.docs-grid{grid-template-columns:1fr 1fr}.site-nav{gap:15px}.site-header{min-height:85px}}
 @media(max-width:600px){.shell{padding:0 var(--cr-layout-gutter-compact)}.site-header{align-items:start;flex-direction:column;gap:8px;padding:20px 0 12px}.site-nav{gap:19px;font-size:13px;width:100%;justify-content:space-between}.site-nav a{font-size:12px}.hero{padding-top:30px}.hero h1{font-size:37px}.hero p{font-size:14px}.stage{padding:20px 16px 105px;min-height:700px}.stage .dock-position{left:8px;right:8px;bottom:20px}.stage .cr-dock button{padding:9px 9px;font-size:11px;gap:5px}.stage .cr-dock svg{width:16px}.stage .cr-dock{padding:6px}.optical-art{width:92px;margin-left:-20px;transform:scale(.72) rotate(-13deg)}.feature-copy h3{font-size:20px}.feature-card{padding:20px 16px;min-height:170px}.feature-copy p{font-size:12px}.scene-title{font-size:27px}.scene-head{margin-bottom:24px}.specimen-cards{grid-template-columns:1fr}.project-card{min-height:95px;padding:17px;position:relative;padding-inline-start:65px}.project-card h4{margin-top:0}.project-card .card-glyph{position:absolute;inset-inline-start:18px;top:22px}.inspector-body{gap:0 20px;padding:20px 18px}.palette-picker{gap:6px}.swatch{height:28px}.control-group.palette-group{grid-column:1/-1}.palette-picker{max-width:none;grid-template-columns:repeat(6,34px)}.palette-caption{max-width:240px}.materials,.component-grid,.principles,.code-layout{grid-template-columns:1fr}.material-scene{height:190px}.section{margin:53px 0}.section-heading{display:block}.section-heading h2{font-size:28px}.section-heading .section-link{display:inline-block;margin-top:14px}.theme-overview{gap:10px}.palette-art{height:65px}.palette-card{min-height:130px}.docs-grid{grid-template-columns:1fr}.section-line{font-size:12px}.metrics-strip{gap:10px 17px}.site-footer{display:block}.site-footer p+p{margin-top:10px}.stage-bar{align-items:start;font-size:12px}.version{font-size:10px}.message{max-width:100%;gap:9px}.message.own{margin-inline-start:0}.message .avatar{width:29px;height:29px}.cr-bubble{padding:13px;font-size:16px}.field-demo{flex-wrap:wrap}.field-demo label{flex-basis:100%}}
 
-/* The material hierarchy is the invariant, not a decorative option. */
+/* The material hierarchy is the invariant. */
 .scene-panel{padding:20px;margin:0 -6px;position:relative}.scene-panel .scene-eyebrow,.scene-panel .scene-title,.scene-panel .message-meta,.scene-panel .section-line{background:var(--cr-label-fill);border-radius:9px;padding:4px 8px;width:fit-content;max-width:100%}.scene-panel .scene-title{margin-bottom:20px}.scene-panel .scene-eyebrow{margin-bottom:5px}.scene-panel .section-line{width:100%;padding:7px 10px}.scene-panel .feature-card{margin-bottom:12px}.scene-panel .message-meta{margin-left:-4px}.scene-panel .composer{padding:8px}.stage{padding-bottom:115px}.stage .scene-head{margin-bottom:20px}.layer-key{display:flex;list-style:none;margin:21px 4px 0;padding:0;gap:23px;flex-wrap:wrap}.layer-key li{display:flex;flex-direction:column;position:relative;flex:1;min-width:115px}.layer-key li:not(:last-child):after{content:'›';position:absolute;inset-inline-end:-15px;top:2px;font-size:20px;color:var(--cr-muted)}.layer-key b{font-size:13px}.layer-key span{font-size:11px;color:var(--cr-muted)}
 @media(max-width:600px){.scene-panel{padding:14px;margin:0 -5px}.scene-panel .feature-card{padding:16px 12px}.scene-panel .scene-title{font-size:24px}.scene-panel .scene-eyebrow{font-size:11px}.layer-key{gap:17px}.layer-key li{min-width:80px}.layer-key b{font-size:12px}.layer-key span{font-size:10px}.message{gap:7px}.message .avatar{width:27px;height:27px}.scene-panel .cr-bubble{padding:11px}.scene-panel .optical-art{margin-left:-40px}}
 
@@ -73,17 +73,17 @@
 }
 
 /* The site shell: a persistent side menu of Crystal controls.
-   Frost holds the menu; the pills inside it are Plastic. Resin never appears here —
-   a navigation surface that blurs its own children is the legibility failure the
-   material hierarchy exists to prevent. */
+   Frost holds the menu; the pills inside it are Plastic. Resin never appears here,
+   because a navigation surface that blurs its own children is the legibility
+   failure the material hierarchy exists to prevent. */
 @layer crystal.base {
   .site-layout{display:grid;grid-template-columns:236px minmax(0,1fr);gap:46px;align-items:start;padding:36px 0}
   .site-menu{position:sticky;top:22px;align-self:start;display:flex;flex-direction:column;gap:18px;padding:16px 13px;max-height:calc(100vh - 46px);overflow-y:auto}
   .menu-heading{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--cr-muted);margin:0 0 7px;padding-inline-start:14px}
   .menu-group{display:flex;flex-direction:column;gap:2px}
-  /* Pill geometry explicitly: controls.css scopes it to `nav a.cr-control`, so a
-     <button> in the header inherits none of it and falls back to the user agent's
-     1px/6px padding. Action controls are pill-shaped whatever element they are. */
+  /* Pill geometry, stated here because controls.css scopes it to `nav a.cr-control`,
+     so a <button> in the header inherits none of it and falls back to the user
+     agent's 1px/6px padding. Action controls are pill-shaped whatever element they are. */
   .menu-toggle{display:none;align-items:center;justify-content:center;gap:8px;padding:10px 16px;min-height:44px;border-radius:99px;font-size:13px;font-weight:750}
   .site-main{min-width:0}
   .doc-body{max-width:var(--cr-layout-reading-max);min-width:0}
@@ -104,31 +104,28 @@
 }
 
 /* These override `.cr-control`, which crystal.css declares in the crystal.component
-   layer. A base-layer rule can never win that, whatever its specificity — which is the
-   point of layers, and the reason this block is separate rather than merely later. */
+   layer. A base-layer rule can never win that, whatever its specificity, so this
+   block is a separate layer rather than a later rule. */
 @layer crystal.override {
-  /* Menu entries are Plastic, not Resin. `.cr-control` is Resin by default: correct for
-     a floating action, wrong for navigation. Resin is reserved for surfaces that float
-     above everything, and a sidebar entry is furniture. Thirteen floating capsules would
-     also be exactly the legibility noise the hierarchy exists to prevent. The pill
-     geometry is kept; only the material changes. */
+  /* Menu entries are Plastic. `.cr-control` is Resin by default, which is correct for
+     a floating action and wrong for navigation: Resin is reserved for surfaces that
+     float above everything, and a sidebar entry is furniture. Thirteen floating
+     capsules would also be the legibility noise the hierarchy exists to prevent. The
+     pill geometry is kept; only the material changes. */
   .menu-item{position:relative;justify-content:flex-start;text-align:start;font-size:14px;font-weight:650;color:var(--cr-muted);padding-inline-start:14px;line-height:1.35;min-height:44px;background:transparent;border:1px solid transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
   /* Resting state only. Focus is a 2px primary core inside a four-layer feathered
-     halo, and that halo IS a box-shadow — blanket `box-shadow:none` would silently
+     halo, and that halo is a box-shadow, so a blanket `box-shadow:none` would
      regress the focus recipe to a bare outline. */
   .menu-item:not(:focus-visible){box-shadow:none}
-  /* `.cr-control` paints an 80% white protective fill under its label so text stays
-     legible on Resin. A Plastic entry has nothing to protect against, so the fill is
-     just a blob — remove it. Focus is a box-shadow recipe and is unaffected. */
-  /* ::before is the Haze protective fill (80% white, 1.95px feather); ::after is
-     Resin's optical sheen. Both exist to make a label readable on a glassy control.
-     A Plastic entry has neither problem, so both are decoration without a material
-     justification here. */
+  /* ::before is the Haze protective fill (80% white, 1.95px feather) that keeps a
+     label legible on Resin; ::after is Resin's optical sheen. A Plastic entry has
+     neither problem, so both are decoration without a material justification here.
+     Focus is a box-shadow recipe and is unaffected. */
   .menu-item::before,.menu-item::after{content:none}
   .menu-item:hover{background:var(--cr-surface-alt);color:var(--cr-text)}
-  /* Selection is label weight. Not a check mark, which means validated; and not a
-     mark set beside the label, which offsets the very thing it is meant to mark. Weight
-     is typographic rather than chromatic, so selection still never rests on colour alone. */
+  /* Selection is label weight. A check mark means validated, and a mark set beside
+     the label offsets the thing it is meant to mark. Weight is typographic rather
+     than chromatic, so selection still never rests on colour alone. */
   .menu-item[aria-current]{color:var(--cr-text);font-weight:800;background:var(--cr-surface-alt)}
   /* Forced colours: the current entry is a ring, never a fill. Chromium paints an opaque
      Canvas backplate behind text runs, above the element's own background, so a filled
@@ -138,5 +135,8 @@
     .site-menu{border-color:CanvasText}
   }
 }
-/* The small buttons above the stage are this site's own, so their press motion is too. Crystal carried it in motion.css until 2.3.0 (its 4.4): a library stylesheet naming a consumer's class. Same values, read from the same tokens. */
+/* The small buttons above the stage are this site's own, so their press motion is
+   defined here: a library stylesheet must not name a consumer's class, and
+   Crystal's motion.css stopped carrying this rule in 2.3.0 (its 4.4). The values
+   are the same and read from the same tokens. */
 .tiny-button{transition:transform var(--cr-press) var(--cr-ease-settle),background-color var(--cr-state) var(--cr-ease-settle)}.tiny-button:hover:not(:disabled),.tiny-button:active:not(:disabled){transform:none}

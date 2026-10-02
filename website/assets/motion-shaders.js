@@ -6,19 +6,18 @@
  * WebGL2 is unavailable. If anything in here throws, the surface is left exactly
  * as the stylesheet drew it.
  *
- * The contract lives in assets/shaders/manifest.json, not here. This is the web
+ * The contract lives in assets/shaders/manifest.json. This is the web
  * implementation of it; a platform library honours the same uniforms its own way.
  */
 (function (root) {
   'use strict';
 
-  /* Resolve from this script's own URL, not the page's.
-     A page-relative 'assets/shaders/...' only works for pages at the site root:
-     from /docs/materials.html it resolves to /docs/assets/shaders/... and 404s.
-     Because the runtime fails quietly by design, that broke the optical layer on
-     ten documentation pages without any visible symptom. Deriving the base from
-     the script location works at any depth and under any origin or subpath,
-     which is also what a static host serving this directory requires. */
+  /* Resolve from this script's own URL rather than the page's. A page-relative
+     'assets/shaders/...' only works for pages at the site root: from
+     /docs/materials.html it resolves to /docs/assets/shaders/... and 404s, and
+     because the runtime fails quietly the optical layer is lost on those pages
+     without a visible symptom. The script location works at any depth and under
+     any origin or subpath, which a static host serving this directory requires. */
   const SCRIPT_SRC = (document.currentScript && document.currentScript.src) || '';
   const ASSET_BASE = SCRIPT_SRC ? new URL('.', SCRIPT_SRC).href : 'assets/';
   const MANIFEST_URL = new URL('shaders/manifest.json', ASSET_BASE).href;
@@ -101,16 +100,15 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
   /* Read the material tint from the resolved palette rather than choosing a
      colour here, so a shader can never introduce colour the token set did not
      sanction. */
-  /* `--cr-companion` is the same token the shadow tint is mixed from in
+  /* `--cr-companion` is the token the shadow tint is mixed from in
      CrystalMotion.exportCSS. Refracted light and the shadow it casts have to agree
-     about what colour the light is, so they read one token, not two. An earlier
-     draft read `--cr-accent`, which no palette defines — every palette therefore
-     refracted the hardcoded fallback, and the shaders were prism-purple regardless
-     of the scheme. The fallback is kept only for a surface queried before the
+     about what colour the light is, so both read that one token. No palette
+     defines `--cr-accent`; reading it would refract the hardcoded fallback for
+     every palette. The fallback is kept only for a surface queried before the
      theme resolves, and is the default palette's own companion linearised. */
   /* Palette tokens are authored as hex, so a bare digit scan reads "#EF48C6" as
-     the two numbers 48 and 6 and silently falls through to the default every
-     time. Both notations are parsed explicitly instead. */
+     the two numbers 48 and 6 and falls through to the default every time. Both
+     notations are parsed explicitly. */
   function parseColour(value) {
     const text = (value || '').trim();
     const hex = /^#([0-9a-f]{3,8})$/i.exec(text);
@@ -148,7 +146,7 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
 
   /* Attach a shader to a surface for the duration of one motion.
      `progress` is supplied by the caller and is expected to be spring
-     displacement, not a linear ramp — that is what ties the optical layer to
+     displacement rather than a linear ramp, which ties the optical layer to
      the same physics as the geometry. */
   async function attach(element, shaderId, options = {}) {
     if (!supported || !permitted()) return null;
@@ -177,10 +175,9 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
       borderRadius: getComputedStyle(element).borderRadius,
       /* Below the surface's own content. A negative z-index paints after the
          element's background but before its in-flow children, which is where an
-         optical layer physically belongs: light plays on the material, not on
-         the label sitting on it. Painting above the content would put a
-         translucent wash over text whose contrast is verified, which is not a
-         trade Crystal makes. */
+         optical layer belongs: light plays on the material, not on the label
+         sitting on it. Painting above the content would put a translucent wash
+         over text whose contrast is verified. */
       zIndex: '-1',
     });
 
@@ -221,11 +218,11 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
     element.appendChild(canvas);
 
     /* The shader must mask itself to the surface's real shape. A fixed 0.17 of
-       the short side is a rounded rectangle, and on a pill — every action control
-       in Crystal is one — that painted a visible rectangle inside a stadium: a
-       36px corner rendered as a 12px one. Read the computed radius instead,
-       expressed in the same short-side units the geometry uses, and clamp at 0.5,
-       which IS a pill. */
+       the short side is a rounded rectangle, and on a pill (every action control
+       in Crystal is one) that paints a visible rectangle inside a stadium: a
+       36px corner rendered as a 12px one. Read the computed radius, expressed in
+       the same short-side units the geometry uses, and clamp at 0.5, which is a
+       pill. */
     const shortSide = Math.min(rect.width, rect.height) || 1;
     const corner = parseFloat(getComputedStyle(element).borderRadius) || 0;
     const radius = Math.min(0.5, corner / shortSide);
@@ -234,8 +231,8 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
     const started = performance.now();
     const record = { canvas, gl, frame: 0, previousPosition, previousIsolation, element,
       /* Ambient surfaces keep their own clock. Interaction advances it faster rather than
-         brightening the surface, which is what "faster on press" physically means: the
-         light moves quicker, it does not become more light. */
+         brightening the surface: on press the light moves quicker without becoming
+         brighter. */
       clock: 0, last: started };
     state.active.set(element, record);
 

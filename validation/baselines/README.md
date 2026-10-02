@@ -2,7 +2,7 @@
 
 These twenty-three PNGs are the committed baselines for the frame set in
 [`../../website/verification/frames.json`](../../website/verification/frames.json).
-They are generated, never hand-edited.
+They are generated and must not be edited by hand.
 
 ## Running the gate
 
@@ -14,191 +14,192 @@ They are generated, never hand-edited.
 
 ## Why a tolerance exists, and why it is safe
 
-Captures are not bit-identical between runs on the same machine: GPU rasterisation
+Two captures taken on the same machine are not bit-identical. GPU rasterisation
 dithers gradients by a channel step or two, which moved roughly a hundred pixels of
 `playground-opaque` between two otherwise identical runs. The gate therefore forgives
-up to 400 pixels differing by more than a channel delta of 2.
+up to 400 pixels that differ by more than a channel delta of 2.
 
-That allowance cannot hide a real change. `compare-captures.py` fails on **any** pixel
-whose delta exceeds `--visible-delta` (24) no matter how large the allowance is, and
-[`../../tests/visual-gate-contracts.py`](../../tests/visual-gate-contracts.py) proves
-it: one black pixel on a grey field still fails with the allowance set to a million,
-and a channel delta of 24 is forgiven where 25 is not, whatever the allowance says.
+The allowance cannot hide a visible change. `compare-captures.py` fails on any pixel
+whose delta exceeds `--visible-delta` (24), however large the allowance is.
+[`../../tests/visual-gate-contracts.py`](../../tests/visual-gate-contracts.py) tests
+this: one black pixel on a grey field fails with the allowance set to a million, and
+a channel delta of 24 is forgiven where 25 is not.
 
-That file was cited here and did not exist. It was lost when this site moved to its
-own repository, so for some time the safety argument for the only gate that looks at
-Crystal's appearance rested on a proof nobody could run — which is D-13 in miniature:
-the check was believed rather than executed. It is back, and CI runs it.
-The gates elsewhere in this project (G1–G4) run the comparison in its default exact
-mode, where nothing is forgiven.
+This README cited that file while the file did not exist. It was lost when this site
+moved to its own repository, so for some time nobody could run the proof behind the
+only gate that looks at Crystal's appearance. D-13 records the same failure at a
+larger scale: a check that was believed and not executed. The file has been restored,
+and CI runs it.
+The gates elsewhere in this project (G1 to G4) run the comparison in its default
+exact mode, which forgives nothing.
 
 ## Re-blessing
 
-Do not replace a baseline to make the gate quiet. The procedure is in
-`frames.json` under `reblessing`; in short: look at both images, satisfy yourself the
-change is intended, write down why in the capture directory's README, and commit the
-replaced baselines in the same commit as the change that caused them.
+Do not replace a baseline to make the gate pass. The procedure is in `frames.json`
+under `reblessing`. Look at both images, confirm that the change is intended, write
+the reason in the capture directory's README, and commit the replaced baselines in
+the same commit as the change that caused them.
 
     npm run verify:visual -- --bless
 
 ## Provenance
 
-Captured with Chromium via `tools/capture-frames.mjs` at a device scale factor of 1.
-Preferences are seeded into `localStorage` before the page's first script runs rather
-than clicked through the interface, because clicking animates and an animation in
-flight makes a capture depend on timing. Fonts are awaited before every screenshot.
+The frames are captured with Chromium via `tools/capture-frames.mjs` at a device
+scale factor of 1. Preferences are seeded into `localStorage` before the page's first
+script runs. They are not clicked through the interface, because a click animates,
+and an animation in flight makes a capture depend on timing. The harness waits for
+fonts before every screenshot.
 
-## Re-blessed 21 September 2026 — and what each frame was
+## Re-blessed 21 September 2026: what each frame was
 
-D-13 recorded this gate as red on nine frames for an unknown length of time, and
-deliberately did not bless them: two of the nine differed *visibly* and nobody had
-looked at them. They have now been looked at, one at a time, which is what the entry
-asked for.
+D-13 recorded this gate as red on nine frames for an unknown length of time. It did
+not bless them, because two of the nine differed visibly and nobody had looked at
+them. Each of the nine has now been examined individually, as the entry asked.
 
-**`catalogue.png` — a real change, and a correct one.** All 2,626 visibly-changed
-pixels fall in a single 15px band at `y 461–475`, and the band is one line of prose:
-the page used to say the chapter is generated from `tokens/catalogue/` and now says
-`core/tokens/catalogue/`. That is the repository restructure, which moved the library
-into `core/`. The worst channel delta of 229 is dark text on a light ground, which is
-what a text change looks like. The baseline predates the restructure.
+**`catalogue.png`.** This frame changed, and the change is correct. All 2,626
+visibly changed pixels fall in a single 15px band at `y 461–475`, and the band is one
+line of prose. The page used to say the chapter is generated from `tokens/catalogue/`
+and now says `core/tokens/catalogue/`. The cause is the repository restructure, which
+moved the library into `core/`. The worst channel delta of 229 is dark text on a
+light ground, as expected for a text change. The baseline predates the restructure.
 
-**`playground-dark.png` — not a change.** 11,358 pixels past the visible threshold,
-worst delta 52, spread across `x 404–1213, y 348–808` rather than clustered. Cropped
-and magnified, the two densest regions — the card-stack illustration behind the
-headline, and the segmented control — are indistinguishable. Both are multi-stop
-gradients on a near-black ground, which is exactly where GPU rasterisation dithers,
-and where a fixed absolute threshold of 24 corresponds to no visible difference at
-all: the same channel step that is obvious on a light field is invisible at low
-luminance. The threshold is right for the other seventeen frames and wrong for this
-one, and rather than weaken it for everything, the frame is re-captured.
+**`playground-dark.png`.** This frame did not change. 11,358 pixels are past the
+visible threshold, with a worst delta of 52, and they are spread across
+`x 404–1213, y 348–808` without a cluster. The two densest regions are the card-stack
+illustration behind the headline and the segmented control. Cropped and magnified,
+the baseline and the capture are indistinguishable in both regions. Both are
+multi-stop gradients on a near-black ground. GPU rasterisation dithers there, and a
+channel step that is obvious on a light field is invisible at low luminance, so a
+fixed absolute threshold of 24 corresponds to no visible difference. The threshold is
+right for the other seventeen frames and wrong for this one. The frame was
+re-captured so that the threshold did not have to be weakened for every frame.
 
-**The other seven** — `components-light`, `motion`, `playground-light`,
-`playground-narrow`, `playground-opaque`, `playground-reduced-transparency`,
-`playground-rtl` — had **no pixel past the visible threshold at all**, worst deltas
-11 to 19. Sub-threshold drift of the kind a pixel baseline captured on one machine
-always eventually reports on another.
+**The other seven.** `components-light`, `motion`, `playground-light`,
+`playground-narrow`, `playground-opaque`, `playground-reduced-transparency` and
+`playground-rtl` had no pixel past the visible threshold, with worst deltas of
+11 to 19. This is the sub-threshold drift that a pixel baseline captured on one
+machine eventually reports on another.
 
-`haze-in-resin.png` was replaced too and was never failing: `--bless` re-captures the
-whole set rather than only the frames that differ. Worth knowing before reading a
-blessing commit's diff.
+`haze-in-resin.png` was replaced too, although it was never failing, because `--bless`
+re-captures the whole set and not only the frames that differ. Expect this when you
+read the diff of a blessing commit.
 
-**The gate is still manual, and the attempt to fix that failed usefully.** It was
-wired into CI on 21 September 2026 and taken out again the same hour. The run that
-added it failed **16 of the 18 frames**, with channel deltas up to 255 and tens of
-thousands of visibly-changed pixels — `docs-menu-forced-colours` at 46,058,
-`icons.png` at 25,866 — and the frames that failed hardest are the text-heavy ones.
-That is font rasterisation: these baselines are captured on a contributor's machine,
-and a GitHub runner does not draw type the same way, so comparing them there measures
-the font stack rather than Crystal.
+**The gate is still manual.** It was wired into CI on 21 September 2026 and taken out
+again the same hour. The run that added it failed 16 of the 18 frames, with channel
+deltas up to 255 and tens of thousands of visibly changed pixels:
+`docs-menu-forced-colours` at 46,058 and `icons.png` at 25,866. The frames that
+failed hardest are the text-heavy ones, which identifies the cause as font
+rasterisation. These baselines are captured on a contributor's machine, and a GitHub
+runner draws type differently, so a comparison on the runner measures the font stack
+and not Crystal.
 
-**These baselines are therefore machine-specific**, which D-13 suspected and nobody
-had demonstrated. Capture them where you compare them. The route to a CI gate is a
-second baseline set captured *by* a runner and committed from one, and it is recorded
-as D-15 in Crystal's tracker rather than half-built here.
+**These baselines are therefore machine-specific.** D-13 suspected this, and nobody
+had demonstrated it before this run. Capture baselines where you compare them. A CI
+gate needs a second baseline set, captured by a runner and committed from one. That
+work is recorded as D-15 in Crystal's tracker, and no part of it was built here.
 
-`tests/visual-gate-contracts.py` does run in CI, because it compares synthetic PNGs it
-generates itself and means the same thing everywhere.
+`tests/visual-gate-contracts.py` does run in CI. It compares synthetic PNGs that it
+generates itself, so its result means the same thing on every machine.
 
-## Re-blessed 21 September 2026 — the dock regains its Stone label backing
+## Re-blessed 21 September 2026: the dock regains its Stone label backing
 
-Eight frames: `playground-{light,dark,narrow,opaque,reduced-transparency,rtl}`
-and `forced-colours-{light,dark}`. The cause is Crystal **D-16**: this site's
-`controls.css` carried
+Eight frames changed: `playground-{light,dark,narrow,opaque,reduced-transparency,rtl}`
+and `forced-colours-{light,dark}`. The cause is Crystal D-16. This site's
+`controls.css` carried these rules:
 
 ```css
 .cr-dock-inner{background:transparent;padding:0;isolation:auto;}
 .cr-dock-inner::before{display:none;}
 ```
 
-which switched off the Stone backing that `components.md` ("Stone label backing
-… `.cr-dock-inner` shares the recipe"), `materials.md`'s prose and
-`materials.md`'s table all require — the table puts "a Haze content fill, or
-Stone if the backdrop is unknown" in its **Right** column. Suppressing it was a
-regression of a documented material, and because the second selector matched the
-class rather than the context it also blanked `.cr-dock-inner.cr-stone`, the
-"Stone on Resin" specimen on `playground.html`.
+They switched off the Stone backing. Three places require that backing:
+`components.md` ("Stone label backing … `.cr-dock-inner` shares the recipe"), the
+prose of `materials.md`, and the table in `materials.md`, which puts "a Haze content
+fill, or Stone if the backdrop is unknown" in its **Right** column. Suppressing the
+backing regressed a documented material. The second selector matched the class and
+not the context, so it also blanked `.cr-dock-inner.cr-stone`, the "Stone on Resin"
+specimen on `playground.html`.
 
 **What the frames show.** In the six normal frames the dock gains the protected
 label group that `components.md` names in its Resin-toolbar row: a Stone tray
 behind the labels, 55% white with the 1.95px feather, inside the Resin pill.
-Before the fix there was no protected label group at all. In the two
-forced-colours frames the Stone layer stays hidden — the library suppresses
-`.cr-dock-inner::before` there, as it should — and the only difference is
-geometry, because removing the site's `padding:0` restores the library's
-`padding:3px`. Both were checked on the running page before blessing:
+Before the fix the dock had no protected label group. In the two forced-colours
+frames the Stone layer stays hidden, because the library correctly suppresses
+`.cr-dock-inner::before` there. The only difference in those two frames is geometry:
+removing the site's `padding:0` restores the library's `padding:3px`. Both states
+were checked on the running page before blessing:
 
 ```
 forced-colors:none     padding:3px  ::before display:block  background:rgba(255,255,255,0.55)
 forced-colors:active   padding:3px  ::before display:none
 ```
 
-Every changed pixel is inside the dock: band y 617-688, x 403-829 on
-`playground-light`. Nothing else in any frame moved.
+Every changed pixel is inside the dock, in the band y 617 to 688, x 403 to 829 on
+`playground-light`. Nothing else moved in any frame.
 
-## Five frames added 22 September 2026 — focus and scrollbars
+## Five frames added 22 September 2026: focus and scrollbars
 
-Both were gaps the frame set described itself as covering and did not.
+The frame set described itself as covering both, and covered neither.
 
-**Focus.** `playground-light`'s own `why` said it guards "the material hierarchy,
-pill geometry and focus ring", and `forced-colours-light`'s said "the focus ring
-must survive as an outline". Nothing in the frame set had ever held focus, so
-neither guarded any ring at all. That is not a suspicion: 2.1.0 changed the
-recipe from four halo layers to six, and all eighteen frames passed at **zero
-tolerance**.
+**Focus.** The `why` of `playground-light` said it guards "the material hierarchy,
+pill geometry and focus ring", and the `why` of `forced-colours-light` said "the
+focus ring must survive as an outline". No frame in the set had ever held focus, so
+neither frame guarded a ring. This was demonstrated: 2.1.0 changed the recipe from
+four halo layers to six, and all eighteen frames passed at zero tolerance.
 
 `focus-ring-light`, `focus-ring-dark` and `focus-ring-forced-colours` focus
-`#open-dialog` before the shutter. `:focus-visible` follows keyboard modality, so
-the harness presses Tab first and then *verifies* `el.matches(':focus-visible')`,
-failing the frame if it does not — the same rule as the 404 guard: never bless a
-frame that did not get the state it asked for.
+`#open-dialog` before the screenshot is taken. `:focus-visible` follows keyboard
+modality, so the harness presses Tab first and then checks
+`el.matches(':focus-visible')`. If the check is false, the frame fails. The 404 guard
+follows the same rule: never bless a frame that did not get the state it asked for.
 
 **Scrollbars.** D-4 recorded that "headless Chromium paints no scrollbar at all,
-so no reference frame contains one". That is a fact about a flag, not a browser:
-Playwright pushes `--hide-scrollbars` whenever `headless` is true. Drop it and
-Chromium paints a classic 15px bar. `scrollbar-resin` and `scrollbar-frost` opt
-in with `"scrollbars": true`, which puts them on a second browser — the other
-frames keep the flag, because a page-level screenshot that suddenly gained a
-document scrollbar would reflow every one of them.
+so no reference frame contains one". The cause is a Playwright flag and not the
+browser: Playwright pushes `--hide-scrollbars` whenever `headless` is true. Without
+the flag, Chromium paints a classic 15px bar. `scrollbar-resin` and `scrollbar-frost`
+opt in with `"scrollbars": true`, which puts them on a second browser. The other
+frames keep the flag, because a document scrollbar in a page-level screenshot would
+reflow every one of them.
 
 `.cr-scroll-resin` appears on this site only as escaped sample code, so the live
 Resin scroller is `.cr-table-scroll`, and it overflows only when the viewport is
-narrow. `scrollbar-resin` is therefore 390px wide, anchored to the
-`#component-chip` heading rather than to an index, because `.cr-table-scroll`
-matches thirty-two elements on that page.
+narrow. `scrollbar-resin` is therefore 390px wide. It is anchored to the
+`#component-chip` heading and not to an index, because `.cr-table-scroll` matches
+thirty-two elements on that page.
 
 ### What these five were shown to catch
 
-Each was mutated at the resolver and watched go red, then restored:
+Each change below was planted in the resolver, the listed frames were seen to fail,
+and the change was then reverted:
 
 | Planted in `crystal.js` | Frames that failed |
 | --- | --- |
-| The two focus elevation layers withdrawn — exactly what 2.1.0 added | `focus-ring-light`, `focus-ring-dark` |
+| The two focus elevation layers withdrawn, which is exactly what 2.1.0 added | `focus-ring-light`, `focus-ring-dark` |
 | Halo spreads back to the withdrawn 2/6/12/22 | `focus-ring-light`, `focus-ring-dark` |
-| Resin scrollbar thumb 80% → 50% | `scrollbar-resin` |
+| Resin scrollbar thumb from 80% to 50% | `scrollbar-resin` |
 | Frost scrollbar thumb from ink to primary | `scrollbar-frost` |
-| One feather alpha 46% → 40% | **none — correctly** |
+| One feather alpha from 46% to 40% | None, which is correct |
 
-The last row is the gate working, not failing. A six-point alpha shift on one
-feather moves a channel by about eight, and this gate fails only above
-twenty-four; `tests/visual-gate-contracts.py` pins that boundary. A change too
-small to see is a change this gate is not for. The contrast gate, at 1,788
-checks across twelve palette-and-mode combinations, is what holds the alphas.
+The last row is the expected result. A six-point alpha shift on one feather moves a
+channel by about eight, and this gate fails only above twenty-four.
+`tests/visual-gate-contracts.py` pins that boundary. This gate does not cover a
+change too small to see. The contrast gate holds the alphas, with 1,788 checks
+across twelve palette-and-mode combinations.
 
 `focus-ring-forced-colours` did not fail on either halo mutation, which is also
-correct: forced colours discards `box-shadow`, so that frame guards the outline
-that survives it, not the halo that does not.
+correct. Forced colours discards `box-shadow`, so that frame guards the outline,
+which survives forced colours, and cannot see the halo.
 
-### The focus baselines are 2.0.0's, and that is the point
+### The focus baselines are 2.0.0's
 
 These were first captured against a working copy of 2.1.0 and then re-blessed
-here against the published **2.0.0** the site actually installs. Exactly two
-frames moved — `focus-ring-light` and `focus-ring-dark` — because 2.0.0's theme
-exports a four-layer `--cr-focus-ring` and 2.1.0's exports six. Nothing else in
-the set differed between the two libraries.
+here against the published 2.0.0, which is the version the site installs. Exactly
+two frames moved, `focus-ring-light` and `focus-ring-dark`, because the 2.0.0 theme
+exports a four-layer `--cr-focus-ring` and the 2.1.0 theme exports six layers.
+Nothing else in the set differed between the two libraries.
 
-That is the gate catching the change it was built for, across a real version
-difference rather than a planted one, five minutes after being told it could.
-When 2.1.0 is published and `adopt-crystal-2.1.0` merges, these two frames will
-move again, and the commit that moves them should say so — that is the whole
-mechanism working as intended.
-
+The gate caught the change it was built for, across a real difference between two
+versions of the library and not a planted one, five minutes after the planted
+changes showed that it could. When 2.1.0 is published and `adopt-crystal-2.1.0`
+merges, these two frames will move again, and the commit that moves them should say
+so.

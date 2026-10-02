@@ -4,14 +4,9 @@
 `verify-frames.mjs` forgives up to 400 pixels differing by more than a channel
 delta of 2, because GPU rasterisation dithers gradients between runs on the same
 machine. An allowance like that is only safe if it is bounded by something the
-allowance itself cannot raise, and `validation/baselines/README.md` has always
-claimed it is — naming this file as the proof.
-
-This file did not exist. It is cited by the README and by `verify-frames.mjs`'s
-own comment, and it was lost when the site moved to its own repository, so for
-some time the safety argument for the one gate that looks at Crystal's
-appearance rested on a test nobody could run. That is D-13's shape in
-miniature: the check was believed, not executed.
+allowance itself cannot raise. `validation/baselines/README.md` and the comment
+in `verify-frames.mjs` name this file as the proof, so it has to exist and run
+(D-13).
 
     python3 tests/visual-gate-contracts.py
 """
@@ -95,8 +90,8 @@ with tempfile.TemporaryDirectory() as work:
             f'gates rely on for exact equality. Output: {out}')
 
     def the_visible_threshold_is_what_bounds_it():
-        """Just under the threshold is forgivable; just over it is not, however
-        large the allowance. That boundary is the whole safety argument."""
+        """Just under the threshold is forgiven and just over it fails, however
+        large the allowance. This boundary is what makes the allowance safe."""
         under = os.path.join(work, 'under.png')
         png(under, with_pixel((128 + 24, 128, 128)), WIDTH, HEIGHT)
         code, out = compare(base, under, '--tolerance', '2', '--max-differing', '1000000')
