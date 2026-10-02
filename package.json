@@ -20,7 +20,7 @@
     "verify:scroll:device": "node tools/verify-scroll-device.mjs"
   },
   "dependencies": {
-    "@crystal-ui/core": "^2.3.0"
+    "@crystal-ui/core": "^2.3.1"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

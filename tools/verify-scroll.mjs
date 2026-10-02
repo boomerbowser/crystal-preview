@@ -49,6 +49,17 @@ for (const [label, contextOptions] of [
     await tab.goto(`${ORIGIN}/${page}`, { waitUntil: 'load' });
     await tab.waitForTimeout(700);
 
+    /* A dialog with content in it, through the site's own control. Every dialog
+       below is shown empty, and an empty dialog has no code block to scroll —
+       which is how `.cr-dialog pre` went without a stable gutter, moving its
+       text 10px on a desktop, until a phone opened this one (Crystal's D-4). */
+    const opener = await tab.$('#inspect-export');
+    if (opener) {
+      await opener.scrollIntoViewIfNeeded();
+      await opener.click();
+      await tab.waitForTimeout(500);
+    }
+
     /* A closed dialog has no layout, so a contract checked only on what is on
        screen never sees one, and a dialog is a scroll container with a material
        of its own. `show` rather than `showModal` because only one dialog may be
