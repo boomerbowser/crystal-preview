@@ -120,14 +120,14 @@
 <td><a id="surface-haze"></a><strong>Haze reading surface</strong> <code>haze</code></td>
 <td>Haze</td>
 <td><code>.cr-haze</code></td>
-<td>85</td>
+<td>88</td>
 <td>Anything read: cards, rows, panels, wells, forms, messages, decisions. 80% fill, 1.95px feather on an isolated paint layer, crisp foreground. <code>.cr-well</code> is the same recipe recessed into a Frost or Resin frame. <code>.cr-haze.overlay</code> is the recessed overlay: a transient overlay opened inside a pane that is already lifted, drawn as a flat Haze fill with the <code>--cr-edge</code> rim and the content shadow, so it can be told from the pane it sits in.</td>
 </tr>
 <tr>
 <td><a id="surface-resin"></a><strong>Resin plane</strong> <code>resin</code></td>
 <td>Resin</td>
 <td><code>.cr-resin</code></td>
-<td>9</td>
+<td>12</td>
 <td>One floating Resin plane with no reading fill of its own, pill-shaped unless it is a panel: a player's transport bar, a pinned element, a Resin handle over imagery or between regions. Controls inside it lose their own backdrop filter, because Resin never contains Resin. A plane whose controls are labels to be read holds a Haze fill as well, and is a dock. <code>.cr-resin.transport</code> is the media transport: the pill with 4px block and 12px inline padding around its 48px controls (58px tall with its rim), with tabular time readouts, wrapping to a second row in a player narrower than 420px. <code>.cr-media</code> is the stage it sits on (the content radius, the letterbox, <code>--cr-media-aspect</code> and <code>--cr-media-fit</code>), and <code>.cr-media-bar</code> is the region inset 12px, or the safe area in full screen, that holds the transport.</td>
 </tr>
 <tr>
@@ -163,7 +163,7 @@
 <td>Stone</td>
 <td><code>.cr-stone</code></td>
 <td>3</td>
-<td>A label over an unknown or moving backdrop: a caption on media, a status bar over a scene. 55% light / 60% dark fill, feathered like Haze, crisp text. <code>.cr-media-caption</code> is a caption cue rendered by the library: the Stone backing on a box above the transport, never under it. <code>::cue</code> on a <code>.cr-media</code> video is the flat fill for the browser's own renderer.</td>
+<td>A label over an unknown or moving backdrop: a caption on media, a status bar over a scene. 55% light / 60% dark fill, feathered like Haze, crisp text. <code>.cr-media-caption</code> is a caption cue rendered by the library: the Stone backing on a box above the transport, never under it. <code>.large</code>, <code>.larger</code> and <code>.solid</code> are the reader's caption style: a cue 1.25 or 1.5 times the size, and a cue on the opaque surface. <code>::cue</code> on a <code>.cr-media</code> video is the flat fill for the browser's own renderer, which follows the reader's system caption settings.</td>
 </tr>
 <tr>
 <td><a id="surface-mirage"></a><strong>Mirage scrim</strong> <code>mirage</code></td>
@@ -260,7 +260,7 @@
 <td><a id="surface-none"></a><strong>No surface of its own</strong> <code>none</code></td>
 <td>None</td>
 <td>None</td>
-<td>107</td>
+<td>104</td>
 <td>Layout, typography, behaviour and drawing components that inherit whatever they sit on. A chart's marks, a divider, a provider.</td>
 </tr>
 </tbody>
@@ -1461,7 +1461,7 @@
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, dragging, focus-visible, disabled</td></tr>
 <tr><th scope="row">Material</th><td>Resin thumb over the gradient field</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Thumb reaches 44px including its hit area.</td></tr>
 <tr><th scope="row">Semantics</th><td>Two linked sliders; each axis announces its own value and responds to arrow keys.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Thumb material, focus ring, contrast of the thumb against any underlying colour</td></tr>
@@ -1474,7 +1474,7 @@
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, dragging, focus-visible, disabled</td></tr>
 <tr><th scope="row">Material</th><td>Resin thumb on a gradient track</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Matches the slider contract.</td></tr>
 <tr><th scope="row">Semantics</th><td>role="slider" with the channel named and the value in that channel's units.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Thumb and track material, focus ring</td></tr>
@@ -1487,7 +1487,7 @@
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, dragging, focus-visible, disabled</td></tr>
 <tr><th scope="row">Material</th><td>Resin thumb on the hue ring</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Ring thickness is a declared proportion of the radius.</td></tr>
 <tr><th scope="row">Semantics</th><td>role="slider" in degrees, wrapping at 360.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Thumb material, ring geometry, focus ring</td></tr>
@@ -2223,7 +2223,7 @@
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>closed, open, pending</td></tr>
 <tr><th scope="row">Material</th><td>Frost panel with Haze reading fill (R15e)</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a></td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Content radius; anchored to the trigger</td></tr>
 <tr><th scope="row">Semantics</th><td>Focus moves into the popover, returns to the trigger on dismiss, and Escape cancels</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Popover surface and action row</td></tr>
@@ -2326,7 +2326,7 @@
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>closed, open, highlighted, disabled-item, checked-item</td></tr>
 <tr><th scope="row">Material</th><td>Frost panel with Haze rows (R15e)</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a></td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Content radius; every row reserves leading room for a check mark, so ticking one does not shift its label</td></tr>
 <tr><th scope="row">Semantics</th><td>role=menu with full keyboard navigation, type-ahead and Escape; checkable items use aria-checked</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Surface, row treatment, row geometry, separators</td></tr>
@@ -2354,7 +2354,7 @@
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>closed, open, repositioned</td></tr>
 <tr><th scope="row">Material</th><td>Frost panel with Haze reading fill (R15e)</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a></td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Content radius; flips and shifts to stay in view</td></tr>
 <tr><th scope="row">Semantics</th><td>The trigger carries aria-expanded and aria-controls; focus moves in for interactive content</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Surface, arrow, positioning behaviour</td></tr>
@@ -3327,13 +3327,13 @@
 <h2 id="media">Media</h2>
 <p>Video, audio and galleries. Crystal named none of these before. The parity requirement here is about capability: a design system without a transport control leaves every product to invent one, and each invention re-solves captions, scrubbing and keyboard transport differently.</p>
 <h3 id="video-player">Video player</h3>
-<p>A media stage at a set aspect ratio holding the video, a caption cue above the transport, and the transport inset from the stage: play, skip, the scrubber with its two time readouts, mute and volume, then a settings menu (playback speed, subtitles and captions, audio track, quality), picture in picture and full screen.</p>
+<p>A media stage at a set aspect ratio holding the video, a caption cue above the transport, and the transport inset from the stage: play, skip, the scrubber with its two time readouts, mute and volume, then a settings menu (playback speed, subtitles and captions, caption style, audio track, quality), picture in picture and full screen.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>idle, playing, paused, buffering, ended, focus-visible, captions-on, settings-open, picture-in-picture, full-screen</td></tr>
 <tr><th scope="row">Material</th><td>Resin transport over the video with Haze fills behind its time readouts; Stone behind caption cues; Frost settings menu</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a> → <a href="#surface-haze">Haze reading surface</a> → <a href="#surface-stone">Stone label backing</a> → <a href="#surface-frost">Frost panel</a></td></tr>
 <tr><th scope="row">Geometry</th><td>The stage keeps the content radius and the aspect ratio the product sets (16:9, 4:3, 1:1, 9:16 or the media's own). The transport is a pill inset 12px from the stage, or the safe area in full screen, with 4px block padding around its controls (58px with its rim); every control reaches the 48px action target. Caption cues sit above the transport, never under it. Below 420px the transport wraps its trailing controls onto a second row.</td></tr>
-<tr><th scope="row">Semantics</th><td>Native video element underneath. Controls are real buttons, captions are supported and their state is announced, and keyboard shortcuts do not trap focus. Speed, subtitle, audio-track and quality choices are menus of radio items (menuitemradio with aria-checked); the selected item is shown by label weight, never a check mark, and each change is announced in words. A choice the engine cannot make (an audio track list where the browser exposes none, picture in picture where it is unsupported) is not offered.</td></tr>
+<tr><th scope="row">Semantics</th><td>Native video element underneath. Controls are real buttons, captions are supported and their state is announced, and keyboard shortcuts do not trap focus. The caption style (a larger size, 1.25 or 1.5 times, and a solid backing on the opaque surface) is the reader's: it is kept for every player the reader opens and drawn with `.cr-media-caption`'s `.large`, `.larger` and `.solid`. Speed, subtitle, caption-style, audio-track and quality choices are menus of radio items (menuitemradio with aria-checked); the selected item is shown by label weight, never a check mark, and each change is announced in words. A choice the engine cannot make (an audio track list where the browser exposes none, picture in picture where it is unsupported) is not offered.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Stage, transport and caption materials, transport geometry and insets, the settings menu, the motion of showing and hiding controls</td></tr>
 <tr><th scope="row">Product owns</th><td>Sources, caption and audio tracks, quality renditions and their switching (adaptive streaming), DRM, analytics</td></tr>
 <tr><th scope="row">Motion</th><td><code>media-in</code>, <code>menu-in</code>, <code>menu-out</code></td></tr>

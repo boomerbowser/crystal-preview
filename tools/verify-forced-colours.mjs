@@ -18,7 +18,7 @@
  * It is not vacuous: without forced colours the same pages must show at least
  * one blur, or the gate fails for measuring nothing.
  *
- * Seen failing on @crystal-ui/core 2.3.1 and passing on 2.4.0 (C-R3).
+ * Seen failing on @crystal-ui/core 2.3.1 and passing on 2.4.0 (C-R3) and 2.5.0.
  *
  *   node tools/verify-forced-colours.mjs [--base http://127.0.0.1:4321]
  */

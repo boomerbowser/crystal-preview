@@ -276,7 +276,7 @@ these are the values that technique uses.</p>
 <p>Keep backdrop filters confined to a few bounded surfaces, avoid continuous blur animations, and avoid putting a scrolling text layer under numerous overlapping filters. A low-power mode can select the opaque recipe without changing geometry. Measure actual scroll/compositor behavior before setting device-specific budgets.</p>
 <h2 id="spacing-and-the-layout-shell">Spacing and the layout shell</h2>
 <p>This section defines two scales as tokens. They name what Crystal's own shell already does, so something other than the preview can reach the values. Neither is a new design decision.</p>
-<p><strong>The spacing scale</strong> is the 4px rhythm, tied at two points to the reading rhythm: <code>md</code> is the 16px reading size and <code>lg</code> is the 24px leading, so a <code>lg</code> gap is exactly one blank line between blocks.</p>
+<p><strong>The spacing scale</strong> is the 4px rhythm, tied at two points to the reading rhythm: <code>md</code> is the 16px reading size and <code>lg</code>, 24px, is the step nearest the 25.6px leading, so a <code>lg</code> gap reads as one blank line between blocks.</p>
 <div class="cr-table-scroll"><table class="cr-table">
 <thead>
 <tr>
@@ -307,7 +307,7 @@ these are the values that technique uses.</p>
 <p><strong>The breakpoints</strong> are where the shell already changes: <code>sm</code> 600px, <code>md</code> 850px, <code>lg</code> 1150px, <code>xl</code> 1500px. They cannot be custom properties, because a custom property is not usable inside a media query. Libraries compile against them from the generated exports.</p>
 <p><strong>The shell</strong> is a 1536px ceiling with gutters that step down at those breakpoints: 44px at <code>lg</code> and above, 26px between <code>sm</code> and <code>lg</code>, and 18px below <code>sm</code>. Inside it is a 920px reading column, which keeps a line of prose a comfortable length.</p>
 <h2 id="the-type-scale">The type scale</h2>
-<p>Crystal specifies a reading rhythm, Manrope at 16/24, and the scale is derived from it. Each step is a ratio of the reading size, so changing <code>typography.readingSize</code> changes all six steps and no step is a literal.</p>
+<p>Crystal specifies a reading rhythm, Manrope at 16/25.6 (a leading of 1.6, D-41), and the scale is derived from it. Each step is a ratio of the reading size, so changing <code>typography.readingSize</code> changes all six steps and no step is a literal.</p>
 <div class="cr-table-scroll"><table class="cr-table">
 <thead>
 <tr>
@@ -351,7 +351,7 @@ these are the values that technique uses.</p>
 <td><code>body</code></td>
 <td>1</td>
 <td>16px</td>
-<td>1.5</td>
+<td>1.6</td>
 <td>0</td>
 </tr>
 <tr>

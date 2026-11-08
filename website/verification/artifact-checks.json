@@ -1,7 +1,7 @@
 {
   "scope": "Static artifact integrity; not product or complete WCAG validation",
   "htmlPages": 16,
-  "localLinksAndAssets": 999,
+  "localLinksAndAssets": 1002,
   "iconsChecked": 1022,
   "preservedSourceCopies": 5,
   "errors": []
