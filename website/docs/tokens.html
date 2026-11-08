@@ -1,20 +1,20 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Tokens · Crystal</title><link rel="icon" href="../vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="../assets/controls.css?v=pill-focus-2"><script src="../vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="../vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="../assets/motion-shaders.js" defer></script><script src="../assets/menu.js" defer></script><script src="../assets/docs.js" defer></script><script src="../assets/controls.js?v=pill-focus-2" defer></script></head><body><a class="skip" href="#main">Skip to specification</a><div class="shell"><header class="site-header"><a class="wordmark" href="../index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="../vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="../index.html">Overview</a><a class="cr-control menu-item" href="../playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="../docs/principles.html">Foundations</a><a class="cr-control menu-item" href="../docs/colors.html">Color</a><a class="cr-control menu-item" href="../docs/materials.html">Materials</a><a class="cr-control menu-item" href="../docs/components.html">Components</a><a class="cr-control menu-item" href="../docs/catalogue.html">Catalogue</a><a class="cr-control menu-item" href="../docs/icons.html">Icons</a><a class="cr-control menu-item" href="../docs/tokens.html" aria-current="page">Tokens</a><a class="cr-control menu-item" href="../docs/motion.html">Motion</a><a class="cr-control menu-item" href="../docs/motion-components.html">Component motion</a><a class="cr-control menu-item" href="../docs/accessibility.html">Accessibility</a><a class="cr-control menu-item" href="../docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="../motion.html">Motion studies</a><a class="cr-control menu-item" href="../verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="tokens">Tokens</h1>
-<p>Every value Crystal ships, generated from <code>core/tokens/crystal.tokens.json</code> — the W3C
+<p>Every value Crystal ships, generated from <code>core/tokens/crystal.tokens.json</code>, the W3C
 Design Tokens (DTCG) source of truth. This page is written by
-<code>tools/build-reference.cjs</code>; editing it by hand is pointless, because the next build
-overwrites it. Edit the token file and run <code>npm run build</code>.</p>
+<code>tools/build-reference.cjs</code>, and the next build overwrites any edit made here by hand.
+Edit the token file and run <code>npm run build</code>.</p>
 <h2 id="how-the-three-tiers-work">How the three tiers work</h2>
-<p>Crystal resolves a value through three tiers, and the direction is strictly one way:
+<p>Crystal resolves a value through three tiers, and the direction is one way only:
 a component reads a semantic token, a semantic token reads a primitive, and nothing
-reads upward. That is what makes a palette swap a change to one tier rather than a
-search across the codebase.</p>
+reads upward. A palette swap is therefore a change to one tier, with no search
+across the codebase.</p>
 <pre><code>component.action.radius  →  semantic.shape.pill  →  primitive.distance.full
 </code></pre>
-<p><strong>A component that reads a primitive directly is a bug.</strong> It works, and it silently
-opts that component out of every theme, mode and palette change made at the semantic
-tier. <code>tools/validate-tokens.cjs</code> checks the direction of every reference.</p>
+<p><strong>A component that reads a primitive directly is a bug.</strong> It works, and it opts that
+component out of every theme, mode and palette change made at the semantic tier.
+<code>tools/validate-tokens.cjs</code> checks the direction of every reference.</p>
 <h2 id="primitive-tokens">Primitive tokens</h2>
-<p>Raw values. Never referenced by a component directly — a primitive is the thing a semantic token points at, so that the meaning can be re-pointed without editing every use site.</p>
+<p>Raw values. A component never references a primitive directly: a primitive is what a semantic token points at, so the meaning can be re-pointed without editing every use site.</p>
 <p>213 tokens.</p>
 <h3 id="primitive-palette">Primitive · palette</h3>
 <div class="cr-table-scroll"><table class="cr-table">
@@ -31,19 +31,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.palette.prism.seed</code></td>
 <td>color</td>
 <td><code>#7338EF</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.prism.companion</code></td>
 <td>color</td>
 <td><code>#EF48C6</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.prism.glow</code></td>
 <td>color</td>
 <td><code>#52BDF3</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.prism.light.canvas</code></td>
@@ -205,19 +205,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.palette.fuchsia.seed</code></td>
 <td>color</td>
 <td><code>#C01993</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.fuchsia.companion</code></td>
 <td>color</td>
 <td><code>#7C4DFF</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.fuchsia.glow</code></td>
 <td>color</td>
 <td><code>#FF96DA</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.fuchsia.light.canvas</code></td>
@@ -379,19 +379,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.palette.cobalt.seed</code></td>
 <td>color</td>
 <td><code>#2758E8</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.cobalt.companion</code></td>
 <td>color</td>
 <td><code>#6D47F2</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.cobalt.glow</code></td>
 <td>color</td>
 <td><code>#48C6F0</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.cobalt.light.canvas</code></td>
@@ -553,19 +553,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.palette.ion.seed</code></td>
 <td>color</td>
 <td><code>#007E97</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.ion.companion</code></td>
 <td>color</td>
 <td><code>#3D45E5</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.ion.glow</code></td>
 <td>color</td>
 <td><code>#36DCD1</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.ion.light.canvas</code></td>
@@ -727,19 +727,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.palette.amethyst.seed</code></td>
 <td>color</td>
 <td><code>#8430C6</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.amethyst.companion</code></td>
 <td>color</td>
 <td><code>#CE49B2</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.amethyst.glow</code></td>
 <td>color</td>
 <td><code>#9198FF</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.amethyst.light.canvas</code></td>
@@ -901,19 +901,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.palette.harbor.seed</code></td>
 <td>color</td>
 <td><code>#4669B2</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.harbor.companion</code></td>
 <td>color</td>
 <td><code>#8970B5</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.harbor.glow</code></td>
 <td>color</td>
 <td><code>#72C4DF</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.palette.harbor.light.canvas</code></td>
@@ -1075,7 +1075,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.palette.harbor.dark.contentOwnSurface</code></td>
 <td>color</td>
 <td><code>#283c60</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 </tbody>
 </table></div>
@@ -1094,115 +1094,115 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.material.acrylicBlur</code></td>
 <td>dimension</td>
 <td><code>40px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.acrylicSaturation</code></td>
 <td>number</td>
 <td><code>125</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.glassBlur</code></td>
 <td>dimension</td>
 <td><code>20px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.glassSaturation</code></td>
 <td>number</td>
 <td><code>165</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.glassOpacity</code></td>
 <td>number</td>
 <td><code>0.2</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.grainOpacity</code></td>
 <td>number</td>
 <td><code>0.045</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.labelVeil</code></td>
 <td>number</td>
 <td><code>0.55</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.labelVeilDark</code></td>
 <td>number</td>
 <td><code>0.6</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.contentOpacity</code></td>
 <td>number</td>
 <td><code>0.8</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.contentFeather</code></td>
 <td>dimension</td>
 <td><code>1.95px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.stoneFeather</code></td>
 <td>dimension</td>
 <td><code>1.95px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.mirageColor</code></td>
 <td>color</td>
 <td><code>#111525</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.mirageOpacity</code></td>
 <td>number</td>
 <td><code>0.38</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.mirageBlur</code></td>
 <td>dimension</td>
 <td><code>28px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.mirageSaturation</code></td>
 <td>number</td>
 <td><code>165</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.mirageBrightness</code></td>
 <td>number</td>
 <td><code>88</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.mirageFallbackOpacity</code></td>
 <td>number</td>
 <td><code>0.64</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.plasticInactive.light</code></td>
 <td>color</td>
 <td><code>#f1f1f3</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.material.plasticInactive.dark</code></td>
 <td>color</td>
 <td><code>#202126</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 </tbody>
 </table></div>
@@ -1221,55 +1221,55 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.duration.press</code></td>
 <td>duration</td>
 <td><code>120ms</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.duration.state</code></td>
 <td>duration</td>
 <td><code>213.33ms</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.duration.spatial</code></td>
 <td>duration</td>
 <td><code>293.33ms</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.duration.exit</code></td>
 <td>duration</td>
 <td><code>160ms</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.duration.material</code></td>
 <td>duration</td>
 <td><code>1000ms</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.duration.liquid</code></td>
 <td>duration</td>
 <td><code>1400ms</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.duration.flow</code></td>
 <td>duration</td>
 <td><code>1200ms</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.duration.departure</code></td>
 <td>duration</td>
 <td><code>650ms</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.duration.maxDuration</code></td>
 <td>duration</td>
 <td><code>5000ms</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 </tbody>
 </table></div>
@@ -1288,43 +1288,43 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.distance.panel</code></td>
 <td>dimension</td>
 <td><code>24px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.distance.floating</code></td>
 <td>dimension</td>
 <td><code>30px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.distance.content</code></td>
 <td>dimension</td>
 <td><code>0px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.distance.exit</code></td>
 <td>dimension</td>
 <td><code>20px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.distance.depth</code></td>
 <td>dimension</td>
 <td><code>50px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.distance.feather</code></td>
 <td>dimension</td>
 <td><code>6px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.distance.maxTravel</code></td>
 <td>dimension</td>
 <td><code>50px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 </tbody>
 </table></div>
@@ -1343,24 +1343,24 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>primitive.easing.enter</code></td>
 <td>cubicBezier</td>
 <td><code>cubic-bezier(0.22, 0.65, 0.22, 1)</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.easing.settle</code></td>
 <td>cubicBezier</td>
 <td><code>cubic-bezier(0.2, 0, 0.2, 1)</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>primitive.easing.exit</code></td>
 <td>cubicBezier</td>
 <td><code>cubic-bezier(0.4, 0, 0.6, 1)</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 </tbody>
 </table></div>
 <h2 id="semantic-tokens">Semantic tokens</h2>
-<p>What a value <em>means</em>: the surface a card sits on, the duration a control settles over. Components consume this tier and nothing below it.</p>
+<p>What a value means: the surface a card sits on, the duration a control settles over. Components consume this tier and nothing below it.</p>
 <p>114 tokens.</p>
 <h3 id="semantic-material">Semantic · material</h3>
 <div class="cr-table-scroll"><table class="cr-table">
@@ -1504,13 +1504,13 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.feedback.light.success.ink</code></td>
 <td>color</td>
 <td><code>#175D38</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.success.surface</code></td>
 <td>color</td>
 <td><code>#E5F4EA</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.success.symbol</code></td>
@@ -1522,19 +1522,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.feedback.light.success.label</code></td>
 <td>string</td>
 <td><code>Ready</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.attention.ink</code></td>
 <td>color</td>
 <td><code>#714B00</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.attention.surface</code></td>
 <td>color</td>
 <td><code>#FFF0CD</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.attention.symbol</code></td>
@@ -1546,19 +1546,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.feedback.light.attention.label</code></td>
 <td>string</td>
 <td><code>Review needed</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.danger.ink</code></td>
 <td>color</td>
 <td><code>#941D36</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.danger.surface</code></td>
 <td>color</td>
 <td><code>#FFE8EC</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.danger.symbol</code></td>
@@ -1570,19 +1570,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.feedback.light.danger.label</code></td>
 <td>string</td>
 <td><code>Action blocked</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.info.ink</code></td>
 <td>color</td>
 <td><code>#334155</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.info.surface</code></td>
 <td>color</td>
 <td><code>#E8EDF4</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.light.info.symbol</code></td>
@@ -1594,19 +1594,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.feedback.light.info.label</code></td>
 <td>string</td>
 <td><code>Information</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.success.ink</code></td>
 <td>color</td>
 <td><code>#9BE2B3</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.success.surface</code></td>
 <td>color</td>
 <td><code>#173525</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.success.symbol</code></td>
@@ -1618,19 +1618,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.feedback.dark.success.label</code></td>
 <td>string</td>
 <td><code>Ready</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.attention.ink</code></td>
 <td>color</td>
 <td><code>#FFDA8A</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.attention.surface</code></td>
 <td>color</td>
 <td><code>#3D2D0E</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.attention.symbol</code></td>
@@ -1642,19 +1642,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.feedback.dark.attention.label</code></td>
 <td>string</td>
 <td><code>Review needed</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.danger.ink</code></td>
 <td>color</td>
 <td><code>#FFB2C0</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.danger.surface</code></td>
 <td>color</td>
 <td><code>#481C29</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.danger.symbol</code></td>
@@ -1666,19 +1666,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.feedback.dark.danger.label</code></td>
 <td>string</td>
 <td><code>Action blocked</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.info.ink</code></td>
 <td>color</td>
 <td><code>#D2DCEC</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.info.surface</code></td>
 <td>color</td>
 <td><code>#263244</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.feedback.dark.info.symbol</code></td>
@@ -1690,7 +1690,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.feedback.dark.info.label</code></td>
 <td>string</td>
 <td><code>Information</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 </tbody>
 </table></div>
@@ -1709,49 +1709,49 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.motion.duration.press</code></td>
 <td>duration</td>
 <td><code>{primitive.duration.press}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.duration.state</code></td>
 <td>duration</td>
 <td><code>{primitive.duration.state}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.duration.spatial</code></td>
 <td>duration</td>
 <td><code>{primitive.duration.spatial}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.duration.exit</code></td>
 <td>duration</td>
 <td><code>{primitive.duration.exit}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.duration.material</code></td>
 <td>duration</td>
 <td><code>{primitive.duration.material}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.duration.liquid</code></td>
 <td>duration</td>
 <td><code>{primitive.duration.liquid}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.duration.flow</code></td>
 <td>duration</td>
 <td><code>{primitive.duration.flow}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.duration.departure</code></td>
 <td>duration</td>
 <td><code>{primitive.duration.departure}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.duration.ceiling</code></td>
@@ -1763,61 +1763,61 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.motion.easing.enter</code></td>
 <td>cubicBezier</td>
 <td><code>{primitive.easing.enter}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.easing.settle</code></td>
 <td>cubicBezier</td>
 <td><code>{primitive.easing.settle}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.easing.exit</code></td>
 <td>cubicBezier</td>
 <td><code>{primitive.easing.exit}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.travel.panel</code></td>
 <td>dimension</td>
 <td><code>{primitive.distance.panel}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.travel.floating</code></td>
 <td>dimension</td>
 <td><code>{primitive.distance.floating}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.travel.content</code></td>
 <td>dimension</td>
 <td><code>{primitive.distance.content}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.travel.exit</code></td>
 <td>dimension</td>
 <td><code>{primitive.distance.exit}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.travel.depth</code></td>
 <td>dimension</td>
 <td><code>{primitive.distance.depth}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.travel.feather</code></td>
 <td>dimension</td>
 <td><code>{primitive.distance.feather}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.motion.travel.max</code></td>
 <td>dimension</td>
 <td><code>{primitive.distance.maxTravel}</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 </tbody>
 </table></div>
@@ -1836,19 +1836,19 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.typography.family</code></td>
 <td>fontFamily</td>
 <td><code>Manrope</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.typography.readingSize</code></td>
 <td>dimension</td>
 <td><code>16px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.typography.readingLeading</code></td>
 <td>dimension</td>
 <td><code>24px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.typography.scale.display.ratio</code></td>
@@ -2129,37 +2129,37 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>semantic.default.palette</code></td>
 <td>string</td>
 <td><code>prism</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.default.mode</code></td>
 <td>string</td>
 <td><code>light</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.default.density</code></td>
 <td>string</td>
 <td><code>comfortable</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.default.font</code></td>
 <td>string</td>
 <td><code>manrope</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.default.reduced</code></td>
 <td>boolean</td>
 <td><code>false</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>semantic.default.reduceMotion</code></td>
 <td>boolean</td>
 <td><code>false</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 </tbody>
 </table></div>
@@ -2554,7 +2554,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>component.focus.coreOffset</code></td>
 <td>dimension</td>
 <td><code>3px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 </tbody>
 </table></div>
@@ -2579,7 +2579,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>component.indicator.fieldSize</code></td>
 <td>dimension</td>
 <td><code>24px</code></td>
-<td>—</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>component.indicator.lineWidth</code></td>
@@ -2661,7 +2661,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>component.chart.seriesCount</code></td>
 <td>number</td>
 <td><code>6</code></td>
-<td>How many categorical series the palette can tell apart by colour. A seventh series repeats the first colour and must differ by another channel — a dash pattern, a fill pattern or a marker shape — because six hues is where perceptual separation runs out, not where charts do.</td>
+<td>How many categorical series the palette can tell apart by colour. A seventh series repeats the first colour and must differ by another channel, such as a dash pattern, a fill pattern or a marker shape. Six hues is where perceptual separation runs out, and charts often need more.</td>
 </tr>
 <tr>
 <td><code>component.chart.seriesLightness.light</code></td>
@@ -2673,7 +2673,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>component.chart.seriesLightness.dark</code></td>
 <td>number</td>
 <td><code>0.72</code></td>
-<td>The same, for dark mode. Higher than light, because the ground is dark and a mark must be lighter than it — but not as high as the ground allows. At 0.80 sRGB can no longer hold the chroma at the violet and blue hues, the colours there go pale, and the first series of a violet palette lands on the same colour as the palette's own action colour, which is a data mark that reads as a button.</td>
+<td>The same, for dark mode. Higher than light, because the ground is dark and a mark must be lighter than it, but not as high as the ground allows. At 0.80 sRGB can no longer hold the chroma at the violet and blue hues, the colours there go pale, and the first series of a violet palette lands on the same colour as the palette's own action colour, which is a data mark that reads as a button.</td>
 </tr>
 <tr>
 <td><code>component.chart.seriesChroma</code></td>
@@ -2691,7 +2691,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>component.chart.seriesContrast</code></td>
 <td>number</td>
 <td><code>3</code></td>
-<td>The floor every series colour clears against both the surface and the canvas of its mode. A data mark is a graphical object carrying information, so WCAG 1.4.11 applies to it and 3:1 is the bar. Where a hue cannot reach the floor at the stated lightness, its lightness moves until it does — the floor is not negotiable and the family resemblance is.</td>
+<td>The floor every series colour clears against both the surface and the canvas of its mode. A data mark is a graphical object carrying information, so WCAG 1.4.11 applies to it and 3:1 is the bar. Where a hue cannot reach the floor at the stated lightness, its lightness moves until it does. The floor is fixed, and the family resemblance gives way.</td>
 </tr>
 <tr>
 <td><code>component.chart.stroke</code></td>
@@ -2703,7 +2703,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>component.chart.hairline</code></td>
 <td>dimension</td>
 <td><code>1px</code></td>
-<td>The separation a chart draws in the surface colour rather than in ink — between pie segments, heatmap cells, treemap rectangles and map regions. It is a gap, not a border: it shows the ground through.</td>
+<td>The separation a chart draws in the surface colour rather than in ink, between pie segments, heatmap cells, treemap rectangles and map regions. It is a gap that shows the ground through.</td>
 </tr>
 <tr>
 <td><code>component.chart.pointMin</code></td>
@@ -2739,7 +2739,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>component.chart.fillOpacity</code></td>
 <td>number</td>
 <td><code>0.25</code></td>
-<td>Opacity of a fill whose job is to show extent without hiding what is behind it — the region under a line, the inside of a radar polygon. Low enough that two overlapping series are still two, and that the gridlines a reader measures against are still legible through both.</td>
+<td>Opacity of a fill whose job is to show extent without hiding what is behind it, such as the region under a line or the inside of a radar polygon. Low enough that two overlapping series are still two, and that the gridlines a reader measures against are still legible through both.</td>
 </tr>
 <tr>
 <td><code>component.chart.linkOpacity</code></td>
@@ -2751,7 +2751,7 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 <td><code>component.chart.intensitySteps</code></td>
 <td>number</td>
 <td><code>5</code></td>
-<td>How many buckets an intensity scale has — a heatmap cell, a calendar day. Five, because a reader comparing cells is matching them to a key rather than reading a gradient, and a key with more entries than a hand has fingers is a key nobody uses.</td>
+<td>How many buckets an intensity scale has, for a heatmap cell or a calendar day. Five, because a reader comparing cells is matching them to a key rather than reading a gradient, and a key with more entries than a hand has fingers is a key nobody uses.</td>
 </tr>
 <tr>
 <td><code>component.chart.gaugeSweep</code></td>
@@ -2781,9 +2781,8 @@ tier. <code>tools/validate-tokens.cjs</code> checks the direction of every refer
 </tbody>
 </table></div>
 <h2 id="deprecations">Deprecations</h2>
-<p>A deprecated token still resolves. It is listed here so adopters can migrate before
-it is removed, which is the only reason to keep a name that no longer describes its
-value.</p>
+<p>A deprecated token still resolves. Its name is kept, and listed here, only so
+adopters can migrate before it is removed.</p>
 <div class="cr-table-scroll"><table class="cr-table">
 <thead>
 <tr>

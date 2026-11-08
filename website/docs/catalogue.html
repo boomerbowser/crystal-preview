@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="Crystal: a reusable design system with expressive color, tactile depth and adjustable material previews."><title>Component catalogue · Crystal</title><link rel="icon" href="../vendor/@crystal-ui/core/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal-theme.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/crystal.css"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../vendor/@crystal-ui/core/assets/motion.css"><link rel="stylesheet" href="../assets/controls.css?v=pill-focus-2"><script src="../vendor/@crystal-ui/core/assets/tokens.js" defer></script><script src="../vendor/@crystal-ui/core/assets/crystal.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/state.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/preferences.js" defer></script><script src="../vendor/@crystal-ui/core/assets/core/spring.js" defer></script><script src="../assets/motion-shaders.js" defer></script><script src="../assets/menu.js" defer></script><script src="../assets/docs.js" defer></script><script src="../assets/controls.js?v=pill-focus-2" defer></script></head><body><a class="skip" href="#main">Skip to specification</a><div class="shell"><header class="site-header"><a class="wordmark" href="../index.html" aria-label="Crystal design system"><span class="mark" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="../vendor/@crystal-ui/core/assets/icons.svg#crystal"/></svg></span>crystal <small>Design system</small></a><button class="cr-control menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">Sections</button></header><div class="site-layout"><nav class="site-menu cr-frost cr-scroll-frost" id="site-menu" aria-label="Sections"><h2 class="menu-heading" id="menu-start">Start</h2><div class="menu-group" role="group" aria-labelledby="menu-start"><a class="cr-control menu-item" href="../index.html">Overview</a><a class="cr-control menu-item" href="../playground.html">Playground</a></div><h2 class="menu-heading" id="menu-specification">Specification</h2><div class="menu-group" role="group" aria-labelledby="menu-specification"><a class="cr-control menu-item" href="../docs/principles.html">Foundations</a><a class="cr-control menu-item" href="../docs/colors.html">Color</a><a class="cr-control menu-item" href="../docs/materials.html">Materials</a><a class="cr-control menu-item" href="../docs/components.html">Components</a><a class="cr-control menu-item" href="../docs/catalogue.html" aria-current="page">Catalogue</a><a class="cr-control menu-item" href="../docs/icons.html">Icons</a><a class="cr-control menu-item" href="../docs/tokens.html">Tokens</a><a class="cr-control menu-item" href="../docs/motion.html">Motion</a><a class="cr-control menu-item" href="../docs/motion-components.html">Component motion</a><a class="cr-control menu-item" href="../docs/accessibility.html">Accessibility</a><a class="cr-control menu-item" href="../docs/adoption.html">Adoption</a></div><h2 class="menu-heading" id="menu-evidence">Evidence</h2><div class="menu-group" role="group" aria-labelledby="menu-evidence"><a class="cr-control menu-item" href="../motion.html">Motion studies</a><a class="cr-control menu-item" href="../verification/report.html">Verification</a></div></nav><main id="main" class="doc-body"><h1 id="component-catalogue">Component catalogue</h1>
-<p>Crystal specifies <strong>284 components</strong> across 14 categories. Parity is measured against the most fully-featured libraries in use — Mantine, Ant Design and MUI — rather than a shorter list Crystal finds convenient.</p>
-<p>Crystal specifies appearance: anatomy, states, material, geometry and the semantics a correct implementation must expose. It does not ship focus management, menu keyboard behaviour, date arithmetic or a rich-text engine. Products bring their own accessible primitives and dress them in Crystal. Every entry states this split explicitly, so what the system owes you and what you owe the system are never in doubt.</p>
+<p>Crystal specifies 284 components across 14 categories. Parity is measured against Mantine, Ant Design and MUI, and each entry names the components it corresponds to in them.</p>
+<p>Crystal specifies appearance: anatomy, states, material, geometry and the semantics a correct implementation must expose. It does not ship focus management, menu keyboard behaviour, date arithmetic or a rich-text engine. Products bring their own accessible primitives and style them with Crystal. Every entry says which parts Crystal supplies and which parts the product owns.</p>
 <p>This chapter is generated from <code>core/tokens/catalogue/</code>. The same source generates the parity manifest in <code>libraries/parity.json</code>, so a component cannot appear in one and not the other.</p>
 <h2 id="coverage">Coverage</h2>
 <div class="cr-table-scroll"><table class="cr-table">
@@ -30,7 +30,7 @@
 <tr>
 <td><a href="#inputs-and-forms">Inputs and forms</a></td>
 <td>52</td>
-<td>44</td>
+<td>45</td>
 </tr>
 <tr>
 <td><a href="#data-display">Data display</a></td>
@@ -85,12 +85,12 @@
 <tr>
 <td><strong>Total</strong></td>
 <td><strong>284</strong></td>
-<td><strong>162</strong></td>
+<td><strong>163</strong></td>
 </tr>
 </tbody>
 </table></div>
 <h2 id="surfaces">Surfaces</h2>
-<p>Every component is made of one or more of these, named in its <strong>Surface</strong> row, outer to inner. The vocabulary is <code>core/tokens/surfaces.json</code>; each surface is implemented by the <code>crystal.css</code> recipe shown, and the build refuses a component naming a surface that has no recipe. A library implements the surface once and every component made of it inherits the implementation — which is what keeps two hundred components from becoming two hundred recipes.</p>
+<p>Every component is made of one or more of these surfaces. Its Surface row names them, outer to inner. The vocabulary is <code>core/tokens/surfaces.json</code>. Each surface is implemented by the <code>crystal.css</code> recipe shown, and the build refuses a component that names a surface with no recipe. A library implements each surface once, and every component made of that surface uses the implementation.</p>
 <div class="cr-table-scroll"><table class="cr-table">
 <thead>
 <tr>
@@ -113,22 +113,22 @@
 <td><a id="surface-frost"></a><strong>Frost panel</strong> <code>frost</code></td>
 <td>Frost</td>
 <td><code>.cr-frost</code></td>
-<td>45</td>
-<td>Intermediate task frames and every transient surface that opens over content: side panels, drawers, sheets, app bars, and — at Meridian's direction (R15e) — menus, popovers, tooltips and toasts. Reading content inside it sits on Haze.</td>
+<td>48</td>
+<td>Intermediate task frames and every transient surface that opens over content: side panels, drawers, sheets and app bars, and menus, popovers, tooltips and toasts (R15e). Reading content inside it sits on Haze. <code>.cr-frost.bar</code> is a transient overlay shaped as a row of controls, a pill with 4px padding: the selection toolbar over highlighted text.</td>
 </tr>
 <tr>
 <td><a id="surface-haze"></a><strong>Haze reading surface</strong> <code>haze</code></td>
 <td>Haze</td>
 <td><code>.cr-haze</code></td>
-<td>82</td>
+<td>85</td>
 <td>Anything read: cards, rows, panels, wells, forms, messages, decisions. 80% fill, 1.95px feather on an isolated paint layer, crisp foreground. <code>.cr-well</code> is the same recipe recessed into a Frost or Resin frame. <code>.cr-haze.overlay</code> is the recessed overlay: a transient overlay opened inside a pane that is already lifted, drawn as a flat Haze fill with the <code>--cr-edge</code> rim and the content shadow, so it can be told from the pane it sits in.</td>
 </tr>
 <tr>
 <td><a id="surface-resin"></a><strong>Resin plane</strong> <code>resin</code></td>
 <td>Resin</td>
 <td><code>.cr-resin</code></td>
-<td>7</td>
-<td>One floating Resin plane with no reading fill of its own, pill-shaped unless it is a panel: a player's transport bar, a pinned element, a Resin handle over imagery or between regions. Controls inside it lose their own backdrop filter — Resin never contains Resin. A plane whose controls are labels to be read holds a Haze fill as well, and is a dock.</td>
+<td>9</td>
+<td>One floating Resin plane with no reading fill of its own, pill-shaped unless it is a panel: a player's transport bar, a pinned element, a Resin handle over imagery or between regions. Controls inside it lose their own backdrop filter, because Resin never contains Resin. A plane whose controls are labels to be read holds a Haze fill as well, and is a dock. <code>.cr-resin.transport</code> is the media transport: the pill with 4px block and 12px inline padding around its 48px controls (58px tall with its rim), with tabular time readouts, wrapping to a second row in a player narrower than 420px. <code>.cr-media</code> is the stage it sits on (the content radius, the letterbox, <code>--cr-media-aspect</code> and <code>--cr-media-fit</code>), and <code>.cr-media-bar</code> is the region inset 12px, or the safe area in full screen, that holds the transport.</td>
 </tr>
 <tr>
 <td><a id="surface-resin-panel"></a><strong>Resin panel</strong> <code>resin-panel</code></td>
@@ -142,28 +142,28 @@
 <td>Resin + Haze</td>
 <td><code>.cr-button</code></td>
 <td>16</td>
-<td>An action: a Resin shell with the 8px-inset Haze reading pad and the optical sheen. Pill geometry. <code>.primary</code> tints the pad, <code>.quiet</code> removes it, <code>.danger</code> adds the destructive boundary. Selected state is the primary pad plus label weight 800.</td>
+<td>An action: a Resin shell with the 8px-inset Haze reading pad and the optical sheen. Pill geometry with <code>.cr-button</code>, which coats a <code>button</code> or an <code>a</code>; <code>.cr-control</code> coats any element. <code>.primary</code> tints the pad, <code>.quiet</code> removes it, <code>.danger</code> adds the destructive boundary. Selected state is the primary pad plus label weight 800.</td>
 </tr>
 <tr>
 <td><a id="surface-field"></a><strong>Field shell</strong> <code>field</code></td>
 <td>Resin + Haze</td>
 <td><code>.cr-field-shell</code></td>
 <td>28</td>
-<td>The Resin surround of a native text entry, with the Haze well the value is read on and the circular field-state badge. The native control keeps its functional boundary and semantics.</td>
+<td>The Resin surround of a native text entry, with the Haze well the value is read on and the circular field-state badge. The native control keeps its functional boundary and semantics. <code>.cr-editor</code> is the editable surface inside a rich text field: the shared prose vocabulary (headings, lists, checklists, marks, insertions and deletions) with the primary caret and a 28% primary selection, distinct from the primary-soft highlight (D-34). <code>.cr-editor-toolbar</code> is its toolbar, above the text on a fine pointer and below it, clear of the touch keyboard, on a coarse one.</td>
 </tr>
 <tr>
 <td><a id="surface-compact"></a><strong>Compact display</strong> <code>compact</code></td>
 <td>Resin + Haze</td>
 <td><code>.cr-resin-haze</code></td>
 <td>5</td>
-<td>Small information displays that sit on content: tags, badges, labels, keyboard caps. A Resin shell with the inset Haze pad, 18px radius. Not for anything that opens — transient overlays are Frost. <code>.count</code> is the size for a count: a 20px circle that grows to a pill, filled to its own edge, with no block padding.</td>
+<td>Small information displays that sit on content: tags, badges, labels, keyboard caps. A Resin shell with the inset Haze pad, 18px radius. Not for anything that opens. Transient overlays are Frost. <code>.count</code> is the size for a count: a 20px circle that grows to a pill, filled to its own edge, with no block padding.</td>
 </tr>
 <tr>
 <td><a id="surface-stone"></a><strong>Stone label backing</strong> <code>stone</code></td>
 <td>Stone</td>
 <td><code>.cr-stone</code></td>
-<td>2</td>
-<td>A label over an unknown or moving backdrop — a caption on media, a status bar over a scene. 55% light / 60% dark fill, feathered like Haze, crisp text.</td>
+<td>3</td>
+<td>A label over an unknown or moving backdrop: a caption on media, a status bar over a scene. 55% light / 60% dark fill, feathered like Haze, crisp text. <code>.cr-media-caption</code> is a caption cue rendered by the library: the Stone backing on a box above the transport, never under it. <code>::cue</code> on a <code>.cr-media</code> video is the flat fill for the browser's own renderer.</td>
 </tr>
 <tr>
 <td><a id="surface-mirage"></a><strong>Mirage scrim</strong> <code>mirage</code></td>
@@ -209,10 +209,10 @@
 </tr>
 <tr>
 <td><a id="surface-dock"></a><strong>Dock</strong> <code>dock</code></td>
-<td>Resin + Haze</td>
+<td>Resin + Haze + Stone</td>
 <td><code>.cr-dock</code></td>
 <td>8</td>
-<td>A Resin plane holding labelled controls on one Haze fill, so every label reads on the same protected ground: a dock of destinations, and the strips that group controls the same way — tab strips, segmented controls, toolbars, command and action bars. The controls inside are transparent; the current or selected one takes weight 800 and the primary fill, whether it is a dock's destination, a tab or a segment. The controls may be buttons, tabs (<code>[role=tab]</code>, selected by <code>aria-selected</code>), radio labels (selected by <code>:checked</code>) or links (current by <code>aria-current</code>); only buttons were reached before 2.3.0.</td>
+<td>A Resin plane with a Haze perimeter, holding labelled controls on one Stone label backing (<code>.cr-dock-inner</code>), so every label reads on the same protected ground: a dock of destinations, and the strips that group controls the same way (tab strips, segmented controls, toolbars, command and action bars). The controls inside are transparent; the current or selected one takes weight 800 and the primary fill, whether it is a dock's destination, a tab or a segment. The controls may be buttons, tabs (<code>[role=tab]</code>, selected by <code>aria-selected</code>), radio labels (selected by <code>:checked</code>) or links (current by <code>aria-current</code>); only buttons were reached before 2.3.0.</td>
 </tr>
 <tr>
 <td><a id="surface-group"></a><strong>Group</strong> <code>group</code></td>
@@ -223,21 +223,21 @@
 </tr>
 <tr>
 <td><a id="surface-nav-item"></a><strong>Navigation entry</strong> <code>nav-item</code></td>
-<td>Plastic</td>
+<td>None</td>
 <td><code>.cr-nav-item</code></td>
 <td>2</td>
-<td>An entry in side navigation, a rail or a tree of destinations. It has no material of its own — it is furniture on the panel beneath it — and carries selection by label weight alone. Pill hit area, 44px target. <code>.stacked</code> puts the icon above the label for a rail. Adopted from the documentation site's side menu, which docs/components.md names as the reference implementation of selection.</td>
+<td>An entry in side navigation, a rail or a tree of destinations. It has no material of its own, sits on the panel beneath it, and carries selection by label weight alone. Pill hit area, 44px target. <code>.stacked</code> puts the icon above the label for a rail. Adopted from the documentation site's side menu, which docs/components.md names as the reference implementation of selection.</td>
 </tr>
 <tr>
 <td><a id="surface-bare"></a><strong>Bare control</strong> <code>bare</code></td>
-<td>—</td>
+<td>None</td>
 <td><code>.cr-bare</code></td>
 <td>0</td>
-<td>A control that must not wear the Resin coat because it sits inside a surface that already has one: a disclosure chevron, a chip's remove button, a sort header, a stepper's arrows, a dismiss button on a toast. Crystal paints every button by element, so bare means subtracting the fill, the shadow, the backdrop filter and both pseudo-layers — this class does all four. The focus ring and the target floor stay.</td>
+<td>A control that must not wear the Resin coat because it sits inside a surface that already has one: a disclosure chevron, a chip's remove button, a sort header, a stepper's arrows, a dismiss button on a toast. Crystal paints every button by element, so this class subtracts the fill, the shadow, the backdrop filter and both pseudo-layers. The focus ring and the target floor stay.</td>
 </tr>
 <tr>
 <td><a id="surface-drag-handle"></a><strong>Drag handle</strong> <code>drag-handle</code></td>
-<td>—</td>
+<td>None</td>
 <td><code>.cr-drag-handle</code></td>
 <td>1</td>
 <td>A bare control with a grip glyph and a lift while dragging. Keyboard drag is the product's; the handle only says it can be grabbed and when it has been.</td>
@@ -251,17 +251,17 @@
 </tr>
 <tr>
 <td><a id="surface-native"></a><strong>Native control furniture</strong> <code>native</code></td>
-<td>—</td>
+<td>None</td>
 <td><code>select option</code></td>
 <td>0</td>
 <td>Parts of native controls the browser draws and Crystal tints: select options, the file button. Platform-owned popups keep platform drawing.</td>
 </tr>
 <tr>
 <td><a id="surface-none"></a><strong>No surface of its own</strong> <code>none</code></td>
-<td>—</td>
-<td>—</td>
-<td>109</td>
-<td>Layout, typography, behaviour and drawing components that inherit whatever they sit on. A chart's marks, a divider, a provider. Nothing to paint and nothing to wear.</td>
+<td>None</td>
+<td>None</td>
+<td>107</td>
+<td>Layout, typography, behaviour and drawing components that inherit whatever they sit on. A chart's marks, a divider, a provider.</td>
 </tr>
 </tbody>
 </table></div>
@@ -414,7 +414,7 @@
 <p>A Frost band across the top of a view, holding a title, navigation affordances and actions.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, scrolled, condensed</td></tr>
-<tr><th scope="row">Material</th><td>Frost band over the Plastic foundation</td></tr>
+<tr><th scope="row">Material</th><td>Frost band over the view's foundation</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Full-bleed; no radius on the outer edges; actions are pills.</td></tr>
 <tr><th scope="row">Semantics</th><td>role="banner" unless nested; the title is the page heading or labels one.</td></tr>
@@ -603,10 +603,10 @@
 <tr><th scope="row">Material</th><td>Haze rows on the surrounding surface</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Indent step 20px; guides use the edge token</td></tr>
-<tr><th scope="row">Semantics</th><td>role=treegrid/row/gridcell with aria-expanded, aria-level, aria-posinset, aria-setsize and full arrow-key navigation. Not role=tree: a treeitem is a single navigable unit, so it cannot contain the expand control this anatomy requires — treegrid is the pattern ARIA provides for a row that holds its own control. See M-3.</td></tr>
+<tr><th scope="row">Semantics</th><td>role=treegrid/row/gridcell with aria-expanded, aria-level, aria-posinset, aria-setsize and full arrow-key navigation. Not role=tree: a treeitem is a single navigable unit, so it cannot contain the expand control this anatomy requires, and treegrid is the pattern ARIA provides for a row that holds its own control. See M-3.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Row treatment, indentation guides, label weight for the selected row</td></tr>
 <tr><th scope="row">Product owns</th><td>The keyboard navigation implementation, data and lazy loading</td></tr>
-<tr><th scope="row">Motion</th><td><code>accordion-in</code>, <code>accordion-out</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>accordion-in</code></td></tr>
 <tr><th scope="row">Parity</th><td>mantine:Tree · mui:TreeView · antd:Tree</td></tr>
 </tbody></table></div></div>
 
@@ -679,6 +679,9 @@
 <tr><th scope="row">Parity</th><td>react-aria:Menu · primereact:menubar · antd:Menu</td></tr>
 </tbody></table></div></div>
 
+<blockquote>
+<p>Each menu the bar opens is the product's child, a menu entry of its own. The bar owns the triggers and their roving focus; menu-in and menu-out are played by the menu the product renders, not by the bar.</p>
+</blockquote>
 <h3 id="submenu">Submenu</h3>
 <p>A menu opened from an item inside another menu.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
@@ -751,6 +754,9 @@
 <tr><th scope="row">Parity</th><td>antd:Dropdown.Button · mui:ButtonGroup · mantine:Menu</td></tr>
 </tbody></table></div></div>
 
+<blockquote>
+<p>The menu the disclosure opens is the product's child, a menu entry of its own. The split button owns the two segments and the disclosure; menu-in and menu-out are played by the menu the product renders, not by the button.</p>
+</blockquote>
 <h3 id="floating-action">Floating action</h3>
 <p>A persistent circular Resin action floating above content.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
@@ -914,13 +920,13 @@
 <p>A text field with a filtered popover list, keyboard highlight and optional creation.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>idle, focus, open, filtering, empty, loading, invalid, disabled</td></tr>
-<tr><th scope="row">Material</th><td>Resin field shell, Resin popover with Haze rows</td></tr>
+<tr><th scope="row">Material</th><td>Resin field shell, Frost popover with Haze rows (R15e)</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-field">Field shell</a> → <a href="#surface-frost">Frost panel</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Popover content radius; rows inset 8px</td></tr>
 <tr><th scope="row">Semantics</th><td>role=combobox with aria-expanded, aria-controls and aria-activedescendant; the list is never focus-stealing</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Field and popover material, row treatment, label weight for selection, empty and loading appearance</td></tr>
 <tr><th scope="row">Product owns</th><td>The accessible combobox implementation, filtering and async loading</td></tr>
-<tr><th scope="row">Motion</th><td><code>popover-in</code>, <code>popover-out</code>, <code>list-in</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>popover-in</code>, <code>popover-out</code></td></tr>
 <tr><th scope="row">Parity</th><td>mantine:Autocomplete · mui:Autocomplete · antd:AutoComplete</td></tr>
 </tbody></table></div></div>
 
@@ -953,7 +959,7 @@
 </tbody></table></div></div>
 
 <blockquote>
-<p>The checked mark is a check glyph. That is the control's own semantics — a validated, entered value — not a selection badge placed over a focused item.</p>
+<p>The checked mark is a check glyph. That is the control's own semantics (a validated, entered value), not a selection badge placed over a focused item.</p>
 </blockquote>
 <h3 id="checkbox-group">Checkbox group</h3>
 <p>A labelled fieldset of related checkboxes with shared helper or error text.</p>
@@ -1015,7 +1021,7 @@
 <tr><th scope="row">States</th><td>default, hover, focus, dragging, disabled</td></tr>
 <tr><th scope="row">Material</th><td>Primary fill to the value, primary-soft beyond; Resin thumb</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-choice">Selection control</a></td></tr>
-<tr><th scope="row">Geometry</th><td>8px track, 26px thumb; the thumb is the target and meets 44px in practice through padding</td></tr>
+<tr><th scope="row">Geometry</th><td>8px track, 26px thumb; the thumb is the target and meets 44px through padding</td></tr>
 <tr><th scope="row">Semantics</th><td>Native range or role=slider with aria-valuenow, valuemin, valuemax and valuetext</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Track fill, thumb material, tick treatment, RTL mirroring</td></tr>
 <tr><th scope="row">Product owns</th><td>Step, bounds and what the value drives</td></tr>
@@ -1192,7 +1198,7 @@
 </tbody></table></div></div>
 
 <blockquote>
-<p>Crystal supplies appearance only. A file input that does not actually upload must not be presented as working.</p>
+<p>Crystal supplies appearance only. A file input that does not upload must not be presented as working.</p>
 </blockquote>
 <h3 id="dropzone">Dropzone</h3>
 <p>A bounded region accepting dragged files, with idle, hovering and rejecting states.</p>
@@ -1244,7 +1250,7 @@
 <tr><th scope="row">Semantics</th><td>Each list is separately named; moves are announced; keyboard must move items without drag</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Panel and action treatment, label weight for selection in the lists</td></tr>
 <tr><th scope="row">Product owns</th><td>The data, move rules and filtering</td></tr>
-<tr><th scope="row">Motion</th><td><code>list-in</code>, <code>list-out</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>list-in</code></td></tr>
 <tr><th scope="row">Parity</th><td>antd:Transfer · mui:— · mantine:TransferList</td></tr>
 </tbody></table></div></div>
 
@@ -1252,7 +1258,7 @@
 <p>Progressive columns narrowing a hierarchical selection.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>idle, open, partial, complete, loading, disabled</td></tr>
-<tr><th scope="row">Material</th><td>Resin popover, Haze columns</td></tr>
+<tr><th scope="row">Material</th><td>Frost popover with Haze columns (R15e), from a Resin field shell</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-field">Field shell</a> → <a href="#surface-frost">Frost panel</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Content radius; columns separated by a hairline</td></tr>
 <tr><th scope="row">Semantics</th><td>Each column is a listbox; the composed value is announced as a path</td></tr>
@@ -1266,7 +1272,7 @@
 <p>A text surface that offers a filtered list after a trigger character.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>idle, triggered, filtering, empty, disabled</td></tr>
-<tr><th scope="row">Material</th><td>Resin popover with Haze rows over the field</td></tr>
+<tr><th scope="row">Material</th><td>Frost popover with Haze rows over the field (R15e)</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Popover at content radius, anchored to the caret</td></tr>
 <tr><th scope="row">Semantics</th><td>Combobox semantics attached to the text surface; the inserted value is announced</td></tr>
@@ -1277,20 +1283,21 @@
 </tbody></table></div></div>
 
 <h3 id="rich-text-surface">Rich text surface</h3>
-<p>A toolbar of formatting actions above an editable content surface.</p>
+<p>A formatting toolbar and an editable surface. The toolbar holds Crystal's format vocabulary in groups: the block type (paragraph, headings two to four, bulleted list, numbered list, checklist, quotation, code block), the marks (bold, italic, underline, strikethrough, inline code, highlight, link, subscript, superscript) and history (undo, redo). A selection toolbar of the commonest marks floats over highlighted text.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
-<tr><th scope="row">States</th><td>idle, focus, selection-active, disabled, read-only</td></tr>
-<tr><th scope="row">Material</th><td>Resin toolbar, Haze editing surface</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-field">Field shell</a></td></tr>
-<tr><th scope="row">Geometry</th><td>Toolbar is a pill group; surface at content radius</td></tr>
-<tr><th scope="row">Semantics</th><td>Toolbar actions use aria-pressed for active formatting; the editor exposes its own semantics</td></tr>
-<tr><th scope="row">Crystal supplies</th><td>Toolbar and surface appearance, active-format treatment</td></tr>
-<tr><th scope="row">Product owns</th><td>The entire editing engine, serialisation and paste handling</td></tr>
+<tr><th scope="row">States</th><td>idle, focus, selection-active, selection-toolbar-open, touch-keyboard-open, disabled, read-only</td></tr>
+<tr><th scope="row">Material</th><td>Resin toolbar, Haze editing surface; Frost selection toolbar</td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-field">Field shell</a> → <a href="#surface-frost">Frost panel</a></td></tr>
+<tr><th scope="row">Geometry</th><td>Toolbar controls are 48px pills in separated groups on the field shell's Haze well; the surface keeps the content radius and the card padding (20px). On a fine pointer the toolbar sits above the text; on a coarse pointer it sits below the text and sticks above the on-screen keyboard.</td></tr>
+<tr><th scope="row">Semantics</th><td>Toolbar actions use aria-pressed for active formatting, and the block type is a single control naming the current type. A format changed by a keyboard shortcut while focus is in the text is announced politely. The editor exposes its own semantics: real headings, lists and checkboxes in the document, so a screen reader navigates it as it would the published page.</td></tr>
+<tr><th scope="row">Crystal supplies</th><td>Toolbar and surface appearance, active-format treatment, the format vocabulary and its rendering (shared with prose), the selection toolbar, toolbar placement on touch</td></tr>
+<tr><th scope="row">Product owns</th><td>The editing engine, serialisation and paste handling, and which parts of the format vocabulary a product offers</td></tr>
+<tr><th scope="row">Motion</th><td><code>field-focus</code>, <code>field-invalid</code>, <code>field-valid</code>, <code>menu-in</code>, <code>menu-out</code></td></tr>
 <tr><th scope="row">Parity</th><td>mantine:RichTextEditor · mui:— · antd:—</td></tr>
 </tbody></table></div></div>
 
 <blockquote>
-<p>Crystal specifies the surface only. Do not rebuild a rich-text engine to obtain this appearance.</p>
+<p>Crystal specifies the surface and the format vocabulary. Do not rebuild a rich-text engine to obtain this appearance; bind an existing one. A library may ship an optional binding of an engine from its own entry point, with the engine an optional peer dependency, so a product that never imports the binding never installs or bundles the engine. The format vocabulary is the contract a binding implements: every block type and mark it offers renders as the surface and prose render it (D-30).</p>
 </blockquote>
 <h3 id="helper-text">Helper text</h3>
 <p>Guidance beneath a field, replaced by an error message when the field is invalid.</p>
@@ -1398,7 +1405,7 @@
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, dragging, focus-visible, disabled</td></tr>
 <tr><th scope="row">Material</th><td>Resin track with a Resin thumb</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Circular; the thumb reaches 44px including its hit area.</td></tr>
 <tr><th scope="row">Semantics</th><td>role="slider" with aria-valuenow in degrees and a text equivalent.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Track and thumb material, focus ring, motion on commit</td></tr>
@@ -1411,8 +1418,8 @@
 <p>A rotary control for a bounded value.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, dragging, focus-visible, disabled</td></tr>
-<tr><th scope="row">Material</th><td>Resin body with a Haze value arc</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
+<tr><th scope="row">Material</th><td>Resin body with a primary value arc</td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Circular; keyboard steps match the slider contract.</td></tr>
 <tr><th scope="row">Semantics</th><td>role="slider"; the value is readable as text, not only as an arc.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Material, arc rendering, focus ring</td></tr>
@@ -1492,7 +1499,7 @@
 <p>One colour, shown as a surface.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, selected, focus-visible</td></tr>
-<tr><th scope="row">Material</th><td>Haze chequerboard beneath a transparent colour</td></tr>
+<tr><th scope="row">Material</th><td>A chequerboard beneath a transparent colour, so its alpha shows</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Content radius; selection is a ring, never a check mark.</td></tr>
 <tr><th scope="row">Semantics</th><td>Carries the colour name as text, because colour cannot be the only carrier.</td></tr>
@@ -1567,7 +1574,7 @@
 <tr><th scope="row">Material</th><td>Haze, 80% fill with a 1.95px feathered perimeter</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Content radius; at least 12px between content and the feathered edge</td></tr>
-<tr><th scope="row">Semantics</th><td>An article when it is content, a button when the whole card acts. Never both.</td></tr>
+<tr><th scope="row">Semantics</th><td>An article when it is content or a button when the whole card acts, never both.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Fill, feather, elevation, interactive treatment</td></tr>
 <tr><th scope="row">Product owns</th><td>Content and what an interactive card does</td></tr>
 <tr><th scope="row">Motion</th><td><code>list-in</code>, <code>list-out</code></td></tr>
@@ -1601,7 +1608,7 @@
 <tr><th scope="row">Semantics</th><td>aria-sort on sorted headers; row selection through real checkboxes with names</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>All Table treatment plus sort, filter and selection appearance</td></tr>
 <tr><th scope="row">Product owns</th><td>The data layer, virtualisation, and the sorting and filtering implementation</td></tr>
-<tr><th scope="row">Motion</th><td><code>list-in</code>, <code>list-out</code>, <code>highlight</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>list-in</code>, <code>highlight</code></td></tr>
 <tr><th scope="row">Parity</th><td>mui:DataGrid · antd:Table · mantine:DataTable</td></tr>
 </tbody></table></div></div>
 
@@ -1687,13 +1694,13 @@
 </tbody></table></div></div>
 
 <blockquote>
-<p>Success uses a check mark. That is information display — the legitimate use of the glyph.</p>
+<p>Success uses a check mark. That is information display, the legitimate use of the glyph.</p>
 </blockquote>
 <h3 id="indicator">Indicator</h3>
-<p>A small circular Resin mark attached to a control, carrying state.</p>
+<p>A small circular Haze mark attached to a control, carrying state.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>selection, current, busy, field-idle, field-focused, required, invalid</td></tr>
-<tr><th scope="row">Material</th><td>Haze: a 20px circle painting the Haze fill on an isolated layer with a 1px feather; no Resin, because it sits on surfaces that are often already translucent</td></tr>
+<tr><th scope="row">Material</th><td>Haze: a 20px circle painting the Haze fill on an isolated layer with a 1px feather, and no coat of its own, because it sits on surfaces that are often already translucent</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-indicator">Indicator</a></td></tr>
 <tr><th scope="row">Geometry</th><td>20px, or 24px on fields; never a click target</td></tr>
 <tr><th scope="row">Semantics</th><td>aria-hidden. The real control supplies the state; the mark only shows it.</td></tr>
@@ -1723,7 +1730,7 @@
 <p>Ordered events on a connector with per-event markers.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>complete, current, upcoming, error</td></tr>
-<tr><th scope="row">Material</th><td>Resin markers on a Haze connector</td></tr>
+<tr><th scope="row">Material</th><td>Indicator markers on a Haze connector</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-indicator">Indicator</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Circular markers; 2px connector</td></tr>
 <tr><th scope="row">Semantics</th><td>Ordered list; the current item carries aria-current</td></tr>
@@ -1771,7 +1778,7 @@
 <tr><th scope="row">Semantics</th><td>The control carries aria-expanded; truncated text remains in the accessibility tree</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Fade and control treatment</td></tr>
 <tr><th scope="row">Product owns</th><td>Threshold and content</td></tr>
-<tr><th scope="row">Motion</th><td><code>accordion-in</code>, <code>accordion-out</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>accordion-in</code></td></tr>
 <tr><th scope="row">Parity</th><td>mantine:Spoiler · mui:— · antd:Typography ellipsis</td></tr>
 </tbody></table></div></div>
 
@@ -1843,7 +1850,7 @@
 </tbody></table></div></div>
 
 <h3 id="authored-bubble">Authored bubble</h3>
-<p>A reading surface with one intentionally tightened corner indicating authorship or direction.</p>
+<p>A reading surface with one tightened corner indicating authorship or direction.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>incoming, own, grouped, pending, failed</td></tr>
 <tr><th scope="row">Material</th><td>Haze; own messages use the primary-container pair</td></tr>
@@ -1925,7 +1932,7 @@
 <tr><th scope="row">Semantics</th><td>A tree; collapse state is announced, and the chart is navigable by keyboard.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Node material, connector colour, selection by weight</td></tr>
 <tr><th scope="row">Product owns</th><td>Hierarchy data and layout direction</td></tr>
-<tr><th scope="row">Motion</th><td><code>accordion-in</code>, <code>accordion-out</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>accordion-in</code></td></tr>
 <tr><th scope="row">Parity</th><td>primereact:organizationchart</td></tr>
 </tbody></table></div></div>
 
@@ -1993,7 +2000,7 @@
 <tr><th scope="row">Semantics</th><td>A tree with aria-current on the active destination; expansion is announced.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Row material, expansion motion, current marking by label weight</td></tr>
 <tr><th scope="row">Product owns</th><td>The destination set and routing</td></tr>
-<tr><th scope="row">Motion</th><td><code>accordion-in</code>, <code>accordion-out</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>accordion-in</code></td></tr>
 <tr><th scope="row">Parity</th><td>react-aria:NavigationTree</td></tr>
 </tbody></table></div></div>
 
@@ -2007,7 +2014,7 @@
 <tr><th scope="row">Semantics</th><td>The resizer is a slider: arrow keys resize, and the new width is announced.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Resizer affordance, focus ring, live layout while dragging</td></tr>
 <tr><th scope="row">Product owns</th><td>Which columns resize, and persistence</td></tr>
-<tr><th scope="row">Motion</th><td><code>list-in</code>, <code>list-out</code>, <code>highlight</code>, <code>resize-settle</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>list-in</code>, <code>highlight</code>, <code>resize-settle</code></td></tr>
 <tr><th scope="row">Parity</th><td>react-aria:ResizableTableContainer · mui-x-data-grid:GridColumnResizer</td></tr>
 </tbody></table></div></div>
 
@@ -2084,11 +2091,11 @@
 </tbody></table></div></div>
 
 <h3 id="toast">Toast</h3>
-<p>A transient floating Resin notification with a message and an optional single action.</p>
+<p>A transient floating Frost notification with a message and an optional single action.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>entering, visible, leaving, persistent, stacked</td></tr>
 <tr><th scope="row">Material</th><td>Frost panel with Haze reading fill and the panel shadow (R15e); status accent from the semantic pair</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a></td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Content radius; stacked with a 12px offset</td></tr>
 <tr><th scope="row">Semantics</th><td>Polite live region; an urgent toast is assertive. Auto-dismiss must never remove the only route to an action.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Surface, stacking, entry and exit motion</td></tr>
@@ -2102,7 +2109,7 @@
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>unread, read, dismissed</td></tr>
 <tr><th scope="row">Material</th><td>Frost panel with Haze reading fill (R15e)</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a></td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Content radius</td></tr>
 <tr><th scope="row">Semantics</th><td>Announced politely; the dismiss control is named for what it dismisses</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Surface, unread treatment, action row</td></tr>
@@ -2168,7 +2175,7 @@
 </tbody></table></div></div>
 
 <blockquote>
-<p>A skeleton must match the real layout. A skeleton that does not resolve into the shape it promised is a worse experience than a spinner.</p>
+<p>A skeleton must match the real layout. One that resolves into a different shape is a worse experience than a spinner.</p>
 </blockquote>
 <h3 id="loading-overlay">Loading overlay</h3>
 <p>A scrim over a region with a centred activity mark, blocking interaction.</p>
@@ -2246,7 +2253,7 @@
 <p>A half-ring showing progress toward a value.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>determinate, indeterminate</td></tr>
-<tr><th scope="row">Material</th><td>Haze track with a primary arc</td></tr>
+<tr><th scope="row">Material</th><td>A track in `--cr-haze-fill` with a primary arc</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Stroke matches the ring progress contract.</td></tr>
 <tr><th scope="row">Semantics</th><td>role="progressbar" with a text value beside it.</td></tr>
@@ -2260,7 +2267,7 @@
 <p>Several proportions shown on one bar.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, focus-visible</td></tr>
-<tr><th scope="row">Material</th><td>Haze track with segment fills</td></tr>
+<tr><th scope="row">Material</th><td>A track in `--cr-haze-fill` with segment fills</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Track keeps the content radius; segments meet without gaps.</td></tr>
 <tr><th scope="row">Semantics</th><td>Each segment is labelled; meaning never rests on colour alone.</td></tr>
@@ -2304,7 +2311,7 @@
 <p>An edge-anchored panel over a Mirage scrim, with a label and a close control.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>closed, open, dragging</td></tr>
-<tr><th scope="row">Material</th><td>Mirage scrim, Frost or Resin panel by depth</td></tr>
+<tr><th scope="row">Material</th><td>Mirage scrim and a Frost panel</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-frost">Frost panel</a> → <a href="#surface-mirage">Mirage scrim</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Panel radius on the inner edges only</td></tr>
 <tr><th scope="row">Semantics</th><td>Dialog semantics when modal; a complementary region when not. Modality must be real, not implied.</td></tr>
@@ -2315,7 +2322,7 @@
 </tbody></table></div></div>
 
 <h3 id="menu">Menu</h3>
-<p>A Resin popover of actions, with optional groups, separators and checkable items.</p>
+<p>A Frost popover of actions, with optional groups, separators and checkable items.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>closed, open, highlighted, disabled-item, checked-item</td></tr>
 <tr><th scope="row">Material</th><td>Frost panel with Haze rows (R15e)</td></tr>
@@ -2343,7 +2350,7 @@
 </tbody></table></div></div>
 
 <h3 id="popover">Popover</h3>
-<p>An anchored Resin surface holding arbitrary content, with optional arrow.</p>
+<p>An anchored Frost surface holding arbitrary content, with optional arrow.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>closed, open, repositioned</td></tr>
 <tr><th scope="row">Material</th><td>Frost panel with Haze reading fill (R15e)</td></tr>
@@ -2371,7 +2378,7 @@
 </tbody></table></div></div>
 
 <h3 id="tooltip">Tooltip</h3>
-<p>Short supplemental text on a small Resin surface, anchored to its trigger.</p>
+<p>Short supplemental text on a small Frost surface, anchored to its trigger.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>hidden, visible</td></tr>
 <tr><th scope="row">Material</th><td>Frost, as every transient overlay is (R15e); the text sits directly on the panel</td></tr>
@@ -2454,9 +2461,9 @@
 </tbody></table></div></div>
 
 <h3 id="text">Text</h3>
-<p>Body copy with size, weight, colour role and truncation options.</p>
+<p>Body copy with size, weight, colour role, decoration (underline, strikethrough) and truncation options.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
-<tr><th scope="row">States</th><td>default, muted, truncated, clamped</td></tr>
+<tr><th scope="row">States</th><td>default, muted, truncated, clamped, underlined, struck-through</td></tr>
 <tr><th scope="row">Material</th><td>None</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>16px/24px reading rhythm; 78ch maximum measure</td></tr>
@@ -2494,13 +2501,13 @@
 </tbody></table></div></div>
 
 <h3 id="prose">Prose</h3>
-<p>Long-form content with consistent rhythm across headings, lists, tables, code and media.</p>
+<p>Long-form content with consistent rhythm across headings, lists and checklists, quotations, tables, code and media, and the inline marks: links, emphasis, underline, strikethrough, insertions and deletions, highlights, inline code, keys, subscript and superscript.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>default</td></tr>
 <tr><th scope="row">Material</th><td>Inherits; embedded surfaces follow their own components</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>78ch measure; 1.8 line height; 4px-rhythm vertical spacing</td></tr>
-<tr><th scope="row">Semantics</th><td>Anchor navigation must preserve focus when sections change</td></tr>
+<tr><th scope="row">Semantics</th><td>Anchor navigation must preserve focus when sections change. Every mark differs in shape as well as colour (an insertion is underlined, a deletion struck through, a highlight filled), and each is its own element (ins, del, mark, u, s), so none rests on colour alone.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>The complete reading rhythm and embedded-element treatment</td></tr>
 <tr><th scope="row">Product owns</th><td>Content, rendering and virtualisation</td></tr>
 <tr><th scope="row">Parity</th><td>mui:— · mantine:TypographyStylesProvider · antd:Typography</td></tr>
@@ -2553,7 +2560,7 @@
 <tr><th scope="row">Material</th><td>Inherits</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Step per level; leading tightens as size grows.</td></tr>
-<tr><th scope="row">Semantics</th><td>The level is the document structure, never chosen for size — size comes from the step.</td></tr>
+<tr><th scope="row">Semantics</th><td>The level is the document structure, never chosen for size. Size comes from the step.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>The scale and its tracking</td></tr>
 <tr><th scope="row">Product owns</th><td>Level and wording</td></tr>
 <tr><th scope="row">Parity</th><td>mantine:Title · antd:Typography.Title</td></tr>
@@ -2573,13 +2580,13 @@
 </tbody></table></div></div>
 
 <h3 id="prose-list">Prose list</h3>
-<p>Ordered and unordered lists inside running text, with Crystal markers.</p>
+<p>Ordered and unordered lists inside running text, with Crystal markers, and checklists whose markers are checkboxes.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
-<tr><th scope="row">States</th><td>at-rest</td></tr>
+<tr><th scope="row">States</th><td>at-rest, checked, unchecked</td></tr>
 <tr><th scope="row">Material</th><td>Inherits</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Marker inset follows the spacing scale; hanging indent preserved.</td></tr>
-<tr><th scope="row">Semantics</th><td>Real ul and ol so the count and nesting are announced.</td></tr>
+<tr><th scope="row">Semantics</th><td>Real ul and ol so the count and nesting are announced. A checklist item's marker is a native checkbox, read-only when the list is, so its state is announced; a finished item recedes to the muted ink and is not struck through.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Marker treatment, spacing, nesting rhythm</td></tr>
 <tr><th scope="row">Product owns</th><td>Content and ordering</td></tr>
 <tr><th scope="row">Parity</th><td>mantine:List · antd:Typography</td></tr>
@@ -2910,7 +2917,7 @@
 <p>Click-and-drag reordering and transfer, by pointer and by keyboard.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, dragging, drop-target, focus-visible</td></tr>
-<tr><th scope="row">Material</th><td>Resin while lifted; Haze drop indicator</td></tr>
+<tr><th scope="row">Material</th><td>No material of its own: the opaque surface with the float shadow while lifted, and a drop indicator in `--cr-haze-fill`</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-drag-handle">Drag handle</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Handle is a 44px target; the lifted item keeps its own radius.</td></tr>
 <tr><th scope="row">Semantics</th><td>Keyboard drag is required, not optional: Enter lifts, arrows move, Enter drops, Escape cancels. Every state is announced.</td></tr>
@@ -2999,7 +3006,7 @@
 </tbody></table></div></div>
 
 <h2 id="charts">Charts</h2>
-<p>Data visualisation on one shared surface. Crystal named no charting component before 2.0 while every React benchmark shipped one; these are specified against MUI X Charts, PrimeReact Chart and Mantine Charts. Every chart owes a text equivalent of its data — a chart is a second representation, never the only one.</p>
+<p>Data visualisation on one shared surface. Crystal named no charting component before 2.0 while every React benchmark shipped one. These are specified against MUI X Charts, PrimeReact Chart and Mantine Charts. Every chart owes a text equivalent of its data, so the chart is never the only representation.</p>
 <h3 id="chart-surface">Chart surface</h3>
 <p>The shared frame every chart draws into: plot area, axes, grid, legend and tooltip slots.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
@@ -3045,7 +3052,7 @@
 <p>A line chart with the region beneath it filled.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, hover, focus-visible, empty</td></tr>
-<tr><th scope="row">Material</th><td>Haze fill beneath the line</td></tr>
+<tr><th scope="row">Material</th><td>The series colour at `--cr-chart-fill-opacity` beneath the line</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Fill never obscures gridlines beneath it.</td></tr>
 <tr><th scope="row">Semantics</th><td>As the line chart.</td></tr>
@@ -3072,7 +3079,7 @@
 <p>A pie with a hole, often carrying a summary value.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, hover, focus-visible, empty</td></tr>
-<tr><th scope="row">Material</th><td>Haze centre fill</td></tr>
+<tr><th scope="row">Material</th><td>A centre fill in `--cr-haze-fill`</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Ring thickness is a declared proportion of the radius.</td></tr>
 <tr><th scope="row">Semantics</th><td>The centre value is text, not an image.</td></tr>
@@ -3098,7 +3105,7 @@
 <p>Several measures on radial axes.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, hover, focus-visible, empty</td></tr>
-<tr><th scope="row">Material</th><td>Haze fill inside each series polygon</td></tr>
+<tr><th scope="row">Material</th><td>The series colour at `--cr-chart-fill-opacity` inside each series polygon</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Axis labels sit outside the outer ring.</td></tr>
 <tr><th scope="row">Semantics</th><td>Axes are labelled; series are named.</td></tr>
@@ -3124,7 +3131,7 @@
 <p>A single value against a range, drawn as an arc.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>determinate, empty</td></tr>
-<tr><th scope="row">Material</th><td>Haze track with a primary arc</td></tr>
+<tr><th scope="row">Material</th><td>A track in `--cr-haze-fill` with a primary arc</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Matches the ring progress stroke.</td></tr>
 <tr><th scope="row">Semantics</th><td>role="meter" with a text value.</td></tr>
@@ -3256,7 +3263,7 @@
 <p>A measure against a target and qualitative ranges.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, focus-visible, empty</td></tr>
-<tr><th scope="row">Material</th><td>Haze range bands</td></tr>
+<tr><th scope="row">Material</th><td>Range bands in `--cr-haze-fill`</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Single row; the target is a crisp marker, not a bar.</td></tr>
 <tr><th scope="row">Semantics</th><td>role="meter" with the target stated in text.</td></tr>
@@ -3308,7 +3315,7 @@
 <p>Nodes and the edges between them.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, hover, focus-visible, empty</td></tr>
-<tr><th scope="row">Material</th><td>Haze node fills</td></tr>
+<tr><th scope="row">Material</th><td>Node fills in `--cr-haze-fill`</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Node size is a scale; edges are hairlines.</td></tr>
 <tr><th scope="row">Semantics</th><td>Nodes are reachable by keyboard; each states its degree and neighbours.</td></tr>
@@ -3318,42 +3325,42 @@
 </tbody></table></div></div>
 
 <h2 id="media">Media</h2>
-<p>Video, audio and galleries. Crystal named none of these before, and they are the clearest case of the parity requirement being about capability rather than nomenclature: a design system without a transport control leaves every product to invent one, and each invention re-solves captions, scrubbing and keyboard transport differently.</p>
+<p>Video, audio and galleries. Crystal named none of these before. The parity requirement here is about capability: a design system without a transport control leaves every product to invent one, and each invention re-solves captions, scrubbing and keyboard transport differently.</p>
 <h3 id="video-player">Video player</h3>
-<p>A video surface with Crystal transport controls.</p>
+<p>A media stage at a set aspect ratio holding the video, a caption cue above the transport, and the transport inset from the stage: play, skip, the scrubber with its two time readouts, mute and volume, then a settings menu (playback speed, subtitles and captions, audio track, quality), picture in picture and full screen.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
-<tr><th scope="row">States</th><td>idle, playing, paused, buffering, ended, focus-visible</td></tr>
-<tr><th scope="row">Material</th><td>Resin control bar over the video; Haze fills behind readable labels</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
-<tr><th scope="row">Geometry</th><td>Control bar is a pill; every control reaches 44px.</td></tr>
-<tr><th scope="row">Semantics</th><td>Native video element underneath. Controls are real buttons, captions are supported and their state is announced, and keyboard shortcuts do not trap focus.</td></tr>
-<tr><th scope="row">Crystal supplies</th><td>Control-bar material, transport geometry, the motion of showing and hiding controls</td></tr>
-<tr><th scope="row">Product owns</th><td>Sources, captions, DRM, analytics</td></tr>
-<tr><th scope="row">Motion</th><td><code>media-in</code></td></tr>
+<tr><th scope="row">States</th><td>idle, playing, paused, buffering, ended, focus-visible, captions-on, settings-open, picture-in-picture, full-screen</td></tr>
+<tr><th scope="row">Material</th><td>Resin transport over the video with Haze fills behind its time readouts; Stone behind caption cues; Frost settings menu</td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a> → <a href="#surface-haze">Haze reading surface</a> → <a href="#surface-stone">Stone label backing</a> → <a href="#surface-frost">Frost panel</a></td></tr>
+<tr><th scope="row">Geometry</th><td>The stage keeps the content radius and the aspect ratio the product sets (16:9, 4:3, 1:1, 9:16 or the media's own). The transport is a pill inset 12px from the stage, or the safe area in full screen, with 4px block padding around its controls (58px with its rim); every control reaches the 48px action target. Caption cues sit above the transport, never under it. Below 420px the transport wraps its trailing controls onto a second row.</td></tr>
+<tr><th scope="row">Semantics</th><td>Native video element underneath. Controls are real buttons, captions are supported and their state is announced, and keyboard shortcuts do not trap focus. Speed, subtitle, audio-track and quality choices are menus of radio items (menuitemradio with aria-checked); the selected item is shown by label weight, never a check mark, and each change is announced in words. A choice the engine cannot make (an audio track list where the browser exposes none, picture in picture where it is unsupported) is not offered.</td></tr>
+<tr><th scope="row">Crystal supplies</th><td>Stage, transport and caption materials, transport geometry and insets, the settings menu, the motion of showing and hiding controls</td></tr>
+<tr><th scope="row">Product owns</th><td>Sources, caption and audio tracks, quality renditions and their switching (adaptive streaming), DRM, analytics</td></tr>
+<tr><th scope="row">Motion</th><td><code>media-in</code>, <code>menu-in</code>, <code>menu-out</code></td></tr>
 <tr><th scope="row">Parity</th><td>primereact:galleria · mui:CardMedia</td></tr>
 </tbody></table></div></div>
 
 <h3 id="audio-player">Audio player</h3>
-<p>An audio transport with scrubbing and volume.</p>
+<p>A Haze card holding the title and any secondary line (artist, episode, chapter), with the transport inset from its edge: play, skip, the scrubber with its two time readouts, mute and volume, and a settings menu for playback speed.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
-<tr><th scope="row">States</th><td>idle, playing, paused, buffering, ended, focus-visible</td></tr>
-<tr><th scope="row">Material</th><td>Resin plane with Haze readable regions</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
-<tr><th scope="row">Geometry</th><td>Pill; the scrubber is a slider with a 44px thumb.</td></tr>
+<tr><th scope="row">States</th><td>idle, playing, paused, buffering, ended, focus-visible, settings-open</td></tr>
+<tr><th scope="row">Material</th><td>Haze card holding a Resin transport; Frost settings menu</td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-haze">Haze reading surface</a> → <a href="#surface-resin">Resin plane</a> → <a href="#surface-frost">Frost panel</a></td></tr>
+<tr><th scope="row">Geometry</th><td>The card keeps the content radius and the card padding (20px); the transport is a pill with 4px block padding around its controls; the scrubber is a slider with a 44px thumb.</td></tr>
 <tr><th scope="row">Semantics</th><td>A real audio element. The scrubber is a slider announcing time, not a progress bar.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Material, scrubber geometry, time formatting</td></tr>
 <tr><th scope="row">Product owns</th><td>Sources, playlists, streaming</td></tr>
-<tr><th scope="row">Motion</th><td><code>media-in</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>media-in</code>, <code>menu-in</code>, <code>menu-out</code></td></tr>
 <tr><th scope="row">Parity</th><td>mantine:Audio</td></tr>
 </tbody></table></div></div>
 
 <h3 id="media-controls">Media controls</h3>
-<p>The shared transport used by both players.</p>
+<p>The shared transport used by both players: play, skip, the scrubber between two time readouts, mute and volume, then the controls a player adds (settings, picture in picture, full screen).</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>idle, playing, paused, buffering, focus-visible</td></tr>
-<tr><th scope="row">Material</th><td>Resin plane</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a></td></tr>
-<tr><th scope="row">Geometry</th><td>Pill; 44px targets throughout.</td></tr>
+<tr><th scope="row">Material</th><td>Resin plane; Haze behind the time readouts</td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
+<tr><th scope="row">Geometry</th><td>Pill with 4px block and 12px inline padding around its 48px controls (58px tall with its rim), 4px between them. Time readouts are tabular and sit on Haze pills.</td></tr>
 <tr><th scope="row">Semantics</th><td>Each control is a button with a name; play and pause are one toggle with a pressed state.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Materials, the press recipe on every control</td></tr>
 <tr><th scope="row">Product owns</th><td>Which controls appear</td></tr>
@@ -3389,7 +3396,7 @@
 </tbody></table></div></div>
 
 <h2 id="commerce">Commerce</h2>
-<p>Functional e-commerce components. Crystal named none before, which left every store to reinvent a quantity stepper, a variant selector and a cart summary — and to re-solve availability, currency formatting and checkout validation each time. Payment is deliberately bounded: these components never handle raw card data, and defer to the host provider's own element.</p>
+<p>Functional e-commerce components. Crystal named none before, which left every store to reinvent a quantity stepper, a variant selector and a cart summary, and to re-solve availability, currency formatting and checkout validation each time. Payment is deliberately bounded: these components never handle raw card data, and defer to the host provider's own element.</p>
 <h3 id="price">Price</h3>
 <p>A monetary amount with its currency and locale.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
@@ -3437,7 +3444,7 @@
 <tr><th scope="row">Material</th><td>Resin shell with a Haze well</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-field">Field shell</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Pill; both controls reach 44px.</td></tr>
-<tr><th scope="row">Semantics</th><td>A typable numeric field: the value is read as its text, and the bounds are announced when reached. Not role=spinbutton — a spin button cannot be focused with VoiceOver, so the role would put the control out of some readers' reach.</td></tr>
+<tr><th scope="row">Semantics</th><td>A typable numeric field: the value is read as its text, and the bounds are announced when reached. Not role=spinbutton, because a spin button cannot be focused with VoiceOver, so the role would put the control out of some readers' reach.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Materials, press recipe on each control</td></tr>
 <tr><th scope="row">Product owns</th><td>Bounds, step, stock rules</td></tr>
 <tr><th scope="row">Motion</th><td><code>slider-step</code></td></tr>
@@ -3561,9 +3568,9 @@
 <tr><th scope="row">Material</th><td>Haze option fills</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Options keep the content radius; the selected one carries label weight.</td></tr>
-<tr><th scope="row">Semantics</th><td>A radio group. Card fields are never reimplemented — the host supplies its provider element.</td></tr>
+<tr><th scope="row">Semantics</th><td>A radio group. Card fields are never reimplemented: the host supplies its provider element.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Option material, selection, focus ring</td></tr>
-<tr><th scope="row">Product owns</th><td>The provider, tokenisation, and PCI scope — this component never handles raw card data</td></tr>
+<tr><th scope="row">Product owns</th><td>The provider, tokenisation, and PCI scope; this component never handles raw card data</td></tr>
 <tr><th scope="row">Motion</th><td><code>selection</code></td></tr>
 <tr><th scope="row">Parity</th><td>antd:Radio.Group</td></tr>
 </tbody></table></div></div>
@@ -3718,7 +3725,7 @@
 </tbody></table></div></div>
 
 <h2 id="screens">Screens</h2>
-<p>Whole views and the chrome around them, for interactive applications rather than documents. A screen owns landmarks, focus movement between views, and the states a view can be in before it has content — loading, empty, error, offline, not found, unauthorised — which products otherwise improvise separately and inconsistently.</p>
+<p>Whole views and the chrome around them, for interactive applications rather than documents. A screen owns landmarks, focus movement between views, and the states a view can be in before it has content (loading, empty, error, offline, not found, unauthorised), which products otherwise improvise separately and inconsistently.</p>
 <h3 id="screen">Screen</h3>
 <p>A full view with its own header, content region and chrome.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
@@ -3769,7 +3776,7 @@
 <tr><th scope="row">Semantics</th><td>Selection moves focus to the detail only when the layout has collapsed.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Pane materials, the collapse transition</td></tr>
 <tr><th scope="row">Product owns</th><td>The data and routing</td></tr>
-<tr><th scope="row">Motion</th><td><code>page-in</code>, <code>page-out</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>page-in</code></td></tr>
 <tr><th scope="row">Parity</th><td>antd:Layout</td></tr>
 </tbody></table></div></div>
 
@@ -3925,7 +3932,7 @@
 </tbody></table></div></div>
 
 <h2 id="blocks">Blocks</h2>
-<p>Composed arrangements that solve a recognisable product problem: a dashboard shell, a checkout, a player, a storefront. Kept as their own tier rather than mixed into the components, because a component is a primitive with one job and a contract, while a block is opinionated by design — and a design system that cannot tell the two apart ships opinions as if they were primitives. Benchmarked against Tailwind UI, Mantine UI, Ant Design Pro, MUI Templates and PrimeBlocks.</p>
+<p>Composed arrangements that solve a recognisable product problem: a dashboard shell, a checkout, a player, a storefront. Kept as their own tier rather than mixed into the components, because a component is a primitive with one job and a contract, while a block is opinionated by design. Mixing the two would ship opinions as if they were primitives. Benchmarked against Tailwind UI, Mantine UI, Ant Design Pro, MUI Templates and PrimeBlocks.</p>
 <h3 id="dashboard-shell">Dashboard shell</h3>
 <p>Header, navigation rail, content grid and status bar.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
@@ -4065,7 +4072,7 @@
 <tr><th scope="row">Material</th><td>Resin transport over the media; Haze metadata</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Transport is a pill; controls reach 44px.</td></tr>
-<tr><th scope="row">Semantics</th><td>Real media elements; captions and their state announced; transport reachable by keyboard.</td></tr>
+<tr><th scope="row">Semantics</th><td>Real media elements; captions and their state announced; transport reachable by keyboard; speed, track and quality choices announced as they change.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Transport material, the show and hide motion</td></tr>
 <tr><th scope="row">Product owns</th><td>Sources, queue, DRM</td></tr>
 <tr><th scope="row">Parity</th><td>primereact:galleria</td></tr>
@@ -4180,7 +4187,7 @@
 </tbody></table></div></div>
 
 <h3 id="editor-block">Editor block</h3>
-<p>A rich text surface with toolbar, and save state.</p>
+<p>A rich text surface with its toolbar and selection toolbar, a save state in words, and the save action.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, focus-visible, dirty, saving, saved</td></tr>
 <tr><th scope="row">Material</th><td>Haze surface in a Frost frame</td></tr>

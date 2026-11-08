@@ -104,6 +104,8 @@ jobs:
         env:
           CRYSTAL_ORIGIN: http://127.0.0.1:4321
       - run: npm run verify:interactions
+      # D-36: nothing keeps a backdrop blur with forced colours emulated.
+      - run: npm run verify:forced-colours
       - run: npm run verify:deploy
 
       # The contracts the visual gate rests on. Environment-independent: they

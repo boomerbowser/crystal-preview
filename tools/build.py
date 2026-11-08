@@ -94,7 +94,7 @@ title, content = render_markdown(SITE / 'src/overview.md')
     styles=[f'{shell.CORE}/assets/motion.css'], scripts=['assets/docs.js'],
     # Fragments never reach the server, so an inbound link to the old
     # index.html#playground anchor can only be forwarded in the page.
-    head_extra='<script>if(location.hash&&/^#(playground|workbench|palettes|foundations|content-blending|supporting-materials|components|accessibility|motion|adoption|specification)$/.test(location.hash))'
+    head_extra='<script>if(location.hash&&/^#(playground|workbench|palettes|foundations|content-blending|supporting-materials|components|media-and-text|accessibility|motion|adoption|specification)$/.test(location.hash))'
                'location.replace("playground.html"+location.hash);</script>',
     footer_note='Crystal 2.0 · Meridian Digital, Inc.',
     footer_link=('verification/report.html', 'Verification')))

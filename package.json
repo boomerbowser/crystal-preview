@@ -12,6 +12,7 @@
     "verify:deploy": "node tools/verify-deploy.mjs website",
     "verify:scroll": "node tools/verify-scroll.mjs",
     "verify:interactions": "node tools/verify-interactions.mjs",
+    "verify:forced-colours": "node tools/verify-forced-colours.mjs",
     "audit:materials": "node tools/audit-materials.mjs",
     "capture:frames": "node tools/capture-frames.mjs",
     "verify:visual": "node tools/verify-frames.mjs",
@@ -20,7 +21,7 @@
     "verify:scroll:device": "node tools/verify-scroll-device.mjs"
   },
   "dependencies": {
-    "@crystal-ui/core": "^2.3.1"
+    "@crystal-ui/core": "^2.4.0"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

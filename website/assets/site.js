@@ -88,4 +88,33 @@ $('#motion-speed-site').addEventListener('input',event=>{CrystalMotion.stopAll()
 $('#reduce-motion').addEventListener('change',event=>change({reduceMotion:event.target.checked},'Motion preference updated.'));
 const motionMedia=matchMedia('(prefers-reduced-motion: reduce)');motionMedia.addEventListener('change',()=>render());
 render();$('#preference-status').textContent=storageOK?'Changes stay in this browser.':'Storage unavailable; controls work for this visit.';
+/* The reading rhythm is the installed library's, not a literal in the page. */
+const rhythm=$('#rhythm-metric'),typography=window.CRYSTAL_TOKENS?.typography;
+if(rhythm&&typography)rhythm.textContent=`${typography.readingSize} / ${typography.readingLeading}`;
+/* The editor specimen is a real editor: the browser's own editing commands on a
+   contenteditable that wears `.cr-editor`. A toolbar button keeps the selection
+   (it acts on mousedown without taking focus) and shows its format's state in
+   aria-pressed, which follows the selection. A selection of one or more
+   characters raises the selection toolbar, `.cr-frost.bar`, above it. */
+const editorText=$('#playground-editor-text');
+if(editorText){
+ const shell=editorText.closest('.playground-editor'),bubble=shell.querySelector('.selection-bar');
+ const formatButtons=$$('.playground-editor [data-format]');
+ const selectionIn=()=>{const sel=document.getSelection();return sel&&sel.rangeCount&&editorText.contains(sel.anchorNode)?sel:null;};
+ const syncFormats=()=>{const sel=selectionIn();
+  if(!sel){if(!shell.contains(document.activeElement))bubble.hidden=true;return;}
+  for(const b of formatButtons){let on=false;try{on=document.queryCommandState(b.dataset.format);}catch{}b.setAttribute('aria-pressed',String(on));}
+  const rect=sel.isCollapsed?null:sel.getRangeAt(0).getBoundingClientRect();
+  if(!rect||!rect.width){bubble.hidden=true;return;}
+  const box=shell.getBoundingClientRect();
+  bubble.style.left=`${Math.min(Math.max(rect.left+rect.width/2-box.left,90),box.width-90)}px`;
+  bubble.style.top=`${rect.top-box.top}px`;
+  bubble.hidden=false;};
+ for(const b of formatButtons){
+  b.addEventListener('mousedown',event=>event.preventDefault());
+  b.addEventListener('click',()=>{if(!selectionIn())editorText.focus();document.execCommand(b.dataset.format);syncFormats();});
+ }
+ document.addEventListener('selectionchange',syncFormats);
+ editorText.addEventListener('keydown',event=>{if(event.key==='Escape')bubble.hidden=true;});
+}
 })();

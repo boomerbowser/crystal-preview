@@ -21,11 +21,19 @@ for(const palette of Object.keys(D.palettes))for(const mode of ['light','dark'])
  assert.equal(C.resolve(config,mode)['--cr-mica-inactive'],D.material.micaInactive[mode]);
  for(const pair of C.audit(config,mode))check(pair.label,pair.foreground,pair.background,pair.minimum,{palette,mode,kind:'solid'});
  for(const background of [p.surface,p.primarySoft])check('Compact control marker',p.primary,background,3,{palette,mode,kind:'control-marker'});
+ /* Text marks (D-34). A highlight is `mark`, on-primary-soft ink on the
+    primary-soft fill. The editor's selection is a 28% primary tint under
+    unchanged body ink, over the surface or the field shell's Haze well. */
+ check('Highlight (mark) text',p.onPrimarySoft,p.primarySoft,4.5,{palette,mode,kind:'text-mark'});
+ for(const [label,base] of [['Editor selection on the surface',p.surface],['Editor selection on Haze',flatten(C.resolve(config,mode)['--cr-haze-fill'],p.surface)]])
+  check(label,p.text,over(p.primary,base,.28),4.5,{palette,mode,kind:'text-mark'});
+ /* A highlighted word that is then selected takes the action pair (D-39). The
+    selection tint over the highlight measured 3.74:1 in Harbor. */
+ check('Selected highlight',p.onPrimary,p.primary,4.5,{palette,mode,kind:'text-mark'});
  /* A scrollbar thumb is a control, and it has to be seen against the surface it
-    scrolls. Painting it in the material's own surface colour gives the one
-    colour guaranteed to match the panel behind it: white on white on a light
-    Frost panel. 3:1 is the non-text bar, checked against every background a
-    Crystal panel can be. */
+    scrolls. It must never take the material's own surface colour, which matches
+    the panel behind it (white on white on a light Frost panel). 3:1 is the
+    non-text bar, checked against every background a Crystal panel can be. */
  for(const [label,token] of [['Frost scrollbar thumb','--cr-scrollbar-frost-thumb'],
                              ['Resin scrollbar thumb','--cr-scrollbar-resin-thumb']]){
   const value=C.resolve(config,mode)[token];

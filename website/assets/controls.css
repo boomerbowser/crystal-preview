@@ -139,7 +139,7 @@ span.cr-status>span{display:inline-grid;place-items:center;min-width:24px;height
 .suite-list li{background:var(--cr-haze-fill);box-shadow:0 3px 8px var(--cr-control-edge);}
 [data-effects=opaque] span.cr-field-shell::after{display:none;}
 @media(prefers-reduced-transparency:reduce){span.cr-field-shell::after{display:none;}}
-@media(forced-colors:active){span.cr-field-shell{border:1px solid ButtonText}span.cr-field-shell::after{display:none}.switch-track{border:1px solid ButtonText;background:Canvas}.switch-thumb{background:ButtonText}input[type=range]{appearance:auto}input[type=range]::-webkit-slider-runnable-track{background:CanvasText}input[type=range]::-webkit-slider-thumb{background:ButtonText;border-color:Canvas}span.cr-status>span{background:Canvas;color:CanvasText}}
+@media(forced-colors:active){span.cr-field-shell{border:1px solid ButtonText}span.cr-field-shell::after{display:none}.switch-track{border:1px solid ButtonText;background:Canvas;-webkit-backdrop-filter:none;backdrop-filter:none}.switch-thumb{background:ButtonText}input[type=range]{appearance:auto}input[type=range]::-webkit-slider-runnable-track{background:CanvasText}input[type=range]::-webkit-slider-thumb{background:ButtonText;border-color:Canvas}span.cr-status>span{background:Canvas;color:CanvasText}}
 
 
 /* An immediate, contrast-bearing core sits inside a lightly feathered halo.

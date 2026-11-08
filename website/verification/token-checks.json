@@ -1,7 +1,7 @@
 {
-  "date": "2026-09-29T15:12:38.129Z",
+  "date": "2026-11-08T03:07:18.434Z",
   "scope": "Token pairs, bounded composite models, normalization and exported theme behavior. Not a WCAG certification.",
-  "checks": 1788,
+  "checks": 1836,
   "minimum": 3.0673,
   "failures": [],
   "results": [
@@ -108,6 +108,38 @@
       "palette": "prism",
       "mode": "light",
       "kind": "control-marker"
+    },
+    {
+      "label": "Highlight (mark) text",
+      "ratio": 11.4458,
+      "minimum": 4.5,
+      "palette": "prism",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 11.6297,
+      "minimum": 4.5,
+      "palette": "prism",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 11.6297,
+      "minimum": 4.5,
+      "palette": "prism",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 5.9305,
+      "minimum": 4.5,
+      "palette": "prism",
+      "mode": "light",
+      "kind": "text-mark"
     },
     {
       "label": "Frost scrollbar thumb",
@@ -1638,6 +1670,38 @@
       "kind": "control-marker"
     },
     {
+      "label": "Highlight (mark) text",
+      "ratio": 11.185,
+      "minimum": 4.5,
+      "palette": "prism",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 8.3697,
+      "minimum": 4.5,
+      "palette": "prism",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 8.3697,
+      "minimum": 4.5,
+      "palette": "prism",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 9.6827,
+      "minimum": 4.5,
+      "palette": "prism",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
       "label": "Frost scrollbar thumb",
       "ratio": 5.5704,
       "minimum": 3,
@@ -3164,6 +3228,38 @@
       "palette": "fuchsia",
       "mode": "light",
       "kind": "control-marker"
+    },
+    {
+      "label": "Highlight (mark) text",
+      "ratio": 11.3474,
+      "minimum": 4.5,
+      "palette": "fuchsia",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 11.4369,
+      "minimum": 4.5,
+      "palette": "fuchsia",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 11.4369,
+      "minimum": 4.5,
+      "palette": "fuchsia",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 5.5239,
+      "minimum": 4.5,
+      "palette": "fuchsia",
+      "mode": "light",
+      "kind": "text-mark"
     },
     {
       "label": "Frost scrollbar thumb",
@@ -4694,6 +4790,38 @@
       "kind": "control-marker"
     },
     {
+      "label": "Highlight (mark) text",
+      "ratio": 11.1504,
+      "minimum": 4.5,
+      "palette": "fuchsia",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 8.4934,
+      "minimum": 4.5,
+      "palette": "fuchsia",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 8.4934,
+      "minimum": 4.5,
+      "palette": "fuchsia",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 9.3917,
+      "minimum": 4.5,
+      "palette": "fuchsia",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
       "label": "Frost scrollbar thumb",
       "ratio": 5.5768,
       "minimum": 3,
@@ -6220,6 +6348,38 @@
       "palette": "cobalt",
       "mode": "light",
       "kind": "control-marker"
+    },
+    {
+      "label": "Highlight (mark) text",
+      "ratio": 11.3184,
+      "minimum": 4.5,
+      "palette": "cobalt",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 11.7481,
+      "minimum": 4.5,
+      "palette": "cobalt",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 11.7481,
+      "minimum": 4.5,
+      "palette": "cobalt",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 5.7575,
+      "minimum": 4.5,
+      "palette": "cobalt",
+      "mode": "light",
+      "kind": "text-mark"
     },
     {
       "label": "Frost scrollbar thumb",
@@ -7750,6 +7910,38 @@
       "kind": "control-marker"
     },
     {
+      "label": "Highlight (mark) text",
+      "ratio": 11.1916,
+      "minimum": 4.5,
+      "palette": "cobalt",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 8.2546,
+      "minimum": 4.5,
+      "palette": "cobalt",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 8.2546,
+      "minimum": 4.5,
+      "palette": "cobalt",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 9.8936,
+      "minimum": 4.5,
+      "palette": "cobalt",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
       "label": "Frost scrollbar thumb",
       "ratio": 5.5584,
       "minimum": 3,
@@ -9276,6 +9468,38 @@
       "palette": "ion",
       "mode": "light",
       "kind": "control-marker"
+    },
+    {
+      "label": "Highlight (mark) text",
+      "ratio": 10.976,
+      "minimum": 4.5,
+      "palette": "ion",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 12.0433,
+      "minimum": 4.5,
+      "palette": "ion",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 12.0433,
+      "minimum": 4.5,
+      "palette": "ion",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 4.7391,
+      "minimum": 4.5,
+      "palette": "ion",
+      "mode": "light",
+      "kind": "text-mark"
     },
     {
       "label": "Frost scrollbar thumb",
@@ -10806,6 +11030,38 @@
       "kind": "control-marker"
     },
     {
+      "label": "Highlight (mark) text",
+      "ratio": 10.6715,
+      "minimum": 4.5,
+      "palette": "ion",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 7.9825,
+      "minimum": 4.5,
+      "palette": "ion",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 7.9825,
+      "minimum": 4.5,
+      "palette": "ion",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 10.3137,
+      "minimum": 4.5,
+      "palette": "ion",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
       "label": "Frost scrollbar thumb",
       "ratio": 5.5595,
       "minimum": 3,
@@ -12332,6 +12588,38 @@
       "palette": "amethyst",
       "mode": "light",
       "kind": "control-marker"
+    },
+    {
+      "label": "Highlight (mark) text",
+      "ratio": 11.6658,
+      "minimum": 4.5,
+      "palette": "amethyst",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 11.5682,
+      "minimum": 4.5,
+      "palette": "amethyst",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 11.5682,
+      "minimum": 4.5,
+      "palette": "amethyst",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 6.5231,
+      "minimum": 4.5,
+      "palette": "amethyst",
+      "mode": "light",
+      "kind": "text-mark"
     },
     {
       "label": "Frost scrollbar thumb",
@@ -13862,6 +14150,38 @@
       "kind": "control-marker"
     },
     {
+      "label": "Highlight (mark) text",
+      "ratio": 11.5056,
+      "minimum": 4.5,
+      "palette": "amethyst",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 8.4664,
+      "minimum": 4.5,
+      "palette": "amethyst",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 8.4664,
+      "minimum": 4.5,
+      "palette": "amethyst",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 9.5543,
+      "minimum": 4.5,
+      "palette": "amethyst",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
       "label": "Frost scrollbar thumb",
       "ratio": 5.6202,
       "minimum": 3,
@@ -15390,6 +15710,38 @@
       "kind": "control-marker"
     },
     {
+      "label": "Highlight (mark) text",
+      "ratio": 6.061,
+      "minimum": 4.5,
+      "palette": "harbor",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 8.4479,
+      "minimum": 4.5,
+      "palette": "harbor",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 8.4479,
+      "minimum": 4.5,
+      "palette": "harbor",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 6.0796,
+      "minimum": 4.5,
+      "palette": "harbor",
+      "mode": "light",
+      "kind": "text-mark"
+    },
+    {
       "label": "Frost scrollbar thumb",
       "ratio": 3.2695,
       "minimum": 3,
@@ -16916,6 +17268,38 @@
       "palette": "harbor",
       "mode": "dark",
       "kind": "control-marker"
+    },
+    {
+      "label": "Highlight (mark) text",
+      "ratio": 6.0678,
+      "minimum": 4.5,
+      "palette": "harbor",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on the surface",
+      "ratio": 7.6298,
+      "minimum": 4.5,
+      "palette": "harbor",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Editor selection on Haze",
+      "ratio": 7.6298,
+      "minimum": 4.5,
+      "palette": "harbor",
+      "mode": "dark",
+      "kind": "text-mark"
+    },
+    {
+      "label": "Selected highlight",
+      "ratio": 6.0753,
+      "minimum": 4.5,
+      "palette": "harbor",
+      "mode": "dark",
+      "kind": "text-mark"
     },
     {
       "label": "Frost scrollbar thumb",
