@@ -147,7 +147,7 @@ CrystalMotion.direction(dialog, 'bottom');
 <p>The canonical motion definitions live in <code>tokens/crystal.json</code>; CSS and JSON exports include both compact and expressive durations and travel values. Always include <code>motion.css</code> for native dialog backdrop choreography and accessibility overrides. The reference provides real visual behaviour. It does not provide a native compositor or a physics simulation.</p>
 <h2 id="installed-animation-engines">Installed animation engines</h2>
 <p>Both engines are installed, bundled locally and used by the runtime. <a href="https://motion.dev/docs/animate">Motion's animate API</a> drives element keyframes. <a href="https://gsap.com/docs/v3/GSAP/Timeline/">GSAP timelines</a> control material paint-layer clocks and selected component sequences. Native Web Animations effects paint actual pseudo-elements under those GSAP clocks; CSS supplies the native dialog backdrop fallback.</p>
-<p>See the <a href="motion-components.html">component motion suite</a> for all 59 recipes, engine assignments, API contracts, live component behavior, test instructions and future component-library/Storybook coverage. <a href="../reference/ASSET-NOTICES.md">License notices</a> accompany the local bundle.</p>
+<p>See the <a href="motion-components.html">component motion suite</a> for all 60 recipes, engine assignments, API contracts, live component behavior, test instructions and future component-library/Storybook coverage. <a href="../reference/ASSET-NOTICES.md">License notices</a> accompany the local bundle.</p>
 <p>The compact CSS timing tokens remain available for small state changes. The material-driven Resin press recipe uses 320ms for a complete compression/recovery sequence; hover light uses 700ms. These visual clocks never delay the actual action. The executable catalog lists the current duration of every recipe.</p>
 <h2 id="springs-are-the-portable-primitive">Springs are the portable primitive</h2>
 <p>Every recipe carries a spring, <code>{stiffness, damping, mass}</code>, fitted so that its derived
@@ -307,7 +307,7 @@ including that reduced motion still applies the state instantly.</p>
 <h2 id="recipe-reference">Recipe reference</h2>
 <!-- generated:recipes -->
 
-<p>All 59 recipes in 9 categories, generated from <code>core/tokens/motion-recipes.json</code>. Damping ratio and
+<p>All 60 recipes in 9 categories, generated from <code>core/tokens/motion-recipes.json</code>. Damping ratio and
 overshoot are derived from each recipe's spring by <code>core/assets/core/spring.js</code>, so a
 retuned spring cannot leave a stale number in this table.</p>
 <p>A damping ratio below 1 overshoots and settles back; exactly 1 is the fastest approach
@@ -357,6 +357,16 @@ correct is a material question; see the signature policy below.</p>
 <td>4.6%</td>
 <td>Selected chips, radios, toggles and navigation; set selected semantics first.</td>
 <td>Apply the semantic state immediately; omit decorative movement.</td>
+</tr>
+<tr>
+<td><code>selection-travel</code>: Selection travel</td>
+<td>460ms</td>
+<td>meniscus</td>
+<td>resin</td>
+<td>1.000</td>
+<td>none</td>
+<td>The one .cr-indicator.pill behind the selected segment of tabs, a segmented control, the dock, bottom navigation or a toggle button group, moving to the new segment when the choice changes. Set the selected semantics first; selection stays label weight, so the pill is never the only sign of it. Critically damped: a pill that overshoots stands for a moment on a segment nobody chose.</td>
+<td>The pill is placed behind the new segment at once; nothing travels.</td>
 </tr>
 <tr>
 <td><code>switch-on</code>: Switch on</td>

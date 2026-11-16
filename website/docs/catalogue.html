@@ -184,7 +184,7 @@
 <td>Haze</td>
 <td><code>.cr-indicator</code></td>
 <td>2</td>
-<td>A 20px informational circle painting Haze on an isolated layer, or the moving pill behind a selected segment. Haze rather than Resin, because it sits on a surface that is often already translucent. Never a selection mark.</td>
+<td>A 20px informational circle painting Haze on an isolated layer, or, as <code>.cr-indicator.pill</code>, the primary fill that travels behind the selected segment of a strip (D-37): tabs, a segmented control, the dock, bottom navigation or a toggle button group. The circle is Haze rather than Resin, because it sits on a surface that is often already translucent. Neither is ever the only mark of a selection: the selected segment keeps its label weight, and the circle never marks one at all.</td>
 </tr>
 <tr>
 <td><a id="surface-status"></a><strong>Status badge</strong> <code>status</code></td>
@@ -496,13 +496,13 @@
 <p>One floating Resin plane holding labelled destinations on a shared Stone label group.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>default, selected, hover, focus</td></tr>
-<tr><th scope="row">Material</th><td>Resin plane, Stone label backing, primary fill on the selected destination</td></tr>
+<tr><th scope="row">Material</th><td>Resin plane, Stone label backing, the primary pill behind the selected destination</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-dock">Dock</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Pill; 52px minimum destination height</td></tr>
 <tr><th scope="row">Semantics</th><td>nav landmark; aria-pressed or aria-current on the destination</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>The single shared plane, label weight for the current entry, elevation</td></tr>
 <tr><th scope="row">Product owns</th><td>Destinations and routing</td></tr>
-<tr><th scope="row">Motion</th><td><code>selection</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>selection-travel</code></td></tr>
 <tr><th scope="row">Parity</th><td>mui:BottomNavigation · antd:Menu · mantine:SegmentedControl</td></tr>
 </tbody></table></div></div>
 
@@ -527,13 +527,13 @@
 <p>A Resin tab strip with a selected tab and an associated panel.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>default, hover, focus, selected, disabled</td></tr>
-<tr><th scope="row">Material</th><td>Resin strip, primary fill on the selected tab</td></tr>
+<tr><th scope="row">Material</th><td>Resin strip, the primary pill behind the selected tab</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-dock">Dock</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Pill tabs inside a pill strip; 44px minimum</td></tr>
 <tr><th scope="row">Semantics</th><td>role=tablist/tab/tabpanel with arrow-key, Home and End navigation and aria-selected</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Strip material, label weight for the selected tab, focus ring</td></tr>
 <tr><th scope="row">Product owns</th><td>The roving tabindex implementation and panel content</td></tr>
-<tr><th scope="row">Motion</th><td><code>tab-in</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>tab-in</code>, <code>selection-travel</code></td></tr>
 <tr><th scope="row">Parity</th><td>mantine:Tabs · mui:Tabs · antd:Tabs</td></tr>
 </tbody></table></div></div>
 
@@ -631,9 +631,9 @@
 <tr><th scope="row">Surface</th><td><a href="#surface-dock">Dock</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Pill; targets at least 44px; respects the safe area.</td></tr>
 <tr><th scope="row">Semantics</th><td>role="navigation"; the current destination carries aria-current="page".</td></tr>
-<tr><th scope="row">Crystal supplies</th><td>Material, geometry, selection by label weight, safe-area inset</td></tr>
+<tr><th scope="row">Crystal supplies</th><td>Material, geometry, selection by label weight with the pill behind it, safe-area inset</td></tr>
 <tr><th scope="row">Product owns</th><td>Destinations and routing</td></tr>
-<tr><th scope="row">Motion</th><td><code>selection</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>selection-travel</code></td></tr>
 <tr><th scope="row">Parity</th><td>mui:BottomNavigation</td></tr>
 </tbody></table></div></div>
 
@@ -734,9 +734,9 @@
 <tr><th scope="row">Surface</th><td><a href="#surface-group">Group</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Pill outer geometry; interior corners square against neighbours</td></tr>
 <tr><th scope="row">Semantics</th><td>group role with an accessible name when the buttons are related</td></tr>
-<tr><th scope="row">Crystal supplies</th><td>The shared plane and interior separation</td></tr>
+<tr><th scope="row">Crystal supplies</th><td>The shared plane and interior separation; as a toggle set, the pill behind the pressed button</td></tr>
 <tr><th scope="row">Product owns</th><td>Which actions are grouped</td></tr>
-<tr><th scope="row">Motion</th><td><code>press</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>press</code>, <code>selection-travel</code></td></tr>
 <tr><th scope="row">Parity</th><td>mantine:Button.Group · mui:ButtonGroup · antd:Space.Compact</td></tr>
 </tbody></table></div></div>
 
@@ -1047,13 +1047,13 @@
 <p>A pill strip of mutually exclusive options sharing one Resin plane.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>default, hover, focus, selected, disabled</td></tr>
-<tr><th scope="row">Material</th><td>One Resin plane; primary fill on the selected segment</td></tr>
+<tr><th scope="row">Material</th><td>One Resin plane; the primary pill behind the selected segment</td></tr>
 <tr><th scope="row">Surface</th><td><a href="#surface-dock">Dock</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Pill strip and pill segments; 44px minimum</td></tr>
 <tr><th scope="row">Semantics</th><td>Radio group semantics, or aria-pressed on buttons; never aria-selected outside a tablist</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Shared plane, label weight for the selected segment, focus ring</td></tr>
 <tr><th scope="row">Product owns</th><td>Options and change handling</td></tr>
-<tr><th scope="row">Motion</th><td><code>selection</code></td></tr>
+<tr><th scope="row">Motion</th><td><code>selection-travel</code></td></tr>
 <tr><th scope="row">Parity</th><td>mantine:SegmentedControl · mui:ToggleButtonGroup · antd:Segmented</td></tr>
 </tbody></table></div></div>
 

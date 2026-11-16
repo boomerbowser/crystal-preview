@@ -51,7 +51,18 @@ systemMode.addEventListener('change',()=>{if(state.mode==='system')render();});
 $$('[data-material-mode]').forEach(b=>b.addEventListener('click',()=>change({mode:b.dataset.materialMode},b.dataset.materialMode+' material appearance selected.')));
 $('#study-tint').addEventListener('input',event=>change({translucency:Number(event.target.value)}));
 $('#study-opaque').addEventListener('change',event=>change({reduced:event.target.checked},event.target.checked?'Opaque fallback enabled.':'Layered materials restored.'));
-$$('[data-scene]').forEach(b=>b.addEventListener('click',()=>{scene=b.dataset.scene;$$('.scene').forEach(p=>p.hidden=p.id!=='scene-'+scene);$$('[data-scene]').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));$('#scene-label').textContent=b.textContent.trim();CrystalMotion.play($('#scene-'+scene),'frost');announce(b.textContent.trim()+' preview selected.');}));
+/* The scene dock's selection is Crystal 2.6.0's travelling pill (D-37): placed
+   on load, on resize and when fonts arrive without moving, and travelled when
+   a scene is chosen. Without CrystalMotion.travel each button paints its own
+   selection, as before. */
+const scenePill=$('.dock-position .cr-indicator.pill');
+/* A resize during a travel (the chosen label turning heavier widens the row)
+   is not followed at once, which would cancel the travel; the pill is placed
+   again when it lands. */
+let sceneStale=false;
+function placeScene(instant){const on=$('[data-scene][aria-pressed="true"]');if(!scenePill||!on||!window.CrystalMotion||!CrystalMotion.travel)return;if(instant&&scenePill.dataset.crMotionState==='running'){sceneStale=true;return;}if(!instant)sceneStale=false;CrystalMotion.travel(scenePill,on,{instant}).then(()=>{if(sceneStale&&scenePill.dataset.crMotionState!=='running'){sceneStale=false;placeScene(true);}},()=>{});}
+if(scenePill){addEventListener('load',()=>placeScene(true));if(document.fonts)document.fonts.ready.then(()=>placeScene(true));if(window.ResizeObserver)new ResizeObserver(()=>placeScene(true)).observe(scenePill.parentElement);}
+$$('[data-scene]').forEach(b=>b.addEventListener('click',()=>{scene=b.dataset.scene;$$('.scene').forEach(p=>p.hidden=p.id!=='scene-'+scene);$$('[data-scene]').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));$('#scene-label').textContent=b.textContent.trim();placeScene(false);CrystalMotion.play($('#scene-'+scene),'frost');announce(b.textContent.trim()+' preview selected.');}));
 $('#width-toggle').addEventListener('click',()=>{const narrow=$('#stage-wrap').classList.toggle('narrow');$('#width-toggle').setAttribute('aria-pressed',String(narrow));$('#width-toggle').textContent=narrow?'Full width':'Narrow view';announce(narrow?'Canvas constrained to a narrow layout.':'Full-width canvas restored.');});
 const dialog=$('#spec-dialog');
 let dialogTrigger=null;
