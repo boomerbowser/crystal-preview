@@ -48,7 +48,7 @@ BASE_SCRIPTS = [f'{CORE}/assets/tokens.js', f'{CORE}/assets/crystal.js', f'{CORE
                 f'{CORE}/assets/core/preferences.js', f'{CORE}/assets/core/spring.js',
                 'assets/motion-shaders.js', 'assets/menu.js']
 # Cache-busted together, because the pill focus recipe spans both files.
-CONTROLS = 'v=pill-focus-2'
+CONTROLS = 'v=selection-pill-1'
 DESCRIPTION = ('Crystal: a reusable design system with expressive color, tactile depth '
                'and adjustable material previews.')
 

@@ -241,6 +241,11 @@ span.cr-field-shell:has([aria-invalid=true])>.cr-indicator::after{content:'!';fo
 .suite-menu button[aria-checked=true]::after{content:none;}
 [data-effects=opaque] .cr-indicator{background:var(--cr-surface);backdrop-filter:none;}
 [data-effects=opaque] .cr-indicator::before{filter:none;}
+/* Crystal 2.6.0's selection pill keeps its primary fill when effects are opaque:
+   it is not a material, and the rule above, loaded after crystal.css at the
+   same specificity, painted it with the surface, and the white label on it
+   disappeared (caught by the playground-opaque frame). */
+[data-effects=opaque] .cr-indicator.pill{background:var(--cr-primary);}
 @media(prefers-reduced-transparency:reduce){.cr-indicator{background:var(--cr-surface);backdrop-filter:none}.cr-indicator::before{filter:none}}
 @media(forced-colors:active){.cr-indicator{background:Canvas;color:CanvasText;border:1px solid ButtonText;box-shadow:none;backdrop-filter:none}.cr-indicator::before{display:none}:is(button,a,input,select,textarea,summary,[tabindex]):focus-visible,span.cr-field-shell:focus-within,.suite-switch input:focus-visible+.switch-track,:is(.cr-dock,.segmented,.suite-tabs) button:focus-visible{outline:2px solid Highlight;box-shadow:none}}
 
