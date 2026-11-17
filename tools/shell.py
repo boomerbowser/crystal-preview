@@ -44,7 +44,11 @@ SPRITE = CORE + '/assets/icons.svg'
 
 # Loaded by every page. Order matters: tokens define the theme the rest reads.
 BASE_STYLES = [f'{CORE}/assets/crystal-theme.css', f'{CORE}/assets/crystal.css', 'assets/site.css']
-BASE_SCRIPTS = [f'{CORE}/assets/tokens.js', f'{CORE}/assets/crystal.js', f'{CORE}/assets/core/state.js',
+# `modality.js` (Crystal 2.10.0) starts by itself and sets `data-crystal-modality`
+# on the document, which Crystal's focus rings read: a ring for the keyboard,
+# none for a click. A page without it draws a ring on every click.
+BASE_SCRIPTS = [f'{CORE}/assets/core/modality.js',
+                f'{CORE}/assets/tokens.js', f'{CORE}/assets/crystal.js', f'{CORE}/assets/core/state.js',
                 f'{CORE}/assets/core/preferences.js', f'{CORE}/assets/core/spring.js',
                 'assets/motion-shaders.js', 'assets/menu.js']
 # Cache-busted together, because the pill focus recipe spans both files.
