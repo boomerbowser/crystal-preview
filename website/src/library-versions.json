@@ -1,0 +1,7 @@
+{
+  "$description": "Published versions of Crystal and its component libraries, from the npm registry. Written by tools/library-versions.mjs; refreshed by follow-crystal.yml. Never edit by hand.",
+  "packages": {
+    "@crystal-ui/core": "2.9.0",
+    "@crystal-ui/react": "0.1.0-alpha.1"
+  }
+}

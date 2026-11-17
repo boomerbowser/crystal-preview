@@ -8,7 +8,7 @@ What is hand-authored here is `website/src/overview.md` and the body fragments
 under `website/src/pages/`.
 """
 from pathlib import Path
-import json, re, subprocess, sys
+import html, json, re, subprocess, sys
 import markdown
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
@@ -74,6 +74,40 @@ def render_markdown(path):
     return title, body
 
 
+# The version of Crystal this site was built against: the installed package's.
+# Every footer states it, so the site never names a version it does not show.
+VERSION = json.loads((ROOT / 'node_modules/@crystal-ui/core/package.json').read_text())['version']
+
+
+def libraries_section():
+    """Crystal's component libraries, from the installed registry, with the
+    version each has published (resolved by tools/library-versions.mjs)."""
+    registry = json.loads((SITE / shell.CORE / 'tokens/libraries.json').read_text())['libraries']
+    versions = json.loads((SITE / 'src/library-versions.json').read_text())['packages']
+    rows = []
+    for lib in registry:
+        built = lib['status'] == 'built'
+        status = f"Built ({lib['stage']})" if built and lib.get('stage') else ('Built' if built else 'Planned')
+        version = versions.get(lib['package']) if lib.get('package') else None
+        package = (f'<a href="{html.escape(lib["registry"])}"><code>{html.escape(lib["package"])}</code></a>'
+                   if lib.get('package') else 'Not yet published')
+        if lib.get('documentation'):
+            docs = f'<a href="{html.escape(lib["documentation"])}">Documentation</a>'
+        elif lib.get('repository'):
+            docs = f'<a href="{html.escape(lib["repository"])}">Repository</a>; no documentation website yet'
+        else:
+            docs = 'Not yet'
+        rows.append(f'<tr><td>{html.escape(lib["framework"])}</td><td>{html.escape(lib.get("name") or "Not yet named")}</td>'
+                    f'<td>{status}</td><td>{package}</td><td>{html.escape(version) if version else "Not published"}</td><td>{docs}</td></tr>')
+    return ('<h2 id="component-libraries">Component libraries</h2>'
+            f'<p>Crystal is implemented for each platform by its own library. This site is built against '
+            f'<code>@crystal-ui/core</code> {html.escape(VERSION)}; each version below is the one its package has published. '
+            'The list is <code>@crystal-ui/core/libraries</code>.</p>'
+            '<div class="cr-table-scroll"><table class="cr-table"><thead><tr><th>Platform</th><th>Library</th><th>Status</th>'
+            '<th>Package</th><th>Version</th><th>Documentation</th></tr></thead><tbody>'
+            + ''.join(rows) + '</tbody></table></div>')
+
+
 built = []
 
 # 1. The specification pages.
@@ -83,12 +117,13 @@ for p in sorted(SPEC.glob('*.md')):
         title=title, path=f'docs/{p.stem}.html', content=content,
         styles=[f'{shell.CORE}/assets/motion.css'], scripts=['assets/docs.js'],
         skip='Skip to specification',
-        footer_note='Crystal 2.0 · Editable specification',
+        footer_note=f'Crystal {VERSION} · Editable specification',
         footer_link=(f'{shell.CORE}/docs/{p.name}', 'Specification source')))
     built.append(f'docs/{p.stem}.html')
 
 # 2. The overview, which is the site's index page.
 title, content = render_markdown(SITE / 'src/overview.md')
+content += libraries_section()
 (SITE / 'index.html').write_text(shell.document(
     title=title, path='index.html', content=content,
     styles=[f'{shell.CORE}/assets/motion.css'], scripts=['assets/docs.js'],
@@ -96,7 +131,7 @@ title, content = render_markdown(SITE / 'src/overview.md')
     # index.html#playground anchor can only be forwarded in the page.
     head_extra='<script>if(location.hash&&/^#(playground|workbench|palettes|foundations|content-blending|supporting-materials|components|media-and-text|accessibility|motion|adoption|specification)$/.test(location.hash))'
                'location.replace("playground.html"+location.hash);</script>',
-    footer_note='Crystal 2.0 · Meridian Digital, Inc.',
+    footer_note=f'Crystal {VERSION} · Meridian Digital, Inc.',
     footer_link=('verification/report.html', 'Verification')))
 built.append('index.html')
 
@@ -106,7 +141,7 @@ for name, title in [('playground', 'Playground'), ('motion', 'Motion studies')]:
         title=title, path=f'{name}.html', content=fragment(f'{name}.html'),
         styles=PAGE_ASSETS[name]['styles'], scripts=PAGE_ASSETS[name]['scripts'],
         main_class='site-main', tail=fragment(f'{name}.tail.html'),
-        footer_note='Crystal 2.0 · Meridian Digital, Inc.',
+        footer_note=f'Crystal {VERSION} · Meridian Digital, Inc.',
         footer_link=('verification/report.html', 'Verification')))
     built.append(f'{name}.html')
 

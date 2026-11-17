@@ -1,0 +1,104 @@
+# Follow Crystal: adopt every @crystal-ui/core release, and every new version
+# of a component library this site lists, without waiting for a person.
+#
+# On a release (Crystal's publish workflow sends `crystal-published` when it has
+# a token to send it with) and otherwise every hour, this compares what the site
+# is built against with what npm has published. When something is newer it
+# installs it, rebuilds every page, commits the result to a branch, runs this
+# repository's own Verify workflow on that branch, and fast-forwards main only
+# if every gate passes, the visual frames included. A release that moves a frame
+# stops here, red, with the branch left for a person: the frame gate exists so
+# that a visual change is looked at, and re-capturing its baselines is theirs
+# (capture-baselines.yml on the branch, then merge).
+name: Follow Crystal
+
+on:
+  repository_dispatch:
+    types: [crystal-published]
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: follow-crystal
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  follow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: npm ci --no-audit --no-fund
+      - run: pip install -r tools/requirements.txt
+
+      - name: Adopt what npm has published
+        id: adopt
+        run: |
+          set -euo pipefail
+          latest=$(npm view @crystal-ui/core version)
+          installed=$(node -p "require('./node_modules/@crystal-ui/core/package.json').version")
+          if [ "$latest" != "$installed" ]; then
+            npm install --no-audit --no-fund "@crystal-ui/core@^$latest"
+          fi
+          node tools/library-versions.mjs
+          if git diff --quiet; then
+            echo "Built against @crystal-ui/core $installed, the latest; every listed version is current."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "version=$latest" >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild and commit to a branch
+        if: steps.adopt.outputs.changed == 'true'
+        id: branch
+        run: |
+          set -euo pipefail
+          npm test
+          python3 tools/report.py
+          # The token evidence records when it ran; only its numbers are held.
+          git checkout -- website/verification/token-checks.json || true
+          branch="follow-crystal/${{ steps.adopt.outputs.version }}-${{ github.run_id }}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$branch"
+          git add -A
+          git commit -m "Follow Crystal: @crystal-ui/core ${{ steps.adopt.outputs.version }} and the published library versions" \
+            -m "Adopted by follow-crystal.yml (run ${{ github.run_id }}), which merges only when Verify passes on this branch."
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Verify the branch, then fast-forward main
+        if: steps.adopt.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        run: |
+          set -euo pipefail
+          gh workflow run verify.yml --ref "$BRANCH"
+          run=''
+          for _ in $(seq 1 30); do
+            run=$(gh run list --workflow verify.yml --branch "$BRANCH" --limit 1 --json databaseId --jq '.[0].databaseId // empty')
+            [ -n "$run" ] && break
+            sleep 5
+          done
+          [ -n "$run" ] || { echo "::error::Verify did not start on $BRANCH"; exit 1; }
+          if ! gh run watch "$run" --exit-status; then
+            echo "::error::Verify failed on $BRANCH, so main is unchanged. If a frame moved, look at it, re-capture with capture-baselines.yml on the branch, and merge it by hand."
+            exit 1
+          fi
+          git push origin "HEAD:main"
+          git push origin --delete "$BRANCH"

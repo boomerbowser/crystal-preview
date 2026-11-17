@@ -113,21 +113,21 @@
 <td><a id="surface-frost"></a><strong>Frost panel</strong> <code>frost</code></td>
 <td>Frost</td>
 <td><code>.cr-frost</code></td>
-<td>48</td>
+<td>47</td>
 <td>Intermediate task frames and every transient surface that opens over content: side panels, drawers, sheets and app bars, and menus, popovers, tooltips and toasts (R15e). Reading content inside it sits on Haze. <code>.cr-frost.bar</code> is a transient overlay shaped as a row of controls, a pill with 4px padding: the selection toolbar over highlighted text. <code>.pane</code> takes the content radius, for a pane beside content: a navigation rail, a filter panel, a workspace pane. <code>.flat</code> drops the grain. <code>.docked</code> is a pane docked to the window's edges, with no rim, radius or shadow: an app bar, a sidebar. <code>.sheet</code> slides over content from an edge, with the <code>--cr-edge</code> rim, the content radius and the float shadow: a drawer. <code>.reading</code> holds a Haze reading fill on <code>::after</code>, inset by <code>--cr-frost-reading-inset</code> (default <code>--cr-haze-inset</code>): a toast, a popover. <code>.flat</code> composes with <code>.pane</code>, <code>.docked</code> and <code>.sheet</code> (2.7.0).</td>
 </tr>
 <tr>
 <td><a id="surface-haze"></a><strong>Haze reading surface</strong> <code>haze</code></td>
 <td>Haze</td>
 <td><code>.cr-haze</code></td>
-<td>88</td>
+<td>85</td>
 <td>Anything read: cards, rows, panels, wells, forms, messages, decisions. 80% fill, 1.95px feather on an isolated paint layer, crisp foreground. <code>.cr-well</code> is the same recipe recessed into a Frost or Resin frame. <code>.cr-haze.overlay</code> is the recessed overlay: a transient overlay opened inside a pane that is already lifted, drawn as a flat Haze fill with the <code>--cr-edge</code> rim and the content shadow, so it can be told from the pane it sits in. <code>.inset</code> is a reading card with no border box, its fill inset by <code>--cr-haze-inset</code> and no shadow under it: an alert, a result, a product card. <code>.flush</code> is the same card filled to its own edge: a thumbnail, a slide, a chart node. <code>.flat</code> is the fill on the element itself, with no feather and no layer: a list or accordion row. <code>.flat.sunken</code> falls back to the alternate surface instead of the surface: a placeholder. <code>.raised</code> gives the fill the float shadow: a command palette (2.7.0).</td>
 </tr>
 <tr>
 <td><a id="surface-resin"></a><strong>Resin plane</strong> <code>resin</code></td>
 <td>Resin</td>
 <td><code>.cr-resin</code></td>
-<td>12</td>
+<td>13</td>
 <td>One floating Resin plane with no reading fill of its own, pill-shaped unless it is a panel: a player's transport bar, a pinned element, a Resin handle over imagery or between regions. Controls inside it lose their own backdrop filter, because Resin never contains Resin. A plane whose controls are labels to be read holds a Haze fill as well, and is a dock. <code>.cr-resin.transport</code> is the media transport: the pill with 4px block and 12px inline padding around its 48px controls (58px tall with its rim), with tabular time readouts, wrapping to a second row in a player narrower than 420px. <code>.cr-media</code> is the stage it sits on (the content radius, the letterbox, <code>--cr-media-aspect</code> and <code>--cr-media-fit</code>), and <code>.cr-media-bar</code> is the region inset 12px, or the safe area in full screen, that holds the transport. <code>.flat</code> drops the sheen layers, for a plane that is a mark rather than a control: a step or timeline marker. <code>.divider</code> is the handle between resizable regions: the Resin fill and blur only, with no rim, shadow or sheen, falling back to the outline colour (2.7.0).</td>
 </tr>
 <tr>
@@ -183,7 +183,7 @@
 <td><a id="surface-indicator"></a><strong>Indicator</strong> <code>indicator</code></td>
 <td>Haze</td>
 <td><code>.cr-indicator</code></td>
-<td>2</td>
+<td>1</td>
 <td>A 20px informational circle painting Haze on an isolated layer, or, as <code>.cr-indicator.pill</code>, the primary fill that travels behind the selected segment of a strip (D-37): tabs, a segmented control, the dock, bottom navigation or a toggle button group. The circle is Haze rather than Resin, because it sits on a surface that is often already translucent. Neither is ever the only mark of a selection: the selected segment keeps its label weight, and the circle never marks one at all.</td>
 </tr>
 <tr>
@@ -260,7 +260,7 @@
 <td><a id="surface-none"></a><strong>No surface of its own</strong> <code>none</code></td>
 <td>None</td>
 <td>None</td>
-<td>104</td>
+<td>106</td>
 <td>Layout, typography, behaviour and drawing components that inherit whatever they sit on. A chart's marks, a divider, a provider.</td>
 </tr>
 </tbody>
@@ -1730,8 +1730,8 @@
 <p>Ordered events on a connector with per-event markers.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>complete, current, upcoming, error</td></tr>
-<tr><th scope="row">Material</th><td>Indicator markers on a Haze connector</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-indicator">Indicator</a> → <a href="#surface-haze">Haze reading surface</a></td></tr>
+<tr><th scope="row">Material</th><td>Resin markers (`.cr-resin.flat`) on a 2px connector in `--cr-haze-fill`</td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-resin">Resin plane</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Circular markers; 2px connector</td></tr>
 <tr><th scope="row">Semantics</th><td>Ordered list; the current item carries aria-current</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Marker and connector treatment, state appearance</td></tr>
@@ -2164,8 +2164,8 @@
 <p>Placeholder shapes matching the layout of content that is loading.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>loading, resolving</td></tr>
-<tr><th scope="row">Material</th><td>Haze fill with a slow luminance sweep</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-haze">Haze reading surface</a></td></tr>
+<tr><th scope="row">Material</th><td>The alternate surface (`--cr-surface-alt`) with a slow luminance sweep: a placeholder, not a reading surface</td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Matches the real content's radius and rhythm exactly</td></tr>
 <tr><th scope="row">Semantics</th><td>aria-hidden with a live region announcing loading; must not be read as content</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Fill, sweep, reduced-motion fallback, resolve transition</td></tr>
@@ -2931,8 +2931,8 @@
 <p>Shows where a dragged item will land.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>hidden, shown, invalid-target</td></tr>
-<tr><th scope="row">Material</th><td>Haze line or fill</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-haze">Haze reading surface</a></td></tr>
+<tr><th scope="row">Material</th><td>A 2px line in `--cr-primary`, or `--cr-danger-ink` where the drop is refused: a control affordance, not a material</td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-none">No surface of its own</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Follows the gap between items rather than covering one.</td></tr>
 <tr><th scope="row">Semantics</th><td>Announced as the drag moves, so a keyboard drag is followable without sight.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Indicator material and motion</td></tr>
@@ -3976,8 +3976,8 @@
 <p>A table with toolbar, filters, bulk actions and pagination.</p>
 <div class="cr-table-scroll"><table class="cr-table cr-table-properties"><tbody>
 <tr><th scope="row">States</th><td>at-rest, loading, empty, selecting, error</td></tr>
-<tr><th scope="row">Material</th><td>Table surface with Frost overlays</td></tr>
-<tr><th scope="row">Surface</th><td><a href="#surface-table">Table</a> → <a href="#surface-frost">Frost panel</a></td></tr>
+<tr><th scope="row">Material</th><td>The table surface; an overlay the product opens from the toolbar brings its own surface</td></tr>
+<tr><th scope="row">Surface</th><td><a href="#surface-table">Table</a></td></tr>
 <tr><th scope="row">Geometry</th><td>Toolbar controls are pills; the table keeps its own surface.</td></tr>
 <tr><th scope="row">Semantics</th><td>Selection count is announced; bulk actions describe what they will affect.</td></tr>
 <tr><th scope="row">Crystal supplies</th><td>Surfaces, selection treatment, the motion of entering bulk mode</td></tr>
@@ -4197,4 +4197,4 @@
 <tr><th scope="row">Crystal supplies</th><td>Surface and toolbar materials, the save transition</td></tr>
 <tr><th scope="row">Product owns</th><td>The editor engine and its schema</td></tr>
 <tr><th scope="row">Parity</th><td>primereact:editor · mantine:RichTextEditor</td></tr>
-</tbody></table></div></div></main></div><footer class="site-footer"><p>Crystal 2.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/catalogue.md">Specification source</a></footer></div></body></html>
+</tbody></table></div></div></main></div><footer class="site-footer"><p>Crystal 2.9.0 · Editable specification</p><a href="../vendor/@crystal-ui/core/docs/catalogue.md">Specification source</a></footer></div></body></html>

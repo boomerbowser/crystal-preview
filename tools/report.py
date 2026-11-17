@@ -21,6 +21,6 @@ content=f'''<h1>Verification and limits</h1><p>Checks executed September 17, 202
 (EVIDENCE/'report.html').write_text(shell.document(
     title='Verification', path='verification/report.html', content=content,
     main_class='doc-body', skip='Skip to the verification summary',
-    footer_note='Crystal 2.0 · Reproducible evidence, bounded claims.',
+    footer_note=f"Crystal {json.loads((Path(__file__).resolve().parents[1]/'node_modules/@crystal-ui/core/package.json').read_text())['version']} · Reproducible evidence, bounded claims.",
     footer_link=('docs/adoption.html','Build and adoption guide')))
 print('Rendered verification summary from actual check records.')
