@@ -68,7 +68,7 @@
 <tr>
 <td>Selection control</td>
 <td>Explicit selected state plus text/mark</td>
-<td>Native checkbox, radio and select, styled by <code>assets/crystal.css</code> as of 2.1.0, and the native switch (<code>input[type=checkbox][role=switch]</code>) as of 2.2.0; keyboard semantics must match the component</td>
+<td>Native checkbox, radio and select, styled by <code>assets/crystal.css</code> as of 2.1.0, and the native switch (<code>input[type=checkbox][role=switch]</code>) as of 2.2.0. Where a library keeps the input hidden and draws the box itself, the box wears <code>.cr-choice</code> (<code>.radio</code> for a circle, <code>.outline</code> for the outlined box) as of 2.8.0; keyboard semantics must match the component</td>
 </tr>
 <tr>
 <td>Navigation entry</td>
@@ -300,6 +300,89 @@
 </tbody>
 </table></div>
 <p>A native switch is a checkbox with a track, <code>&lt;input type="checkbox" role="switch"&gt;</code>, styled by element like the checkbox and radio. The track reads <code>--cr-switch-track-width</code> and <code>-height</code>, the thumb is the opaque surface, and the on state is the primary-soft pair.</p>
+<p>The material variants of 2.7.0 add no surface either. Each was a surface a platform library had drawn by hand because Crystal had not published it; ruled on 16 November 2026, those are corrections the standard takes in, and where a library's surface had drifted from the base recipe the drift is published as a named variant. Each variant states only what differs from the surface it modifies, so the base recipe's opaque, reduced-transparency, no-backdrop and forced-colours routes still apply to everything else, and each variant that restates a fill or a border carries its own routes. A variant is the surface compound plus one class, authored in the component layer, so on a <code>&lt;button&gt;</code> it beats the Resin coat on what it states; a control that must lose the whole coat wears <code>.cr-bare</code> as well.</p>
+<div class="cr-table-scroll"><table class="cr-table">
+<thead>
+<tr>
+<th>Variant</th>
+<th>Surface</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.cr-haze.inset</code></td>
+<td>Haze reading surface</td>
+<td>A reading card with no border box: the feathered fill stops <code>--cr-haze-inset</code> (8px) short of the box, with no shadow under it. An alert, an empty state, a result, a product or cart card, a review, a chart's plot. Forced colours draw a CanvasText boundary.</td>
+</tr>
+<tr>
+<td><code>.cr-haze.flush</code></td>
+<td>Haze reading surface</td>
+<td>The same card filled to its own edge, for a tile whose content is the card: a thumbnail, a slide, an organisation chart's node, a swatch.</td>
+</tr>
+<tr>
+<td><code>.cr-haze.flat</code>, <code>.flat.sunken</code></td>
+<td>Haze reading surface</td>
+<td>The fill on the element itself, with no feather and no layer: a row in a list or an accordion, drawn edge to edge against its neighbours. It becomes the surface where translucency gives way; <code>.sunken</code> becomes the alternate surface instead, for a placeholder that should still read as a well.</td>
+</tr>
+<tr>
+<td><code>.cr-haze.raised</code></td>
+<td>Haze reading surface</td>
+<td>The fill takes the float shadow, as the dialog's does: a reading surface opened over everything, such as a command palette.</td>
+</tr>
+<tr>
+<td><code>.cr-frost.pane</code></td>
+<td>Frost panel</td>
+<td>The content radius, 28px, instead of the panel's 34px, for a pane beside content: a navigation rail, a filter panel, a tour step, a workspace pane.</td>
+</tr>
+<tr>
+<td><code>.cr-frost.flat</code></td>
+<td>Frost panel</td>
+<td>No grain, for a pane holding a long column of controls or rows. Composes with <code>.pane</code>, <code>.docked</code> and <code>.sheet</code>.</td>
+</tr>
+<tr>
+<td><code>.cr-frost.docked</code></td>
+<td>Frost panel</td>
+<td>A pane docked to the window's edges, such as an app bar or a sidebar: no rim, radius or shadow. The side it shares with content is the component's to draw.</td>
+</tr>
+<tr>
+<td><code>.cr-frost.sheet</code></td>
+<td>Frost panel</td>
+<td>A pane that slides over content from an edge, such as a drawer: the <code>--cr-edge</code> rim, the content radius and the float shadow. Which corners square off against the edge is the component's geometry.</td>
+</tr>
+<tr>
+<td><code>.cr-frost.reading</code></td>
+<td>Frost panel</td>
+<td>A transient Frost surface whose content is read, such as a toast or a popover, holding a Haze reading fill on <code>::after</code>, because <code>::before</code> is the grain. The inset is <code>--cr-frost-reading-inset</code>, which defaults to <code>--cr-haze-inset</code>; set the former, never the latter, because controls inside read <code>--cr-haze-inset</code> for their own pads.</td>
+</tr>
+<tr>
+<td><code>.cr-resin.flat</code></td>
+<td>Resin plane</td>
+<td>No sheen: a plane that is a mark rather than a control, such as a step or timeline marker.</td>
+</tr>
+<tr>
+<td><code>.cr-resin.divider</code></td>
+<td>Resin plane</td>
+<td>The handle between resizable regions: the Resin fill and blur only, with no rim, shadow or sheen. Where the fill gives way it becomes the outline colour, so the line stays visible on the surface it divides, and CanvasText in forced colours.</td>
+</tr>
+<tr>
+<td><code>.cr-field-shell.block</code></td>
+<td>Field shell</td>
+<td>The shell as a block that fills its row, for a field laid out in a form rather than set in a line of text.</td>
+</tr>
+<tr>
+<td><code>.cr-choice</code>, <code>.radio</code></td>
+<td>Selection control</td>
+<td>The native checkbox's box on any element, for a library that keeps the input hidden and draws the box itself (2.8.0). A switch's track is the same box at the track's size with the pill radius. The mark and the selected colour are the component's.</td>
+</tr>
+<tr>
+<td><code>.cr-choice.outline</code></td>
+<td>Selection control</td>
+<td>The outlined box: the <code>--cr-outline</code> boundary, the plain Resin fill and a single inset rim (2.8.0). In opaque mode and under reduced transparency every choice box, native or not, becomes the surface with no backdrop.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two existing recipes changed in 2.7.0. <code>.cr-mirage</code> and a dialog's <code>::backdrop</code> now take the flat fallback fill with no backdrop filter under <code>[data-effects=opaque]</code>, as they already did under reduced transparency; before, the opaque setting left the largest translucent area on screen translucent. And <code>.cr-bare</code>, <code>.cr-nav-item</code> and <code>.cr-drag-handle</code> on a <code>&lt;button&gt;</code> now stay transparent under <code>[data-effects=opaque]</code>: the coat's opaque route had outranked them, drawing the surface behind a bare control and erasing the drag handle's grip.</p>
 <h3 id="interaction-surface-geometry">Interaction surface geometry</h3>
 <p>Use a broad, luminous Resin rim with an 8px inset reading fill and diffuse paired shadows. Avoid thin dark perimeter strokes on ordinary action buttons; native text-entry fields retain a functional boundary and every control retains a visible keyboard focus ring. Standalone actions use generous padding and full pill geometry.</p>
 <p>Toolbars, segmented controls and tab groups share one Resin/Haze surface. Their inactive actions have no separate bevel, backdrop filter or raised outline. Only the selected action gains a raised, strongly colored indicator, plus a non-color selection cue. Temporary menus follow the same shared-surface principle. The material motion suite is unchanged by this visual refinement.</p>

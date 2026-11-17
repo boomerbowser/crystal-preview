@@ -114,21 +114,21 @@
 <td>Frost</td>
 <td><code>.cr-frost</code></td>
 <td>48</td>
-<td>Intermediate task frames and every transient surface that opens over content: side panels, drawers, sheets and app bars, and menus, popovers, tooltips and toasts (R15e). Reading content inside it sits on Haze. <code>.cr-frost.bar</code> is a transient overlay shaped as a row of controls, a pill with 4px padding: the selection toolbar over highlighted text.</td>
+<td>Intermediate task frames and every transient surface that opens over content: side panels, drawers, sheets and app bars, and menus, popovers, tooltips and toasts (R15e). Reading content inside it sits on Haze. <code>.cr-frost.bar</code> is a transient overlay shaped as a row of controls, a pill with 4px padding: the selection toolbar over highlighted text. <code>.pane</code> takes the content radius, for a pane beside content: a navigation rail, a filter panel, a workspace pane. <code>.flat</code> drops the grain. <code>.docked</code> is a pane docked to the window's edges, with no rim, radius or shadow: an app bar, a sidebar. <code>.sheet</code> slides over content from an edge, with the <code>--cr-edge</code> rim, the content radius and the float shadow: a drawer. <code>.reading</code> holds a Haze reading fill on <code>::after</code>, inset by <code>--cr-frost-reading-inset</code> (default <code>--cr-haze-inset</code>): a toast, a popover. <code>.flat</code> composes with <code>.pane</code>, <code>.docked</code> and <code>.sheet</code> (2.7.0).</td>
 </tr>
 <tr>
 <td><a id="surface-haze"></a><strong>Haze reading surface</strong> <code>haze</code></td>
 <td>Haze</td>
 <td><code>.cr-haze</code></td>
 <td>88</td>
-<td>Anything read: cards, rows, panels, wells, forms, messages, decisions. 80% fill, 1.95px feather on an isolated paint layer, crisp foreground. <code>.cr-well</code> is the same recipe recessed into a Frost or Resin frame. <code>.cr-haze.overlay</code> is the recessed overlay: a transient overlay opened inside a pane that is already lifted, drawn as a flat Haze fill with the <code>--cr-edge</code> rim and the content shadow, so it can be told from the pane it sits in.</td>
+<td>Anything read: cards, rows, panels, wells, forms, messages, decisions. 80% fill, 1.95px feather on an isolated paint layer, crisp foreground. <code>.cr-well</code> is the same recipe recessed into a Frost or Resin frame. <code>.cr-haze.overlay</code> is the recessed overlay: a transient overlay opened inside a pane that is already lifted, drawn as a flat Haze fill with the <code>--cr-edge</code> rim and the content shadow, so it can be told from the pane it sits in. <code>.inset</code> is a reading card with no border box, its fill inset by <code>--cr-haze-inset</code> and no shadow under it: an alert, a result, a product card. <code>.flush</code> is the same card filled to its own edge: a thumbnail, a slide, a chart node. <code>.flat</code> is the fill on the element itself, with no feather and no layer: a list or accordion row. <code>.flat.sunken</code> falls back to the alternate surface instead of the surface: a placeholder. <code>.raised</code> gives the fill the float shadow: a command palette (2.7.0).</td>
 </tr>
 <tr>
 <td><a id="surface-resin"></a><strong>Resin plane</strong> <code>resin</code></td>
 <td>Resin</td>
 <td><code>.cr-resin</code></td>
 <td>12</td>
-<td>One floating Resin plane with no reading fill of its own, pill-shaped unless it is a panel: a player's transport bar, a pinned element, a Resin handle over imagery or between regions. Controls inside it lose their own backdrop filter, because Resin never contains Resin. A plane whose controls are labels to be read holds a Haze fill as well, and is a dock. <code>.cr-resin.transport</code> is the media transport: the pill with 4px block and 12px inline padding around its 48px controls (58px tall with its rim), with tabular time readouts, wrapping to a second row in a player narrower than 420px. <code>.cr-media</code> is the stage it sits on (the content radius, the letterbox, <code>--cr-media-aspect</code> and <code>--cr-media-fit</code>), and <code>.cr-media-bar</code> is the region inset 12px, or the safe area in full screen, that holds the transport.</td>
+<td>One floating Resin plane with no reading fill of its own, pill-shaped unless it is a panel: a player's transport bar, a pinned element, a Resin handle over imagery or between regions. Controls inside it lose their own backdrop filter, because Resin never contains Resin. A plane whose controls are labels to be read holds a Haze fill as well, and is a dock. <code>.cr-resin.transport</code> is the media transport: the pill with 4px block and 12px inline padding around its 48px controls (58px tall with its rim), with tabular time readouts, wrapping to a second row in a player narrower than 420px. <code>.cr-media</code> is the stage it sits on (the content radius, the letterbox, <code>--cr-media-aspect</code> and <code>--cr-media-fit</code>), and <code>.cr-media-bar</code> is the region inset 12px, or the safe area in full screen, that holds the transport. <code>.flat</code> drops the sheen layers, for a plane that is a mark rather than a control: a step or timeline marker. <code>.divider</code> is the handle between resizable regions: the Resin fill and blur only, with no rim, shadow or sheen, falling back to the outline colour (2.7.0).</td>
 </tr>
 <tr>
 <td><a id="surface-resin-panel"></a><strong>Resin panel</strong> <code>resin-panel</code></td>
@@ -149,7 +149,7 @@
 <td>Resin + Haze</td>
 <td><code>.cr-field-shell</code></td>
 <td>28</td>
-<td>The Resin surround of a native text entry, with the Haze well the value is read on and the circular field-state badge. The native control keeps its functional boundary and semantics. <code>.cr-editor</code> is the editable surface inside a rich text field: the shared prose vocabulary (headings, lists, checklists, marks, insertions and deletions) with the primary caret and a 28% primary selection, distinct from the primary-soft highlight (D-34). <code>.cr-editor-toolbar</code> is its toolbar, above the text on a fine pointer and below it, clear of the touch keyboard, on a coarse one.</td>
+<td>The Resin surround of a native text entry, with the Haze well the value is read on and the circular field-state badge. The native control keeps its functional boundary and semantics. <code>.cr-editor</code> is the editable surface inside a rich text field: the shared prose vocabulary (headings, lists, checklists, marks, insertions and deletions) with the primary caret and a 28% primary selection, distinct from the primary-soft highlight (D-34). <code>.cr-editor-toolbar</code> is its toolbar, above the text on a fine pointer and below it, clear of the touch keyboard, on a coarse one. <code>.block</code> is the shell as a block that fills its row, for a field laid out in a form (2.7.0).</td>
 </tr>
 <tr>
 <td><a id="surface-compact"></a><strong>Compact display</strong> <code>compact</code></td>
@@ -170,7 +170,7 @@
 <td>Mirage</td>
 <td><code>.cr-mirage</code></td>
 <td>10</td>
-<td>The chromatic diffusion of the real scene behind a modal. Never a content surface; the decision surface above it is Haze.</td>
+<td>The chromatic diffusion of the real scene behind a modal. Never a content surface; the decision surface above it is Haze. The opaque setting draws it as the flat fallback fill, as reduced transparency does (2.7.0).</td>
 </tr>
 <tr>
 <td><a id="surface-dialog"></a><strong>Dialog</strong> <code>dialog</code></td>
@@ -247,7 +247,7 @@
 <td>Resin</td>
 <td><code>input:is([type=checkbox],[type=radio])</code></td>
 <td>5</td>
-<td>Native checkbox, radio, switch and range, styled by element: a Resin box, circle or track with a contained mark, and the marked glass thumb. Semantics stay native.</td>
+<td>Native checkbox, radio, switch and range, styled by element: a Resin box, circle or track with a contained mark, and the marked glass thumb. Semantics stay native. <code>.cr-choice</code> is the same box on any element, for a library that keeps the input visually hidden and draws the box itself (2.8.0); <code>.radio</code> is the circle, and a switch's track is the box at the track's size with the pill radius. The mark and the selected colour are the component's. <code>.cr-choice.outline</code> is the outlined box: the <code>--cr-outline</code> boundary, the plain Resin fill and a single inset rim (2.8.0). In opaque mode and under reduced transparency the box, native or not, becomes the surface with no backdrop (2.8.0).</td>
 </tr>
 <tr>
 <td><a id="surface-native"></a><strong>Native control furniture</strong> <code>native</code></td>
