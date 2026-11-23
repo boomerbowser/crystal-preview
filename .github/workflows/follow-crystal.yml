@@ -44,6 +44,25 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: pip install -r tools/requirements.txt
 
+      # A dispatch arrives seconds after the publish, before every npm mirror
+      # answers with the new version, and the check below would see the old one
+      # and stop. So a dispatch waits, up to five minutes, until npm reports the
+      # version it was sent; the hourly check needs no wait.
+      - name: Wait for the dispatched version to reach npm
+        if: github.event_name == 'repository_dispatch' && github.event.client_payload.version != ''
+        env:
+          WANTED: ${{ github.event.client_payload.version }}
+        run: |
+          for _ in $(seq 1 30); do
+            seen=$(npm view "@crystal-ui/core@$WANTED" version --prefer-online 2>/dev/null || true)
+            latest=$(npm view @crystal-ui/core dist-tags.latest --prefer-online 2>/dev/null || true)
+            if [ "$seen" = "$WANTED" ] && [ "$latest" = "$WANTED" ]; then
+              echo "npm reports @crystal-ui/core $WANTED as latest."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::warning::npm did not report $WANTED as latest within five minutes; adopting whatever it reports now."
       - name: Adopt what npm has published
         id: adopt
         run: |
