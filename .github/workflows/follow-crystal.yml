@@ -90,7 +90,9 @@ jobs:
           python3 tools/report.py
           # The token evidence records when it ran; only its numbers are held.
           git checkout -- website/verification/token-checks.json || true
-          branch="follow-crystal/${{ steps.adopt.outputs.version }}-${{ github.run_id }}"
+          # `follow/`, not `follow-crystal/`: a branch called `follow-crystal`
+          # exists, and Git cannot hold both a ref and a directory of that name.
+          branch="follow/${{ steps.adopt.outputs.version }}-${{ github.run_id }}"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git switch -c "$branch"
