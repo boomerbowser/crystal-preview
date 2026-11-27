@@ -1,6 +1,6 @@
 {
   "$description": "The visual regression frame set. Each entry is one deterministic rendering of the preview. A frame exists because some axis of it has broken before, or because a contract says it must not break; the 'why' field records which. Captures live in validation/captures/<date>-<topic>/ and are compared with tools/compare-captures.py.",
-  "$status": "Frame set and comparison tool are complete. The capture driver that walks this file automatically is NOT yet written; frames so far were driven manually through a real browser. See proposals/crystal-2.0-status.md, task 14.",
+  "$status": "Frame set and comparison tool are complete. The capture driver that walks this file automatically is NOT yet written; frames so far were driven manually through a real browser. See proposals/prismata-2.0-status.md, task 14.",
   "defaults": {
     "viewport": {
       "width": 1280,
@@ -140,7 +140,7 @@
     {
       "id": "docs-menu-light",
       "page": "docs/materials.html",
-      "why": "A specification page with a current menu entry. Guards that selection reads by label weight alone and that menu entries stay Plastic rather than inheriting the Resin of .cr-control."
+      "why": "A specification page with a current menu entry. Guards that selection reads by label weight alone and that menu entries stay Plastic rather than inheriting the Resin of .pr-control."
     },
     {
       "id": "docs-menu-forced-colours",
@@ -191,8 +191,8 @@
       "id": "scrollbar-resin",
       "page": "docs/tokens.html",
       "scrollbars": true,
-      "clip": "#component-chip ~ .cr-table-scroll",
-      "why": "The Resin scrollbar. `.cr-scroll-resin` appears on this site only as escaped sample code, so the live Resin scroller is `.cr-table-scroll`, and it overflows only when the viewport is narrow \u2014 at 390px this one scrolls 243px sideways and paints a 12px horizontal bar. Anchored to the heading rather than to an index, because `.cr-table-scroll` matches thirty-two elements on this page and the twenty-third of them is not a thing anybody can keep true. Headless Chromium paints no scrollbar only because Playwright passes --hide-scrollbars; this frame drops it, which is what D-4 recorded as a property of the browser.",
+      "clip": "#component-chip ~ .pr-table-scroll",
+      "why": "The Resin scrollbar. `.pr-scroll-resin` appears on this site only as escaped sample code, so the live Resin scroller is `.pr-table-scroll`, and it overflows only when the viewport is narrow \u2014 at 390px this one scrolls 243px sideways and paints a 12px horizontal bar. Anchored to the heading rather than to an index, because `.pr-table-scroll` matches thirty-two elements on this page and the twenty-third of them is not a thing anybody can keep true. Headless Chromium paints no scrollbar only because Playwright passes --hide-scrollbars; this frame drops it, which is what D-4 recorded as a property of the browser.",
       "viewport": {
         "width": 390,
         "height": 844
@@ -203,7 +203,7 @@
       "id": "scrollbar-frost",
       "page": "docs/materials.html",
       "scrollbars": true,
-      "clip": ".cr-scroll-frost",
+      "clip": ".pr-scroll-frost",
       "why": "The Frost scrollbar. A scrollbar belongs to the material it scrolls, and the two differ by thumb colour, so one frame cannot stand for both."
     }
   ],
