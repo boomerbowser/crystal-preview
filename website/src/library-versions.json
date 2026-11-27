@@ -1,7 +1,7 @@
 {
   "$description": "Published versions of Prismata and its component libraries, from the npm registry. Written by tools/library-versions.mjs; refreshed by follow-prismata.yml. Never edit by hand.",
   "packages": {
-    "@prismata/core": "2.10.1",
-    "@prismata/react": "0.1.0-alpha.1"
+    "@prismata/core": "3.0.0",
+    "@prismata/react": "0.2.0-alpha.1"
   }
 }
