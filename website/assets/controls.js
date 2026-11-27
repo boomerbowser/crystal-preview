@@ -1,4 +1,4 @@
-/* Crystal controls: state synchronisation only.
+/* Prismata controls: state synchronisation only.
  *
  * This script creates no elements and observes no mutations. Field shells and
  * indicators are authored in markup, or emitted by whichever renderer owns the
@@ -13,7 +13,7 @@
 (function () {
   'use strict';
 
-  const core = (globalThis.CrystalCore || {});
+  const core = (globalThis.PrismataCore || {});
   const state = core.state;
 
   /* Without the core there is nothing to derive from. Fail quietly rather than
@@ -33,7 +33,7 @@
      a control whose indicator kind changes, such as one that becomes busy while
      it is also selected. */
   function syncIndicators(root) {
-    for (const mark of root.querySelectorAll('.cr-indicator[data-kind]')) {
+    for (const mark of root.querySelectorAll('.pr-indicator[data-kind]')) {
       const kind = mark.dataset.kind;
       if (kind === 'field') continue;
       const host = mark.parentElement;
@@ -44,7 +44,7 @@
   }
 
   function syncRange(field) {
-    field.style.setProperty('--cr-range-progress', state.rangeProgress({
+    field.style.setProperty('--pr-range-progress', state.rangeProgress({
       value: field.value, min: field.min || 0, max: field.max || 100,
     }) + '%');
   }

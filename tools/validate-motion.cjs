@@ -1,9 +1,9 @@
 const assert=require('node:assert/strict'),fs=require('node:fs');
-const data=JSON.parse(fs.readFileSync('node_modules/@crystal-ui/core/tokens/motion-recipes.json','utf8')),ids=new Set();
+const data=JSON.parse(fs.readFileSync('node_modules/@prismata/core/tokens/motion-recipes.json','utf8')),ids=new Set();
 /* Every recipe must carry a spring whose settling time reproduces the authored
    duration. Duration stays the authority: the spring is fitted to it, so a
    disagreement means someone changed one without the other. */
-const spring=require('../node_modules/@crystal-ui/core/assets/core/spring.js');
+const spring=require('../node_modules/@prismata/core/assets/core/spring.js');
 const SPRING_TOLERANCE=0.15;
 
 /* A fluid is incompressible. Squeeze it on one axis and it must expand on the
@@ -43,7 +43,7 @@ for(const recipe of data.recipes){
         recipe.id+' deformation "'+match[0]+'" has area '+area.toFixed(4)+'; a fluid conserves volume');
     }
   }
-assert(!ids.has(recipe.id),'Duplicate recipe '+recipe.id);ids.add(recipe.id);/* Crystal's 5000ms ceiling protects responsiveness: nobody may be stranded
+assert(!ids.has(recipe.id),'Duplicate recipe '+recipe.id);ids.add(recipe.id);/* Prismata's 5000ms ceiling protects responsiveness: nobody may be stranded
    inside a transition. An ambient loop never blocks an interaction and never
    gates a state change, so its limit is about character instead. Two seconds
    is right for a gesture that repeats in place, like a breath, and wrong for
@@ -55,10 +55,10 @@ assert(recipe.duration>0&&recipe.duration<=ceiling,
   recipe.id+' duration '+recipe.duration+'ms exceeds the '+ceiling+'ms limit for its kind');assert(['Motion','GSAP'].includes(recipe.engine));assert(recipe.use&&recipe.reduced&&recipe.material&&recipe.signature);assert(recipe.keyframes.length>=2);for(const frame of recipe.keyframes){for(const match of (frame.transform||'').matchAll(/translate[XYZ]?\((-?[\d.]+)px/g))assert(Math.abs(Number(match[1]))<=50||recipe.travelException,recipe.id+' requires a documented large-travel exception');}}
 /* The engine versions exist in three places and all three have to agree.
  *
- * The installed `@crystal-ui/core` manifest is the authority: gsap and motion are @crystal-ui/core's
+ * The installed `@prismata/core` manifest is the authority: gsap and motion are @prismata/core's
  * runtime contract, and a consumer installs whatever it declares. The workspace
  * manifest needs them too, because `tools/build-motion.cjs` bundles the
- * preview's `assets/vendor/crystal-engines.js` out of them at build time, a
+ * preview's `assets/vendor/prismata-engines.js` out of them at build time, a
  * build-time need rather than a published one. And the lockfile is what gets
  * installed.
  *
@@ -66,24 +66,24 @@ assert(recipe.duration>0&&recipe.duration<=ceiling,
  * about. Rather than remove one, the agreement is a checked invariant: core
  * states it, the workspace matches it, the lockfile resolves to it. Any one of
  * the three moving alone fails. */
-const core=JSON.parse(fs.readFileSync('node_modules/@crystal-ui/core/package.json','utf8'));
+const core=JSON.parse(fs.readFileSync('node_modules/@prismata/core/package.json','utf8'));
 const pkg=JSON.parse(fs.readFileSync('package.json','utf8')),lock=JSON.parse(fs.readFileSync('package-lock.json','utf8'));
 for(const name of ['motion','gsap']){
   const declared=core.dependencies[name];
-  assert(declared,`@crystal-ui/core does not declare ${name}`);
+  assert(declared,`@prismata/core does not declare ${name}`);
   assert.equal(pkg.devDependencies[name],declared,
-    `the workspace builds the engine bundle from ${name} ${pkg.devDependencies[name]} while @crystal-ui/core ships ${declared}`);
+    `the workspace builds the engine bundle from ${name} ${pkg.devDependencies[name]} while @prismata/core ships ${declared}`);
   assert.equal(lock.packages['node_modules/'+name].version,declared,
-    `the lockfile installs ${name} ${lock.packages['node_modules/'+name].version}, not the ${declared} @crystal-ui/core declares`);
+    `the lockfile installs ${name} ${lock.packages['node_modules/'+name].version}, not the ${declared} @prismata/core declares`);
 }
-assert(fs.statSync('website/assets/vendor/crystal-engines.js').size>1000,'Missing real engine bundle');
+assert(fs.statSync('website/assets/vendor/prismata-engines.js').size>1000,'Missing real engine bundle');
 
 /* The browser reads assets/motion-catalog.js, not the JSON. They are the same
    data through a generator, so they can silently diverge: correcting a recipe
    and forgetting `npm run build:motion` leaves the page serving the old
    motion while every source-level check passes. */
 const catalogText=fs.readFileSync('website/assets/motion-catalog.js','utf8');
-const catalog=JSON.parse(catalogText.replace(/^window\.CRYSTAL_MOTION_RECIPES = /,'').replace(/;\s*$/,''));
+const catalog=JSON.parse(catalogText.replace(/^window\.PRISMATA_MOTION_RECIPES = /,'').replace(/;\s*$/,''));
 assert.deepEqual(catalog,data.recipes,
   'assets/motion-catalog.js is stale; run: npm run build:motion');
 

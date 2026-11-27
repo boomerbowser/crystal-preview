@@ -8,13 +8,13 @@
   "cleanUrls": false,
   "headers": [
     {
-      "source": "/vendor/@crystal-ui/core/assets/fonts/(.*)",
+      "source": "/vendor/@prismata/core/assets/fonts/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
-      "source": "/vendor/@crystal-ui/core/assets/icons/(.*)",
+      "source": "/vendor/@prismata/core/assets/icons/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=31536000, stale-while-revalidate=604800" }
       ]

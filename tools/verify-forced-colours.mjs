@@ -8,17 +8,17 @@
  * `forced-colors: active`, and every element on each page must compute
  * `backdrop-filter: none`, in light and in dark.
  *
- * The pages are the ones that wear Crystal's surfaces, plus a harness of every
+ * The pages are the ones that wear Prismata's surfaces, plus a harness of every
  * surface the installed `surfaces.json` names (its class and its `also`
  * selectors) and the controls D-36 found keeping a blur: the status badge, the
  * tag, the count, the native choices and the range. The harness is built from the
- * installed vocabulary, so a surface added to Crystal is checked without
+ * installed vocabulary, so a surface added to Prismata is checked without
  * editing this file.
  *
  * It is not vacuous: without forced colours the same pages must show at least
  * one blur, or the gate fails for measuring nothing.
  *
- * Seen failing on @crystal-ui/core 2.3.1 and passing on 2.4.0 (C-R3) and 2.5.0.
+ * Seen failing on @prismata/core 2.3.1 and passing on 2.4.0 (C-R3) and 2.5.0.
  *
  *   node tools/verify-forced-colours.mjs [--base http://127.0.0.1:4321]
  */
@@ -34,10 +34,10 @@ const BASE = process.argv.includes('--base')
 const PAGES = ['playground.html', 'docs/components.html', 'docs/materials.html', 'motion.html'];
 
 /* An element for each surface selector a page can be given. A selector made of
-   one compound (`.cr-frost.bar`, `a.cr-button`, `button`) becomes that element;
+   one compound (`.pr-frost.bar`, `a.pr-button`, `button`) becomes that element;
    a pseudo-element or a descendant selector names something a harness cannot
    wear on its own and is skipped, and the page specimens cover it. */
-const surfaces = JSON.parse(readFileSync(resolve(ROOT, 'node_modules/@crystal-ui/core/tokens/surfaces.json'), 'utf8')).surfaces;
+const surfaces = JSON.parse(readFileSync(resolve(ROOT, 'node_modules/@prismata/core/tokens/surfaces.json'), 'utf8')).surfaces;
 const selectors = [...new Set(surfaces.flatMap((s) => [s.class, ...(s.also ?? [])]))];
 const elementFor = (selector) => {
   if (/::|[\s>+~]|\[/.test(selector)) return null;
@@ -49,9 +49,9 @@ const elementFor = (selector) => {
 };
 const HARNESS = `<div id="forced-colours-probe">
   ${selectors.map(elementFor).filter(Boolean).join('\n  ')}
-  <span class="cr-status" data-status="info" data-probe=".cr-status">status</span>
-  <span class="cr-tag cr-resin-haze" data-probe=".cr-tag">tag</span>
-  <span class="cr-resin-haze count" data-probe=".cr-resin-haze.count">3</span>
+  <span class="pr-status" data-status="info" data-probe=".pr-status">status</span>
+  <span class="pr-tag pr-resin-haze" data-probe=".pr-tag">tag</span>
+  <span class="pr-resin-haze count" data-probe=".pr-resin-haze.count">3</span>
   <label><input type="checkbox" data-probe="checkbox"> checkbox</label>
   <label><input type="radio" data-probe="radio"> radio</label>
   <label><input type="checkbox" role="switch" data-probe="switch"> switch</label>

@@ -57,7 +57,7 @@ const ambientFrames = new Set(
   frameSet.frames.filter((f) => f.ambient === 'rest').map((f) => `${f.id}.png`),
 );
 
-const work = mkdtempSync(join(tmpdir(), 'crystal-frames-'));
+const work = mkdtempSync(join(tmpdir(), 'prismata-frames-'));
 execFileSync('node', [join(HERE, 'capture-frames.mjs'), '--out', work, ...(NO_WEBGL ? ['--no-webgl'] : [])], { stdio: 'inherit' });
 
 const all = readdirSync(work).filter((f) => f.endsWith('.png')).sort();

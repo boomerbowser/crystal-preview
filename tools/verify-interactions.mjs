@@ -65,9 +65,9 @@ for (const [label, recipe, selector, act] of CASES) {
     const el = document.querySelector(s);
     if (!el) return { missing: true };
     return {
-      name: el.dataset.crMotionName || '',
+      name: el.dataset.prMotionName || '',
       running: el.getAnimations().some(a => a.playState === 'running' || a.playState === 'finished'),
-      state: el.dataset.crMotionState || '',
+      state: el.dataset.prMotionState || '',
     };
   }, selector);
   /* A short recipe can finish before this samples it, and a finished fill:none
@@ -85,7 +85,7 @@ await reducedPage.goto(`${BASE}/playground.html`, { waitUntil: 'load' });
 await reducedPage.evaluate(html => document.body.insertAdjacentHTML('beforeend', html), HARNESS);
 await reducedPage.click('#cb');
 await reducedPage.waitForTimeout(80);
-const reduced = await reducedPage.evaluate(() => document.getElementById('cb').dataset.crMotionState);
+const reduced = await reducedPage.evaluate(() => document.getElementById('cb').dataset.prMotionState);
 if (reduced !== 'instant') failures.push(`reduced motion: expected an instant state, saw ${reduced || 'nothing'}`);
 
 const report = {

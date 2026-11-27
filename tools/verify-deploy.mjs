@@ -32,7 +32,7 @@ const pages = [];
 const broken = [];
 for (const page of pages) {
   /* Strip code samples first: a documentation page shows markup as escaped text,
-     and `href="crystal-theme.css"&gt;` inside a <pre> is an example, not a link. */
+     and `href="prismata-theme.css"&gt;` inside a <pre> is an example, not a link. */
   const html = readFileSync(page, 'utf8')
     .replace(/<pre[\s\S]*?<\/pre>/gi, '')
     .replace(/<code[\s\S]*?<\/code>/gi, '');

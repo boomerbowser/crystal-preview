@@ -1,7 +1,7 @@
 """Serve the editable preview locally without stale browser caches.
 
 Serves `website/`, which is what Vercel deploys. The library is reached through
-`website/vendor/@crystal-ui/core/`, assembled by `tools/assemble-site.mjs`, so a
+`website/vendor/@prismata/core/`, assembled by `tools/assemble-site.mjs`, so a
 local preview and a deployment resolve every path identically. Serving the
 repository root instead would let a page reach `core/` directly and pass here
 while 404ing in production.
@@ -22,14 +22,14 @@ if __name__ == "__main__":
     # Refuse rather than serve a site with no library in it. The copy under
     # vendor/ is generated, so it is absent on a fresh checkout. A site missing
     # it renders, and looks like a design regression: every scroll container
-    # loses .cr-scroll-frost, every material loses its recipe, and the failure
+    # loses .pr-scroll-frost, every material loses its recipe, and the failure
     # reported is the symptom rather than the cause.
-    if not (root / 'vendor/@crystal-ui/core/assets/crystal.css').exists():
+    if not (root / 'vendor/@prismata/core/assets/prismata.css').exists():
         raise SystemExit(
             'The library is not assembled into the website: '
-            'website/vendor/@crystal-ui/core is missing or incomplete.\n'
+            'website/vendor/@prismata/core is missing or incomplete.\n'
             'Run: node tools/assemble-site.mjs')
     handler = partial(PreviewHandler, directory=str(root))
     with ThreadingHTTPServer(("127.0.0.1", 4321), handler) as server:
-        print("Crystal preview: http://127.0.0.1:4321/", flush=True)
+        print("Prismata preview: http://127.0.0.1:4321/", flush=True)
         server.serve_forever()

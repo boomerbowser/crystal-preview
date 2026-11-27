@@ -3,17 +3,17 @@
  * `core/` and `website/` are separate folders at the repository root, because
  * the library is not part of the website. A browser cannot follow `../core/`
  * out of the deployed site: only what is uploaded exists. So the build places
- * a copy of the library inside the site, at `website/vendor/@crystal-ui/core/`,
+ * a copy of the library inside the site, at `website/vendor/@prismata/core/`,
  * and every page addresses it there.
  *
- * `vendor/@crystal-ui/core/` is the site path because a static deployment
+ * `vendor/@prismata/core/` is the site path because a static deployment
  * uploads `website/`, and `node_modules/` is not inside it. The copy is named
  * after the package rather than the folder it comes from, so no page,
  * stylesheet, script or specification link depends on where the library was
  * installed.
  *
  * Node built-ins only, and no arguments. On Vercel the install step is
- * `npm ci --omit=dev`, which installs `@crystal-ui/core` and nothing else, and
+ * `npm ci --omit=dev`, which installs `@prismata/core` and nothing else, and
  * this script is the whole build.
  *
  *   node tools/assemble-site.mjs
@@ -24,14 +24,14 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = resolve(ROOT, 'website');
-const VENDOR = resolve(SITE, 'vendor/@crystal-ui/core');
+const VENDOR = resolve(SITE, 'vendor/@prismata/core');
 
 /* The installed package first, a sibling `core/` folder second. This
-   repository installs `@crystal-ui/core` from npm, so the first candidate is
+   repository installs `@prismata/core` from npm, so the first candidate is
    the one used. The second lets the same script assemble the site from a
    local checkout of the library. */
 const CANDIDATES = [
-  resolve(ROOT, 'node_modules/@crystal-ui/core'),
+  resolve(ROOT, 'node_modules/@prismata/core'),
   resolve(ROOT, 'core'),
 ];
 const LIBRARY = CANDIDATES.find((path) => existsSync(path));
@@ -39,7 +39,7 @@ const LIBRARY = CANDIDATES.find((path) => existsSync(path));
 if (!LIBRARY) {
   console.error('No library to build the site against. Looked in:');
   for (const path of CANDIDATES) console.error(`  ${path}`);
-  console.error('Install @crystal-ui/core, or run this beside the library.');
+  console.error('Install @prismata/core, or run this beside the library.');
   process.exit(1);
 }
 
@@ -67,7 +67,7 @@ for (const part of COPIED) {
 }
 
 console.log(JSON.stringify({
-  assembled: 'website/vendor/@crystal-ui/core',
-  from: LIBRARY.startsWith(resolve(ROOT, 'node_modules')) ? 'node_modules/@crystal-ui/core' : 'core',
+  assembled: 'website/vendor/@prismata/core',
+  from: LIBRARY.startsWith(resolve(ROOT, 'node_modules')) ? 'node_modules/@prismata/core' : 'core',
   parts: COPIED.map((part) => `${part}/ (${readdirSync(resolve(VENDOR, part)).length} entries)`),
 }, null, 2));

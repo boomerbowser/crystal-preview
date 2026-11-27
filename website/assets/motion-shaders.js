@@ -1,4 +1,4 @@
-/* Crystal's optical shader layer.
+/* Prismata's optical shader layer.
  *
  * Strictly an enhancement. Every material renders completely without this file,
  * and nothing here may change a resting appearance: shaders paint only while a
@@ -81,7 +81,7 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
       const log = gl.getShaderInfoLog(shader);
       gl.deleteShader(shader);
-      throw new Error('Crystal shader failed to compile: ' + log);
+      throw new Error('Prismata shader failed to compile: ' + log);
     }
     return shader;
   }
@@ -92,7 +92,7 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
     gl.attachShader(p, compile(gl, gl.FRAGMENT_SHADER, fragmentSource));
     gl.linkProgram(p);
     if (!gl.getProgramParameter(p, gl.LINK_STATUS)) {
-      throw new Error('Crystal shader failed to link: ' + gl.getProgramInfoLog(p));
+      throw new Error('Prismata shader failed to link: ' + gl.getProgramInfoLog(p));
     }
     return p;
   }
@@ -100,10 +100,10 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
   /* Read the material tint from the resolved palette rather than choosing a
      colour here, so a shader can never introduce colour the token set did not
      sanction. */
-  /* `--cr-companion` is the token the shadow tint is mixed from in
-     CrystalMotion.exportCSS. Refracted light and the shadow it casts have to agree
+  /* `--pr-companion` is the token the shadow tint is mixed from in
+     PrismataMotion.exportCSS. Refracted light and the shadow it casts have to agree
      about what colour the light is, so both read that one token. No palette
-     defines `--cr-accent`; reading it would refract the hardcoded fallback for
+     defines `--pr-accent`; reading it would refract the hardcoded fallback for
      every palette. The fallback is kept only for a surface queried before the
      theme resolves, and is the default palette's own companion linearised. */
   /* Palette tokens are authored as hex, so a bare digit scan reads "#EF48C6" as
@@ -123,8 +123,8 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
   }
 
   function tintOf(element) {
-    const value = getComputedStyle(element).getPropertyValue('--cr-companion')
-      || getComputedStyle(document.documentElement).getPropertyValue('--cr-companion');
+    const value = getComputedStyle(element).getPropertyValue('--pr-companion')
+      || getComputedStyle(document.documentElement).getPropertyValue('--pr-companion');
     const parts = parseColour(value);
     /* sRGB to linear, because the shader mixes light rather than pixels. */
     if (parts) return parts.map((c) => Math.pow(c / 255, 2.2));
@@ -219,7 +219,7 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
 
     /* The shader must mask itself to the surface's real shape. A fixed 0.17 of
        the short side is a rounded rectangle, and on a pill (every action control
-       in Crystal is one) that paints a visible rectangle inside a stadium: a
+       in Prismata is one) that paints a visible rectangle inside a stadium: a
        36px corner rendered as a 12px one. Read the computed radius, expressed in
        the same short-side units the geometry uses, and clamp at 0.5, which is a
        pill. */
@@ -264,10 +264,10 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
 
   document.addEventListener('visibilitychange', () => { if (document.hidden) detachAll(); });
 
-  /* The ambient tier is deferred to a later version of Crystal. What remains is
+  /* The ambient tier is deferred to a later version of Prismata. What remains is
      the optical layer for a motion a person starts, which is what `attach` is. */
 
-  root.CrystalShaders = Object.freeze({
+  root.PrismataShaders = Object.freeze({
     attach, detach, detachAll, supported, permitted, manifestUrl: MANIFEST_URL,
   });
 

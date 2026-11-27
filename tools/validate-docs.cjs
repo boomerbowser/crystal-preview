@@ -14,15 +14,15 @@ const fs = require('node:fs');
 const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 const read = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
-const doc = name => fs.readFileSync(path.join(ROOT, 'node_modules/@crystal-ui/core/docs', name), 'utf8');
+const doc = name => fs.readFileSync(path.join(ROOT, 'node_modules/@prismata/core/docs', name), 'utf8');
 
 const failures = [];
 const expect = (where, needle, why) => {
   if (!doc(where).includes(needle)) failures.push(`docs/${where}: no mention of ${needle} — ${why}`);
 };
 
-/* Material recipe values. These are the numbers Crystal may never let drift. */
-const m = read('node_modules/@crystal-ui/core/tokens/crystal.json').material;
+/* Material recipe values. These are the numbers Prismata may never let drift. */
+const m = read('node_modules/@prismata/core/tokens/prismata.json').material;
 const pct = v => `${Math.round(v * 100)}%`;
 for (const [needle, why] of [
   [`${m.acrylicBlur}px`, 'Frost diffusion (primitive.material.acrylicBlur)'],
@@ -40,15 +40,15 @@ for (const [needle, why] of [
 /* Engine versions, stated in two chapters. */
 /* The published manifest, because the versions the documentation quotes are the
    ones a consumer installs, whatever the workspace builds with. */
-const pkg = read('node_modules/@crystal-ui/core/package.json');
+const pkg = read('node_modules/@prismata/core/package.json');
 for (const where of ['adoption.md', 'motion-components.md']) {
   expect(where, `Motion ${pkg.dependencies.motion}`, 'the pinned Motion version');
   expect(where, `GSAP ${pkg.dependencies.gsap}`, 'the pinned GSAP version');
 }
 
 /* Counts that prose states in words. */
-const recipes = read('node_modules/@crystal-ui/core/tokens/motion-recipes.json').recipes.length;
-const categories = new Set(read('node_modules/@crystal-ui/core/tokens/motion-recipes.json').recipes.map(r => r.category)).size;
+const recipes = read('node_modules/@prismata/core/tokens/motion-recipes.json').recipes.length;
+const categories = new Set(read('node_modules/@prismata/core/tokens/motion-recipes.json').recipes.map(r => r.category)).size;
 expect('motion-components.md', `${recipes} executable component recipes`, 'the recipe count');
 expect('accessibility.md', `${recipes} motion recipes`, 'the recipe count');
 const words = { 9: 'nine', 10: 'ten', 11: 'eleven', 12: 'twelve' };

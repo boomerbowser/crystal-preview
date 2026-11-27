@@ -2,8 +2,8 @@
 
 Every page (the overview, the playground, the motion studies and the ten
 specification pages) is generated here and wrapped by `shell.py`. The
-specification markdown ships inside `@crystal-ui/core` and is read from the
-copy `assemble-site.mjs` places under `website/vendor/@crystal-ui/core/docs/`.
+specification markdown ships inside `@prismata/core` and is read from the
+copy `assemble-site.mjs` places under `website/vendor/@prismata/core/docs/`.
 What is hand-authored here is `website/src/overview.md` and the body fragments
 under `website/src/pages/`.
 """
@@ -22,7 +22,7 @@ SITE = ROOT / 'website'
 # The library is a dependency. Its tokens, its catalogue, its specification
 # sections and its theme CSS are built in the library's own repository and ship
 # in the package; this repository renders what it installed and builds nothing
-# of Crystal's. A token value that looks wrong here is wrong in @crystal-ui/core
+# of Prismata's. A token value that looks wrong here is wrong in @prismata/core
 # and cannot be corrected from this side.
 subprocess.run(['node', 'tools/assemble-site.mjs'], cwd=ROOT, check=True)
 
@@ -30,7 +30,7 @@ subprocess.run(['node', 'tools/assemble-site.mjs'], cwd=ROOT, check=True)
 # whole definition of what each page loads, so they are kept beside each other: a page
 # that loses one renders without error and stops working. `validate.py` fails on any
 # asset under `assets/` that no page references, which catches a dropped entry here.
-INTERACTIVE = ['assets/vendor/crystal-engines.js?v=modal-cleanup-1', 'assets/motion-catalog.js',
+INTERACTIVE = ['assets/vendor/prismata-engines.js?v=modal-cleanup-1', 'assets/motion-catalog.js',
                # The shared preset module must load before motion.js, which reads it.
                f'{shell.CORE}/assets/core/presets.js', f'{shell.CORE}/assets/motion.js',
                'assets/motion-interactions.js']
@@ -50,10 +50,10 @@ def fragment(name):
     return p.read_text().strip() if p.exists() else ''
 
 
-# The specification is the library's: it ships inside @crystal-ui/core and the
+# The specification is the library's: it ships inside @prismata/core and the
 # site renders the copy it installed. Links in that markdown are written
 # relative to the package (`../assets/icons.svg` resolves inside
-# @crystal-ui/core wherever it sits), and the site is where they have to become
+# @prismata/core wherever it sits), and the site is where they have to become
 # site paths, because the package cannot know what a website calls the folder
 # it put the library in.
 SPEC = SITE / shell.CORE / 'docs'
@@ -69,18 +69,18 @@ def render_markdown(path):
     body = markdown.markdown(text, extensions=['tables', 'fenced_code', 'toc', 'md_in_html'])
     # Only wrap real document tables. A table inside an example belongs to the
     # example, and wrapping it would change what the example demonstrates.
-    body = re.sub(r'<table>(?!</table>)', '<div class="cr-table-scroll"><table class="cr-table">', body)
+    body = re.sub(r'<table>(?!</table>)', '<div class="pr-table-scroll"><table class="pr-table">', body)
     body = body.replace('</table>', '</table></div>')
     return title, body
 
 
-# The version of Crystal this site was built against: the installed package's.
+# The version of Prismata this site was built against: the installed package's.
 # Every footer states it, so the site never names a version it does not show.
-VERSION = json.loads((ROOT / 'node_modules/@crystal-ui/core/package.json').read_text())['version']
+VERSION = json.loads((ROOT / 'node_modules/@prismata/core/package.json').read_text())['version']
 
 
 def libraries_section():
-    """Crystal's component libraries, from the installed registry, with the
+    """Prismata's component libraries, from the installed registry, with the
     version each has published (resolved by tools/library-versions.mjs)."""
     registry = json.loads((SITE / shell.CORE / 'tokens/libraries.json').read_text())['libraries']
     versions = json.loads((SITE / 'src/library-versions.json').read_text())['packages']
@@ -100,10 +100,10 @@ def libraries_section():
         rows.append(f'<tr><td>{html.escape(lib["framework"])}</td><td>{html.escape(lib.get("name") or "Not yet named")}</td>'
                     f'<td>{status}</td><td>{package}</td><td>{html.escape(version) if version else "Not published"}</td><td>{docs}</td></tr>')
     return ('<h2 id="component-libraries">Component libraries</h2>'
-            f'<p>Crystal is implemented for each platform by its own library. This site is built against '
-            f'<code>@crystal-ui/core</code> {html.escape(VERSION)}; each version below is the one its package has published. '
-            'The list is <code>@crystal-ui/core/libraries</code>.</p>'
-            '<div class="cr-table-scroll"><table class="cr-table"><thead><tr><th>Platform</th><th>Library</th><th>Status</th>'
+            f'<p>Prismata is implemented for each platform by its own library. This site is built against '
+            f'<code>@prismata/core</code> {html.escape(VERSION)}; each version below is the one its package has published. '
+            'The list is <code>@prismata/core/libraries</code>.</p>'
+            '<div class="pr-table-scroll"><table class="pr-table"><thead><tr><th>Platform</th><th>Library</th><th>Status</th>'
             '<th>Package</th><th>Version</th><th>Documentation</th></tr></thead><tbody>'
             + ''.join(rows) + '</tbody></table></div>')
 
@@ -117,7 +117,7 @@ for p in sorted(SPEC.glob('*.md')):
         title=title, path=f'docs/{p.stem}.html', content=content,
         styles=[f'{shell.CORE}/assets/motion.css'], scripts=['assets/docs.js'],
         skip='Skip to specification',
-        footer_note=f'Crystal {VERSION} · Editable specification',
+        footer_note=f'Prismata {VERSION} · Editable specification',
         footer_link=(f'{shell.CORE}/docs/{p.name}', 'Specification source')))
     built.append(f'docs/{p.stem}.html')
 
@@ -131,7 +131,7 @@ content += libraries_section()
     # index.html#playground anchor can only be forwarded in the page.
     head_extra='<script>if(location.hash&&/^#(playground|workbench|palettes|foundations|content-blending|supporting-materials|components|media-and-text|accessibility|motion|adoption|specification)$/.test(location.hash))'
                'location.replace("playground.html"+location.hash);</script>',
-    footer_note=f'Crystal {VERSION} · Meridian Digital, Inc.',
+    footer_note=f'Prismata {VERSION} · Meridian Digital, Inc.',
     footer_link=('verification/report.html', 'Verification')))
 built.append('index.html')
 
@@ -141,7 +141,7 @@ for name, title in [('playground', 'Playground'), ('motion', 'Motion studies')]:
         title=title, path=f'{name}.html', content=fragment(f'{name}.html'),
         styles=PAGE_ASSETS[name]['styles'], scripts=PAGE_ASSETS[name]['scripts'],
         main_class='site-main', tail=fragment(f'{name}.tail.html'),
-        footer_note=f'Crystal {VERSION} · Meridian Digital, Inc.',
+        footer_note=f'Prismata {VERSION} · Meridian Digital, Inc.',
         footer_link=('verification/report.html', 'Verification')))
     built.append(f'{name}.html')
 

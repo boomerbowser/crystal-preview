@@ -6,7 +6,7 @@
  * reads as the table refusing to move, and it is invisible on a desktop with a
  * mouse, which is why the check runs on a phone viewport as well.
  *
- * Four things every scroll container in Crystal owes, checked on a phone
+ * Four things every scroll container in Prismata owes, checked on a phone
  * viewport and a desktop one because the failures differ:
  *
  *   1. It does not chain. `overscroll-behavior: contain` keeps a swipe inside
@@ -16,7 +16,7 @@
  *      vertical scrollers only: the gutter is reserved on the inline edge, so on
  *      a horizontal-only scroller it reserves space against a scrollbar that
  *      never arrives and shifts nothing.
- *   3. It carries a Crystal scrollbar, not the operating system's. One of two:
+ *   3. It carries a Prismata scrollbar, not the operating system's. One of two:
  *      Frost for panels and reading surfaces, Resin for control planes.
  *   4. It actually scrolls. A container styled as scrollable with nothing to
  *      scroll has its overflow set by mistake.
@@ -25,15 +25,15 @@
  */
 import { chromium, devices } from 'playwright';
 
-const ORIGIN = process.env.CRYSTAL_ORIGIN || 'http://localhost:4321';
+const ORIGIN = process.env.PRISMATA_ORIGIN || 'http://localhost:4321';
 const PAGES = [
   'index.html', 'playground.html', 'motion.html',
   'docs/materials.html', 'docs/components.html', 'docs/tokens.html', 'docs/catalogue.html',
 ];
 
-/* The two Crystal scrollbars, by the thumb colour each resolves to. The resolved
+/* The two Prismata scrollbars, by the thumb colour each resolves to. The resolved
    value is checked rather than the class name, so this tests what renders. */
-const CRYSTAL_SCROLLBAR = /rgba?\(/;
+const PRISMATA_SCROLLBAR = /rgba?\(/;
 
 const browser = await chromium.launch();
 const failures = [];
@@ -51,8 +51,8 @@ for (const [label, contextOptions] of [
 
     /* A dialog with content in it, through the site's own control. Every dialog
        below is shown empty, and an empty dialog has no code block to scroll —
-       which is how `.cr-dialog pre` went without a stable gutter, moving its
-       text 10px on a desktop, until a phone opened this one (Crystal's D-4). */
+       which is how `.pr-dialog pre` went without a stable gutter, moving its
+       text 10px on a desktop, until a phone opened this one (Prismata's D-4). */
     const opener = await tab.$('#inspect-export');
     if (opener) {
       await opener.scrollIntoViewIfNeeded();
@@ -111,7 +111,7 @@ for (const [label, contextOptions] of [
          not down is a horizontal scroller, and the 12px it holds on the inline
          edge prevents no shift. `overflow-x: auto` alone makes `overflow-y`
          compute to `auto`, which is how the gutter gets there without anybody
-         asking for it. `.cr-scroll-x` is how a horizontal-only scroller says
+         asking for it. `.pr-scroll-x` is how a horizontal-only scroller says
          what CSS cannot work out.
 
          The test is not "does not scroll down yet": a short list that may grow
@@ -119,9 +119,9 @@ for (const [label, contextOptions] of [
          across either, so it cannot reach this branch. */
       const horizontalOnly = container.scrolls === 'x';
       if ((horizontalOnly || !container.canScrollY) && container.scrollbarGutter !== 'auto') {
-        failures.push(`${where}: reserves a gutter it cannot use (scrollbar-gutter: ${container.scrollbarGutter} on a horizontal scroller) — add .cr-scroll-x`);
+        failures.push(`${where}: reserves a gutter it cannot use (scrollbar-gutter: ${container.scrollbarGutter} on a horizontal scroller) — add .pr-scroll-x`);
       }
-      if (!CRYSTAL_SCROLLBAR.test(container.scrollbarColor)) {
+      if (!PRISMATA_SCROLLBAR.test(container.scrollbarColor)) {
         failures.push(`${where}: uses the operating system's scrollbar (scrollbar-color: ${container.scrollbarColor})`);
       }
     }
@@ -134,8 +134,8 @@ await browser.close();
 if (failures.length) {
   console.error(`${failures.length} scroll contract failure(s):\n`);
   for (const failure of failures) console.error('  - ' + failure);
-  console.error('\nEvery scroll container takes .cr-scroll-frost or .cr-scroll-resin, or is a');
-  console.error('Crystal surface that already carries one.');
+  console.error('\nEvery scroll container takes .pr-scroll-frost or .pr-scroll-resin, or is a');
+  console.error('Prismata surface that already carries one.');
   process.exit(1);
 }
 console.log(`${checked} scroll containers across ${PAGES.length} pages, on phone and desktop: all within the contract.`);

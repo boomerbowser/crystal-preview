@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-08T03:07:18.434Z",
+  "date": "2026-11-27T19:23:15.556Z",
   "scope": "Token pairs, bounded composite models, normalization and exported theme behavior. Not a WCAG certification.",
   "checks": 1836,
   "minimum": 3.0673,
@@ -147,7 +147,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -157,7 +157,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#f2edfe",
       "kind": "scrollbar"
     },
@@ -167,7 +167,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#f9f6fe",
       "kind": "scrollbar"
     },
@@ -177,7 +177,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -187,7 +187,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#f2edfe",
       "kind": "scrollbar"
     },
@@ -197,7 +197,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#f9f6fe",
       "kind": "scrollbar"
     },
@@ -1707,7 +1707,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#1d1730",
       "kind": "scrollbar"
     },
@@ -1717,7 +1717,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#332756",
       "kind": "scrollbar"
     },
@@ -1727,7 +1727,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#120d26",
       "kind": "scrollbar"
     },
@@ -1737,7 +1737,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#1d1730",
       "kind": "scrollbar"
     },
@@ -1747,7 +1747,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#332756",
       "kind": "scrollbar"
     },
@@ -1757,7 +1757,7 @@
       "minimum": 3,
       "palette": "prism",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#120d26",
       "kind": "scrollbar"
     },
@@ -3267,7 +3267,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -3277,7 +3277,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#f9eaf5",
       "kind": "scrollbar"
     },
@@ -3287,7 +3287,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#fcf5fa",
       "kind": "scrollbar"
     },
@@ -3297,7 +3297,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -3307,7 +3307,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#f9eaf5",
       "kind": "scrollbar"
     },
@@ -3317,7 +3317,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#fcf5fa",
       "kind": "scrollbar"
     },
@@ -4827,7 +4827,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#241427",
       "kind": "scrollbar"
     },
@@ -4837,7 +4837,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#422144",
       "kind": "scrollbar"
     },
@@ -4847,7 +4847,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#190a1e",
       "kind": "scrollbar"
     },
@@ -4857,7 +4857,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#241427",
       "kind": "scrollbar"
     },
@@ -4867,7 +4867,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#422144",
       "kind": "scrollbar"
     },
@@ -4877,7 +4877,7 @@
       "minimum": 3,
       "palette": "fuchsia",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#190a1e",
       "kind": "scrollbar"
     },
@@ -6387,7 +6387,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -6397,7 +6397,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#ecf0fd",
       "kind": "scrollbar"
     },
@@ -6407,7 +6407,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#f5f7fe",
       "kind": "scrollbar"
     },
@@ -6417,7 +6417,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -6427,7 +6427,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#ecf0fd",
       "kind": "scrollbar"
     },
@@ -6437,7 +6437,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#f5f7fe",
       "kind": "scrollbar"
     },
@@ -7947,7 +7947,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#151a30",
       "kind": "scrollbar"
     },
@@ -7957,7 +7957,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#252d55",
       "kind": "scrollbar"
     },
@@ -7967,7 +7967,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#0b1025",
       "kind": "scrollbar"
     },
@@ -7977,7 +7977,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#151a30",
       "kind": "scrollbar"
     },
@@ -7987,7 +7987,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#252d55",
       "kind": "scrollbar"
     },
@@ -7997,7 +7997,7 @@
       "minimum": 3,
       "palette": "cobalt",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#0b1025",
       "kind": "scrollbar"
     },
@@ -9507,7 +9507,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -9517,7 +9517,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#e8f3f6",
       "kind": "scrollbar"
     },
@@ -9527,7 +9527,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#f4f9fa",
       "kind": "scrollbar"
     },
@@ -9537,7 +9537,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -9547,7 +9547,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#e8f3f6",
       "kind": "scrollbar"
     },
@@ -9557,7 +9557,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#f4f9fa",
       "kind": "scrollbar"
     },
@@ -11067,7 +11067,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#111e27",
       "kind": "scrollbar"
     },
@@ -11077,7 +11077,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#1d3445",
       "kind": "scrollbar"
     },
@@ -11087,7 +11087,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#07141e",
       "kind": "scrollbar"
     },
@@ -11097,7 +11097,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#111e27",
       "kind": "scrollbar"
     },
@@ -11107,7 +11107,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#1d3445",
       "kind": "scrollbar"
     },
@@ -11117,7 +11117,7 @@
       "minimum": 3,
       "palette": "ion",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#07141e",
       "kind": "scrollbar"
     },
@@ -12627,7 +12627,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -12637,7 +12637,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#f4ecfa",
       "kind": "scrollbar"
     },
@@ -12647,7 +12647,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#f9f6fc",
       "kind": "scrollbar"
     },
@@ -12657,7 +12657,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -12667,7 +12667,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#f4ecfa",
       "kind": "scrollbar"
     },
@@ -12677,7 +12677,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#f9f6fc",
       "kind": "scrollbar"
     },
@@ -14187,7 +14187,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#1e162c",
       "kind": "scrollbar"
     },
@@ -14197,7 +14197,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#36254e",
       "kind": "scrollbar"
     },
@@ -14207,7 +14207,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#130d22",
       "kind": "scrollbar"
     },
@@ -14217,7 +14217,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#1e162c",
       "kind": "scrollbar"
     },
@@ -14227,7 +14227,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#36254e",
       "kind": "scrollbar"
     },
@@ -14237,7 +14237,7 @@
       "minimum": 3,
       "palette": "amethyst",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#130d22",
       "kind": "scrollbar"
     },
@@ -15747,7 +15747,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -15757,7 +15757,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#e7e7f1",
       "kind": "scrollbar"
     },
@@ -15767,7 +15767,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "light",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#faf8fe",
       "kind": "scrollbar"
     },
@@ -15777,7 +15777,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#ffffff",
       "kind": "scrollbar"
     },
@@ -15787,7 +15787,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#e7e7f1",
       "kind": "scrollbar"
     },
@@ -15797,7 +15797,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "light",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#faf8fe",
       "kind": "scrollbar"
     },
@@ -17307,7 +17307,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#111318",
       "kind": "scrollbar"
     },
@@ -17317,7 +17317,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#1d1f26",
       "kind": "scrollbar"
     },
@@ -17327,7 +17327,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "dark",
-      "token": "--cr-scrollbar-frost-thumb",
+      "token": "--pr-scrollbar-frost-thumb",
       "background": "#0d0e12",
       "kind": "scrollbar"
     },
@@ -17337,7 +17337,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#111318",
       "kind": "scrollbar"
     },
@@ -17347,7 +17347,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#1d1f26",
       "kind": "scrollbar"
     },
@@ -17357,7 +17357,7 @@
       "minimum": 3,
       "palette": "harbor",
       "mode": "dark",
-      "token": "--cr-scrollbar-resin-thumb",
+      "token": "--pr-scrollbar-resin-thumb",
       "background": "#0d0e12",
       "kind": "scrollbar"
     },

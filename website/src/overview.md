@@ -1,6 +1,6 @@
-# Crystal
+# Prismata
 
-Crystal is Meridian's shared visual language: a token source of truth, a set of material
+Prismata is Meridian's shared visual language: a token source of truth, a set of material
 primitives, a headless interaction core, a 284-component catalogue and about a thousand
 icons. It is one system with several renderings: the web reference in this repository,
 and the platform libraries that must match it.
@@ -17,7 +17,7 @@ stopped being true shows it here first.
 
 ## The material hierarchy
 
-Crystal has three stacked materials and three named specials. The hierarchy runs
+Prismata has three stacked materials and three named specials. The hierarchy runs
 back to front, **Plastic → Frost → Resin**. Each layer forward is more translucent and
 more expensive, so each one is reserved for what is closer to the user's attention.
 
@@ -33,7 +33,7 @@ costs nothing to composite. Use it whenever you are not sure which material is c
 </div>
 
 <div class="material-card" markdown="1">
-<div class="material-scene"><div class="material-sample cr-frost"><span class="protected">Frost</span></div></div>
+<div class="material-scene"><div class="material-sample pr-frost"><span class="protected">Frost</span></div></div>
 <div class="material-info" markdown="1">
 ### Frost
 40px blur at 125% saturation. The middle layer, for panels, sidebars and sheets: surfaces
@@ -42,7 +42,7 @@ that persist while content moves behind them. The side menu on this page is Fros
 </div>
 
 <div class="material-card" markdown="1">
-<div class="material-scene"><div class="material-sample cr-resin"><span class="protected">Resin</span></div></div>
+<div class="material-scene"><div class="material-sample pr-resin"><span class="protected">Resin</span></div></div>
 <div class="material-info" markdown="1">
 ### Resin
 20px blur at 165% saturation over a fixed 20% fill. The front layer, reserved for things

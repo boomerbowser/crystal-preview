@@ -1,8 +1,8 @@
 /* What the documentation website owes the library it installs.
  *
- * These two checks came from Crystal's own `tests/core-contracts.cjs` and moved
+ * These two checks came from Prismata's own `tests/core-contracts.cjs` and moved
  * here with the site they are about. Both compare something this repository
- * authors against something `@crystal-ui/core` publishes, and this is the only
+ * authors against something `@prismata/core` publishes, and this is the only
  * place both are present.
  *
  *   node tests/site-contracts.cjs
@@ -13,7 +13,7 @@ const path = require('node:path');
 
 const ROOT = path.join(__dirname, '..');
 const SITE = path.join(ROOT, 'website');
-const CORE = path.join(ROOT, 'node_modules/@crystal-ui/core');
+const CORE = path.join(ROOT, 'node_modules/@prismata/core');
 
 const results = [];
 const check = (name, fn) => {
@@ -27,9 +27,9 @@ const check = (name, fn) => {
    `@media (max-width: 1150px)` will not take a custom property. So they are
    checked instead.
 
-   Every width in a `@media` query in site.css must either be one of Crystal's
+   Every width in a `@media` query in site.css must either be one of Prismata's
    four shell breakpoints or be named below as a component's own threshold,
-   which is not Crystal's to own. The allowlist is short and each entry says
+   which is not Prismata's to own. The allowlist is short and each entry says
    what it is, so adding a width is an explicit decision. */
 const COMPONENT_WIDTHS = new Map([
   [1000, 'the documentation shell narrows its sidebar before the marketing shell does'],
@@ -40,7 +40,7 @@ const COMPONENT_WIDTHS = new Map([
 
 check('every breakpoint in site.css is a token or a named exception', () => {
   const css = fs.readFileSync(path.join(SITE, 'assets/site.css'), 'utf8');
-  const tokens = JSON.parse(fs.readFileSync(path.join(CORE, 'tokens/crystal.tokens.json'), 'utf8'));
+  const tokens = JSON.parse(fs.readFileSync(path.join(CORE, 'tokens/prismata.tokens.json'), 'utf8'));
   const shell = new Set(Object.values(tokens.semantic.breakpoint)
     .map((leaf) => Number.parseInt(leaf.$value, 10)));
   assert.equal(shell.size, 4, 'expected four shell breakpoints');
@@ -60,9 +60,9 @@ check('every breakpoint in site.css is a token or a named exception', () => {
    only a person reading both stylesheets would know. The halo was halved at
    Meridian's request, 2/6/12/22 to 1/3/6/11, in `controls.css`, which is what
    the site renders; the exported theme, which is what every consumer reads,
-   has to carry the same spreads. Crystal React's appearance, theme and
+   has to carry the same spreads. Prismata React's appearance, theme and
    material gates pass with either value, because they check that
-   `--cr-focus-ring` is defined rather than what it says.
+   `--pr-focus-ring` is defined rather than what it says.
 
    Blur and spread only, and only the first four layers. This site composes two
    further elevation layers on top of the halo and the library ships none;
@@ -71,11 +71,11 @@ check('every breakpoint in site.css is a token or a named exception', () => {
    are likewise not compared. */
 check('the halo this site renders is the halo the library exports', () => {
   const geometry = (file, what) => {
-    const value = /--cr-focus-ring:\s*([^;]+);/.exec(fs.readFileSync(file, 'utf8'));
-    assert.ok(value, `${what} defines no --cr-focus-ring`);
+    const value = /--pr-focus-ring:\s*([^;]+);/.exec(fs.readFileSync(file, 'utf8'));
+    assert.ok(value, `${what} defines no --pr-focus-ring`);
     return [...value[1].matchAll(/0\s+0\s+(\d+)px\s+(\d+)px/g)].map(([, b, s]) => `${b}/${s}`);
   };
-  const exported = geometry(path.join(CORE, 'assets/crystal-theme.css'), 'the installed library');
+  const exported = geometry(path.join(CORE, 'assets/prismata-theme.css'), 'the installed library');
   const rendered = geometry(path.join(SITE, 'assets/controls.css'), 'this site');
 
   assert.equal(exported.length, 4, 'expected four halo layers in the installed theme');
@@ -83,28 +83,28 @@ check('the halo this site renders is the halo the library exports', () => {
     'this site renders a focus halo the installed library does not export');
 });
 
-/* The site does not write markup for a Crystal class the library withdrew.
+/* The site does not write markup for a Prismata class the library withdrew.
  *
- * The other direction of the same rule. `core-contracts` stops `.cr-button.secondary`
+ * The other direction of the same rule. `core-contracts` stops `.pr-button.secondary`
  * coming back as a rule; this stops it surviving as markup. A class with no rule
  * renders as an ordinary action, so nobody notices it until somebody adds a rule
  * for it again.
  *
- * `.secondary` named a second action colour and Crystal defines one: the palettes
+ * `.secondary` named a second action colour and Prismata defines one: the palettes
  * publish a single action pair, and the companion and glow hues are expressive
  * paint that `colors.md` says is never assumed to be text-safe. Meridian withdrew
- * the variant on 22 September 2026. An ordinary action is `.cr-button` and the
- * emphatic one is `.cr-button.primary`.
+ * the variant on 22 September 2026. An ordinary action is `.pr-button` and the
+ * emphatic one is `.pr-button.primary`.
  *
  * Read from the hand-authored sources rather than the built pages, because the
  * built pages are output: fixing them without fixing the source puts the class
  * back on the next build.
  */
 const WITHDRAWN = [
-  { pattern: /\bcr-button\b[^"]*\bsecondary\b/, why: 'the .secondary button variant was withdrawn; an ordinary action is `cr-button` and the emphatic one is `cr-button primary`' },
+  { pattern: /\bpr-button\b[^"]*\bsecondary\b/, why: 'the .secondary button variant was withdrawn; an ordinary action is `pr-button` and the emphatic one is `pr-button primary`' },
 ];
 
-check('the site writes no markup for a withdrawn Crystal class', () => {
+check('the site writes no markup for a withdrawn Prismata class', () => {
   const fs = require('node:fs');
   const path = require('node:path');
   const dir = path.join(__dirname, '../website/src/pages');
@@ -120,7 +120,7 @@ check('the site writes no markup for a withdrawn Crystal class', () => {
       }
     }
   }
-  assert.deepEqual(found, [], 'withdrawn Crystal classes in the site\'s own markup');
+  assert.deepEqual(found, [], 'withdrawn Prismata classes in the site\'s own markup');
 });
 
 const failures = results.filter((r) => r.status === 'fail');

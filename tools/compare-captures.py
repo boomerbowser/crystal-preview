@@ -1,6 +1,6 @@
 """Compare two PNG captures pixel by pixel.
 
-Visual evidence is the acceptance mechanism for Crystal changes, and a material
+Visual evidence is the acceptance mechanism for Prismata changes, and a material
 can become visually indistinguishable while every token and contrast check still
 passes. This decodes PNGs directly so the comparison needs no image library.
 

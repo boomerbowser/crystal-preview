@@ -1,6 +1,6 @@
 /* Material stacking audit.
  *
- * Crystal prohibits Resin on Resin. Resin is a translucent, backdrop-blurring
+ * Prismata prohibits Resin on Resin. Resin is a translucent, backdrop-blurring
  * material; stacking one inside another makes a second 20px blur read through
  * the first, and the result is illegible. Any layer sitting above a Resin
  * surface (a label, a badge, an indicator) is a Haze content fill: an 80% fill
@@ -51,7 +51,7 @@ for (const path of PAGES) {
       (el.className || '').toString().trim().split(/\s+/).slice(0, 3).join('.') || el.tagName.toLowerCase();
 
     /* Classify by recipe rather than by class name: an element does not have to
-       carry a Resin class to be Resin in substance. Crystal's hierarchy is
+       carry a Resin class to be Resin in substance. Prismata's hierarchy is
        Plastic → Frost → Resin, so Resin inside Frost is the intended layering
        and must not be reported. Only Resin inside Resin is prohibited.
        The two materials are told apart by their blur radius, read from the live
@@ -61,8 +61,8 @@ for (const path of PAGES) {
       const v = parseFloat(root.getPropertyValue(name));
       return Number.isFinite(v) ? v : fallback;
     };
-    const RESIN_BLUR = px('--cr-resin-blur', 20);
-    const FROST_BLUR = px('--cr-frost-blur', 40);
+    const RESIN_BLUR = px('--pr-resin-blur', 20);
+    const FROST_BLUR = px('--pr-frost-blur', 40);
     /* Half the distance between the two recipes: wide enough to tolerate a
        product tuning its blur slightly, narrow enough never to confuse them. */
     const TOLERANCE = Math.abs(FROST_BLUR - RESIN_BLUR) / 2;
@@ -87,7 +87,7 @@ for (const path of PAGES) {
        a transient overlay, so Resin on one is a misassignment even though it nests
        legally. */
     const TRANSIENT = '[role=menu],[role=tooltip],[role=listbox],[popover],' +
-      '.cr-menu,.cr-popover,.cr-tooltip,.cr-toast,[class*=suite-menu],[class*=suite-pop],' +
+      '.pr-menu,.pr-popover,.pr-tooltip,.pr-toast,[class*=suite-menu],[class*=suite-pop],' +
       '[class*=suite-toast]';
 
     const out = [];

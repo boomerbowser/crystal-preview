@@ -49,7 +49,7 @@ if (!frames.length) {
 
 /* The preview stores preferences under this key and normalises them on load,
    so an out-of-range value here cannot produce an undefined rendering. */
-const STORAGE_KEY = 'crystal-design-system-v1';
+const STORAGE_KEY = 'prismata-design-system-v1';
 
 const preferencesFor = (frame) => ({
   palette: frame.palette,
@@ -67,8 +67,8 @@ mkdirSync(OUT, { recursive: true });
 /* Two browsers, because one Chromium switch decides whether this gate can see a
    scrollbar at all. Playwright pushes `--hide-scrollbars` whenever `headless` is
    true, so a frame captured that way has no scrollbar in it (D-4). Drop the
-   flag and Chromium paints a classic 15px scrollbar, and `.cr-scroll-frost` and
-   `.cr-scroll-resin` become photographable like anything else.
+   flag and Chromium paints a classic 15px scrollbar, and `.pr-scroll-frost` and
+   `.pr-scroll-resin` become photographable like anything else.
 
    It is a second browser rather than the default for every frame because the
    other seventeen baselines were captured with scrollbars hidden, and a
@@ -107,14 +107,14 @@ for (const frame of frames) {
       const applyDirection = () => {
         if (!document.documentElement) return;
         document.documentElement.setAttribute('dir', direction);
-        /* Ambient motion was withdrawn from Crystal 2.0, and no stylesheet reads
+        /* Ambient motion was withdrawn from Prismata 2.0, and no stylesheet reads
            these attributes now, so they change nothing in a 2.x capture. They
            stay so that frames remain deterministic if ambient motion returns:
            a frame either turns it off or pins its clock at a chosen instant. */
         if (ambient === 'rest') {
           document.documentElement.setAttribute('data-ambient-clock', clock);
           /* The CSS tier seeks by negative delay, so it needs the value as a time. */
-          document.documentElement.style.setProperty('--cr-ambient-clock', clock + 's');
+          document.documentElement.style.setProperty('--pr-ambient-clock', clock + 's');
         }
         else document.documentElement.setAttribute('data-ambient', 'off');
       };
@@ -210,7 +210,7 @@ for (const frame of frames) {
        how long motion lasts; the page can say whether any is still running. Every
        finite animation and transition is awaited, CSS and Web Animations alike,
        which is what `getAnimations` returns, bounded so a stuck one cannot hang
-       the run. An infinite one is skipped: in Crystal only continuous indicators
+       the run. An infinite one is skipped: in Prismata only continuous indicators
        of pending work loop, and none is in a frame. D-17: one run in sixty
        photographed a button's rim a sub-pixel into a transition. */
     const settle = async () => page.evaluate(async () => {

@@ -27,7 +27,7 @@ a channel delta of 24 is forgiven where 25 is not.
 
 This README cited that file while the file did not exist. It was lost when this site
 moved to its own repository, so for some time nobody could run the proof behind the
-only gate that looks at Crystal's appearance. D-13 records the same failure at a
+only gate that looks at Prismata's appearance. D-13 records the same failure at a
 larger scale: a check that was believed and not executed. The file has been restored,
 and CI runs it.
 The gates elsewhere in this project (G1 to G4) run the comparison in its default
@@ -91,12 +91,12 @@ deltas up to 255 and tens of thousands of visibly changed pixels:
 failed hardest are the text-heavy ones, which identifies the cause as font
 rasterisation. These baselines are captured on a contributor's machine, and a GitHub
 runner draws type differently, so a comparison on the runner measures the font stack
-and not Crystal.
+and not Prismata.
 
 **These baselines are therefore machine-specific.** D-13 suspected this, and nobody
 had demonstrated it before this run. Capture baselines where you compare them. A CI
 gate needs a second baseline set, captured by a runner and committed from one. That
-work is recorded as D-15 in Crystal's tracker, and no part of it was built here.
+work is recorded as D-15 in Prismata's tracker, and no part of it was built here.
 
 `tests/visual-gate-contracts.py` does run in CI. It compares synthetic PNGs that it
 generates itself, so its result means the same thing on every machine.
@@ -104,20 +104,20 @@ generates itself, so its result means the same thing on every machine.
 ## Re-blessed 21 September 2026: the dock regains its Stone label backing
 
 Eight frames changed: `playground-{light,dark,narrow,opaque,reduced-transparency,rtl}`
-and `forced-colours-{light,dark}`. The cause is Crystal D-16. This site's
+and `forced-colours-{light,dark}`. The cause is Prismata D-16. This site's
 `controls.css` carried these rules:
 
 ```css
-.cr-dock-inner{background:transparent;padding:0;isolation:auto;}
-.cr-dock-inner::before{display:none;}
+.pr-dock-inner{background:transparent;padding:0;isolation:auto;}
+.pr-dock-inner::before{display:none;}
 ```
 
 They switched off the Stone backing. Three places require that backing:
-`components.md` ("Stone label backing … `.cr-dock-inner` shares the recipe"), the
+`components.md` ("Stone label backing … `.pr-dock-inner` shares the recipe"), the
 prose of `materials.md`, and the table in `materials.md`, which puts "a Haze content
 fill, or Stone if the backdrop is unknown" in its **Right** column. Suppressing the
 backing regressed a documented material. The second selector matched the class and
-not the context, so it also blanked `.cr-dock-inner.cr-stone`, the "Stone on Resin"
+not the context, so it also blanked `.pr-dock-inner.pr-stone`, the "Stone on Resin"
 specimen on `playground.html`.
 
 **What the frames show.** In the six normal frames the dock gains the protected
@@ -125,7 +125,7 @@ label group that `components.md` names in its Resin-toolbar row: a Stone tray
 behind the labels, 55% white with the 1.95px feather, inside the Resin pill.
 Before the fix the dock had no protected label group. In the two forced-colours
 frames the Stone layer stays hidden, because the library correctly suppresses
-`.cr-dock-inner::before` there. The only difference in those two frames is geometry:
+`.pr-dock-inner::before` there. The only difference in those two frames is geometry:
 removing the site's `padding:0` restores the library's `padding:3px`. Both states
 were checked on the running page before blessing:
 
@@ -161,10 +161,10 @@ opt in with `"scrollbars": true`, which puts them on a second browser. The other
 frames keep the flag, because a document scrollbar in a page-level screenshot would
 reflow every one of them.
 
-`.cr-scroll-resin` appears on this site only as escaped sample code, so the live
-Resin scroller is `.cr-table-scroll`, and it overflows only when the viewport is
+`.pr-scroll-resin` appears on this site only as escaped sample code, so the live
+Resin scroller is `.pr-table-scroll`, and it overflows only when the viewport is
 narrow. `scrollbar-resin` is therefore 390px wide. It is anchored to the
-`#component-chip` heading and not to an index, because `.cr-table-scroll` matches
+`#component-chip` heading and not to an index, because `.pr-table-scroll` matches
 thirty-two elements on that page.
 
 ### What these five were shown to catch
@@ -172,7 +172,7 @@ thirty-two elements on that page.
 Each change below was planted in the resolver, the listed frames were seen to fail,
 and the change was then reverted:
 
-| Planted in `crystal.js` | Frames that failed |
+| Planted in `prismata.js` | Frames that failed |
 | --- | --- |
 | The two focus elevation layers withdrawn, which is exactly what 2.1.0 added | `focus-ring-light`, `focus-ring-dark` |
 | Halo spreads back to the withdrawn 2/6/12/22 | `focus-ring-light`, `focus-ring-dark` |
@@ -195,11 +195,11 @@ which survives forced colours, and cannot see the halo.
 These were first captured against a working copy of 2.1.0 and then re-blessed
 here against the published 2.0.0, which is the version the site installs. Exactly
 two frames moved, `focus-ring-light` and `focus-ring-dark`, because the 2.0.0 theme
-exports a four-layer `--cr-focus-ring` and the 2.1.0 theme exports six layers.
+exports a four-layer `--pr-focus-ring` and the 2.1.0 theme exports six layers.
 Nothing else in the set differed between the two libraries.
 
 The gate caught the change it was built for, across a real difference between two
 versions of the library and not a planted one, five minutes after the planted
-changes showed that it could. When 2.1.0 is published and `adopt-crystal-2.1.0`
+changes showed that it could. When 2.1.0 is published and `adopt-prismata-2.1.0`
 merges, these two frames will move again, and the commit that moves them should say
 so.

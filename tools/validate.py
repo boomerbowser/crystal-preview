@@ -8,11 +8,11 @@ ROOT=Path(__file__).resolve().parents[1]
 # way a browser resolves it, from the page inside `website/`, so a path that
 # only works because the repository happens to sit around it fails here.
 SITE=ROOT/'website'
-# The library as the site serves it. This repository installs Crystal rather
+# The library as the site serves it. This repository installs Prismata rather
 # than containing it, and a reader's browser loads the assembled copy, so that
 # is what is checked. Validating the installed package instead would pass
 # while the site served something else.
-CORE=SITE/'vendor/@crystal-ui/core'
+CORE=SITE/'vendor/@prismata/core'
 errors=[];links=0;pages=sorted(list(SITE.glob('*.html'))+list((SITE/'docs').glob('*.html'))+list((SITE/'verification').glob('*.html')))
 for p in pages:
     soup=BeautifulSoup(p.read_text(),'html.parser');ids=[x['id'] for x in soup.select('[id]')]
@@ -51,7 +51,7 @@ icons_checked=0
 if manifest_path.exists():
     manifest=json.loads(manifest_path.read_text())
     for icon in manifest['icons']:
-        if icon['source']=='crystal':
+        if icon['source']=='prismata':
             if icon['id'] not in sprite_ids:
                 errors.append(f"manifest: original symbol {icon['id']} missing from the sprite")
         elif not (CORE/'assets/icons'/f"{icon['id']}.svg").exists():
@@ -61,7 +61,7 @@ if manifest_path.exists():
         errors.append('manifest: total does not match the icon list')
 
 # Both sides of the boundary: the library's stylesheets in the vendored copy of
-# @crystal-ui/core, and the preview's own. A url() can resolve in one tree and not the other.
+# @prismata/core, and the preview's own. A url() can resolve in one tree and not the other.
 for css in sorted(list(CORE.glob('assets/*.css'))+list((SITE/'assets').glob('*.css'))):
     if re.search(r'(?im)^\s*<(?:!doctype|html\b)',css.read_text()):errors.append(f'{css.name}: HTML in stylesheet')
     for raw in re.findall(r'url\([\'"]?([^\)\'\"]+)',css.read_text()):

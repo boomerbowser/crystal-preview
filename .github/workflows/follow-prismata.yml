@@ -1,7 +1,7 @@
-# Follow Crystal: adopt every @crystal-ui/core release, and every new version
+# Follow Prismata: adopt every @prismata/core release, and every new version
 # of a component library this site lists, without waiting for a person.
 #
-# On a release (Crystal's publish workflow sends `crystal-published` when it has
+# On a release (Prismata's publish workflow sends `prismata-published` when it has
 # a token to send it with) and otherwise every hour, this compares what the site
 # is built against with what npm has published. When something is newer it
 # installs it, rebuilds every page, commits the result to a branch, runs this
@@ -10,17 +10,17 @@
 # stops here, red, with the branch left for a person: the frame gate exists so
 # that a visual change is looked at, and re-capturing its baselines is theirs
 # (capture-baselines.yml on the branch, then merge).
-name: Follow Crystal
+name: Follow Prismata
 
 on:
   repository_dispatch:
-    types: [crystal-published]
+    types: [prismata-published]
   schedule:
     - cron: '17 * * * *'
   workflow_dispatch:
 
 concurrency:
-  group: follow-crystal
+  group: follow-prismata
   cancel-in-progress: false
 
 permissions:
@@ -54,10 +54,10 @@ jobs:
           WANTED: ${{ github.event.client_payload.version }}
         run: |
           for _ in $(seq 1 30); do
-            seen=$(npm view "@crystal-ui/core@$WANTED" version --prefer-online 2>/dev/null || true)
-            latest=$(npm view @crystal-ui/core dist-tags.latest --prefer-online 2>/dev/null || true)
+            seen=$(npm view "@prismata/core@$WANTED" version --prefer-online 2>/dev/null || true)
+            latest=$(npm view @prismata/core dist-tags.latest --prefer-online 2>/dev/null || true)
             if [ "$seen" = "$WANTED" ] && [ "$latest" = "$WANTED" ]; then
-              echo "npm reports @crystal-ui/core $WANTED as latest."
+              echo "npm reports @prismata/core $WANTED as latest."
               exit 0
             fi
             sleep 10
@@ -67,14 +67,14 @@ jobs:
         id: adopt
         run: |
           set -euo pipefail
-          latest=$(npm view @crystal-ui/core version)
-          installed=$(node -p "require('./node_modules/@crystal-ui/core/package.json').version")
+          latest=$(npm view @prismata/core version)
+          installed=$(node -p "require('./node_modules/@prismata/core/package.json').version")
           if [ "$latest" != "$installed" ]; then
-            npm install --no-audit --no-fund "@crystal-ui/core@^$latest"
+            npm install --no-audit --no-fund "@prismata/core@^$latest"
           fi
           node tools/library-versions.mjs
           if git diff --quiet; then
-            echo "Built against @crystal-ui/core $installed, the latest; every listed version is current."
+            echo "Built against @prismata/core $installed, the latest; every listed version is current."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -90,15 +90,15 @@ jobs:
           python3 tools/report.py
           # The token evidence records when it ran; only its numbers are held.
           git checkout -- website/verification/token-checks.json || true
-          # `follow/`, not `follow-crystal/`: a branch called `follow-crystal`
+          # `follow/`, not `follow-prismata/`: a branch called `follow-prismata`
           # exists, and Git cannot hold both a ref and a directory of that name.
           branch="follow/${{ steps.adopt.outputs.version }}-${{ github.run_id }}"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git switch -c "$branch"
           git add -A
-          git commit -m "Follow Crystal: @crystal-ui/core ${{ steps.adopt.outputs.version }} and the published library versions" \
-            -m "Adopted by follow-crystal.yml (run ${{ github.run_id }}), which merges only when Verify passes on this branch."
+          git commit -m "Follow Prismata: @prismata/core ${{ steps.adopt.outputs.version }} and the published library versions" \
+            -m "Adopted by follow-prismata.yml (run ${{ github.run_id }}), which merges only when Verify passes on this branch."
           git push origin "$branch"
           echo "name=$branch" >> "$GITHUB_OUTPUT"
 

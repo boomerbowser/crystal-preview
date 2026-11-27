@@ -1,7 +1,7 @@
-# Crystal preview
+# Prismata preview
 
-The documentation website for [Crystal](https://github.com/boomerbowser/crystal),
-Meridian's design system. The site consumes `@crystal-ui/core` and publishes no
+The documentation website for [Prismata](https://github.com/boomerbowser/prismata),
+Meridian's design system. The site consumes `@prismata/core` and publishes no
 package of its own.
 
 ## What is in this repository
@@ -9,13 +9,13 @@ package of its own.
 `website/` is the site and the deploy root. `tools/` builds and checks it.
 `validation/` holds the visual-regression baselines, which are never served.
 
-Crystal itself is a dependency. The tokens, the resolver, the headless core, the
+Prismata itself is a dependency. The tokens, the resolver, the headless core, the
 stylesheets, the icons, the shaders and the eleven specification chapters are in
-`@crystal-ui/core`. A wrong token value or specification sentence has to be
+`@prismata/core`. A wrong token value or specification sentence has to be
 corrected in the library and reaches the site with the next release.
 
 `tools/assemble-site.mjs` copies the installed library into
-`website/vendor/@crystal-ui/core/`. That folder is gitignored and rebuilt on every
+`website/vendor/@prismata/core/`. That folder is gitignored and rebuilt on every
 build, so never commit or edit anything under it. The copy is needed because a
 static deployment uploads `website/` only, and `node_modules` is outside it. The
 site addresses the library at a path with the same shape as the installed one.
@@ -31,12 +31,12 @@ npm run serve      # http://127.0.0.1:4321/
 ```
 
 `serve` refuses to start until the library has been assembled. A site served
-without Crystal still renders, and looks like a design regression.
+without Prismata still renders, and looks like a design regression.
 
 ## The dependency
 
 ```json
-"@crystal-ui/core": "^2.3.0"
+"@prismata/core": "^2.3.0"
 ```
 
 The library comes from npm, as it does for any other consumer. The site renders
@@ -53,7 +53,7 @@ the package is not installed. A deployment has no sibling checkout, so it is the
 one build that proves the library was installed. After a deployment, request:
 
 ```
-/vendor/@crystal-ui/core/assets/crystal.css
+/vendor/@prismata/core/assets/prismata.css
 ```
 
 A `404` means the build did not run and every page renders unstyled. `npm test`

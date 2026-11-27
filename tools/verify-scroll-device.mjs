@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* The scroll contract, on a real phone (Crystal's D-4).
+/* The scroll contract, on a real phone (Prismata's D-4).
  *
  * `verify-scroll.mjs` checks every scroll container on an emulated phone and a
  * desktop. The phone leg proves behaviour (a swipe does not chain) but not
@@ -60,7 +60,7 @@ for (const page of PAGES) {
      container the pages show at rest scrolls across (tables), so without this
      the one question this script adds would never be asked. The playground's
      "inspect the export" opens the specification dialog with the generated CSS
-     as code, which scrolls down inside the dialog's body: the scroller a Crystal
+     as code, which scrolls down inside the dialog's body: the scroller a Prismata
      dialog has had since 2.3.0. */
   const opener = await tab.$('#inspect-export');
   if (opener) {

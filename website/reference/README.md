@@ -1,16 +1,16 @@
-# Crystal visual reference collection
+# Prismata visual reference collection
 
-These 17 images were supplied by the user as material inspiration, desired control examples, or explicitly approved Crystal appearance. They are preserved byte-for-byte. Original filenames, locations and SHA-256 digests are recorded in [the manifest](visual-references.json).
+These 17 images were supplied by the user as material inspiration, desired control examples, or explicitly approved Prismata appearance. They are preserved byte-for-byte. Original filenames, locations and SHA-256 digests are recorded in [the manifest](visual-references.json).
 
 ## How to use these references
 
-The four [approved Crystal material studies](approved-crystal/README.md) remain the authoritative visual baseline. The two control references establish the desired broad Resin rim, soft inset fill, elevation and shared toolbar surface. The earlier Acrylic, Liquid Glass and Mica examples explain material inspiration; Crystal adapts those materials into Frost, Resin and Plastic respectively.
+The four [approved Prismata material studies](approved-crystal/README.md) remain the authoritative visual baseline. The two control references establish the desired broad Resin rim, soft inset fill, elevation and shared toolbar surface. The earlier Acrylic, Liquid Glass and Mica examples explain material inspiration; Prismata adapts those materials into Frost, Resin and Plastic respectively.
 
 The user's subsequent refinements and the current specifications take precedence over these images. Historical labels, selection underlines, focus outlines and exact color strength in an older screenshot are not instructions to undo newer changes. A material-inspiration screenshot does not certify accessibility and does not require you to reproduce every layout it shows.
 
 These files belong to the reference archive. They are not embedded into the interactive preview, and this index does not restore a public Sources page. Screenshots sent to demonstrate defects (missing dialogs, harsh outlines, incorrect controls) and the textual Solid-content clarification are excluded from this collection, which holds positive references only.
 
-## Approved Crystal baseline
+## Approved Prismata baseline
 
 - [Plastic, Frost and Resin side by side](approved-crystal/material-hierarchy.png)
 - [Opaque contextual Plastic with protected content](approved-crystal/plastic-foundation.png)

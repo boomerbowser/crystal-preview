@@ -1,14 +1,14 @@
-/* Opt-in installer used by both Crystal preview pages. Returns a cleanup function.
+/* Opt-in installer used by both Prismata preview pages. Returns a cleanup function.
  *
  * Everything here binds to state. A checkbox animates when `checked` changes, not
  * when it is pressed, so a keyboard user and assistive technology get the same
  * motion a pointer user gets. Binding to pointerdown produces motion that only one
  * input method can see. Control, form, disclosure and overlay state is wired here,
  * so checkboxes, switches, fields and disclosures animate in an application that
- * has adopted Crystal and not only from the catalogue's replay button.
+ * has adopted Prismata and not only from the catalogue's replay button.
  */
 (function(root){
- const MANUAL='[data-cr-motion=manual]';
+ const MANUAL='[data-pr-motion=manual]';
 
  /* A page may drive a component itself; the motion studies suite does, by id. A
     delegated listener would then fire the same recipe a second time. */
@@ -16,12 +16,12 @@
 
  /* `once` is the runtime's own guard: a repeat of the same recipe on the same element
     while it is still running is coalesced rather than restarted. It lives in
-    CrystalMotion so that a page driving its own components gets the same behaviour
+    PrismataMotion so that a page driving its own components gets the same behaviour
     from the one copy of the rule. A different recipe still interrupts, because a
     checkbox mid `field-focus` must still be allowed to play `check`. */
  const play=(element,name)=>{
   if(!element||managed(element))return;
-  root.CrystalMotion?.play(element,name,{once:true});
+  root.PrismataMotion?.play(element,name,{once:true});
  };
 
  /* A range's value updates immediately; what settles is the readout. Prefer the linked
@@ -32,7 +32,7 @@
  };
 
  const isSwitch=element=>element.matches('[role=switch]')
-   ||element.closest('.cr-switch,[data-control=switch]')!==null;
+   ||element.closest('.pr-switch,[data-control=switch]')!==null;
 
  function bindFeedback(scope=document){
   const press=event=>{
@@ -114,6 +114,6 @@
    scope.removeEventListener('toggle',toggle,true);
   };
  }
- root.CrystalInteractions=Object.freeze({bindFeedback});
+ root.PrismataInteractions=Object.freeze({bindFeedback});
  bindFeedback();
 })(window);
