@@ -12,16 +12,20 @@
 (function (root) {
   'use strict';
 
-  /* Resolve from this script's own URL rather than the page's. A page-relative
-     'assets/shaders/...' only works for pages at the site root: from
-     /docs/materials.html it resolves to /docs/assets/shaders/... and 404s, and
-     because the runtime fails quietly the optical layer is lost on those pages
-     without a visible symptom. The script location works at any depth and under
-     any origin or subpath, which a static host serving this directory requires. */
+  /* The shaders are the library's, so they are read from the library's copy in
+     the site, beside its headless core. Every page loads `core/spring.js`
+     before this file, and that script's own URL locates the library at any
+     depth, under any origin or subpath, without naming its package. A
+     page-relative 'assets/shaders/...' 404s from /docs/, and `assets/shaders/`
+     beside this file does not exist; either way the runtime fails quietly and
+     the optical layer is lost with no visible symptom. This script's own folder
+     is kept only as the fallback for a page without the core script. */
   const SCRIPT_SRC = (document.currentScript && document.currentScript.src) || '';
-  const ASSET_BASE = SCRIPT_SRC ? new URL('.', SCRIPT_SRC).href : 'assets/';
-  const MANIFEST_URL = new URL('shaders/manifest.json', ASSET_BASE).href;
-  const SHADER_DIR = new URL('shaders/', ASSET_BASE).href;
+  const CORE_SCRIPT = document.querySelector('script[src$="/assets/core/spring.js"]');
+  const SHADER_DIR = CORE_SCRIPT
+    ? new URL('../shaders/', CORE_SCRIPT.src).href
+    : new URL('shaders/', SCRIPT_SRC ? new URL('.', SCRIPT_SRC).href : 'assets/').href;
+  const MANIFEST_URL = new URL('manifest.json', SHADER_DIR).href;
 
   const VERTEX = `#version 300 es
 in vec2 a_position;
@@ -145,9 +149,12 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
   }
 
   /* Attach a shader to a surface for the duration of one motion.
-     `progress` is supplied by the caller and is expected to be spring
+     `options.progress` is supplied by the caller and is expected to be spring
      displacement rather than a linear ramp, which ties the optical layer to
-     the same physics as the geometry. */
+     the same physics as the geometry. It is a number, or a function of the
+     milliseconds since attach that is read every frame; without one the layer
+     is drawn at full strength. `options.contact` is the normalised contact
+     point, [x, y] or a function returning it, and defaults to the centre. */
   async function attach(element, shaderId, options = {}) {
     if (!supported || !permitted()) return null;
     if (state.active.has(element)) detach(element);
@@ -194,16 +201,20 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
     const position = gl.getAttribLocation(compiled, 'a_position');
     gl.enableVertexAttribArray(position);
     gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    /* No GL blending. The canvas is cleared every frame and the triangle
+       covers it, so the shader's output is the pixel. Blending it over the
+       cleared canvas multiplied its alpha by itself (0.3 became 0.09) and left
+       the layer a fraction of its authored strength. The compositor applies
+       the alpha once, through the canvas's mix-blend-mode. */
 
     const uniform = (name) => gl.getUniformLocation(compiled, name);
     const locations = {
       time: uniform('u_time'), resolution: uniform('u_resolution'),
       progress: uniform('u_progress'), pressure: uniform('u_pressure'),
       contact: uniform('u_contact'), tint: uniform('u_tint'),
-      intensity: uniform('u_intensity'),
+      intensity: uniform('u_intensity'), radius: uniform('u_radius'),
     };
+    const read = (value, elapsed) => (typeof value === 'function' ? value(elapsed) : value);
 
     /* The surface must establish a containing block for the absolutely
        positioned canvas. Recorded so it can be put back on detach. */
@@ -236,25 +247,33 @@ void main(){ gl_Position = vec4(a_position, 0.0, 1.0); }`;
       clock: 0, last: started };
     state.active.set(element, record);
 
+    /* A frame that throws (a caller's progress function, a lost context)
+       detaches, so the surface is left as the stylesheet drew it rather than
+       holding a canvas that never paints again. */
     const draw = (now) => {
       if (!permitted()) { detach(element); return; }
+      try { frame(now); } catch { detach(element); return; }
+      if (options.duration && (now - started) >= options.duration) { detach(element); return; }
+      record.frame = requestAnimationFrame(draw);
+    };
+    const frame = (now) => {
       record.last = now;
-      const seconds = (now - started) / 1000;
+      const elapsed = Math.max(0, now - started);
+      const seconds = elapsed / 1000;
+      const progress = Number(read(options.progress, elapsed) ?? 1);
+      const contact = read(options.contact, elapsed);
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniform1f(locations.time, seconds);
       gl.uniform2f(locations.resolution, canvas.width, canvas.height);
-      gl.uniform1f(locations.progress, Math.max(0, Math.min(1, progress)));
+      gl.uniform1f(locations.progress, Number.isFinite(progress) ? Math.max(0, Math.min(1, progress)) : 1);
       gl.uniform1f(locations.pressure, options.pressure ?? 0);
       gl.uniform2f(locations.contact, contact?.[0] ?? 0.5, contact?.[1] ?? 0.5);
       gl.uniform3f(locations.tint, tint[0], tint[1], tint[2]);
       gl.uniform1f(locations.intensity, options.intensity ?? 1);
       gl.uniform1f(locations.radius, radius);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
-
-      if (options.duration && (now - started) >= options.duration) { detach(element); return; }
-      record.frame = requestAnimationFrame(draw);
     };
     record.frame = requestAnimationFrame(draw);
     return { detach: () => detach(element) };
